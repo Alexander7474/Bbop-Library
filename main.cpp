@@ -1,28 +1,19 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include <chrono>
+#include <cmath>
+
+#include "include/shaderClass.h"
+#include "include/VAO.h"
+#include "include/VBO.h"
+#include "include/EBO.h"
+
 
 using namespace std;
 
-const GLchar* vertexShaderSource = R"glsl(
-    #version 330 core
-    layout (location = 0) in vec3 position;
-    void main()
-    {
-        gl_Position = vec4(position, 1.0);
-    }
-)glsl";
-
-const GLchar* fragmentShaderSource = R"glsl(
-    #version 330 core
-    out vec4 color;
-    void main()
-    {
-        color = vec4(1.0, 0.5, 0.2, 1.0);
-    }
-)glsl";
-
 int main() {
+    //Initialisation Début ############################################################################
     // Initialisation de GLFW
     if (!glfwInit()) {
         cerr << "Échec de l'initialisation de GLFW" << endl;
@@ -53,81 +44,74 @@ int main() {
         glfwTerminate();
         return -1;
     }
+    // Initialisation Fin ##############################################################################
 
-    // Définition de la fonction de rappel de redimensionnement de la fenêtre
-    glViewport(0, 0, 800, 600);
-
-    // Compilation et liaison des shaders
-    GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertexShader, 1, &vertexShaderSource, nullptr);
-    glCompileShader(vertexShader);
-
-    GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragmentShader, 1, &fragmentShaderSource, nullptr);
-    glCompileShader(fragmentShader);
-
-    GLuint shaderProgram = glCreateProgram();
-    glAttachShader(shaderProgram, vertexShader);
-    glAttachShader(shaderProgram, fragmentShader);
-    glLinkProgram(shaderProgram);
-    glUseProgram(shaderProgram);
+    // Compilation et liaison des shaders ##############################################################
+    Shader shaderProgram("default.vert", "default.frag");
+    //Compilation des shaders fin ######################################################################
 
     // Définition des vertices du triangle
     GLfloat vertices[] = {
-        -0.5f, -0.5f, 0.0f, // Vertex inférieur gauche
-         0.5f, -0.5f, 0.0f, // Vertex inférieur droit
-         0.0f,  0.5f, 0.0f  // Vertex supérieur central
+        -0.5f, -0.5f, 0.0f,
+        0.5f, -0.5f, 0.0f,
+        0.0f,  0.5f, 0.0f,
+        -0.25f, 0.0f, 0.0f,
+        0.25f, 0.0f, 0.0f,
+        0.0f, -0.5f, 0.0f
     };
 
-    // Création et configuration d'un tampon de vertex (VBO)
-    GLuint VBO, VAO;
-    glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
+    GLuint indices[] =
+    {
+        0, 3, 5,
+        3, 2, 4,
+        4, 5, 1
+    };
 
-    // Liaison du VAO
-    glBindVertexArray(VAO);
+    // Generates Vertex Array Object and binds it
+	VAO VAO1;
+	VAO1.Bind();
 
-    // Liaison du VBO
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+	// Generates Vertex Buffer Object and links it to vertices
+	VBO VBO1(vertices, sizeof(vertices));
+	// Generates Element Buffer Object and links it to indices
+	EBO EBO1(indices, sizeof(indices));
 
-    // Configuration de l'attribut de position du vertex shader
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
-    glEnableVertexAttribArray(0);
+	// Links VBO to VAO
+	VAO1.LinkVBO(VBO1, 0);
+	// Unbind all to prevent accidentally modifying them
+	VAO1.Unbind();
+	VBO1.Unbind();
+	EBO1.Unbind();
 
-    // Liaison du VAO 0 à 0
-    glBindVertexArray(0);
+    // Main while loop
+	while (!glfwWindowShouldClose(window))
+	{
+		// Specify the color of the background
+		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
+		// Clean the back buffer and assign the new color to it
+		glClear(GL_COLOR_BUFFER_BIT);
+		// Tell OpenGL which Shader Program we want to use
+		shaderProgram.Activate();
+		// Bind the VAO so OpenGL knows to use it
+		VAO1.Bind();
+		// Draw primitives, number of indices, datatype of indices, index of indices
+		glDrawElements(GL_TRIANGLES, 9, GL_UNSIGNED_INT, 0);
+		// Swap the back buffer with the front buffer
+		glfwSwapBuffers(window);
+		// Take care of all GLFW events
+		glfwPollEvents();
+	}
 
-    // Boucle principale
-    while (!glfwWindowShouldClose(window)) {
-        // Vérification des événements et gestion des entrées
-        glfwPollEvents();
 
-        // Effacement du tampon de couleur à chaque itération de la boucle
-        glClear(GL_COLOR_BUFFER_BIT);
 
-        // Utilisation du shader program
-        glUseProgram(shaderProgram);
-
-        // Liaison du VAO
-        glBindVertexArray(VAO);
-
-        // Dessin du triangle
-        glDrawArrays(GL_TRIANGLES, 0, 3);
-
-        // Déliaison du VAO
-        glBindVertexArray(0);
-
-        // Échange des tampons de la fenêtre
-        glfwSwapBuffers(window);
-    }
-
-    // Libération des ressources
-    glDeleteVertexArrays(1, &VAO);
-    glDeleteBuffers(1, &VBO);
-
-    // Fermeture de la fenêtre GLFW et libération des ressources associées
-    glfwTerminate();
-
-    return 0;
+	// Delete all the objects we've created
+	VAO1.Delete();
+	VBO1.Delete();
+	EBO1.Delete();
+	shaderProgram.Delete();
+	// Delete window before ending the program
+	glfwDestroyWindow(window);
+	// Terminate GLFW before ending the program
+	glfwTerminate();
+	return 0;
 }
