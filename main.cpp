@@ -1,8 +1,6 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
-#include <chrono>
-#include <cmath>
 
 #include "include/shaderClass.h"
 #include "include/VAO.h"
