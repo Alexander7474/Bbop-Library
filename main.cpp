@@ -26,7 +26,7 @@ int main() {
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
     // Création d'une fenêtre GLFW
-    GLFWwindow* window = glfwCreateWindow(800, 600, "Bibibop engine", nullptr, nullptr);
+    GLFWwindow* window = glfwCreateWindow(960, 1080, "Bibibop engine", nullptr, nullptr);
     if (!window) {
         cerr << "Échec de la création de la fenêtre GLFW" << endl;
         glfwTerminate();
@@ -47,7 +47,7 @@ int main() {
 
     // Compilation et liaison des shaders ##############################################################
     Shader shaderProgram("shaders/default.vert", "shaders/default.frag");
-    Shader shaderProgram2("shaders/default.vert", "shaders/defaultCustomColor.frag");
+    Shader shaderProgram2("shaders/defaultCustomColor.vert", "shaders/defaultCustomColor.frag");
     //Compilation des shaders fin ######################################################################
 
     // Définition des vertices du triangle
@@ -59,9 +59,9 @@ int main() {
     };
 
     GLfloat vertices2[] = {
-      0.8f,  0.8f, 0.0f,   
-      0.7f,  0.7f, 0.0f, 
-      0.9f,  0.7f, 0.0f, 
+      0.8f,  0.9f, 0.0f, 1.0f, 0.0f, 0.0f,
+      0.6f,  0.6f, 0.0f, 0.0f, 1.0f, 0.0f,
+      1.0f,  0.6f, 0.0f, 0.0f, 0.0f, 1.0f 
     };
 
     GLuint indices[] =
@@ -85,7 +85,7 @@ int main() {
 	EBO EBO1(indices, sizeof(indices));
 
 	// Links VBO to VAO
-	VAO1.LinkVBO(VBO1, 0);
+	VAO1.LinkVBO(VBO1, 0, 3, 3, 0);
  
 	// Unbind all to prevent accidentally modifying them
 	VAO1.Unbind();
@@ -99,7 +99,8 @@ int main() {
 
   EBO EBO2(indices2, sizeof(indices2));
 
-  VAO2.LinkVBO(VBO2, 0);
+  VAO2.LinkVBO(VBO2, 0, 3, 6, 0);
+  VAO2.LinkVBO(VBO2, 1, 3, 6, 3);
   VAO2.Unbind();
 	VBO2.Unbind();
 	EBO2.Unbind();

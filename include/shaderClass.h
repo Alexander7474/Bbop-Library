@@ -22,7 +22,10 @@ public:
 	Shader(const char* vertexFile, const char* fragmentFile);
 
   GLuint getUniformLoc(const GLchar* varName);
-	void Activate();
+  void setInt(const GLchar* varName, GLint value);
+	void setFloat(const GLchar* varName, GLfloat value);
+  void setBool(const GLchar* varName, GLboolean value);
+  void Activate();
 	void Delete();
 };
 #endif

@@ -74,6 +74,18 @@ GLuint Shader::getUniformLoc(const GLchar* varName)
   return glGetUniformLocation(ID, varName);
 }
 
+void Shader::setInt(const GLchar* varName, GLint value){
+  glUniform1i(glGetUniformLocation(ID, varName), value);
+}
+
+void Shader::setFloat(const GLchar* varName, GLfloat value){
+  glUniform1f(glGetUniformLocation(ID, varName), value);
+}
+
+void Shader::setBool(const GLchar* varName, GLboolean value){
+  glUniform1i(glGetUniformLocation(ID, varName), (int)value);
+}
+
 void Shader::Activate()
 {
 	glUseProgram(ID);
