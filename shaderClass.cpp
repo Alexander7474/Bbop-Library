@@ -49,6 +49,14 @@ Shader::Shader(const char* vertexFile, const char* fragmentFile)
 	glShaderSource(fragmentShader, 1, &fragmentSource, NULL);
 	glCompileShader(fragmentShader);
 
+  glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
+
+  if(!success)
+  {
+    glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
+    std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
+  }
+
 	// Creation shader programme
 	ID = glCreateProgram();
 	// Ajout du vertex shader et du fragment shader dans le prog
@@ -59,6 +67,11 @@ Shader::Shader(const char* vertexFile, const char* fragmentFile)
 
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
+}
+
+GLuint Shader::getUniformLoc(const GLchar* varName)
+{
+  return glGetUniformLocation(ID, varName);
 }
 
 void Shader::Activate()

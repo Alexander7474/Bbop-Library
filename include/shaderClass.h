@@ -21,6 +21,7 @@ public:
 	// BUILDER creation du shader program
 	Shader(const char* vertexFile, const char* fragmentFile);
 
+  GLuint getUniformLoc(const GLchar* varName);
 	void Activate();
 	void Delete();
 };
