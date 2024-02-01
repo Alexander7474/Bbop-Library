@@ -2,7 +2,7 @@ CC = g++
 CFLAGS = -std=c++11 -Wall
 LIBS = -lglfw -lGLEW -lGL
 
-SRCS = main.cpp shaderClass.cpp VBO.cpp VAO.cpp EBO.cpp 
+SRCS = main.cpp src/shaderClass.cpp src/VBO.cpp src/VAO.cpp src/EBO.cpp 
 
 OBJS = $(SRCS:.cpp=.o)
 
