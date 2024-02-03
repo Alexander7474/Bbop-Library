@@ -1,9 +1,9 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
-#include <cmath>
-#include <stdio.h>
-#include <stdlib.h>
+//#include <cmath>
+//#include <stdio.h>
+//#include <stdlib.h>
 
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb/stb_image.h>
@@ -29,7 +29,7 @@ int main() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-
+  
     // Création d'une fenêtre GLFW
     GLFWwindow* window = glfwCreateWindow(960, 1080, "Bibibop engine", nullptr, nullptr);
     if (!window) {
@@ -48,6 +48,17 @@ int main() {
         glfwTerminate();
         return -1;
     }
+    // Désactiver la synchronisation verticale (V-Sync)
+    glfwSwapInterval(0);
+
+    //General info
+    cout << "Bibibop Engine Version 0.0.1" << endl << "Author: Alexander74" << endl << "Contact: alexandre.lanternier@outlook.fr" << endl << "License: GNU 3.0" << endl; 
+    //GPU info
+    const GLubyte* vendor = glGetString(GL_VENDOR);
+    const GLubyte* renderer = glGetString(GL_RENDERER);
+
+    cout << "OpenGL Vendor: " << vendor << endl;
+    cout << "OpenGL Renderer: " << renderer << endl;
     // Initialisation Fin ##############################################################################
 
     // Compilation et liaison des shaders ##############################################################
@@ -97,10 +108,10 @@ int main() {
 
     float vertices3[] = {
       // positions          // colors           // texture coords
-       0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // top right
+       0.5f,  0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 1.0f,   // top right
        0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // bottom right
-      -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // bottom left
-      -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // top left 
+      -0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   0.0f, 0.0f,   // bottom left
+      -0.5f,  0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   0.0f, 1.0f    // top left 
     };
 
     GLuint indices[] =
@@ -159,9 +170,28 @@ int main() {
   VAO3.Unbind();
   VBO3.Unbind();
   EBO3.Unbind();
+  //FPS init ###########
+  int nbFrames = 0;
+  double lastTime = glfwGetTime();
+  //FPS end init #######
   // Main while loop
 	while (!glfwWindowShouldClose(window))
 	{
+    // FPS calc ################################################
+    double currentTime = glfwGetTime();
+    double delta = currentTime - lastTime;
+    nbFrames++;
+    if ( delta >= 1.0 ){ // If last cout was more than 1 sec ago
+      double fps = double(nbFrames) / delta;
+
+      stringstream ss;
+      ss << "BibibopEngine" << " [" << fps << " FPS]";
+
+      glfwSetWindowTitle(window, ss.str().c_str());
+      nbFrames = 0;
+      lastTime = currentTime;
+    }
+    //FPS calc end #############################################
 		// Specify the color of the background
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		// Clean the back buffer and assign the new color to it
