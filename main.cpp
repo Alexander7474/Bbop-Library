@@ -2,6 +2,11 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include <cmath>
+#include <stdio.h>
+#include <stdlib.h>
+
+#define STB_IMAGE_IMPLEMENTATION
+#include <stb/stb_image.h>
 
 #include "include/shaderClass.h"
 #include "include/VAO.h"
@@ -48,7 +53,33 @@ int main() {
     // Compilation et liaison des shaders ##############################################################
     Shader shaderProgram("shaders/default.vert", "shaders/default.frag");
     Shader shaderProgram2("shaders/defaultCustomColor.vert", "shaders/defaultCustomColor.frag");
+    Shader shaderProgram3("shaders/defaultTexture.vert", "shaders/defaultTexture.frag");
     //Compilation des shaders fin ######################################################################
+    
+    //Recuperation et generation des texture ###########################################################
+    unsigned int texture;
+    glGenTextures(1, &texture);
+    glBindTexture(GL_TEXTURE_2D, texture);
+    // définit les options de la texture actuellement liée
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);   
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    // charge et génère la texture
+    int width, height, nrChannels;
+    unsigned char *data = stbi_load("imgTesting/container.jpg", &width, &height, &nrChannels, 0);
+    if (data)
+    {
+      glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+      glGenerateMipmap(GL_TEXTURE_2D);
+    }
+    else
+    {
+      cout << "Failed to load texture" << std::endl;
+    }
+    stbi_image_free(data);
+
+    //Texture fin ######################################################################################
 
     // Définition des vertices du triangle
     GLfloat vertices[] = {
@@ -64,6 +95,14 @@ int main() {
       1.0f,  0.6f, 0.0f, 0.0f, 0.0f, 1.0f 
     };
 
+    float vertices3[] = {
+      // positions          // colors           // texture coords
+       0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // top right
+       0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // bottom right
+      -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // bottom left
+      -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // top left 
+    };
+
     GLuint indices[] =
     {
       0, 1, 3,   // premier triangle
@@ -74,7 +113,12 @@ int main() {
     {
       0, 1, 2   
     };
-    
+ 
+    GLuint indices3[] =
+    {
+      0, 1, 3,
+      1, 2, 3
+    };   
   // Generates Vertex Array Object and binds it
 	VAO VAO1;
 	VAO1.Bind();
@@ -105,6 +149,16 @@ int main() {
 	VBO2.Unbind();
 	EBO2.Unbind();
   
+  VAO VAO3;
+  VAO3.Bind();
+  VBO VBO3(vertices3, sizeof(vertices3));
+  EBO EBO3(indices3, sizeof(indices3));
+  VAO3.LinkVBO(VBO3, 0, 3, 8, 0);
+  VAO3.LinkVBO(VBO3, 1, 3, 8, 3);
+  VAO3.LinkVBO(VBO3, 2, 2, 8, 6);
+  VAO3.Unbind();
+  VBO3.Unbind();
+  EBO3.Unbind();
   // Main while loop
 	while (!glfwWindowShouldClose(window))
 	{
@@ -113,20 +167,20 @@ int main() {
 		// Clean the back buffer and assign the new color to it
 		glClear(GL_COLOR_BUFFER_BIT);
 		// Tell OpenGL which Shader Program we want to use
-		shaderProgram.Activate();
+		//shaderProgram.Activate();
 		// Bind the VAO so OpenGL knows to use it
-		VAO1.Bind();
+		//VAO1.Bind();
+    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		// Draw primitives, number of indices, datatype of indices, index of indices
-		glDrawElements(GL_TRIANGLES, 9, GL_UNSIGNED_INT, 0);
+		//glDrawElements(GL_TRIANGLES, 9, GL_UNSIGNED_INT, 0);
+		//VAO2.Bind();
+    //glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
+    
+    shaderProgram3.Activate();
+    glBindTexture(GL_TEXTURE_2D, texture);
+    VAO3.Bind();
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
-    float timeValue = glfwGetTime();
-    float greenValue = (sin(timeValue) / 2.0f)+0.5f;
-    GLuint vertexColorLocation = shaderProgram2.getUniformLoc("outColor");
-    shaderProgram2.Activate();
-    glUniform4f(vertexColorLocation, 0.0f, greenValue, 0.0f, 1.0f);
-
-		VAO2.Bind();
-    glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
     // Swap the back buffer with the front buffer
 		glfwSwapBuffers(window);
 		// Take care of all GLFW events
