@@ -1,5 +1,6 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <exception>
 #include <iostream>
 //#include <cmath>
 //#include <stdio.h>
@@ -12,7 +13,7 @@
 #include "include/VAO.h"
 #include "include/VBO.h"
 #include "include/EBO.h"
-
+#include "include/spriteClass.h"
 
 using namespace std;
 
@@ -60,15 +61,18 @@ int main() {
     cout << "OpenGL Vendor: " << vendor << endl;
     cout << "OpenGL Renderer: " << renderer << endl;
     // Initialisation Fin ##############################################################################
-
+    //TRANSPARENCE POUR LES PNG
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    Sprite testspr("imgTesting/mario.png", 10, 10);
     // Compilation et liaison des shaders ##############################################################
     Shader shaderProgram("shaders/default.vert", "shaders/default.frag");
     Shader shaderProgram2("shaders/defaultCustomColor.vert", "shaders/defaultCustomColor.frag");
     Shader shaderProgram3("shaders/defaultTexture.vert", "shaders/defaultTexture.frag");
     //Compilation des shaders fin ######################################################################
-    
+       
     //Recuperation et generation des texture ###########################################################
-    unsigned int texture;
+    GLuint texture;
     glGenTextures(1, &texture);
     glBindTexture(GL_TEXTURE_2D, texture);
     // définit les options de la texture actuellement liée
@@ -205,12 +209,12 @@ int main() {
 		//glDrawElements(GL_TRIANGLES, 9, GL_UNSIGNED_INT, 0);
 		//VAO2.Bind();
     //glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
-    
-    shaderProgram3.Activate();
-    glBindTexture(GL_TEXTURE_2D, texture);
-    VAO3.Bind();
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
+    //shaderProgram3.Activate();
+    //glBindTexture(GL_TEXTURE_2D, texture);
+    //VAO3.Bind();
+    //glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+    testspr.Draw();
     // Swap the back buffer with the front buffer
 		glfwSwapBuffers(window);
 		// Take care of all GLFW events
