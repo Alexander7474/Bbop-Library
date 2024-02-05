@@ -1,5 +1,6 @@
 #include "../include/spriteClass.h"
 
+#define STB_IMAGE_IMPLEMENTATION
 #include <stb/stb_image.h>
 
 Sprite::Sprite(const char* textureFileName, int sizeX, int sizeY)
