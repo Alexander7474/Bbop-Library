@@ -9,6 +9,9 @@
 
 using namespace std;
 
+int WINDOW_X = 960;
+int WINDOW_Y = 1080;
+
 int main() {
   //Initialisation Début ############################################################################
   // Initialisation de GLFW
@@ -22,7 +25,7 @@ int main() {
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
   glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
   // Création d'une fenêtre GLFW
-  GLFWwindow* window = glfwCreateWindow(960, 1080, "Bibibop engine", nullptr, nullptr);
+  GLFWwindow* window = glfwCreateWindow(WINDOW_X, WINDOW_Y, "Bibibop engine", nullptr, nullptr);
   if (!window) {
       cerr << "Échec de la création de la fenêtre GLFW" << endl;
       glfwTerminate();
@@ -46,8 +49,9 @@ int main() {
   const GLubyte* renderer = glGetString(GL_RENDERER);
   cout << "OpenGL Vendor: " << vendor << endl;
   cout << "OpenGL Renderer: " << renderer << endl;
+  cout << "Window size: " << WINDOW_X << "x" << WINDOW_Y << endl;
   // Initialisation Fin ##############################################################################
-  Sprite testspr("imgTesting/mario.png", 10, 10);
+  Sprite testspr("imgTesting/mario.png", window);
   //FPS counter
   int nbFrames = 0;
   double lastTime = glfwGetTime();

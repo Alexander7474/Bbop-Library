@@ -14,12 +14,18 @@ using namespace std;
 class Sprite
 {
 public:
-  Sprite(const char* textureFileName, int sizeX, int sizeY);
+  Sprite(const char* textureFileName, GLFWwindow* win);
 
   void Draw();
 private:
   Shader spriteShader;
   VAO spriteVAO;
   GLuint spriteTexture;
+  GLfloat spriteVertices[32];
+  float x; 
+  float y;
+  float sizeX;
+  float sizeY;
+  GLFWwindow* spriteWindow;
  };
 #endif // !SPRITE_CLASS_H

@@ -3,9 +3,10 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb/stb_image.h>
 
-Sprite::Sprite(const char* textureFileName, int sizeX, int sizeY)
+Sprite::Sprite(const char* textureFileName, GLFWwindow* win)
   : spriteShader("shaders/defaultTexture.vert", "shaders/defaultTexture.frag")
 {
+  spriteWindow = win;
   cout << "Creating sprite, image file: " << textureFileName << endl;
   glGenTextures(1, &spriteTexture);
   glBindTexture(GL_TEXTURE_2D, spriteTexture);
@@ -40,13 +41,18 @@ Sprite::Sprite(const char* textureFileName, int sizeX, int sizeY)
   }
   stbi_image_free(data);
   cout << "-> texture loaded" << endl;
-  GLfloat spriteVertices[] = {
+  int windowX, windowY;
+  glfwGetWindowSize(spriteWindow, &windowX, &windowY);
+  cout << "-> window size detected: " << windowX << "x" << windowY << endl;
+  GLfloat vertices[] = {
     // positions          // colors           // texture coords
-     0.5f,  0.5f, 0.0f,   0.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // top right
-     0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 0.0f,   1.0f, 0.0f,   // bottom right
-    -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 0.0f,   0.0f, 0.0f,   // bottom left
-    -0.5f,  0.5f, 0.0f,   0.0f, 0.0f, 0.0f,   0.0f, 1.0f    // top left 
+     0.2f,  0.2f, 0.0f,   0.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // top right
+     0.2f, -0.2f, 0.0f,   0.0f, 0.0f, 0.0f,   1.0f, 0.0f,   // bottom right
+    -0.2f, -0.2f, 0.0f,   0.0f, 0.0f, 0.0f,   0.0f, 0.0f,   // bottom left
+    -0.2f,  0.2f, 0.0f,   0.0f, 0.0f, 0.0f,   0.0f, 1.0f    // top left 
   };
+  //copy dans la variable privé de sprite
+  copy(vertices, vertices + sizeof(vertices) / sizeof(vertices[0]), spriteVertices);
   GLuint spriteIndices[] =
   {
     0, 1, 3,   // premier triangle
