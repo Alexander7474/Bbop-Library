@@ -4,10 +4,17 @@
 #include <stb/stb_image.h>
 
 Sprite::Sprite(const char* textureFileName, GLFWwindow* win)
-  : spriteShader("shaders/defaultTexture.vert", "shaders/defaultTexture.frag")
+  : spriteShader("shaders/defaultTexture.vert", "shaders/defaultTexture.frag"),
+    spriteVBO(spriteVertices, sizeof(spriteVertices)),
+    spriteEBO(spriteIndices, sizeof(spriteIndices))
 {
+  for(int i = 0; i < (int)(sizeof(spriteVertices)/sizeof(GLfloat)); i++)
+    spriteVertices[i] = 0.0f;
+  for(int i = 0; i < (int)(sizeof(spriteIndices)/sizeof(GLuint)); i++)
+    spriteIndices[i] = 0;
   spriteWindow = win;
   cout << "Creating sprite, image file: " << textureFileName << endl;
+  cout << "-> VAO, VBO and EBO created" << endl;
   glGenTextures(1, &spriteTexture);
   glBindTexture(GL_TEXTURE_2D, spriteTexture);
   // définit les options de la texture actuellement liée
@@ -16,8 +23,7 @@ Sprite::Sprite(const char* textureFileName, GLFWwindow* win)
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
   // charge et génère la texture
-  stbi_set_flip_vertically_on_load(true);
-  int width, height, nrChannels;
+  //stbi_set_flip_vertically_on_load(true);
   unsigned char *data = stbi_load(textureFileName, &width, &height, &nrChannels, STBI_rgb_alpha);
   if (data)
   {
@@ -40,28 +46,26 @@ Sprite::Sprite(const char* textureFileName, GLFWwindow* win)
     }
   }
   stbi_image_free(data);
-  cout << "-> texture loaded" << endl;
-  int windowX, windowY;
+  cout << "-> texture loaded, size: " << width << "x" << height << endl;
+  // gestion de la positon du joueur e normalizan les vecteurs
+  x = 0.0f;y = 0.0f;
   glfwGetWindowSize(spriteWindow, &windowX, &windowY);
   cout << "-> window size detected: " << windowX << "x" << windowY << endl;
-  GLfloat vertices[] = {
-    // positions          // colors           // texture coords
-     0.2f,  0.2f, 0.0f,   0.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // top right
-     0.2f, -0.2f, 0.0f,   0.0f, 0.0f, 0.0f,   1.0f, 0.0f,   // bottom right
-    -0.2f, -0.2f, 0.0f,   0.0f, 0.0f, 0.0f,   0.0f, 0.0f,   // bottom left
-    -0.2f,  0.2f, 0.0f,   0.0f, 0.0f, 0.0f,   0.0f, 1.0f    // top left 
-  };
-  //copy dans la variable privé de sprite
-  copy(vertices, vertices + sizeof(vertices) / sizeof(vertices[0]), spriteVertices);
-  GLuint spriteIndices[] =
-  {
-    0, 1, 3,   // premier triangle
-    1, 2, 3    // second triangle
-  };
+  // init sprite and texture coordinate ########################################
+  //top right
+  spriteVertices[0] = (x+width)/windowX; spriteVertices[1] = y/windowY;
+  //botton right
+  spriteVertices[8] = (x+width)/windowX; spriteVertices[9] = (y+height)/windowY;
+  //bottom left
+  spriteVertices[16] = x/windowX; spriteVertices[17] = (y+height)/windowY;
+  //top left
+  spriteVertices[24] = x/windowX; spriteVertices[25] = y/windowY;
+  //texture coo
+  spriteVertices[6] = 1.0f;spriteVertices[7] = 1.0f;spriteVertices[14] = 1.0f;spriteVertices[31] = 1.0f;
+  spriteIndices[0] = 0;spriteIndices[1] = 1;spriteIndices[2] = 3;spriteIndices[3] = 1;spriteIndices[4] = 2;spriteIndices[5] = 3;
   spriteVAO.Bind();
-  VBO spriteVBO(spriteVertices, sizeof(spriteVertices));
-  EBO spriteEBO(spriteIndices, sizeof(spriteIndices));
-  cout << "-> VAO, VBO and EBO created" << endl;
+  spriteVBO.update(spriteVertices, sizeof(spriteVertices));
+  spriteEBO.update(spriteIndices, sizeof(spriteIndices));
   spriteVAO.LinkVBO(spriteVBO, 0, 3, 8, 0);
   spriteVAO.LinkVBO(spriteVBO, 1, 3, 8, 3);
   spriteVAO.LinkVBO(spriteVBO, 2, 2, 8, 6);
@@ -80,4 +84,35 @@ void Sprite::Draw()
   glBindTexture(GL_TEXTURE_2D, spriteTexture);
   spriteVAO.Bind();  
   glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+}
+
+void Sprite::setPosition(float nx, float ny){
+  x = nx;y = ny;
+  //top right
+  spriteVertices[0] = (x+width)/windowX; spriteVertices[1] = y/windowY;
+  //botton right
+  spriteVertices[8] = (x+width)/windowX; spriteVertices[9] = (y+height)/windowY;
+  //bottom left
+  spriteVertices[16] = x/windowX; spriteVertices[17] = (y+height)/windowY;
+  //top left
+  spriteVertices[24] = x/windowX; spriteVertices[25] = y/windowY;
+  glfwGetWindowSize(spriteWindow, &windowX, &windowY);
+  spriteVAO.Bind();
+  spriteVBO.update(spriteVertices, sizeof(spriteVertices));
+  spriteEBO.update(spriteIndices, sizeof(spriteIndices));
+  spriteVAO.LinkVBO(spriteVBO, 0, 3, 8, 0);
+  spriteVAO.LinkVBO(spriteVBO, 1, 3, 8, 3);
+  spriteVAO.LinkVBO(spriteVBO, 2, 2, 8, 6);
+  spriteVAO.Unbind();
+  spriteVBO.Unbind();
+  spriteEBO.Unbind();
+  
+}
+
+float Sprite::getPositionX(){
+  return x;
+}
+
+float Sprite::getPositionY(){
+  return y;
 }

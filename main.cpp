@@ -9,8 +9,8 @@
 
 using namespace std;
 
-int WINDOW_X = 960;
-int WINDOW_Y = 1080;
+int WINDOW_X = 1912;
+int WINDOW_Y = 2328;
 
 int main() {
   //Initialisation Début ############################################################################
@@ -78,6 +78,8 @@ int main() {
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		// Clean the back buffer and assign the new color to it
 		glClear(GL_COLOR_BUFFER_BIT);
+    //cout << testspr.getPositionX() << ";" << testspr.getPositionY() << endl;
+    testspr.setPosition(testspr.getPositionX()+0.5f, testspr.getPositionY()+0.5f);
     testspr.Draw();
     //Check d'erreur
     GLenum error = glGetError();

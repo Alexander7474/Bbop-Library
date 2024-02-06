@@ -19,6 +19,8 @@ public:
 	void Unbind();
 	// Deletes the VBO
 	void Delete();
+  // change data of VBO
+  void update(GLfloat* vertices, GLsizeiptr size);
 };
 
 #endif
