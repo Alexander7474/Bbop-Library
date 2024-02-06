@@ -20,8 +20,12 @@ public:
   void setPosition(float nx, float ny);
   float getPositionX();
   float getPositionY();
+  void setSize(float nSizeX, float nSizeY);
+  float getSizeX();
+  float getSizeY();
+  void buildVAO();
 private:
-  int width, height, nrChannels;
+  int textureNrChannels;
   int windowX, windowY;
   Shader spriteShader;
   VAO spriteVAO;

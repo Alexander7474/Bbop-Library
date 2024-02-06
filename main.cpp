@@ -9,8 +9,8 @@
 
 using namespace std;
 
-int WINDOW_X = 1912;
-int WINDOW_Y = 2328;
+int WINDOW_X = 960;
+int WINDOW_Y = 1080;
 
 int main() {
   //Initialisation Début ############################################################################
@@ -52,6 +52,8 @@ int main() {
   cout << "Window size: " << WINDOW_X << "x" << WINDOW_Y << endl;
   // Initialisation Fin ##############################################################################
   Sprite testspr("imgTesting/mario.png", window);
+  testspr.setPosition(0.0f, 0.0f);
+  testspr.setSize(200.0f,220.0f);
   //FPS counter
   int nbFrames = 0;
   double lastTime = glfwGetTime();
@@ -79,7 +81,7 @@ int main() {
 		// Clean the back buffer and assign the new color to it
 		glClear(GL_COLOR_BUFFER_BIT);
     //cout << testspr.getPositionX() << ";" << testspr.getPositionY() << endl;
-    testspr.setPosition(testspr.getPositionX()+0.5f, testspr.getPositionY()+0.5f);
+    //testspr.setPosition(testspr.getPositionX()+0.5f, testspr.getPositionY()+0.5f);
     testspr.Draw();
     //Check d'erreur
     GLenum error = glGetError();
