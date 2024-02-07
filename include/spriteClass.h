@@ -28,6 +28,7 @@ public:
   float getOriginX();
   float getOriginY();
   void buildVAO();
+  void updateVBO();
 private:
   int windowX, windowY;
   Shader spriteShader;

@@ -1,5 +1,26 @@
 #include "../include/spriteClass.h"
 
+Sprite::Sprite(const char* textureFileName, GLFWwindow* win)
+  : spriteShader("shaders/defaultTexture.vert", "shaders/defaultTexture.frag"),
+    spriteTexture(textureFileName),
+    spriteVBO(spriteVertices, sizeof(spriteVertices), GL_DYNAMIC_DRAW),
+    spriteEBO(spriteIndices, sizeof(spriteIndices))
+{
+  //initialisation des vertices et des indices a 0.0f avant de build le vao
+  for(int i = 0; i < (int)(sizeof(spriteVertices)/sizeof(GLfloat)); i++)
+    spriteVertices[i] = 0.0f;
+  for(int i = 0; i < (int)(sizeof(spriteIndices)/sizeof(GLuint)); i++)
+    spriteIndices[i] = 0;
+  spriteWindow = win;
+  // Build du vao
+  width = (float)spriteTexture.getWidth(); height = (float)spriteTexture.getHeight();
+  x = 0.0f;y = 0.0f;
+  originX = 0.0f; originY = 0.0f;
+  glfwGetWindowSize(spriteWindow, &windowX, &windowY);
+  buildVAO();
+  cout << "Sprite created with texture " << textureFileName << endl;
+}
+
 void Sprite::buildVAO()
 {
   //construtiopn du VAO en fontion de la position du sprite, de  sa taille et de la taille de la fenetre
@@ -26,25 +47,19 @@ void Sprite::buildVAO()
   spriteEBO.Unbind();
 }
 
-Sprite::Sprite(const char* textureFileName, GLFWwindow* win)
-  : spriteShader("shaders/defaultTexture.vert", "shaders/defaultTexture.frag"),
-    spriteTexture(textureFileName),
-    spriteVBO(spriteVertices, sizeof(spriteVertices)),
-    spriteEBO(spriteIndices, sizeof(spriteIndices))
+void Sprite::updateVBO()
 {
-  //initialisation des vertices et des indices a 0.0f avant de build le vao
-  for(int i = 0; i < (int)(sizeof(spriteVertices)/sizeof(GLfloat)); i++)
-    spriteVertices[i] = 0.0f;
-  for(int i = 0; i < (int)(sizeof(spriteIndices)/sizeof(GLuint)); i++)
-    spriteIndices[i] = 0;
-  spriteWindow = win;
-  // Build du vao
-  width = (float)spriteTexture.getWidth(); height = (float)spriteTexture.getHeight();
-  x = 0.0f;y = 0.0f;
-  originX = 0.0f; originY = 0.0f;
-  glfwGetWindowSize(spriteWindow, &windowX, &windowY);
-  buildVAO();
-  cout << "Sprite created with texture " << textureFileName << endl;
+  //construtiopn du VAO en fontion de la position du sprite, de  sa taille et de la taille de la fenetre
+  // init sprite and texture coordinate ########################################
+  //top right
+  spriteVertices[0] = ((x+originX+width)/(windowX/2.0f))-1.0f; spriteVertices[1] = ((-y-originY)/(windowY/2.0f))+1.0f;
+  //botton right
+  spriteVertices[8] = ((x+originX+width)/(windowX/2.0f))-1.0f; spriteVertices[9] = ((-y-originY-height)/(windowY/2.0f))+1.0f;
+  //bottom left
+  spriteVertices[16] = ((x+originX)/(windowX/2.0f))-1.0f; spriteVertices[17] = ((-y-originY-height)/(windowY/2.0f))+1.0f;
+  //top left
+  spriteVertices[24] = ((x+originX)/(windowX/2.0f))-1.0f; spriteVertices[25] = ((-y-originY)/(windowY/2.0f))+1.0f;
+  spriteVBO.update(spriteVertices, sizeof(spriteVertices));
 }
 
 void Sprite::Draw() 
@@ -60,7 +75,7 @@ void Sprite::Draw()
 void Sprite::setPosition(float nx, float ny)
 {
   x = nx;y = ny; 
-  buildVAO();
+  updateVBO();
 }
 
 float Sprite::getPositionX()
@@ -76,7 +91,7 @@ float Sprite::getPositionY()
 void Sprite::setSize(float nWidth, float nHeight)
 {
   width = nWidth;height = nHeight;
-  buildVAO();
+  updateVBO();
 }
 
 float Sprite::getWidth()
@@ -92,7 +107,7 @@ float Sprite::getHeight()
 void Sprite::setOrigin(float nOriginX, float nOriginY)
 {
   originX = nOriginX;originY = nOriginY; 
-  buildVAO();
+  updateVBO();
 }
 
 float Sprite::getOriginX()
