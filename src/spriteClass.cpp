@@ -5,17 +5,15 @@
 
 void Sprite::buildVAO(){
   //construtiopn du VAO en fontion de la position du sprite, de  sa taille et de la taille de la fenetre
-  glfwGetWindowSize(spriteWindow, &windowX, &windowY);
-  cout << "-> window size detected: " << windowX << "x" << windowY << endl;
   // init sprite and texture coordinate ########################################
   //top right
-  spriteVertices[0] = (x+sizeX)/windowX; spriteVertices[1] = y/windowY;
+  spriteVertices[0] = ((x+sizeX)/(windowX/2.0f))-1.0f; spriteVertices[1] = (-y/(windowY/2.0f))+1.0f;
   //botton right
-  spriteVertices[8] = (x+sizeX)/windowX; spriteVertices[9] = (y+sizeY)/windowY;
+  spriteVertices[8] = ((x+sizeX)/(windowX/2.0f))-1.0f; spriteVertices[9] = ((-y-sizeY)/(windowY/2.0f))+1.0f;
   //bottom left
-  spriteVertices[16] = x/windowX; spriteVertices[17] = (y+sizeY)/windowY;
+  spriteVertices[16] = (x/(windowX/2.0f))-1.0f; spriteVertices[17] = ((-y-sizeY)/(windowY/2.0f))+1.0f;
   //top left
-  spriteVertices[24] = x/windowX; spriteVertices[25] = y/windowY;
+  spriteVertices[24] = (x/(windowX/2.0f))-1.0f; spriteVertices[25] = (-y/(windowY/2.0f))+1.0f;
   //texture coo
   spriteVertices[6] = 1.0f;spriteVertices[7] = 1.0f;spriteVertices[14] = 1.0f;spriteVertices[31] = 1.0f;
   spriteIndices[0] = 0;spriteIndices[1] = 1;spriteIndices[2] = 3;spriteIndices[3] = 1;spriteIndices[4] = 2;spriteIndices[5] = 3;
@@ -51,7 +49,7 @@ Sprite::Sprite(const char* textureFileName, GLFWwindow* win)
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
   // charge et génère la texture
   int textureWidth, textureHeight;
-  //stbi_set_flip_vertically_on_load(true);
+  stbi_set_flip_vertically_on_load(true);
   unsigned char *data = stbi_load(textureFileName, &textureWidth, &textureHeight, &textureNrChannels, STBI_rgb_alpha);
   if (data)
   {
@@ -78,6 +76,8 @@ Sprite::Sprite(const char* textureFileName, GLFWwindow* win)
   sizeX = (float)textureWidth; sizeY = (float)textureHeight;
   // Build du vao
   x = 0.0f;y = 0.0f;
+  glfwGetWindowSize(spriteWindow, &windowX, &windowY);
+  cout << "-> window size detected: " << windowX << "x" << windowY << endl;
   buildVAO();
   cout << "-> VBO and EBO linked to VAO" << endl;
   cout << "-> sprite with " << textureFileName << " created" << endl;
@@ -94,7 +94,8 @@ void Sprite::Draw()
 }
 
 void Sprite::setPosition(float nx, float ny){
-  x = nx;y = ny;
+  x = nx;y = ny; 
+  //cout << x << ";" << y << endl;
   buildVAO();
 }
 

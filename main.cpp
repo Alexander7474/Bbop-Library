@@ -5,12 +5,13 @@
 //#include <stdio.h>
 //#include <stdlib.h>
 
+#include "include/bbopfunc.h"
 #include "include/spriteClass.h"
 
 using namespace std;
 
-int WINDOW_X = 960;
-int WINDOW_Y = 1080;
+int WINDOW_X = 956;
+int WINDOW_Y = 1044;
 
 int main() {
   //Initialisation Début ############################################################################
@@ -41,7 +42,7 @@ int main() {
       return -1;
   }
   // Désactiver la synchronisation verticale (V-Sync)
-  glfwSwapInterval(0);
+  //glfwSwapInterval(0);
   //General info
   cout << "Bibibop Engine Version 0.0.1" << endl << "Author: Alexander74" << endl << "Contact: alexandre.lanternier@outlook.fr" << endl << "License: GNU 3.0" << endl; 
   //GPU info
@@ -76,7 +77,26 @@ int main() {
       lastTime = currentTime;
     }
     //FPS calc end #############################################
-		// Specify the color of the background
+		
+    if(glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS){
+      testspr.setPosition(testspr.getPositionX()+10.0f, testspr.getPositionY()); 
+    }
+    if(glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS){
+      testspr.setPosition(testspr.getPositionX()-10.0f, testspr.getPositionY()); 
+    }
+    if(glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS){
+      testspr.setPosition(testspr.getPositionX(), testspr.getPositionY()-10.0f); 
+    }
+    if(glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS){
+      testspr.setPosition(testspr.getPositionX(), testspr.getPositionY()+10.0f); 
+    }
+    if(glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS){
+      testspr.setSize(testspr.getSizeX()+10.0f, testspr.getSizeY()+10.0f);
+    }
+    if(glfwGetKey(window, GLFW_KEY_N) == GLFW_PRESS){
+      testspr.setSize(testspr.getSizeX()-10.0f, testspr.getSizeY()-10.0f);
+    }
+    // Specify the color of the background
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		// Clean the back buffer and assign the new color to it
 		glClear(GL_COLOR_BUFFER_BIT);
@@ -92,6 +112,7 @@ int main() {
 		glfwSwapBuffers(window);
 		// Take care of all GLFW events
 		glfwPollEvents();
+    
 	}
 	// Delete window before ending the program
 	glfwDestroyWindow(window);
