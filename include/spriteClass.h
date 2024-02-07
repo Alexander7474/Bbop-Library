@@ -21,9 +21,9 @@ public:
   void setPosition(float nx, float ny);
   float getPositionX();
   float getPositionY();
-  void setSize(float nSizeX, float nSizeY);
-  float getSizeX();
-  float getSizeY();
+  void setSize(float nWidth, float nHeight);
+  float getWidth();
+  float getHeight();
   void buildVAO();
 private:
   int windowX, windowY;
@@ -36,8 +36,8 @@ private:
   GLuint spriteIndices[6];
   float x; 
   float y;
-  float sizeX;
-  float sizeY;
+  float width;
+  float height;
   GLFWwindow* spriteWindow;
  };
 #endif // !SPRITE_CLASS_H

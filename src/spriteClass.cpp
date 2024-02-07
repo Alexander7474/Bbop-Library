@@ -4,11 +4,11 @@ void Sprite::buildVAO(){
   //construtiopn du VAO en fontion de la position du sprite, de  sa taille et de la taille de la fenetre
   // init sprite and texture coordinate ########################################
   //top right
-  spriteVertices[0] = ((x+sizeX)/(windowX/2.0f))-1.0f; spriteVertices[1] = (-y/(windowY/2.0f))+1.0f;
+  spriteVertices[0] = ((x+width)/(windowX/2.0f))-1.0f; spriteVertices[1] = (-y/(windowY/2.0f))+1.0f;
   //botton right
-  spriteVertices[8] = ((x+sizeX)/(windowX/2.0f))-1.0f; spriteVertices[9] = ((-y-sizeY)/(windowY/2.0f))+1.0f;
+  spriteVertices[8] = ((x+width)/(windowX/2.0f))-1.0f; spriteVertices[9] = ((-y-height)/(windowY/2.0f))+1.0f;
   //bottom left
-  spriteVertices[16] = (x/(windowX/2.0f))-1.0f; spriteVertices[17] = ((-y-sizeY)/(windowY/2.0f))+1.0f;
+  spriteVertices[16] = (x/(windowX/2.0f))-1.0f; spriteVertices[17] = ((-y-height)/(windowY/2.0f))+1.0f;
   //top left
   spriteVertices[24] = (x/(windowX/2.0f))-1.0f; spriteVertices[25] = (-y/(windowY/2.0f))+1.0f;
   //texture coo
@@ -36,7 +36,7 @@ Sprite::Sprite(const char* textureFileName, GLFWwindow* win)
   for(int i = 0; i < (int)(sizeof(spriteIndices)/sizeof(GLuint)); i++)
     spriteIndices[i] = 0;
   spriteWindow = win;
-  sizeX = (float)spriteTexture.getWidth(); sizeY = (float)spriteTexture.getHeight();
+  width = (float)spriteTexture.getWidth(); height = (float)spriteTexture.getHeight();
   // Build du vao
   x = 0.0f;y = 0.0f;
   glfwGetWindowSize(spriteWindow, &windowX, &windowY);
@@ -68,15 +68,15 @@ float Sprite::getPositionY(){
   return y;
 }
 
-void Sprite::setSize(float nSizeX, float nSizeY){
-  sizeX = nSizeX;sizeY = nSizeY;
+void Sprite::setSize(float nWidth, float nHeight){
+  width = nWidth;height = nHeight;
   buildVAO();
 }
 
-float Sprite::getSizeX(){
-  return sizeX;
+float Sprite::getWidth(){
+  return width;
 }
 
-float Sprite::getSizeY(){
-  return sizeY;
+float Sprite::getHeight(){
+  return height;
 }

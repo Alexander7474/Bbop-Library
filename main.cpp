@@ -91,10 +91,10 @@ int main() {
       testspr.setPosition(testspr.getPositionX(), testspr.getPositionY()+10.0f); 
     }
     if(glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS){
-      testspr.setSize(testspr.getSizeX()+10.0f, testspr.getSizeY()+10.0f);
+      testspr.setSize(testspr.getWidth()+10.0f, testspr.getHeight()+10.0f);
     }
     if(glfwGetKey(window, GLFW_KEY_N) == GLFW_PRESS){
-      testspr.setSize(testspr.getSizeX()-10.0f, testspr.getSizeY()-10.0f);
+      testspr.setSize(testspr.getWidth()-10.0f, testspr.getHeight()-10.0f);
     }
     // Specify the color of the background
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
