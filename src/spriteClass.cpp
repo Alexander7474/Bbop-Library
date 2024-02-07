@@ -1,16 +1,17 @@
 #include "../include/spriteClass.h"
 
-void Sprite::buildVAO(){
+void Sprite::buildVAO()
+{
   //construtiopn du VAO en fontion de la position du sprite, de  sa taille et de la taille de la fenetre
   // init sprite and texture coordinate ########################################
   //top right
-  spriteVertices[0] = ((x+width)/(windowX/2.0f))-1.0f; spriteVertices[1] = (-y/(windowY/2.0f))+1.0f;
+  spriteVertices[0] = ((x+originX+width)/(windowX/2.0f))-1.0f; spriteVertices[1] = ((-y-originY)/(windowY/2.0f))+1.0f;
   //botton right
-  spriteVertices[8] = ((x+width)/(windowX/2.0f))-1.0f; spriteVertices[9] = ((-y-height)/(windowY/2.0f))+1.0f;
+  spriteVertices[8] = ((x+originX+width)/(windowX/2.0f))-1.0f; spriteVertices[9] = ((-y-originY-height)/(windowY/2.0f))+1.0f;
   //bottom left
-  spriteVertices[16] = (x/(windowX/2.0f))-1.0f; spriteVertices[17] = ((-y-height)/(windowY/2.0f))+1.0f;
+  spriteVertices[16] = ((x+originX)/(windowX/2.0f))-1.0f; spriteVertices[17] = ((-y-originY-height)/(windowY/2.0f))+1.0f;
   //top left
-  spriteVertices[24] = (x/(windowX/2.0f))-1.0f; spriteVertices[25] = (-y/(windowY/2.0f))+1.0f;
+  spriteVertices[24] = ((x+originX)/(windowX/2.0f))-1.0f; spriteVertices[25] = ((-y-originY)/(windowY/2.0f))+1.0f;
   //texture coo
   spriteVertices[6] = 1.0f;spriteVertices[7] = 1.0f;spriteVertices[14] = 1.0f;spriteVertices[31] = 1.0f;
   spriteIndices[0] = 0;spriteIndices[1] = 1;spriteIndices[2] = 3;spriteIndices[3] = 1;spriteIndices[4] = 2;spriteIndices[5] = 3;
@@ -31,14 +32,16 @@ Sprite::Sprite(const char* textureFileName, GLFWwindow* win)
     spriteVBO(spriteVertices, sizeof(spriteVertices)),
     spriteEBO(spriteIndices, sizeof(spriteIndices))
 {
+  //initialisation des vertices et des indices a 0.0f avant de build le vao
   for(int i = 0; i < (int)(sizeof(spriteVertices)/sizeof(GLfloat)); i++)
     spriteVertices[i] = 0.0f;
   for(int i = 0; i < (int)(sizeof(spriteIndices)/sizeof(GLuint)); i++)
     spriteIndices[i] = 0;
   spriteWindow = win;
-  width = (float)spriteTexture.getWidth(); height = (float)spriteTexture.getHeight();
   // Build du vao
+  width = (float)spriteTexture.getWidth(); height = (float)spriteTexture.getHeight();
   x = 0.0f;y = 0.0f;
+  originX = 0.0f; originY = 0.0f;
   glfwGetWindowSize(spriteWindow, &windowX, &windowY);
   buildVAO();
   cout << "Sprite created with texture " << textureFileName << endl;
@@ -54,29 +57,50 @@ void Sprite::Draw()
   glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }
 
-void Sprite::setPosition(float nx, float ny){
+void Sprite::setPosition(float nx, float ny)
+{
   x = nx;y = ny; 
-  //cout << x << ";" << y << endl;
   buildVAO();
 }
 
-float Sprite::getPositionX(){
+float Sprite::getPositionX()
+{
   return x;
 }
 
-float Sprite::getPositionY(){
+float Sprite::getPositionY()
+{
   return y;
 }
 
-void Sprite::setSize(float nWidth, float nHeight){
+void Sprite::setSize(float nWidth, float nHeight)
+{
   width = nWidth;height = nHeight;
   buildVAO();
 }
 
-float Sprite::getWidth(){
+float Sprite::getWidth()
+{
   return width;
 }
 
-float Sprite::getHeight(){
+float Sprite::getHeight()
+{
   return height;
+}
+
+void Sprite::setOrigin(float nOriginX, float nOriginY)
+{
+  originX = nOriginX;originY = nOriginY; 
+  buildVAO();
+}
+
+float Sprite::getOriginX()
+{
+  return originX;
+}
+
+float Sprite::getOriginY()
+{
+  return originY;
 }

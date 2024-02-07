@@ -96,6 +96,12 @@ int main() {
     if(glfwGetKey(window, GLFW_KEY_N) == GLFW_PRESS){
       testspr.setSize(testspr.getWidth()-10.0f, testspr.getHeight()-10.0f);
     }
+    if(glfwGetKey(window, GLFW_KEY_H) == GLFW_PRESS){
+      testspr.setOrigin(testspr.getOriginX()+1.0f, testspr.getOriginY()+1.0f);
+    }
+    if(glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS){
+      testspr.setOrigin(testspr.getOriginX()-1.0f, testspr.getOriginY()-1.0f);
+    }
     // Specify the color of the background
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		// Clean the back buffer and assign the new color to it

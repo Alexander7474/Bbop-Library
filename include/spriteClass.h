@@ -24,6 +24,9 @@ public:
   void setSize(float nWidth, float nHeight);
   float getWidth();
   float getHeight();
+  void setOrigin(float nOriginX, float nOriginY);
+  float getOriginX();
+  float getOriginY();
   void buildVAO();
 private:
   int windowX, windowY;
@@ -38,6 +41,8 @@ private:
   float y;
   float width;
   float height;
+  float originX;
+  float originY;
   GLFWwindow* spriteWindow;
  };
 #endif // !SPRITE_CLASS_H

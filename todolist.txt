@@ -1,5 +1,5 @@
 ajout de la class TEXTURE   x 
-ajout de possibilité pour changer l'origne d'un sprite ou d'une forme
+ajout de possibilité pour changer l'origne d'un sprite ou d'une forme x
 ajout de transformation géometrique
 ajout de la gestion des collisions
 ajout de la gestion des animations sur les sprites
