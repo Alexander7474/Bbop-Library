@@ -1,8 +1,5 @@
 #include "../include/spriteClass.h"
 
-#define STB_IMAGE_IMPLEMENTATION
-#include <stb/stb_image.h>
-
 void Sprite::buildVAO(){
   //construtiopn du VAO en fontion de la position du sprite, de  sa taille et de la taille de la fenetre
   // init sprite and texture coordinate ########################################
@@ -30,6 +27,7 @@ void Sprite::buildVAO(){
 
 Sprite::Sprite(const char* textureFileName, GLFWwindow* win)
   : spriteShader("shaders/defaultTexture.vert", "shaders/defaultTexture.frag"),
+    spriteTexture(textureFileName),
     spriteVBO(spriteVertices, sizeof(spriteVertices)),
     spriteEBO(spriteIndices, sizeof(spriteIndices))
 {
@@ -38,49 +36,12 @@ Sprite::Sprite(const char* textureFileName, GLFWwindow* win)
   for(int i = 0; i < (int)(sizeof(spriteIndices)/sizeof(GLuint)); i++)
     spriteIndices[i] = 0;
   spriteWindow = win;
-  cout << "Creating sprite, image file: " << textureFileName << endl;
-  cout << "-> VAO, VBO and EBO created" << endl;
-  glGenTextures(1, &spriteTexture);
-  glBindTexture(GL_TEXTURE_2D, spriteTexture);
-  // définit les options de la texture actuellement liée
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);   
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-  // charge et génère la texture
-  int textureWidth, textureHeight;
-  stbi_set_flip_vertically_on_load(true);
-  unsigned char *data = stbi_load(textureFileName, &textureWidth, &textureHeight, &textureNrChannels, STBI_rgb_alpha);
-  if (data)
-  {
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textureWidth, textureHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
-    glGenerateMipmap(GL_TEXTURE_2D);
-  }
-  else
-  {
-    cout << "-> failed to load texture, loading default texture" << endl;
-    textureFileName = "imgTesting/noTexture.png";
-    data = stbi_load(textureFileName, &textureWidth, &textureHeight, &textureNrChannels, STBI_rgb_alpha);
-    if (data)
-    {
-      glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textureWidth, textureHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
-      glGenerateMipmap(GL_TEXTURE_2D);
-    }
-    else
-    {
-      cout << "-> failed to load default texture" << endl;
-    }
-  }
-  stbi_image_free(data);
-  cout << "-> texture loaded, size: " << textureWidth << "x" << textureHeight << endl;
-  sizeX = (float)textureWidth; sizeY = (float)textureHeight;
+  sizeX = (float)spriteTexture.getWidth(); sizeY = (float)spriteTexture.getHeight();
   // Build du vao
   x = 0.0f;y = 0.0f;
   glfwGetWindowSize(spriteWindow, &windowX, &windowY);
-  cout << "-> window size detected: " << windowX << "x" << windowY << endl;
   buildVAO();
-  cout << "-> VBO and EBO linked to VAO" << endl;
-  cout << "-> sprite with " << textureFileName << " created" << endl;
+  cout << "Sprite created with texture " << textureFileName << endl;
 }
 
 void Sprite::Draw() 
@@ -88,7 +49,7 @@ void Sprite::Draw()
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
   spriteShader.Activate();
-  glBindTexture(GL_TEXTURE_2D, spriteTexture);
+  spriteTexture.Bind();
   spriteVAO.Bind();  
   glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }

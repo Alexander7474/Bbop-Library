@@ -5,6 +5,7 @@
 #include <GLFW/glfw3.h>
 
 #include "shaderClass.h"
+#include "textureClass.h"
 #include "VAO.h"
 #include "VBO.h"
 #include "EBO.h"
@@ -25,13 +26,12 @@ public:
   float getSizeY();
   void buildVAO();
 private:
-  int textureNrChannels;
   int windowX, windowY;
   Shader spriteShader;
+  Texture spriteTexture;
   VAO spriteVAO;
   VBO spriteVBO;
   EBO spriteEBO;
-  GLuint spriteTexture;
   GLfloat spriteVertices[32];
   GLuint spriteIndices[6];
   float x; 
