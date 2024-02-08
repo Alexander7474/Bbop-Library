@@ -5,8 +5,9 @@
 //#include <stdio.h>
 //#include <stdlib.h>
 
-#include "include/bbopfunc.h"
+//#include "include/bbopfunc.h"
 #include "include/spriteClass.h"
+#include "include/textureClass.h"
 
 using namespace std;
 
@@ -52,7 +53,7 @@ int main() {
   cout << "OpenGL Renderer: " << renderer << endl;
   cout << "Window size: " << WINDOW_X << "x" << WINDOW_Y << endl;
   // Initialisation Fin ##############################################################################
-  Sprite testspr("imgTesting/mario.png", window);
+  Sprite testspr("imgTesting/ario.png", window);
   testspr.setPosition(0.0f, 0.0f);
   testspr.setSize(200.0f,220.0f);
   //FPS counter
@@ -101,6 +102,9 @@ int main() {
     }
     if(glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS){
       testspr.setOrigin(testspr.getOriginX()-1.0f, testspr.getOriginY()-1.0f);
+    }
+    if(glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS){
+      testspr.setTexture(Texture("imgTesting/mario.png"));
     }
     // Specify the color of the background
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);

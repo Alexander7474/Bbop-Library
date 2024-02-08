@@ -49,7 +49,6 @@ void Sprite::buildVAO()
 
 void Sprite::updateVBO()
 {
-  //construtiopn du VAO en fontion de la position du sprite, de  sa taille et de la taille de la fenetre
   // init sprite and texture coordinate ########################################
   //top right
   spriteVertices[0] = ((x+originX+width)/(windowX/2.0f))-1.0f; spriteVertices[1] = ((-y-originY)/(windowY/2.0f))+1.0f;
@@ -70,6 +69,11 @@ void Sprite::Draw()
   spriteTexture.Bind();
   spriteVAO.Bind();  
   glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+}
+
+void Sprite::setTexture(Texture nTexture)
+{
+  spriteTexture = nTexture;
 }
 
 void Sprite::setPosition(float nx, float ny)

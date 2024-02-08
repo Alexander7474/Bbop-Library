@@ -27,6 +27,7 @@ public:
   void setOrigin(float nOriginX, float nOriginY);
   float getOriginX();
   float getOriginY();
+  void setTexture(Texture nTexture);
   void buildVAO();
   void updateVBO();
 private:

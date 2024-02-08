@@ -9,9 +9,9 @@
 #include<iostream>
 #include<cerrno>
 
-using namespace std;
+#include "bbopfunc.h"
 
-string get_file_contents(const char* filename);
+using namespace std;
 
 class Shader
 {
