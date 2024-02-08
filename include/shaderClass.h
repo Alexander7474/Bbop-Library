@@ -21,7 +21,8 @@ public:
 	// BUILDER creation du shader program
 	Shader(const char* vertexFile, const char* fragmentFile);
 
-  GLuint getUniformLoc(const GLchar* varName);
+  GLint getUniformLoc(const GLchar* varName);
+  GLuint getID();
   void setInt(const GLchar* varName, GLint value);
 	void setFloat(const GLchar* varName, GLfloat value);
   void setBool(const GLchar* varName, GLboolean value);

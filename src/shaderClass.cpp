@@ -52,21 +52,29 @@ Shader::Shader(const char* vertexFile, const char* fragmentFile)
 	glDeleteShader(fragmentShader);
 }
 
-GLuint Shader::getUniformLoc(const GLchar* varName)
+GLint Shader::getUniformLoc(const GLchar* varName)
 {
   return glGetUniformLocation(ID, varName);
 }
 
-void Shader::setInt(const GLchar* varName, GLint value){
+void Shader::setInt(const GLchar* varName, GLint value)
+{
   glUniform1i(glGetUniformLocation(ID, varName), value);
 }
 
-void Shader::setFloat(const GLchar* varName, GLfloat value){
+void Shader::setFloat(const GLchar* varName, GLfloat value)
+{
   glUniform1f(glGetUniformLocation(ID, varName), value);
 }
 
-void Shader::setBool(const GLchar* varName, GLboolean value){
+void Shader::setBool(const GLchar* varName, GLboolean value)
+{
   glUniform1i(glGetUniformLocation(ID, varName), (int)value);
+}
+
+GLuint Shader::getID()
+{
+  return ID;
 }
 
 void Shader::Activate()

@@ -4,7 +4,6 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-#include "shaderClass.h"
 #include "textureClass.h"
 #include "VAO.h"
 #include "VBO.h"
@@ -32,7 +31,6 @@ public:
   void updateVBO();
 private:
   int windowX, windowY;
-  Shader spriteShader;
   Texture spriteTexture;
   VAO spriteVAO;
   VBO spriteVBO;

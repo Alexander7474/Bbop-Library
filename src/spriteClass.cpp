@@ -1,10 +1,9 @@
 #include "../include/spriteClass.h"
 
 Sprite::Sprite(const char* textureFileName, GLFWwindow* win)
-  : spriteShader("shaders/defaultTexture.vert", "shaders/defaultTexture.frag"),
-    spriteTexture(textureFileName),
-    spriteVBO(spriteVertices, sizeof(spriteVertices), GL_DYNAMIC_DRAW),
-    spriteEBO(spriteIndices, sizeof(spriteIndices))
+   : spriteTexture(textureFileName),
+     spriteVBO(spriteVertices, sizeof(spriteVertices), GL_DYNAMIC_DRAW),
+     spriteEBO(spriteIndices, sizeof(spriteIndices))
 {
   //initialisation des vertices et des indices a 0.0f avant de build le vao
   for(int i = 0; i < (int)(sizeof(spriteVertices)/sizeof(GLfloat)); i++)
@@ -65,7 +64,6 @@ void Sprite::Draw()
 {
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-  spriteShader.Activate();
   spriteTexture.Bind();
   spriteVAO.Bind();  
   glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);

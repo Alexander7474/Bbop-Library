@@ -8,6 +8,7 @@
 //#include "include/bbopfunc.h"
 #include "include/spriteClass.h"
 #include "include/textureClass.h"
+#include "include/sceneClass.h"
 
 using namespace std;
 
@@ -53,9 +54,13 @@ int main() {
   cout << "OpenGL Renderer: " << renderer << endl;
   cout << "Window size: " << WINDOW_X << "x" << WINDOW_Y << endl;
   // Initialisation Fin ##############################################################################
-  Sprite testspr("imgTesting/ario.png", window);
-  testspr.setPosition(0.0f, 0.0f);
-  testspr.setSize(200.0f,220.0f);
+  //creation du sprite
+  Sprite* testspr = new Sprite("imgTesting/mario.png", window);
+  testspr->setPosition(0.0f, 0.0f);
+  testspr->setSize(200.0f,220.0f);
+  //creation de la sceneClass
+  Scene defaultScene;
+  defaultScene.addSpriteObject(testspr);
   //FPS counter
   int nbFrames = 0;
   double lastTime = glfwGetTime();
@@ -80,39 +85,38 @@ int main() {
     //FPS calc end #############################################
 		
     if(glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS){
-      testspr.setPosition(testspr.getPositionX()+10.0f, testspr.getPositionY()); 
+      testspr->setPosition(testspr->getPositionX()+10.0f, testspr->getPositionY()); 
     }
     if(glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS){
-      testspr.setPosition(testspr.getPositionX()-10.0f, testspr.getPositionY()); 
+      testspr->setPosition(testspr->getPositionX()-10.0f, testspr->getPositionY()); 
     }
     if(glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS){
-      testspr.setPosition(testspr.getPositionX(), testspr.getPositionY()-10.0f); 
+      testspr->setPosition(testspr->getPositionX(), testspr->getPositionY()-10.0f); 
     }
     if(glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS){
-      testspr.setPosition(testspr.getPositionX(), testspr.getPositionY()+10.0f); 
+      testspr->setPosition(testspr->getPositionX(), testspr->getPositionY()+10.0f); 
     }
     if(glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS){
-      testspr.setSize(testspr.getWidth()+10.0f, testspr.getHeight()+10.0f);
+      testspr->setSize(testspr->getWidth()+10.0f, testspr->getHeight()+10.0f);
     }
     if(glfwGetKey(window, GLFW_KEY_N) == GLFW_PRESS){
-      testspr.setSize(testspr.getWidth()-10.0f, testspr.getHeight()-10.0f);
+      testspr->setSize(testspr->getWidth()-10.0f, testspr->getHeight()-10.0f);
     }
     if(glfwGetKey(window, GLFW_KEY_H) == GLFW_PRESS){
-      testspr.setOrigin(testspr.getOriginX()+1.0f, testspr.getOriginY()+1.0f);
+      testspr->setOrigin(testspr->getOriginX()+1.0f, testspr->getOriginY()+1.0f);
     }
     if(glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS){
-      testspr.setOrigin(testspr.getOriginX()-1.0f, testspr.getOriginY()-1.0f);
+      testspr->setOrigin(testspr->getOriginX()-1.0f, testspr->getOriginY()-1.0f);
     }
     if(glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS){
-      testspr.setTexture(Texture("imgTesting/mario.png"));
+      testspr->setTexture(Texture("imgTesting/ario.png"));
     }
     // Specify the color of the background
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		// Clean the back buffer and assign the new color to it
 		glClear(GL_COLOR_BUFFER_BIT);
-    //cout << testspr.getPositionX() << ";" << testspr.getPositionY() << endl;
-    //testspr.setPosition(testspr.getPositionX()+0.5f, testspr.getPositionY()+0.5f);
-    testspr.Draw();
+    //testspr->setPosition(testspr->getPositionX()+0.5f, testspr->getPositionY()+0.5f);
+    defaultScene.Draw();
     //Check d'erreur
     GLenum error = glGetError();
     if (error != GL_NO_ERROR) {
