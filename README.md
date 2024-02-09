@@ -36,3 +36,7 @@ Installation de glfw
 ```
 make && sudo make install
 ```
+
+## Documentation
+
+pas encore fait ¯\_(ツ)_/¯
