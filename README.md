@@ -1,5 +1,16 @@
 # Bibibop engine
 
+## Lancer le projet
+### Compilation:
+Make dans le dossier recien du projet
+```
+make
+```
+### Execution:
+```
+./final
+```
+
 ## Installation environement dev 
 ### Installer les lib nécessaires: 
 ```
