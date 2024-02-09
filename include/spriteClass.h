@@ -5,6 +5,7 @@
 #include <GLFW/glfw3.h>
 
 #include "textureClass.h"
+#include "collisonBoxClass.h"
 #include "VAO.h"
 #include "VBO.h"
 #include "EBO.h"
@@ -17,6 +18,7 @@ public:
   Sprite(const char* textureFileName, GLFWwindow* win);
 
   void Draw();
+  void Delete();
   void setPosition(float nx, float ny);
   float getPositionX();
   float getPositionY();
@@ -29,6 +31,8 @@ public:
   void setTexture(Texture nTexture);
   void buildVAO();
   void updateVBO();
+  bool isInCollision(CollisionBox* box);
+  CollisionBox* getCollisionBox();
 private:
   int windowX, windowY;
   Texture spriteTexture;
@@ -37,6 +41,7 @@ private:
   EBO spriteEBO;
   GLfloat spriteVertices[32];
   GLuint spriteIndices[6];
+  CollisionBox spriteCollisionBox;
   float x; 
   float y;
   float width;
@@ -45,4 +50,5 @@ private:
   float originY;
   GLFWwindow* spriteWindow;
  };
+
 #endif // !SPRITE_CLASS_H

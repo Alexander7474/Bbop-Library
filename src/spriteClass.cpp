@@ -17,6 +17,7 @@ Sprite::Sprite(const char* textureFileName, GLFWwindow* win)
   originX = 0.0f; originY = 0.0f;
   glfwGetWindowSize(spriteWindow, &windowX, &windowY);
   buildVAO();
+  spriteCollisionBox.init(x, x, width, height, originX, originY);
   cout << "Sprite created with texture " << textureFileName << endl;
 }
 
@@ -69,6 +70,24 @@ void Sprite::Draw()
   glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }
 
+void Sprite::Delete()
+{
+  spriteVAO.Delete();
+  spriteVBO.Delete();
+  spriteEBO.Delete();
+  spriteTexture.Delete();
+}
+
+CollisionBox* Sprite::getCollisionBox()
+{
+  return &spriteCollisionBox;
+}
+
+bool Sprite::isInCollision(CollisionBox* box)
+{
+  return spriteCollisionBox.check(box);
+}
+
 void Sprite::setTexture(Texture nTexture)
 {
   spriteTexture = nTexture;
@@ -76,7 +95,8 @@ void Sprite::setTexture(Texture nTexture)
 
 void Sprite::setPosition(float nx, float ny)
 {
-  x = nx;y = ny; 
+  x = nx;y = ny;
+  spriteCollisionBox.setPosition(nx, ny);
   updateVBO();
 }
 
@@ -121,3 +141,5 @@ float Sprite::getOriginY()
 {
   return originY;
 }
+
+

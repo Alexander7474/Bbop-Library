@@ -18,6 +18,7 @@ public:
   Scene();
 
   void Use();
+  void Delete();
 private:
   Shader sceneShader;
   GLfloat ambiantLightValue;

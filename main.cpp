@@ -58,6 +58,11 @@ int main() {
   Sprite* testspr = new Sprite("imgTesting/mario.png", window);
   testspr->setPosition(0.0f, 0.0f);
   testspr->setSize(200.0f, 220.0f);
+  testspr->getCollisionBox()->setSize(200.0f, 220.0f);
+  Sprite* spr2 = new Sprite("sfsdfs", window);
+  spr2->setPosition(350.0f, 350.0f);
+  spr2->setSize(100.0f, 100.0f);
+  spr2->getCollisionBox()->setSize(100.0f, 100.0f);
   double speed = 10.0f;
   //creation de la sceneClass
   Scene defaultScene;
@@ -122,7 +127,11 @@ int main() {
 		glClear(GL_COLOR_BUFFER_BIT);
     //testspr->setPosition(testspr->getPositionX()+0.5f, testspr->getPositionY()+0.5f);
     defaultScene.Use();
-    testspr->Draw();    
+    testspr->Draw(); 
+    spr2->Draw();
+    if(testspr->isInCollision(spr2->getCollisionBox())){
+      cout << "ok" << delta << endl;
+    }
     //Check d'erreur
     GLenum error = glGetError();
     if (error != GL_NO_ERROR) {
@@ -137,6 +146,8 @@ int main() {
 	// Delete window before ending the program
 	glfwDestroyWindow(window);
   // Terminate GLFW before ending the program
+  testspr->Delete();
+  defaultScene.Delete();
   cout << "Session terminated, avg fps: " << totalFps/glfwGetTime() << endl;
 	glfwTerminate();
 	return 0;

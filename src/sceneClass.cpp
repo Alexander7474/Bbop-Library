@@ -12,3 +12,8 @@ void Scene::Use()
   sceneShader.Activate();
   glUniform4f(ambiantLightLoc, 1.0f*ambiantLightValue,1.0f*ambiantLightValue,1.0f*ambiantLightValue,1.0f);
 }
+
+void Scene::Delete()
+{
+  sceneShader.Delete();
+}
