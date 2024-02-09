@@ -33,6 +33,7 @@ public:
   void updateVBO();
   bool isInCollision(CollisionBox* box);
   CollisionBox* getCollisionBox();
+  void setAutoUpdateCollision(bool etat);
 private:
   int windowX, windowY;
   Texture spriteTexture;
@@ -48,6 +49,7 @@ private:
   float height;
   float originX;
   float originY;
+  bool autoUpdateCollision;
   GLFWwindow* spriteWindow;
  };
 

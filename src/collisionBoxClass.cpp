@@ -22,17 +22,18 @@ void CollisionBox::init(float nx, float ny, float nwidth, float nheight, float n
 
 bool CollisionBox::check(CollisionBox* box)
 {
-  //cout << x << ";" << y << " " << width << ";" << height <<  endl << box->getPositionX() << ";" << box->getPositionY() << endl;
-  if (x <= box->getPositionX() && box->getPositionX() <= x+width && y <= box->getPositionY() && box->getPositionY() <= y+height){
+  //cout << x << ";" << posY << " " << width << ";" << height <<  endl << box->getPositionX() << ";" << box->getPositionY() << endl;
+  float posX = x-originX; float posY = y-originY;
+  if (posX <= box->getPositionX() && box->getPositionX() <= posX+width && posY <= box->getPositionY() && box->getPositionY() <= posY+height){
     return true;
   }
-  if (x <= box->getPositionX()+box->getWidth() && box->getPositionX()+box->getWidth() <= x+width && y <= box->getPositionY() && box->getPositionY() <= y+height){
+  if (posX <= box->getPositionX()+box->getWidth() && box->getPositionX()+box->getWidth() <= posX+width && posY <= box->getPositionY() && box->getPositionY() <= posY+height){
     return true;
   }
-  if (x <= box->getPositionX() && box->getPositionX() <= x+width && y <= box->getPositionY()+box->getHeight() && box->getPositionY()+box->getHeight() <= y+height){
+  if (posX <= box->getPositionX() && box->getPositionX() <= posX+width && posY <= box->getPositionY()+box->getHeight() && box->getPositionY()+box->getHeight() <= posY+height){
     return true;
   }
-  if (x <= box->getPositionX()+box->getWidth() && box->getPositionX()+box->getWidth() <= x+width && y <= box->getPositionY()+box->getHeight() && box->getPositionY()+box->getHeight() <= y+height){
+  if (posX <= box->getPositionX()+box->getWidth() && box->getPositionX()+box->getWidth() <= posX+width && posY <= box->getPositionY()+box->getHeight() && box->getPositionY()+box->getHeight() <= posY+height){
     return true;
   }
   return false;

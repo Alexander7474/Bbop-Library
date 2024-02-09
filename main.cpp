@@ -63,6 +63,10 @@ int main() {
   spr2->setPosition(350.0f, 350.0f);
   spr2->setSize(100.0f, 100.0f);
   spr2->getCollisionBox()->setSize(100.0f, 100.0f);
+  Sprite originView("sqfsf", window);
+  originView.setSize(10.0f, 10.0f);
+  Sprite originView2("sqfsf", window);
+  originView2.setSize(10.0f, 10.0f);
   double speed = 10.0f;
   //creation de la sceneClass
   Scene defaultScene;
@@ -129,6 +133,10 @@ int main() {
     defaultScene.Use();
     testspr->Draw(); 
     spr2->Draw();
+    originView.setPosition(testspr->getPositionX(), testspr->getPositionY());
+    originView2.setPosition(testspr->getCollisionBox()->getPositionX()-testspr->getCollisionBox()->getOriginX(), testspr->getCollisionBox()->getPositionY()-testspr->getCollisionBox()->getOriginY());
+    originView.Draw();
+    originView2.Draw();
     if(testspr->isInCollision(spr2->getCollisionBox())){
       cout << "ok" << delta << endl;
     }
