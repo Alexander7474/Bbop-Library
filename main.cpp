@@ -57,24 +57,29 @@ int main() {
   //creation du sprite
   Sprite* testspr = new Sprite("imgTesting/mario.png", window);
   testspr->setPosition(0.0f, 0.0f);
-  testspr->setSize(200.0f,220.0f);
+  testspr->setSize(200.0f, 220.0f);
+  double speed = 10.0f;
   //creation de la sceneClass
   Scene defaultScene;
-  defaultScene.addSpriteObject(testspr);
   //FPS counter
   int nbFrames = 0;
+  //double frameTarget = 1.0/60.0;
   double lastTime = glfwGetTime();
+  double fps;
+  double currentTime;
+  double delta;
+  double totalFps = 0.0;
   //FPS end init #######
   // Main while loop
 	while (!glfwWindowShouldClose(window))
 	{
     // FPS calc ################################################
-    double currentTime = glfwGetTime();
-    double delta = currentTime - lastTime;
+    currentTime = glfwGetTime();
+    delta = currentTime - lastTime;
     nbFrames++;
+    totalFps++;
     if ( delta >= 1.0 ){ // If last cout was more than 1 sec ago
-      double fps = double(nbFrames) / delta;
-
+      fps = double(nbFrames) / delta;
       stringstream ss;
       ss << "BibibopEngine" << " [" << fps << " FPS]";
 
@@ -85,22 +90,22 @@ int main() {
     //FPS calc end #############################################
 		
     if(glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS){
-      testspr->setPosition(testspr->getPositionX()+10.0f, testspr->getPositionY()); 
+      testspr->setPosition(testspr->getPositionX()+speed, testspr->getPositionY()); 
     }
     if(glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS){
-      testspr->setPosition(testspr->getPositionX()-10.0f, testspr->getPositionY()); 
+      testspr->setPosition(testspr->getPositionX()-speed, testspr->getPositionY()); 
     }
     if(glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS){
-      testspr->setPosition(testspr->getPositionX(), testspr->getPositionY()-10.0f); 
+      testspr->setPosition(testspr->getPositionX(), testspr->getPositionY()-speed); 
     }
     if(glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS){
-      testspr->setPosition(testspr->getPositionX(), testspr->getPositionY()+10.0f); 
+      testspr->setPosition(testspr->getPositionX(), testspr->getPositionY()+speed); 
     }
     if(glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS){
-      testspr->setSize(testspr->getWidth()+10.0f, testspr->getHeight()+10.0f);
+      testspr->setSize(testspr->getWidth()+speed, testspr->getHeight()+speed);
     }
     if(glfwGetKey(window, GLFW_KEY_N) == GLFW_PRESS){
-      testspr->setSize(testspr->getWidth()-10.0f, testspr->getHeight()-10.0f);
+      testspr->setSize(testspr->getWidth()-speed, testspr->getHeight()-speed);
     }
     if(glfwGetKey(window, GLFW_KEY_H) == GLFW_PRESS){
       testspr->setOrigin(testspr->getOriginX()+1.0f, testspr->getOriginY()+1.0f);
@@ -116,7 +121,8 @@ int main() {
 		// Clean the back buffer and assign the new color to it
 		glClear(GL_COLOR_BUFFER_BIT);
     //testspr->setPosition(testspr->getPositionX()+0.5f, testspr->getPositionY()+0.5f);
-    defaultScene.Draw();
+    defaultScene.Use();
+    testspr->Draw();    
     //Check d'erreur
     GLenum error = glGetError();
     if (error != GL_NO_ERROR) {
@@ -130,7 +136,8 @@ int main() {
 	}
 	// Delete window before ending the program
 	glfwDestroyWindow(window);
-	// Terminate GLFW before ending the program
+  // Terminate GLFW before ending the program
+  cout << "Session terminated, avg fps: " << totalFps/glfwGetTime() << endl;
 	glfwTerminate();
 	return 0;
 }

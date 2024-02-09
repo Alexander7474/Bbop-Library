@@ -17,13 +17,11 @@ class Scene
 public:
   Scene();
 
-  void Draw();
-  void addSpriteObject(Sprite* object);
+  void Use();
 private:
   Shader sceneShader;
   GLfloat ambiantLightValue;
   GLint ambiantLightLoc;
-  vector<Sprite*> objectsVector;
 };
 
 #endif // !SCENE_CLASS_H
