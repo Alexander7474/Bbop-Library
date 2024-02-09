@@ -46,7 +46,7 @@ int main() {
   // Désactiver la synchronisation verticale (V-Sync)
   //glfwSwapInterval(0);
   //General info
-  cout << "Bibibop Engine Version 0.0.1" << endl << "Author: Alexander74" << endl << "Contact: alexandre.lanternier@outlook.fr" << endl << "License: GNU 3.0" << endl; 
+  cout << "Bibibop Engine Version 0.0.1" << endl << "Author: Alexander74" << endl << "Contact: alexandre.lanternier@outlook.fr" << endl << "License: GPL-3.0" << endl; 
   //GPU info
   const GLubyte* vendor = glGetString(GL_VENDOR);
   const GLubyte* renderer = glGetString(GL_RENDERER);
