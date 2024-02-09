@@ -2,7 +2,7 @@
 
 ## Lancer le projet
 ### Compilation:
-Make dans le dossier recien du projet
+Make dans le dossier racine du projet
 ```
 make
 ```
