@@ -9,6 +9,7 @@
 #include "include/spriteClass.h"
 #include "include/textureClass.h"
 #include "include/sceneClass.h"
+#include "include/bbopMathClass.h"
 
 using namespace std;
 
@@ -56,17 +57,7 @@ int main() {
   // Initialisation Fin ##############################################################################
   //creation du sprite
   Sprite* testspr = new Sprite("imgTesting/mario.png", window);
-  testspr->setPosition(0.0f, 0.0f);
-  testspr->setSize(200.0f, 220.0f);
-  testspr->getCollisionBox()->setSize(200.0f, 220.0f);
-  Sprite* spr2 = new Sprite("sfsdfs", window);
-  spr2->setPosition(350.0f, 350.0f);
-  spr2->setSize(100.0f, 100.0f);
-  spr2->getCollisionBox()->setSize(100.0f, 100.0f);
-  Sprite originView("sqfsf", window);
-  originView.setSize(10.0f, 10.0f);
-  Sprite originView2("sqfsf", window);
-  originView2.setSize(10.0f, 10.0f);
+  testspr->setSize(Vector2f(200.0f, 220.0f));
   double speed = 10.0f;
   //creation de la sceneClass
   Scene defaultScene;
@@ -99,28 +90,28 @@ int main() {
     //FPS calc end #############################################
 		
     if(glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS){
-      testspr->setPosition(testspr->getPositionX()+speed, testspr->getPositionY()); 
+      testspr->move(Vector2f(speed,0.0f)); 
     }
     if(glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS){
-      testspr->setPosition(testspr->getPositionX()-speed, testspr->getPositionY()); 
+      testspr->move(Vector2f(-speed,0.0f)); 
     }
     if(glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS){
-      testspr->setPosition(testspr->getPositionX(), testspr->getPositionY()-speed); 
+      testspr->move(Vector2f(0.0f,-speed)); 
     }
     if(glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS){
-      testspr->setPosition(testspr->getPositionX(), testspr->getPositionY()+speed); 
+      testspr->move(Vector2f(0.0f,speed)); 
     }
     if(glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS){
-      testspr->setSize(testspr->getWidth()+speed, testspr->getHeight()+speed);
+      testspr->setSize(Vector2f(testspr->getSize().x+speed, testspr->getSize().y+speed));
     }
     if(glfwGetKey(window, GLFW_KEY_N) == GLFW_PRESS){
-      testspr->setSize(testspr->getWidth()-speed, testspr->getHeight()-speed);
+      testspr->setSize(Vector2f(testspr->getSize().x-speed, testspr->getSize().y-speed));
     }
     if(glfwGetKey(window, GLFW_KEY_H) == GLFW_PRESS){
-      testspr->setOrigin(testspr->getOriginX()+1.0f, testspr->getOriginY()+1.0f);
+      testspr->setOrigin(Vector2f(testspr->getOrigin().x+1.0f, testspr->getOrigin().y+1.0f));
     }
     if(glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS){
-      testspr->setOrigin(testspr->getOriginX()-1.0f, testspr->getOriginY()-1.0f);
+      testspr->setOrigin(Vector2f(testspr->getOrigin().x-1.0f, testspr->getOrigin().y-1.0f));
     }
     if(glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS){
       testspr->setTexture(Texture("imgTesting/ario.png"));
@@ -132,14 +123,6 @@ int main() {
     //testspr->setPosition(testspr->getPositionX()+0.5f, testspr->getPositionY()+0.5f);
     defaultScene.Use();
     testspr->Draw(); 
-    spr2->Draw();
-    originView.setPosition(testspr->getPositionX(), testspr->getPositionY());
-    originView2.setPosition(testspr->getCollisionBox()->getPositionX()-testspr->getCollisionBox()->getOriginX(), testspr->getCollisionBox()->getPositionY()-testspr->getCollisionBox()->getOriginY());
-    originView.Draw();
-    originView2.Draw();
-    if(testspr->isInCollision(spr2->getCollisionBox())){
-      cout << "ok" << delta << endl;
-    }
     //Check d'erreur
     GLenum error = glGetError();
     if (error != GL_NO_ERROR) {

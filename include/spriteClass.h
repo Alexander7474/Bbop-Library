@@ -6,6 +6,7 @@
 
 #include "textureClass.h"
 #include "collisonBoxClass.h"
+#include "bbopMathClass.h"
 #include "VAO.h"
 #include "VBO.h"
 #include "EBO.h"
@@ -19,18 +20,16 @@ public:
 
   void Draw();
   void Delete();
-  void setPosition(float nx, float ny);
-  float getPositionX();
-  float getPositionY();
-  void setSize(float nWidth, float nHeight);
-  float getWidth();
-  float getHeight();
-  void setOrigin(float nOriginX, float nOriginY);
-  float getOriginX();
-  float getOriginY();
+  void setPosition(Vector2f nPos);
+  Vector2f getPosition();
+  void setSize(Vector2f nSize);
+  Vector2f getSize();
+  void setOrigin(Vector2f nOrigin);
+  Vector2f getOrigin();
   void setTexture(Texture nTexture);
   void buildVAO();
   void updateVBO();
+  void move(Vector2f vecM);
   bool isInCollision(CollisionBox* box);
   CollisionBox* getCollisionBox();
   void setAutoUpdateCollision(bool etat);
@@ -42,15 +41,12 @@ private:
   EBO spriteEBO;
   GLfloat spriteVertices[32];
   GLuint spriteIndices[6];
-  CollisionBox spriteCollisionBox;
-  float x; 
-  float y;
-  float width;
-  float height;
-  float originX;
-  float originY;
-  bool autoUpdateCollision;
   GLFWwindow* spriteWindow;
+  Vector2f pos;
+  Vector2f size;
+  Vector2f origin;
+  CollisionBox spriteCollisionBox;
+  bool autoUpdateCollision;
  };
 
 #endif // !SPRITE_CLASS_H

@@ -1,85 +1,58 @@
 #include "../include/collisonBoxClass.h"
 
-CollisionBox::CollisionBox()
-{
-  x = 0.0f;
-  y = 0.0f;
-  width = 0.0f;
-  height = 0.0f;
-  originX = 0.0f;
-  originY = 0.0f;
-}
-
-void CollisionBox::init(float nx, float ny, float nwidth, float nheight, float noriginX, float noriginY)
-{
-  x = nx;
-  y = ny;
-  width = nwidth;
-  height = nheight;
-  originX = noriginX;
-  originY = noriginY;
-}
+CollisionBox::CollisionBox(Vector2f nPos, Vector2f nOrigin, Vector2f nSize): pos(nPos.x ,nPos.y), origin(nOrigin.x, nOrigin.y), size(nSize.x, nSize.y) {}
 
 bool CollisionBox::check(CollisionBox* box)
 {
-  //cout << x << ";" << posY << " " << width << ";" << height <<  endl << box->getPositionX() << ";" << box->getPositionY() << endl;
-  float posX = x-originX; float posY = y-originY;
-  if (posX <= box->getPositionX() && box->getPositionX() <= posX+width && posY <= box->getPositionY() && box->getPositionY() <= posY+height){
+  //cout << x << ";" << posY << " " << size.x << ";" << size.y <<  endl << box->getPosition().x << ";" << box->getPosition().y << endl;
+  float posX = pos.x-origin.x; float posY = size.y-origin.y;
+  if (posX <= box->getPosition().x && box->getPosition().x <= posX+size.x && posY <= box->getPosition().y && box->getPosition().y <= posY+size.y){
     return true;
   }
-  if (posX <= box->getPositionX()+box->getWidth() && box->getPositionX()+box->getWidth() <= posX+width && posY <= box->getPositionY() && box->getPositionY() <= posY+height){
+  if (posX <= box->getPosition().x+box->getPosition().x && box->getPosition().x+box->getPosition().x <= posX+size.x && posY <= box->getPosition().y && box->getPosition().y <= posY+size.y){
     return true;
   }
-  if (posX <= box->getPositionX() && box->getPositionX() <= posX+width && posY <= box->getPositionY()+box->getHeight() && box->getPositionY()+box->getHeight() <= posY+height){
+  if (posX <= box->getPosition().x && box->getPosition().x <= posX+size.x && posY <= box->getPosition().y+box->getPosition().y && box->getPosition().y+box->getPosition().y <= posY+size.y){
     return true;
   }
-  if (posX <= box->getPositionX()+box->getWidth() && box->getPositionX()+box->getWidth() <= posX+width && posY <= box->getPositionY()+box->getHeight() && box->getPositionY()+box->getHeight() <= posY+height){
+  if (posX <= box->getPosition().x+box->getPosition().x && box->getPosition().x+box->getPosition().x <= posX+size.x && posY <= box->getPosition().y+box->getPosition().y && box->getPosition().y+box->getPosition().y <= posY+size.y){
     return true;
   }
   return false;
 }
 
-void CollisionBox::setPosition(float nx, float ny)
+void CollisionBox::setPosition(Vector2f nPos)
 {
-  x = nx;y = ny; 
+  pos.x = nPos.x;pos.y = nPos.y; 
 }
 
-float CollisionBox::getPositionX()
+Vector2f CollisionBox::getPosition()
 {
-  return x;
+  return pos;
 }
 
-float CollisionBox::getPositionY()
+void CollisionBox::setSize(Vector2f nSize)
 {
-  return y;
+  size.x = nSize.x;size.y = nSize.y;
 }
 
-void CollisionBox::setSize(float nWidth, float nHeight)
+Vector2f CollisionBox::getSize()
 {
-  width = nWidth;height = nHeight;
+  return size;
 }
 
-float CollisionBox::getWidth()
+void CollisionBox::setOrigin(Vector2f nOrigin)
 {
-  return width;
+  origin.x = nOrigin.x;origin.y = nOrigin.y; 
 }
 
-float CollisionBox::getHeight()
+Vector2f CollisionBox::getOrigin()
 {
-  return height;
+  return origin;
 }
 
-void CollisionBox::setOrigin(float nOriginX, float nOriginY)
+void CollisionBox::move(Vector2f vecM)
 {
-  originX = nOriginX;originY = nOriginY; 
+  pos.x += vecM.x; pos.y += vecM.y;
 }
 
-float CollisionBox::getOriginX()
-{
-  return originX;
-}
-
-float CollisionBox::getOriginY()
-{
-  return originY;
-}

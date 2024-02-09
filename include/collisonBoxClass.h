@@ -1,6 +1,7 @@
 #ifndef COLLISION_BOX_CLASS_H
 #define COLLISION_BOX_CLASS_H
 
+#include "bbopMathClass.h"
 #include <iostream>
 
 using namespace std;
@@ -8,26 +9,20 @@ using namespace std;
 class CollisionBox 
 {
 public:
-  CollisionBox();
+  CollisionBox(Vector2f nPos, Vector2f nOrigin, Vector2f nSize);
 
-  void setPosition(float nx, float ny);
-  float getPositionX();
-  float getPositionY();
-  void setSize(float nWidth, float nHeight);
-  float getWidth();
-  float getHeight();
-  void setOrigin(float nOriginX, float nOriginY);
-  float getOriginX();
-  float getOriginY();
-  void init(float nx, float ny, float nwidth, float nheight, float noriginX, float noriginY);
+  void setPosition(Vector2f nPos);
+  Vector2f getPosition();
+  void setSize(Vector2f nSize);
+  Vector2f getSize();
+  void setOrigin(Vector2f nOrigin);
+  Vector2f getOrigin();
+  void move(Vector2f vecM);
   bool check(CollisionBox* box);
 private:
-  float width;
-  float height;
-  float x;
-  float y;
-  float originX;
-  float originY;
+  Vector2f pos;
+  Vector2f origin;
+  Vector2f size;
 };
 
 

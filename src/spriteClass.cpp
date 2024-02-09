@@ -1,24 +1,24 @@
 #include "../include/spriteClass.h"
 
 Sprite::Sprite(const char* textureFileName, GLFWwindow* win)
-   : spriteTexture(textureFileName),
-     spriteVBO(spriteVertices, sizeof(spriteVertices), GL_DYNAMIC_DRAW),
-     spriteEBO(spriteIndices, sizeof(spriteIndices))
+  : spriteTexture(textureFileName),
+    spriteVBO(spriteVertices, sizeof(spriteVertices), GL_DYNAMIC_DRAW),
+    spriteEBO(spriteIndices, sizeof(spriteIndices)),
+    spriteWindow(win),
+    pos(0.0f,0.0f),
+    size((float)spriteTexture.getWidth(), (float)spriteTexture.getHeight()),
+    origin(0.0f, 0.0f),
+    spriteCollisionBox(pos, origin, size)
 {
   //initialisation des vertices et des indices a 0.0f avant de build le vao
   for(int i = 0; i < (int)(sizeof(spriteVertices)/sizeof(GLfloat)); i++)
     spriteVertices[i] = 0.0f;
   for(int i = 0; i < (int)(sizeof(spriteIndices)/sizeof(GLuint)); i++)
     spriteIndices[i] = 0;
-  spriteWindow = win;
   // Build du vao
-  width = (float)spriteTexture.getWidth(); height = (float)spriteTexture.getHeight();
-  x = 0.0f;y = 0.0f;
-  originX = 0.0f; originY = 0.0f;
   glfwGetWindowSize(spriteWindow, &windowX, &windowY);
   buildVAO();
-  spriteCollisionBox.init(x, x, width, height, originX, originY);
-  autoUpdateCollision = true;
+  autoUpdateCollision = false;
   cout << "Sprite created with texture " << textureFileName << endl;
 }
 
@@ -27,13 +27,13 @@ void Sprite::buildVAO()
   //construtiopn du VAO en fontion de la position du sprite, de  sa taille et de la taille de la fenetre
   // init sprite and texture coordinate ########################################
   //top right
-  spriteVertices[0] = ((x-originX+width)/(windowX/2.0f))-1.0f; spriteVertices[1] = ((-y+originY)/(windowY/2.0f))+1.0f;
+  spriteVertices[0] = ((pos.x-origin.x+size.x)/(windowX/2.0f))-1.0f; spriteVertices[1] = ((-pos.y+origin.y)/(windowY/2.0f))+1.0f;
   //botton right
-  spriteVertices[8] = ((x-originX+width)/(windowX/2.0f))-1.0f; spriteVertices[9] = ((-y+originY-height)/(windowY/2.0f))+1.0f;
+  spriteVertices[8] = ((pos.x-origin.x+size.x)/(windowX/2.0f))-1.0f; spriteVertices[9] = ((-pos.y+origin.y-size.y)/(windowY/2.0f))+1.0f;
   //bottom left
-  spriteVertices[16] = ((x-originX)/(windowX/2.0f))-1.0f; spriteVertices[17] = ((-y+originY-height)/(windowY/2.0f))+1.0f;
+  spriteVertices[16] = ((pos.x-origin.x)/(windowX/2.0f))-1.0f; spriteVertices[17] = ((-pos.y+origin.y-size.y)/(windowY/2.0f))+1.0f;
   //top left
-  spriteVertices[24] = ((x-originX)/(windowX/2.0f))-1.0f; spriteVertices[25] = ((-y+originY)/(windowY/2.0f))+1.0f;
+  spriteVertices[24] = ((pos.x-origin.x)/(windowX/2.0f))-1.0f; spriteVertices[25] = ((-pos.y+origin.y)/(windowY/2.0f))+1.0f;
   //texture coo
   spriteVertices[6] = 1.0f;spriteVertices[7] = 1.0f;spriteVertices[14] = 1.0f;spriteVertices[31] = 1.0f;
   spriteIndices[0] = 0;spriteIndices[1] = 1;spriteIndices[2] = 3;spriteIndices[3] = 1;spriteIndices[4] = 2;spriteIndices[5] = 3;
@@ -52,13 +52,13 @@ void Sprite::updateVBO()
 {
   // init sprite and texture coordinate ########################################
   //top right
-  spriteVertices[0] = ((x-originX+width)/(windowX/2.0f))-1.0f; spriteVertices[1] = ((-y+originY)/(windowY/2.0f))+1.0f;
+  spriteVertices[0] = ((pos.x-origin.x+size.x)/(windowX/2.0f))-1.0f; spriteVertices[1] = ((-pos.y+origin.y)/(windowY/2.0f))+1.0f;
   //botton right
-  spriteVertices[8] = ((x-originX+width)/(windowX/2.0f))-1.0f; spriteVertices[9] = ((-y+originY-height)/(windowY/2.0f))+1.0f;
+  spriteVertices[8] = ((pos.x-origin.x+size.x)/(windowX/2.0f))-1.0f; spriteVertices[9] = ((-pos.y+origin.y-size.y)/(windowY/2.0f))+1.0f;
   //bottom left
-  spriteVertices[16] = ((x-originX)/(windowX/2.0f))-1.0f; spriteVertices[17] = ((-y+originY-height)/(windowY/2.0f))+1.0f;
+  spriteVertices[16] = ((pos.x-origin.x)/(windowX/2.0f))-1.0f; spriteVertices[17] = ((-pos.y+origin.y-size.y)/(windowY/2.0f))+1.0f;
   //top left
-  spriteVertices[24] = ((x-originX)/(windowX/2.0f))-1.0f; spriteVertices[25] = ((-y+originY)/(windowY/2.0f))+1.0f;
+  spriteVertices[24] = ((pos.x-origin.x)/(windowX/2.0f))-1.0f; spriteVertices[25] = ((-pos.y+origin.y)/(windowY/2.0f))+1.0f;
   spriteVBO.update(spriteVertices, sizeof(spriteVertices));
 }
 
@@ -94,58 +94,51 @@ void Sprite::setTexture(Texture nTexture)
   spriteTexture = nTexture;
 }
 
-void Sprite::setPosition(float nx, float ny)
+void Sprite::setPosition(Vector2f nPos)
 {
-  x = nx;y = ny;
+  pos.x = nPos.x;pos.y = nPos.y;
   if (autoUpdateCollision)
-    spriteCollisionBox.setPosition(nx, ny);
+    spriteCollisionBox.setPosition(Vector2f(pos.x, pos.y));
   updateVBO();
 }
 
-float Sprite::getPositionX()
+Vector2f Sprite::getPosition()
 {
-  return x;
+  return pos;
 }
 
-float Sprite::getPositionY()
+void Sprite::setSize(Vector2f nSize)
 {
-  return y;
-}
-
-void Sprite::setSize(float nWidth, float nHeight)
-{
-  width = nWidth;height = nHeight;
+  size.x = nSize.x; size.y = nSize.y;
   if(autoUpdateCollision)
-    spriteCollisionBox.setSize(nWidth, nHeight);
+    spriteCollisionBox.setSize(Vector2f(size.x, size.y));
   updateVBO();
 }
 
-float Sprite::getWidth()
+Vector2f Sprite::getSize()
 {
-  return width;
+  return size;
 }
 
-float Sprite::getHeight()
+void Sprite::setOrigin(Vector2f nOrigin)
 {
-  return height;
-}
-
-void Sprite::setOrigin(float nOriginX, float nOriginY)
-{
-  originX = nOriginX;originY = nOriginY; 
+  origin.x = nOrigin.x; origin.y = nOrigin.y; 
   if (autoUpdateCollision)
-    spriteCollisionBox.setOrigin(nOriginX, nOriginY);
+    spriteCollisionBox.setOrigin(Vector2f(origin.x, origin.y));
   updateVBO();
 }
 
-float Sprite::getOriginX()
+void Sprite::move(Vector2f vecM)
 {
-  return originX;
+  pos.x += vecM.x; pos.y += vecM.y;
+  if (autoUpdateCollision)
+    spriteCollisionBox.move(vecM);
+  updateVBO();
 }
 
-float Sprite::getOriginY()
+Vector2f Sprite::getOrigin()
 {
-  return originY;
+  return origin;
 }
 
 void Sprite::setAutoUpdateCollision(bool etat)
