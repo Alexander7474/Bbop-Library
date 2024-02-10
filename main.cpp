@@ -6,15 +6,13 @@
 //#include <stdlib.h>
 
 //#include "include/bbopGlobal.h"
+#include "include/bbopGlobal.h"
 #include "include/spriteClass.h"
 #include "include/textureClass.h"
 #include "include/sceneClass.h"
 #include "include/bbopMathClass.h"
 
 using namespace std;
-
-int WINDOW_X = 956;
-int WINDOW_Y = 1044;
 
 int main() {
   //Initialisation Début ############################################################################
@@ -29,7 +27,7 @@ int main() {
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
   glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
   // Création d'une fenêtre GLFW
-  GLFWwindow* window = glfwCreateWindow(WINDOW_X, WINDOW_Y, "Bibibop engine", nullptr, nullptr);
+  GLFWwindow* window = glfwCreateWindow(BIBIBOP_WINDOW_SIZE.x, BIBIBOP_WINDOW_SIZE.y, "Bibibop engine", nullptr, nullptr);
   if (!window) {
       cerr << "Échec de la création de la fenêtre GLFW" << endl;
       glfwTerminate();
@@ -53,7 +51,7 @@ int main() {
   const GLubyte* renderer = glGetString(GL_RENDERER);
   cout << "OpenGL Vendor: " << vendor << endl;
   cout << "OpenGL Renderer: " << renderer << endl;
-  cout << "Window size: " << WINDOW_X << "x" << WINDOW_Y << endl;
+  cout << "Window size: " << BIBIBOP_WINDOW_SIZE.x << "x" << BIBIBOP_WINDOW_SIZE.y << endl;
   // Initialisation Fin ##############################################################################
   //creation du sprite
   Sprite testspr("imgTesting/mario.png", window);
