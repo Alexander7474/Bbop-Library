@@ -28,4 +28,11 @@ public:
   Vector2d(double nx, double ny);
 };
 
+class Vector3i
+{
+public:
+  int x,y,z;
+  Vector3i(int nx, int ny, int nz);
+};
+
 #endif // ! MATH_CLASS_H

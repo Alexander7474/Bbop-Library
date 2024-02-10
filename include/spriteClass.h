@@ -30,10 +30,13 @@ public:
   void setTexture(Texture nTexture);
   void buildVAO();
   void updateVBO();
+  void updateVBORGB();
   void move(Vector2f vecM);
   bool isInCollision(CollisionBox* box);
   CollisionBox* getCollisionBox();
   void setAutoUpdateCollision(bool etat);
+  void setRGBFilterState(bool etat);
+  void setRGBFilter(Vector3i nRGB);
 private:
   int windowX, windowY;
   Texture spriteTexture;
@@ -46,8 +49,10 @@ private:
   Vector2f pos;
   Vector2f size;
   Vector2f origin;
+  Vector3i RGBFilter;
   CollisionBox spriteCollisionBox;
   bool autoUpdateCollision;
+  bool isRGBFilter;
  };
 
 #endif // !SPRITE_CLASS_H

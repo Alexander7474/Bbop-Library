@@ -1,4 +1,4 @@
-#include "../include/spriteClass.h"
+#include "../include/shapeClass.h"
 
 Sprite::Sprite(const char* textureFileName, GLFWwindow* win)
   : spriteTexture(textureFileName),
@@ -8,10 +8,8 @@ Sprite::Sprite(const char* textureFileName, GLFWwindow* win)
     pos(0.0f,0.0f),
     size((float)spriteTexture.getWidth(), (float)spriteTexture.getHeight()),
     origin(0.0f, 0.0f),
-    RGBFilter(255,255,255),
     spriteCollisionBox(pos, origin, size)
 {
-  isRGBFilter = false;
   //initialisation des vertices et des indices a 0.0f avant de build le vao
   for(int i = 0; i < (int)(sizeof(spriteVertices)/sizeof(GLfloat)); i++)
     spriteVertices[i] = 0.0f;
@@ -52,7 +50,7 @@ void Sprite::buildVAO()
 
 void Sprite::updateVBO()
 {
-  // sprite coordinate change ########################################
+  // init sprite and texture coordinate ########################################
   //top right
   spriteVertices[0] = ((pos.x-origin.x+size.x)/(windowX/2.0f))-1.0f; spriteVertices[1] = ((-pos.y+origin.y)/(windowY/2.0f))+1.0f;
   //botton right
@@ -64,115 +62,14 @@ void Sprite::updateVBO()
   spriteVBO.update(spriteVertices, sizeof(spriteVertices));
 }
 
-void Sprite::updateVBORGB()
-{
-  // color change ########################################
-  //top right
-  spriteVertices[3] = RGBFilter.x/255; spriteVertices[4] = RGBFilter.y/255; spriteVertices[5] = RGBFilter.z/255;
-  //botton right
-  spriteVertices[11] = RGBFilter.x/255; spriteVertices[12] = RGBFilter.y/255; spriteVertices[13] = RGBFilter.z/255;
-  //bottom left
-  spriteVertices[19] = RGBFilter.x/255; spriteVertices[20] = RGBFilter.y/255; spriteVertices[21] = RGBFilter.z/255;
-  //top left
-  spriteVertices[27] = RGBFilter.x/255; spriteVertices[28] = RGBFilter.y/255; spriteVertices[29] = RGBFilter.z/255;
-  spriteVBO.update(spriteVertices, sizeof(spriteVertices));
-}
-
 void Sprite::Draw(GLint renderModeLoc) const 
 {
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-  if (!isRGBFilter)
-    glUniform1i(renderModeLoc, BIBIBOP_SHADER_MODE_TEXTURE);
-  else
-    glUniform1i(renderModeLoc, BIBIBOP_SHADER_MODE_MIX);
+  glUniform1i(renderModeLoc, BIBIBOP_SHADER_MODE_TEXTURE);
   spriteTexture.Bind();
   spriteVAO.Bind();  
   glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }
 
-void Sprite::Delete()
-{
-  spriteVAO.Delete();
-  spriteVBO.Delete();
-  spriteEBO.Delete();
-  spriteTexture.Delete();
-}
 
-CollisionBox* Sprite::getCollisionBox()
-{
-  return &spriteCollisionBox;
-}
-
-bool Sprite::isInCollision(CollisionBox* box)
-{
-  return spriteCollisionBox.check(box);
-}
-
-void Sprite::setTexture(Texture nTexture)
-{
-  spriteTexture = nTexture;
-}
-
-void Sprite::setPosition(Vector2f nPos)
-{
-  pos.x = nPos.x;pos.y = nPos.y;
-  if (autoUpdateCollision)
-    spriteCollisionBox.setPosition(Vector2f(pos.x, pos.y));
-  updateVBO();
-}
-
-Vector2f Sprite::getPosition()
-{
-  return pos;
-}
-
-void Sprite::setSize(Vector2f nSize)
-{
-  size.x = nSize.x; size.y = nSize.y;
-  if(autoUpdateCollision)
-    spriteCollisionBox.setSize(Vector2f(size.x, size.y));
-  updateVBO();
-}
-
-Vector2f Sprite::getSize()
-{
-  return size;
-}
-
-void Sprite::setOrigin(Vector2f nOrigin)
-{
-  origin.x = nOrigin.x; origin.y = nOrigin.y; 
-  if (autoUpdateCollision)
-    spriteCollisionBox.setOrigin(Vector2f(origin.x, origin.y));
-  updateVBO();
-}
-
-void Sprite::move(Vector2f vecM)
-{
-  pos.x += vecM.x; pos.y += vecM.y;
-  if (autoUpdateCollision)
-    spriteCollisionBox.move(vecM);
-  updateVBO();
-}
-
-Vector2f Sprite::getOrigin()
-{
-  return origin;
-}
-
-void Sprite::setAutoUpdateCollision(bool etat)
-{
-  autoUpdateCollision = etat;
-}
-
-void Sprite::setRGBFilterState(bool etat)
-{
-  isRGBFilter = etat;
-}
-
-void Sprite::setRGBFilter(Vector3i nRGB)
-{
-  RGBFilter = nRGB;
-  updateVBORGB();
-}
