@@ -9,7 +9,7 @@ VBO::VBO(GLfloat* vertices, GLsizeiptr size, GLenum typeVBO)
 }
 
 // Binds the VBO
-void VBO::Bind()
+void VBO::Bind() const
 {
 	glBindBuffer(GL_ARRAY_BUFFER, ID);
 }

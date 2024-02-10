@@ -9,7 +9,7 @@ EBO::EBO(GLuint* indices, GLsizeiptr size)
 }
 
 // Binds the EBO
-void EBO::Bind()
+void EBO::Bind() const
 {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ID);
 }

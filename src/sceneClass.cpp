@@ -5,6 +5,7 @@ Scene::Scene()
 {
   ambiantLightLoc = sceneShader.getUniformLoc("ambiantLight");
   ambiantLightValue = 1.0f;
+  renderModeLoc = sceneShader.getUniformLoc("renderMode");
 }
 
 void Scene::Use()
@@ -16,4 +17,9 @@ void Scene::Use()
 void Scene::Delete()
 {
   sceneShader.Delete();
+}
+
+void Scene::Draw(BbopDrawable& spr)
+{
+  spr.Draw(renderModeLoc);
 }

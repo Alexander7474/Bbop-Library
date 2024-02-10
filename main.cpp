@@ -5,7 +5,7 @@
 //#include <stdio.h>
 //#include <stdlib.h>
 
-//#include "include/bbopfunc.h"
+//#include "include/bbopGlobal.h"
 #include "include/spriteClass.h"
 #include "include/textureClass.h"
 #include "include/sceneClass.h"
@@ -56,8 +56,8 @@ int main() {
   cout << "Window size: " << WINDOW_X << "x" << WINDOW_Y << endl;
   // Initialisation Fin ##############################################################################
   //creation du sprite
-  Sprite* testspr = new Sprite("imgTesting/mario.png", window);
-  testspr->setSize(Vector2f(200.0f, 220.0f));
+  Sprite testspr("imgTesting/mario.png", window);
+  testspr.setSize(Vector2f(200.0f, 220.0f));
   double speed = 10.0f;
   //creation de la sceneClass
   Scene defaultScene;
@@ -90,39 +90,39 @@ int main() {
     //FPS calc end #############################################
 		
     if(glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS){
-      testspr->move(Vector2f(speed,0.0f)); 
+      testspr.move(Vector2f(speed,0.0f)); 
     }
     if(glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS){
-      testspr->move(Vector2f(-speed,0.0f)); 
+      testspr.move(Vector2f(-speed,0.0f)); 
     }
     if(glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS){
-      testspr->move(Vector2f(0.0f,-speed)); 
+      testspr.move(Vector2f(0.0f,-speed)); 
     }
     if(glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS){
-      testspr->move(Vector2f(0.0f,speed)); 
+      testspr.move(Vector2f(0.0f,speed)); 
     }
     if(glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS){
-      testspr->setSize(Vector2f(testspr->getSize().x+speed, testspr->getSize().y+speed));
+      testspr.setSize(Vector2f(testspr.getSize().x+speed, testspr.getSize().y+speed));
     }
     if(glfwGetKey(window, GLFW_KEY_N) == GLFW_PRESS){
-      testspr->setSize(Vector2f(testspr->getSize().x-speed, testspr->getSize().y-speed));
+      testspr.setSize(Vector2f(testspr.getSize().x-speed, testspr.getSize().y-speed));
     }
     if(glfwGetKey(window, GLFW_KEY_H) == GLFW_PRESS){
-      testspr->setOrigin(Vector2f(testspr->getOrigin().x+1.0f, testspr->getOrigin().y+1.0f));
+      testspr.setOrigin(Vector2f(testspr.getOrigin().x+1.0f, testspr.getOrigin().y+1.0f));
     }
     if(glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS){
-      testspr->setOrigin(Vector2f(testspr->getOrigin().x-1.0f, testspr->getOrigin().y-1.0f));
+      testspr.setOrigin(Vector2f(testspr.getOrigin().x-1.0f, testspr.getOrigin().y-1.0f));
     }
     if(glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS){
-      testspr->setTexture(Texture("imgTesting/ario.png"));
+      testspr.setTexture(Texture("imgTesting/ario.png"));
     }
     // Specify the color of the background
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		// Clean the back buffer and assign the new color to it
 		glClear(GL_COLOR_BUFFER_BIT);
-    //testspr->setPosition(testspr->getPositionX()+0.5f, testspr->getPositionY()+0.5f);
+    //testspr.setPosition(testspr.getPositionX()+0.5f, testspr.getPositionY()+0.5f);
     defaultScene.Use();
-    testspr->Draw(); 
+    defaultScene.Draw(testspr); 
     //Check d'erreur
     GLenum error = glGetError();
     if (error != GL_NO_ERROR) {
@@ -137,7 +137,7 @@ int main() {
 	// Delete window before ending the program
 	glfwDestroyWindow(window);
   // Terminate GLFW before ending the program
-  testspr->Delete();
+  testspr.Delete();
   defaultScene.Delete();
   cout << "Session terminated, avg fps: " << totalFps/glfwGetTime() << endl;
 	glfwTerminate();

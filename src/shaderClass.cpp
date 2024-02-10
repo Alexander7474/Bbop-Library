@@ -77,7 +77,7 @@ GLuint Shader::getID()
   return ID;
 }
 
-void Shader::Activate()
+void Shader::Activate() const
 {
 	glUseProgram(ID);
 }

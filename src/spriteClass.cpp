@@ -62,10 +62,11 @@ void Sprite::updateVBO()
   spriteVBO.update(spriteVertices, sizeof(spriteVertices));
 }
 
-void Sprite::Draw() 
+void Sprite::Draw(GLint renderModeLoc) const 
 {
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+  glUniform1i(renderModeLoc, BIBIBOP_SHADER_MODE_TEXTURE);
   spriteTexture.Bind();
   spriteVAO.Bind();  
   glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);

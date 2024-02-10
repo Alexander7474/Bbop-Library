@@ -16,7 +16,7 @@ void VAO::LinkVBO(VBO& VBO, GLuint layout, GLuint vecN, GLuint strideN, GLuint j
 }
 
 // Binds the VAO
-void VAO::Bind()
+void VAO::Bind() const
 {
 	glBindVertexArray(ID);
 }

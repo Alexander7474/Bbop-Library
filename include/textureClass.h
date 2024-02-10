@@ -12,7 +12,7 @@ class Texture
 public:
   Texture(const char* textureFileName);
   
-  void Bind();
+  void Bind() const;
   void Unbind();
   void Delete();
   int getWidth();

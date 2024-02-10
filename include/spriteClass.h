@@ -7,18 +7,19 @@
 #include "textureClass.h"
 #include "collisonBoxClass.h"
 #include "bbopMathClass.h"
+#include "bbopGlobal.h"
 #include "VAO.h"
 #include "VBO.h"
 #include "EBO.h"
 
 using namespace std;
 
-class Sprite
+class Sprite : public BbopDrawable
 {
 public:
   Sprite(const char* textureFileName, GLFWwindow* win);
 
-  void Draw();
+  void Draw(GLint renderModeLoc) const override;
   void Delete();
   void setPosition(Vector2f nPos);
   Vector2f getPosition();

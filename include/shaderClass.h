@@ -9,7 +9,7 @@
 #include<iostream>
 #include<cerrno>
 
-#include "bbopfunc.h"
+#include "bbopGlobal.h"
 
 using namespace std;
 
@@ -26,7 +26,7 @@ public:
   void setInt(const GLchar* varName, GLint value);
 	void setFloat(const GLchar* varName, GLfloat value);
   void setBool(const GLchar* varName, GLboolean value);
-  void Activate();
+  void Activate() const;
 	void Delete();
 };
 #endif

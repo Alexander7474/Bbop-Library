@@ -1,5 +1,10 @@
-#include "../include/bbopfunc.h"
+#include "../include/bbopGlobal.h"
 #include <GLFW/glfw3.h>
+
+int BIBIBOP_SHADER_MODE_TEXTURE = 0;
+int BIBIBOP_SHADER_MODE_COLOR = 1;
+int BIBIBOP_SHADER_MODE_MIX = 2;
+Vector2i BIBIBOP_WINDOW_SIZE(956, 1044); 
 
 void keyCallback(GLFWwindow *window, int key, int scancode, int action, int mods){
   
@@ -20,3 +25,4 @@ string getFileData(const char* filename)
 	}
 	throw(errno);
 }
+

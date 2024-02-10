@@ -14,7 +14,7 @@ public:
 	VBO(GLfloat* vertices, GLsizeiptr size, GLenum typeVBO);
 
 	// Binds the VBO
-	void Bind();
+	void Bind() const;
 	// Unbinds the VBO
 	void Unbind();
 	// Deletes the VBO

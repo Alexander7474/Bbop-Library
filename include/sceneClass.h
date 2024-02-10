@@ -9,6 +9,7 @@
 
 #include "spriteClass.h"
 #include "shaderClass.h"
+#include "bbopGlobal.h"
 
 using namespace std;
 
@@ -19,10 +20,12 @@ public:
 
   void Use();
   void Delete();
+  void Draw(BbopDrawable& spr);
 private:
   Shader sceneShader;
   GLfloat ambiantLightValue;
   GLint ambiantLightLoc;
+  GLint renderModeLoc;
 };
 
 #endif // !SCENE_CLASS_H
