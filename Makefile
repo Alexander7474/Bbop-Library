@@ -2,7 +2,7 @@ CC = g++
 CFLAGS = -std=c++11 -Wall
 LIBS = -lglfw -lGLEW -lGL
 
-SRCS = main.cpp src/bbopMathClass.cpp src/bbopGlobal.cpp src/sceneClass.cpp src/shaderClass.cpp src/textureClass.cpp src/VBO.cpp src/VAO.cpp src/EBO.cpp src/spriteClass.cpp src/collisionBoxClass.cpp src/shapeClass.cpp
+SRCS = main.cpp src/BBOP/Graphics/bbopMathClass.cpp src/BBOP/Graphics/bbopGlobal.cpp src/BBOP/Graphics/sceneClass.cpp src/BBOP/Graphics/shaderClass.cpp src/BBOP/Graphics/textureClass.cpp src/BBOP/Graphics/VBO.cpp src/BBOP/Graphics/VAO.cpp src/BBOP/Graphics/EBO.cpp src/BBOP/Graphics/spriteClass.cpp src/BBOP/Graphics/collisionBoxClass.cpp src/BBOP/Graphics/shapeClass.cpp
 
 OBJS = $(SRCS:.cpp=.o)
 

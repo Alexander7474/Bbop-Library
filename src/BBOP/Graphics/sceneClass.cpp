@@ -1,4 +1,4 @@
-#include "../include/sceneClass.h"
+#include "../../../include/BBOP/Graphics/sceneClass.h"
 
 Scene::Scene()
   : sceneShader("shaders/defaultVertex.vert", "shaders/defaultFragment.frag")

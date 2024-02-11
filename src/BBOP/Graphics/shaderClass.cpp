@@ -1,4 +1,4 @@
-#include "../include/shaderClass.h"
+#include "../../../include/BBOP/Graphics/shaderClass.h"
 
 using namespace std;
 

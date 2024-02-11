@@ -5,12 +5,7 @@
 //#include <stdio.h>
 //#include <stdlib.h>
 
-#include "include/bbopGlobal.h"
-#include "include/spriteClass.h"
-#include "include/textureClass.h"
-#include "include/sceneClass.h"
-#include "include/bbopMathClass.h"
-#include "include/shapeClass.h"
+#include "include/BBOP/Graphics.h"
 
 using namespace std;
 

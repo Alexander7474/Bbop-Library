@@ -1,4 +1,4 @@
-#include "../include/spriteClass.h"
+#include "../../../include/BBOP/Graphics/spriteClass.h"
 
 Sprite::Sprite(const char* textureFileName, GLFWwindow* win)
   : spriteTexture(textureFileName),

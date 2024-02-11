@@ -1,4 +1,4 @@
-#include "../include/textureClass.h"
+#include "../../../include/BBOP/Graphics/textureClass.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb/stb_image.h>

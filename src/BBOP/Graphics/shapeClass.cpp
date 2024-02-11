@@ -1,4 +1,4 @@
-#include "../include/shapeClass.h"
+#include "../../../include/BBOP/Graphics/shapeClass.h"
 
 Shape::Shape(GLfloat* vertices, GLsizeiptr verticesSize, GLuint* indices, GLsizeiptr indicesSize)
   : shapeVBO(vertices, verticesSize, GL_DYNAMIC_DRAW),
