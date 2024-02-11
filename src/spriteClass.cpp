@@ -8,7 +8,7 @@ Sprite::Sprite(const char* textureFileName, GLFWwindow* win)
     pos(0.0f,0.0f),
     size((float)spriteTexture.getWidth(), (float)spriteTexture.getHeight()),
     origin(0.0f, 0.0f),
-    RGBFilter(255,255,255),
+    RGBFilter(255.0f,255.0f,255.0f),
     spriteCollisionBox(pos, origin, size)
 {
   isRGBFilter = false;
@@ -68,13 +68,13 @@ void Sprite::updateVBORGB()
 {
   // color change ########################################
   //top right
-  spriteVertices[3] = RGBFilter.x/255; spriteVertices[4] = RGBFilter.y/255; spriteVertices[5] = RGBFilter.z/255;
+  spriteVertices[3] = RGBFilter.x/255.0f; spriteVertices[4] = RGBFilter.y/255.0f; spriteVertices[5] = RGBFilter.z/255.0f;
   //botton right
-  spriteVertices[11] = RGBFilter.x/255; spriteVertices[12] = RGBFilter.y/255; spriteVertices[13] = RGBFilter.z/255;
+  spriteVertices[11] = RGBFilter.x/255.0f; spriteVertices[12] = RGBFilter.y/255.0f; spriteVertices[13] = RGBFilter.z/255.0f;
   //bottom left
-  spriteVertices[19] = RGBFilter.x/255; spriteVertices[20] = RGBFilter.y/255; spriteVertices[21] = RGBFilter.z/255;
+  spriteVertices[19] = RGBFilter.x/255.0f; spriteVertices[20] = RGBFilter.y/255.0f; spriteVertices[21] = RGBFilter.z/255.0f;
   //top left
-  spriteVertices[27] = RGBFilter.x/255; spriteVertices[28] = RGBFilter.y/255; spriteVertices[29] = RGBFilter.z/255;
+  spriteVertices[27] = RGBFilter.x/255.0f; spriteVertices[28] = RGBFilter.y/255.0f; spriteVertices[29] = RGBFilter.z/255.0f;
   spriteVBO.update(spriteVertices, sizeof(spriteVertices));
 }
 

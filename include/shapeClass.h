@@ -17,12 +17,15 @@ public:
   
   virtual void buildVAO() = 0;
   virtual void updateVBO() = 0;
+  virtual void updateVBORGB() = 0;
   Vector2f getSize();
   void setSize(Vector2f nSize);
   Vector2f getPosition();
   void setPosition(Vector2f nPos);
   Vector2f getOrigin();
   void setOrigin(Vector2f nOrigin);
+  Vector3i getColor();
+  void setColor(Vector3i nRGB);
 protected:
   VAO shapeVAO;
   VBO shapeVBO;
@@ -30,6 +33,7 @@ protected:
   Vector2f pos;
   Vector2f size;
   Vector2f origin;
+  Vector3i RGB;
 };
 
 class RectangleShape : public Shape
@@ -39,6 +43,7 @@ public:
   
   void buildVAO() override;
   void updateVBO() override;
+  void updateVBORGB() override;
   void Draw(GLint renderModeLoc) const override;
 private:
   GLfloat vertices[24];
