@@ -12,13 +12,9 @@ Sprite::Sprite(const char* textureFileName, GLFWwindow* win)
     spriteCollisionBox(pos, origin, size)
 {
   isRGBFilter = false;
-  //initialisation des vertices et des indices a 0.0f avant de build le vao
-  for(int i = 0; i < (int)(sizeof(spriteVertices)/sizeof(GLfloat)); i++)
-    spriteVertices[i] = 0.0f;
-  for(int i = 0; i < (int)(sizeof(spriteIndices)/sizeof(GLuint)); i++)
-    spriteIndices[i] = 0;
-  // Build du vao
+    // Build du vao
   glfwGetWindowSize(spriteWindow, &windowX, &windowY);
+  //construtiopn du VAO en fontion de la position du sprite, de  sa taille et de la taille de la fenetre
   buildVAO();
   autoUpdateCollision = false;
   cout << "Sprite created with texture " << textureFileName << endl;
@@ -26,7 +22,11 @@ Sprite::Sprite(const char* textureFileName, GLFWwindow* win)
 
 void Sprite::buildVAO()
 {
-  //construtiopn du VAO en fontion de la position du sprite, de  sa taille et de la taille de la fenetre
+  //initialisation des vertices et des indices a 0.0f avant de build le vao
+  for(int i = 0; i < (int)(sizeof(spriteVertices)/sizeof(GLfloat)); i++)
+    spriteVertices[i] = 0.0f;
+  for(int i = 0; i < (int)(sizeof(spriteIndices)/sizeof(GLuint)); i++)
+    spriteIndices[i] = 0;
   // init sprite and texture coordinate ########################################
   //top right
   spriteVertices[0] = ((pos.x-origin.x+size.x)/(windowX/2.0f))-1.0f; spriteVertices[1] = ((-pos.y+origin.y)/(windowY/2.0f))+1.0f;

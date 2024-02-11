@@ -1,75 +1,92 @@
 #include "../include/shapeClass.h"
 
-Sprite::Sprite(const char* textureFileName, GLFWwindow* win)
-  : spriteTexture(textureFileName),
-    spriteVBO(spriteVertices, sizeof(spriteVertices), GL_DYNAMIC_DRAW),
-    spriteEBO(spriteIndices, sizeof(spriteIndices)),
-    spriteWindow(win),
-    pos(0.0f,0.0f),
-    size((float)spriteTexture.getWidth(), (float)spriteTexture.getHeight()),
-    origin(0.0f, 0.0f),
-    spriteCollisionBox(pos, origin, size)
+Shape::Shape(GLfloat* vertices, GLsizeiptr verticesSize, GLuint* indices, GLsizeiptr indicesSize)
+  : shapeVBO(vertices, verticesSize, GL_DYNAMIC_DRAW),
+    shapeEBO(indices, indicesSize),
+    pos(0.0f, 0.0f),
+    size(0.0f, 0.0f),
+    origin(0.0f, 0.0f) 
+{}
+
+void Shape::setSize(Vector2f nSize)
 {
-  //initialisation des vertices et des indices a 0.0f avant de build le vao
-  for(int i = 0; i < (int)(sizeof(spriteVertices)/sizeof(GLfloat)); i++)
-    spriteVertices[i] = 0.0f;
-  for(int i = 0; i < (int)(sizeof(spriteIndices)/sizeof(GLuint)); i++)
-    spriteIndices[i] = 0;
-  // Build du vao
-  glfwGetWindowSize(spriteWindow, &windowX, &windowY);
+  size = nSize;
+  updateVBO();
+}
+
+void Shape::setPosition(Vector2f nPos)
+{
+  pos = nPos;
+  updateVBO();
+}
+
+void Shape::setOrigin(Vector2f nOrigin)
+{
+  origin = nOrigin;
+  updateVBO();
+}
+
+Vector2f Shape::getSize()
+{
+  return size;
+}
+
+Vector2f Shape::getOrigin()
+{
+  return origin;
+}
+
+Vector2f Shape::getPosition()
+{
+  return pos;
+}
+
+RectangleShape::RectangleShape()
+  : Shape(vertices, sizeof(vertices), indices, sizeof(indices))
+{
+  size.x = 500.0f, size.y = 500.0f;
   buildVAO();
-  autoUpdateCollision = false;
-  cout << "Sprite created with texture " << textureFileName << endl;
 }
 
-void Sprite::buildVAO()
+void RectangleShape::buildVAO()
 {
-  //construtiopn du VAO en fontion de la position du sprite, de  sa taille et de la taille de la fenetre
-  // init sprite and texture coordinate ########################################
+  for(int i = 0; i < 24; i++)
+    vertices[i] = 0.0f;
+  for(int i = 0; i < 6; i++)
+    indices[i] = 0;
+  //construtiopn du VAO fontion de la position du rectangle de sa taille et de la taille de la fenetre
+  // init coordinate ########################################
   //top right
-  spriteVertices[0] = ((pos.x-origin.x+size.x)/(windowX/2.0f))-1.0f; spriteVertices[1] = ((-pos.y+origin.y)/(windowY/2.0f))+1.0f;
+  vertices[0] = ((pos.x-origin.x+size.x)/(BIBIBOP_WINDOW_SIZE.x/2.0f))-1.0f; vertices[1] = ((-pos.y+origin.y)/(BIBIBOP_WINDOW_SIZE.y/2.0f))+1.0f;
+  vertices[3] = 1.0f; vertices[4] = 1.0f; vertices[5] = 1.0f;
   //botton right
-  spriteVertices[8] = ((pos.x-origin.x+size.x)/(windowX/2.0f))-1.0f; spriteVertices[9] = ((-pos.y+origin.y-size.y)/(windowY/2.0f))+1.0f;
+  vertices[6] = ((pos.x-origin.x+size.x)/(BIBIBOP_WINDOW_SIZE.x/2.0f))-1.0f; vertices[7] = ((-pos.y+origin.y-size.y)/(BIBIBOP_WINDOW_SIZE.y/2.0f))+1.0f;
+  vertices[9] = 1.0f; vertices[10] = 1.0f; vertices[11] = 1.0f;
   //bottom left
-  spriteVertices[16] = ((pos.x-origin.x)/(windowX/2.0f))-1.0f; spriteVertices[17] = ((-pos.y+origin.y-size.y)/(windowY/2.0f))+1.0f;
+  vertices[12] = ((pos.x-origin.x)/(BIBIBOP_WINDOW_SIZE.x/2.0f))-1.0f; vertices[13] = ((-pos.y+origin.y-size.y)/(BIBIBOP_WINDOW_SIZE.y/2.0f))+1.0f;
+  vertices[15] = 1.0f; vertices[16] = 1.0f; vertices[17] = 1.0f;
   //top left
-  spriteVertices[24] = ((pos.x-origin.x)/(windowX/2.0f))-1.0f; spriteVertices[25] = ((-pos.y+origin.y)/(windowY/2.0f))+1.0f;
-  //texture coo
-  spriteVertices[6] = 1.0f;spriteVertices[7] = 1.0f;spriteVertices[14] = 1.0f;spriteVertices[31] = 1.0f;
-  spriteIndices[0] = 0;spriteIndices[1] = 1;spriteIndices[2] = 3;spriteIndices[3] = 1;spriteIndices[4] = 2;spriteIndices[5] = 3;
-  spriteVAO.Bind();
-  spriteVBO.update(spriteVertices, sizeof(spriteVertices));
-  spriteEBO.update(spriteIndices, sizeof(spriteIndices));
-  spriteVAO.LinkVBO(spriteVBO, 0, 3, 8, 0);
-  spriteVAO.LinkVBO(spriteVBO, 1, 3, 8, 3);
-  spriteVAO.LinkVBO(spriteVBO, 2, 2, 8, 6);
-  spriteVAO.Unbind();
-  spriteVBO.Unbind();
-  spriteEBO.Unbind();
+  vertices[18] = ((pos.x-origin.x)/(BIBIBOP_WINDOW_SIZE.x/2.0f))-1.0f; vertices[19] = ((-pos.y+origin.y)/(BIBIBOP_WINDOW_SIZE.y/2.0f))+1.0f;
+  vertices[21] = 1.0f; vertices[22] = 1.0f; vertices[23] = 1.0f;
+  indices[0] = 0;indices[1] = 1;indices[2] = 3;indices[3] = 1;indices[4] = 2;indices[5] = 3;
+  shapeVAO.Bind();  
+  shapeVBO.update(vertices, sizeof(vertices));
+  shapeEBO.update(indices, sizeof(indices));
+  shapeVAO.LinkVBO(shapeVBO, 0, 3, 6, 0);
+  shapeVAO.LinkVBO(shapeVBO, 1, 3, 6, 3);
+  shapeVAO.Unbind();
+  shapeVBO.Unbind();
+  shapeEBO.Unbind();
 }
 
-void Sprite::updateVBO()
+void RectangleShape::Draw(GLint renderModeLoc) const
 {
-  // init sprite and texture coordinate ########################################
-  //top right
-  spriteVertices[0] = ((pos.x-origin.x+size.x)/(windowX/2.0f))-1.0f; spriteVertices[1] = ((-pos.y+origin.y)/(windowY/2.0f))+1.0f;
-  //botton right
-  spriteVertices[8] = ((pos.x-origin.x+size.x)/(windowX/2.0f))-1.0f; spriteVertices[9] = ((-pos.y+origin.y-size.y)/(windowY/2.0f))+1.0f;
-  //bottom left
-  spriteVertices[16] = ((pos.x-origin.x)/(windowX/2.0f))-1.0f; spriteVertices[17] = ((-pos.y+origin.y-size.y)/(windowY/2.0f))+1.0f;
-  //top left
-  spriteVertices[24] = ((pos.x-origin.x)/(windowX/2.0f))-1.0f; spriteVertices[25] = ((-pos.y+origin.y)/(windowY/2.0f))+1.0f;
-  spriteVBO.update(spriteVertices, sizeof(spriteVertices));
-}
-
-void Sprite::Draw(GLint renderModeLoc) const 
-{
-  glEnable(GL_BLEND);
-  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-  glUniform1i(renderModeLoc, BIBIBOP_SHADER_MODE_TEXTURE);
-  spriteTexture.Bind();
-  spriteVAO.Bind();  
+  glUniform1i(renderModeLoc, BIBIBOP_SHADER_MODE_COLOR);
+  shapeVAO.Bind();  
   glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }
 
+void RectangleShape::updateVBO()
+{
 
+}

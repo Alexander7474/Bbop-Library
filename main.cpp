@@ -5,12 +5,12 @@
 //#include <stdio.h>
 //#include <stdlib.h>
 
-//#include "include/bbopGlobal.h"
 #include "include/bbopGlobal.h"
 #include "include/spriteClass.h"
 #include "include/textureClass.h"
 #include "include/sceneClass.h"
 #include "include/bbopMathClass.h"
+#include "include/shapeClass.h"
 
 using namespace std;
 
@@ -57,6 +57,7 @@ int main() {
   Sprite testspr("imgTesting/mario.png", window);
   testspr.setSize(Vector2f(200.0f, 220.0f));
   double speed = 10.0f;
+  RectangleShape testshape;
   //creation de la sceneClass
   Scene defaultScene;
   //FPS counter
@@ -120,7 +121,7 @@ int main() {
 		glClear(GL_COLOR_BUFFER_BIT);
     //testspr.setPosition(testspr.getPositionX()+0.5f, testspr.getPositionY()+0.5f);
     defaultScene.Use();
-    defaultScene.Draw(testspr); 
+    defaultScene.Draw(testshape);
     //Check d'erreur
     GLenum error = glGetError();
     if (error != GL_NO_ERROR) {

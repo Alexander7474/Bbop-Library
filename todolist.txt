@@ -13,4 +13,6 @@ ajout d'effets de lumière
 ajout de class text
 optimisation du tous sous forme de package unique
 utiliser un var global pour la taille de la fenetre
+passer certaine variable par reference pour eviter les duplication
 marquer comme "const" les method qui ne modifie pas les objet pour optimise
+gerer les fuites de memoire et les destructeurs
