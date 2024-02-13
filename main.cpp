@@ -1,12 +1,12 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
-#include <vector>
 //#include <cmath>
 //#include <stdio.h>
 //#include <stdlib.h>
 
 #include "include/BBOP/Graphics.h"
+#include "include/BBOP/Performance/benchmark.h"
 
 using namespace std;
 
@@ -58,6 +58,7 @@ int main() {
   double totalFps = 0.0;
   //FPS end init #######
   // Initialisation Fin ##############################################################################
+  Scene defaultScene;
   // Main while loop
 	while (!glfwWindowShouldClose(window))
 	{
@@ -84,7 +85,7 @@ int main() {
     ///code zone
     //////////////////////////////////////////////////////////////
 
-
+    bbopBenchMark(defaultScene);
 
     //////////////////////////////////////////////////////////////
     //Check d'erreur

@@ -1,5 +1,4 @@
 #include "../../../include/BBOP/Graphics/bbopGlobal.h"
-#include <GLFW/glfw3.h>
 
 int BIBIBOP_SHADER_MODE_TEXTURE = 0;
 int BIBIBOP_SHADER_MODE_COLOR = 1;
