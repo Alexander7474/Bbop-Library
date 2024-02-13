@@ -26,6 +26,8 @@ public:
   void setOrigin(Vector2f nOrigin);
   Vector3i getColor();
   void setColor(Vector3i nRGB);
+  float getRotation();
+  void setRotation(float nRotation);
 protected:
   VAO shapeVAO;
   VBO shapeVBO;
@@ -34,6 +36,7 @@ protected:
   Vector2f size;
   Vector2f origin;
   Vector3i RGB;
+  float rotation;
 };
 
 class RectangleShape : public Shape

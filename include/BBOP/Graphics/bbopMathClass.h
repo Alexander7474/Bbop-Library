@@ -1,6 +1,8 @@
 #ifndef MATH_CLASS_H
 #define MATH_CLASS_H
 
+#include <cmath>
+
 class Vector2i
 {
 public:
@@ -34,5 +36,7 @@ public:
   int x,y,z;
   Vector3i(int nx, int ny, int nz);
 };
+
+Vector2f rotatePoint(Vector2f point, Vector2f origin, float angle);
 
 #endif // ! MATH_CLASS_H

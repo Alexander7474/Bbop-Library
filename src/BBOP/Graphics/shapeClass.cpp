@@ -33,6 +33,11 @@ void Shape::setColor(Vector3i nRGB)
   updateVBORGB();
 }
 
+void Shape::setRotation(float nRotation)
+{
+  rotation = nRotation;
+}
+
 Vector2f Shape::getSize()
 {
   return size;
@@ -51,6 +56,11 @@ Vector2f Shape::getPosition()
 Vector3i Shape::getColor()
 {
   return RGB;
+}
+
+float Shape::getRotation()
+{
+  return rotation;
 }
 
 RectangleShape::RectangleShape()
