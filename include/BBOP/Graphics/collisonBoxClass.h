@@ -17,7 +17,6 @@ public:
   Vector2f getSize();
   void setOrigin(Vector2f nOrigin);
   Vector2f getOrigin();
-  void move(Vector2f vecM);
   bool check(CollisionBox* box);
 private:
   Vector2f pos;

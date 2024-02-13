@@ -1,6 +1,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include <vector>
 //#include <cmath>
 //#include <stdio.h>
 //#include <stdlib.h>
@@ -49,11 +50,7 @@ int main() {
   cout << "Window size: " << BIBIBOP_WINDOW_SIZE.x << "x" << BIBIBOP_WINDOW_SIZE.y << endl;
   // Initialisation Fin ##############################################################################
   //creation du sprite
-  RectangleShape testshape;
-  testshape.setPosition(Vector2f(BIBIBOP_WINDOW_SIZE.x/2.0f,BIBIBOP_WINDOW_SIZE.y/2.0f));
-  testshape.setSize(Vector2f(200.0f,200.0f));
-  testshape.setOrigin(Vector2f(100.0f,100.0f));
-  testshape.setColor(Vector3i(147,71,159));
+  vector<Sprite> spriteList;
   //creation de la sceneClass
   Scene defaultScene;
   //FPS counter
@@ -89,7 +86,12 @@ int main() {
 		glClear(GL_COLOR_BUFFER_BIT);
     //testspr.setPosition(testspr.getPositionX()+0.5f, testspr.getPositionY()+0.5f);
     defaultScene.Use();
-    defaultScene.Draw(testshape);
+    spriteList.push_back(Sprite("dontcare"));
+    for(unsigned int i = 0; i< spriteList.size(); i++){
+      spriteList[i].setPosition(Vector2f(BIBIBOP_WINDOW_SIZE.x/2.0f, BIBIBOP_WINDOW_SIZE.y/2.0f));
+      defaultScene.Draw(spriteList[i]);
+    }
+    cout << spriteList.size() << endl;
     //Check d'erreur
     GLenum error = glGetError();
     if (error != GL_NO_ERROR) {
