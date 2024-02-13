@@ -23,7 +23,7 @@ bool CollisionBox::check(CollisionBox* box)
 
 void CollisionBox::setPosition(Vector2f nPos)
 {
-  pos.x = nPos.x;pos.y = nPos.y; 
+  pos = nPos;
 }
 
 Vector2f CollisionBox::getPosition()
@@ -33,7 +33,7 @@ Vector2f CollisionBox::getPosition()
 
 void CollisionBox::setSize(Vector2f nSize)
 {
-  size.x = nSize.x;size.y = nSize.y;
+  size = nSize;
 }
 
 Vector2f CollisionBox::getSize()
@@ -43,16 +43,11 @@ Vector2f CollisionBox::getSize()
 
 void CollisionBox::setOrigin(Vector2f nOrigin)
 {
-  origin.x = nOrigin.x;origin.y = nOrigin.y; 
+  origin = nOrigin;
 }
 
 Vector2f CollisionBox::getOrigin()
 {
   return origin;
-}
-
-void CollisionBox::move(Vector2f vecM)
-{
-  pos.x += vecM.x; pos.y += vecM.y;
 }
 

@@ -1,6 +1,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include <vector>
 //#include <cmath>
 //#include <stdio.h>
 //#include <stdlib.h>
@@ -47,15 +48,6 @@ int main() {
   cout << "OpenGL Vendor: " << vendor << endl;
   cout << "OpenGL Renderer: " << renderer << endl;
   cout << "Window size: " << BIBIBOP_WINDOW_SIZE.x << "x" << BIBIBOP_WINDOW_SIZE.y << endl;
-  // Initialisation Fin ##############################################################################
-  //creation du sprite
-  RectangleShape testshape;
-  testshape.setPosition(Vector2f(BIBIBOP_WINDOW_SIZE.x/2.0f,BIBIBOP_WINDOW_SIZE.y/2.0f));
-  testshape.setSize(Vector2f(200.0f,200.0f));
-  testshape.setOrigin(Vector2f(100.0f,100.0f));
-  testshape.setColor(Vector3i(147,71,159));
-  //creation de la sceneClass
-  Scene defaultScene;
   //FPS counter
   int nbFrames = 0;
   //double frameTarget = 1.0/60.0;
@@ -65,6 +57,7 @@ int main() {
   double delta;
   double totalFps = 0.0;
   //FPS end init #######
+  // Initialisation Fin ##############################################################################
   // Main while loop
 	while (!glfwWindowShouldClose(window))
 	{
@@ -87,9 +80,13 @@ int main() {
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		// Clean the back buffer and assign the new color to it
 		glClear(GL_COLOR_BUFFER_BIT);
-    //testspr.setPosition(testspr.getPositionX()+0.5f, testspr.getPositionY()+0.5f);
-    defaultScene.Use();
-    defaultScene.Draw(testshape);
+    //////////////////////////////////////////////////////////////
+    ///code zone
+    //////////////////////////////////////////////////////////////
+
+
+
+    //////////////////////////////////////////////////////////////
     //Check d'erreur
     GLenum error = glGetError();
     if (error != GL_NO_ERROR) {
@@ -99,12 +96,10 @@ int main() {
 		glfwSwapBuffers(window);
 		// Take care of all GLFW events
 		glfwPollEvents();
-    
 	}
 	// Delete window before ending the program
 	glfwDestroyWindow(window);
   // Terminate GLFW before ending the program
-  defaultScene.Delete();
   cout << "Session terminated, avg fps: " << totalFps/glfwGetTime() << endl;
 	glfwTerminate();
 	return 0;
