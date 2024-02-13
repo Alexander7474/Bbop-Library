@@ -7,6 +7,7 @@
 
 #include "include/BBOP/Graphics.h"
 #include "include/BBOP/Graphics/bbopGlobal.h"
+#include "include/BBOP/Graphics/bbopMathClass.h"
 #include "include/BBOP/Performance/benchmark.h"
 
 using namespace std;
@@ -61,6 +62,8 @@ int main() {
   // Initialisation Fin ##############################################################################
   Scene defaultScene;
   RectangleShape test;
+  test.setSize(Vector2f(100.0f,100.0f));
+  test.setColor(Vector3i(100,150,200));
   // Main while loop
 	while (!glfwWindowShouldClose(window))
 	{

@@ -45,15 +45,21 @@ void Sprite::buildVAO()
 
 void Sprite::updateVBO()
 {
-  // sprite coordinate change ########################################
+  //  coordinate change ########################################
+  //  vecteur taille de la fenetre
+  Vector2f w(BIBIBOP_WINDOW_SIZE.x/2.0f,BIBIBOP_WINDOW_SIZE.y/2.0f);
+  // vecteur position normalizé
+  Vector2f p(((pos.x-origin.x)/w.x)-1.0f, ((-pos.y+origin.y)/w.y)+1.0f);
+  // vecteur position normalizé avec la taille en plus
+  Vector2f ps(p.x+(size.x/w.x),p.y-(size.y/w.y));
   //top right
-  vertices[0] = ((pos.x-origin.x+size.x)/(BIBIBOP_WINDOW_SIZE.x/2.0f))-1.0f; vertices[1] = ((-pos.y+origin.y)/(BIBIBOP_WINDOW_SIZE.y/2.0f))+1.0f;
+  vertices[0] = ps.x; vertices[1] = p.y;
   //botton right
-  vertices[8] = ((pos.x-origin.x+size.x)/(BIBIBOP_WINDOW_SIZE.x/2.0f))-1.0f; vertices[9] = ((-pos.y+origin.y-size.y)/(BIBIBOP_WINDOW_SIZE.y/2.0f))+1.0f;
+  vertices[8] = ps.x; vertices[9] = ps.y;
   //bottom left
-  vertices[16] = ((pos.x-origin.x)/(BIBIBOP_WINDOW_SIZE.x/2.0f))-1.0f; vertices[17] = ((-pos.y+origin.y-size.y)/(BIBIBOP_WINDOW_SIZE.y/2.0f))+1.0f;
+  vertices[16] = p.x; vertices[17] = ps.y;
   //top left
-  vertices[24] = ((pos.x-origin.x)/(BIBIBOP_WINDOW_SIZE.x/2.0f))-1.0f; vertices[25] = ((-pos.y+origin.y)/(BIBIBOP_WINDOW_SIZE.y/2.0f))+1.0f;
+  vertices[24] = p.x; vertices[25] = p.y;
   shapeVBO.update(vertices, sizeof(vertices));
   if (autoUpdateCollision){
     spriteCollisionBox.setPosition(pos);
@@ -65,14 +71,10 @@ void Sprite::updateVBO()
 void Sprite::updateVBORGB()
 {
   // color change ########################################
-  //top right
-  vertices[3] = RGB.x/255.0f; vertices[4] = RGB.y/255.0f; vertices[5] = RGB.z/255.0f;
-  //botton right
-  vertices[11] = RGB.x/255.0f; vertices[12] = RGB.y/255.0f; vertices[13] = RGB.z/255.0f;
-  //bottom left
-  vertices[19] = RGB.x/255.0f; vertices[20] = RGB.y/255.0f; vertices[21] = RGB.z/255.0f;
-  //top left
-  vertices[27] = RGB.x/255.0f; vertices[28] = RGB.y/255.0f; vertices[29] = RGB.z/255.0f;
+  float r = RGB.x/255.0f;float g = RGB.y/255.0f;float b = RGB.z/255.0f;
+  for(int i = 0; i < 24;i+=8){
+    vertices[i+3] = r;vertices[i+4] = g; vertices[i+5] = b;
+  }
   shapeVBO.update(vertices, sizeof(vertices));
 }
 

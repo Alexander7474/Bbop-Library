@@ -112,14 +112,20 @@ void RectangleShape::Draw(GLint renderModeLoc) const
 void RectangleShape::updateVBO()
 {
   //  coordinate change ########################################
+  //  vecteur taille de la fenetre
+  Vector2f w(BIBIBOP_WINDOW_SIZE.x/2.0f,BIBIBOP_WINDOW_SIZE.y/2.0f);
+  // vecteur position normalizé
+  Vector2f p(((pos.x-origin.x)/w.x)-1.0f, ((-pos.y+origin.y)/w.y)+1.0f);
+  // vecteur position normalizé avec la taille en plus
+  Vector2f ps(p.x+(size.x/w.x),p.y-(size.y/w.y));
   //top right
-  vertices[0] = ((pos.x-origin.x+size.x)/(BIBIBOP_WINDOW_SIZE.x/2.0f))-1.0f; vertices[1] = ((-pos.y+origin.y)/(BIBIBOP_WINDOW_SIZE.y/2.0f))+1.0f;
+  vertices[0] = ps.x; vertices[1] = p.y;
   //botton right
-  vertices[6] = ((pos.x-origin.x+size.x)/(BIBIBOP_WINDOW_SIZE.x/2.0f))-1.0f; vertices[7] = ((-pos.y+origin.y-size.y)/(BIBIBOP_WINDOW_SIZE.y/2.0f))+1.0f;
+  vertices[6] = ps.x; vertices[7] = ps.y;
   //bottom left
-  vertices[12] = ((pos.x-origin.x)/(BIBIBOP_WINDOW_SIZE.x/2.0f))-1.0f; vertices[13] = ((-pos.y+origin.y-size.y)/(BIBIBOP_WINDOW_SIZE.y/2.0f))+1.0f;
+  vertices[12] = p.x; vertices[13] = ps.y;
   //top left
-  vertices[18] = ((pos.x-origin.x)/(BIBIBOP_WINDOW_SIZE.x/2.0f))-1.0f; vertices[19] = ((-pos.y+origin.y)/(BIBIBOP_WINDOW_SIZE.y/2.0f))+1.0f;
+  vertices[18] = p.x; vertices[19] = p.y;
   shapeVBO.update(vertices, sizeof(vertices));
 }
 
