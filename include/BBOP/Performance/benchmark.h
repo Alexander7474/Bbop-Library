@@ -7,6 +7,6 @@
 
 using namespace std;
 
-void bbopBenchMark(Scene& sceneToUse);
+bool bbopBenchMark(Scene& sceneToUse);
 
 #endif // ! BENCHMARK_H
