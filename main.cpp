@@ -6,6 +6,7 @@
 //#include <stdlib.h>
 
 #include "include/BBOP/Graphics.h"
+#include "include/BBOP/Graphics/bbopGlobal.h"
 #include "include/BBOP/Performance/benchmark.h"
 
 using namespace std;
@@ -59,6 +60,7 @@ int main() {
   //FPS end init #######
   // Initialisation Fin ##############################################################################
   Scene defaultScene;
+  RectangleShape test;
   // Main while loop
 	while (!glfwWindowShouldClose(window))
 	{

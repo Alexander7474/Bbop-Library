@@ -66,7 +66,7 @@ float Shape::getRotation()
 RectangleShape::RectangleShape()
   : Shape(vertices, sizeof(vertices), indices, sizeof(indices))
 {
-  size.x = 500.0f, size.y = 500.0f;
+  size.x = 50.0f, size.y = 50.0f;
   buildVAO();
 }
 
@@ -126,13 +126,9 @@ void RectangleShape::updateVBO()
 void RectangleShape::updateVBORGB()
 {
   // color change ########################################
-  //top right
-  vertices[3] = RGB.x/255.0f; vertices[4] = RGB.y/255.0f; vertices[5] = RGB.z/255.0f;
-  //botton right
-  vertices[9] = RGB.x/255.0f; vertices[10] = RGB.y/255.0f; vertices[11] = RGB.z/255.0f;
-  //bottom left
-  vertices[15] = RGB.x/255.0f; vertices[16] = RGB.y/255.0f; vertices[17] = RGB.z/255.0f;
-  //top left
-  vertices[21] = RGB.x/255.0f; vertices[22] = RGB.y/255.0f; vertices[23] = RGB.z/255.0f;
+  float r = RGB.x/255.0f;float g = RGB.y/255.0f;float b = RGB.z/255.0f;
+  for(int i = 0; i < 24;i+=6){
+    vertices[i+3] = r;vertices[i+4] = g; vertices[i+5] = b;
+  }
   shapeVBO.update(vertices, sizeof(vertices));
 }
