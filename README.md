@@ -36,7 +36,21 @@ Installation de glfw
 ```
 make && sudo make install
 ```
-
+### Installer glm
+on clone le repo glm
+```
+git clone https://github.com/glfw/glfw.git
+cd glm
+```
+Cmake avec le projet
+```
+cmake \
+    -DGLM_BUILD_TESTS=OFF \
+    -DBUILD_SHARED_LIBS=OFF \
+    -B build .
+cmake --build build -- all
+cmake --build build -- install
+```
 ## Documentation
 
 pas encore fait ¯\_(ツ)_/¯
