@@ -3,13 +3,11 @@
 Sprite::Sprite(const char* textureFileName)
   : Shape(vertices, sizeof(vertices), indices, sizeof(indices)),
     spriteTexture(textureFileName),
-    spriteCollisionBox(pos, origin, size)
+    isRGBFilter(false)
 {
-  isRGBFilter = false;
     // Build du vao
   //construtiopn du VAO en fontion de la position du sprite, de  sa taille et de la taille de la fenetre
   buildVAO();
-  autoUpdateCollision = true;
   cout << "Sprite created with texture " << textureFileName << endl;
 }
 
@@ -62,9 +60,9 @@ void Sprite::updateVBO()
   vertices[24] = p.x; vertices[25] = p.y;
   shapeVBO.update(vertices, sizeof(vertices));
   if (autoUpdateCollision){
-    spriteCollisionBox.setPosition(pos);
-    spriteCollisionBox.setSize(size);
-    spriteCollisionBox.setOrigin(origin);
+    shapeCollisionBox.setPosition(pos);
+    shapeCollisionBox.setSize(size);
+    shapeCollisionBox.setOrigin(origin);
   }
 }
 
@@ -99,16 +97,6 @@ void Sprite::Delete()
   spriteTexture.Delete();
 }
 
-CollisionBox* Sprite::getCollisionBox()
-{
-  return &spriteCollisionBox;
-}
-
-bool Sprite::isInCollision(CollisionBox* box)
-{
-  return spriteCollisionBox.check(box);
-}
-
 void Sprite::setTexture(Texture nTexture)
 {
   spriteTexture = nTexture;
@@ -118,11 +106,6 @@ void Sprite::move(Vector2f vecM)
 {
   pos.x += vecM.x; pos.y += vecM.y;
   updateVBO();
-}
-
-void Sprite::setAutoUpdateCollision(bool etat)
-{
-  autoUpdateCollision = etat;
 }
 
 void Sprite::setRGBFilterState(bool etat)

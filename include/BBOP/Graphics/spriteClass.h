@@ -27,16 +27,11 @@ public:
   void updateVBO() override;
   void updateVBORGB() override;
   void move(Vector2f vecM);
-  bool isInCollision(CollisionBox* box);
-  CollisionBox* getCollisionBox();
-  void setAutoUpdateCollision(bool etat);
   void setRGBFilterState(bool etat);
 private:
   Texture spriteTexture;
   GLfloat vertices[32];
   GLuint indices[6];
-  CollisionBox spriteCollisionBox;
-  bool autoUpdateCollision;
   bool isRGBFilter;
  };
 

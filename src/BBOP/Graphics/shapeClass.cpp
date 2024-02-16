@@ -6,7 +6,9 @@ Shape::Shape(GLfloat* vertices, GLsizeiptr verticesSize, GLuint* indices, GLsize
     pos(0.0f, 0.0f),
     size(0.0f, 0.0f),
     origin(0.0f, 0.0f),
-    RGB(255,255,255)
+    RGB(255,255,255),
+    shapeCollisionBox(pos, origin, size),
+    autoUpdateCollision(true)
 {}
 
 void Shape::setSize(Vector2f nSize)
@@ -61,6 +63,21 @@ Vector3i Shape::getColor()
 float Shape::getRotation()
 {
   return rotation;
+}
+
+CollisionBox* Shape::getCollisionBox()
+{
+  return &shapeCollisionBox;
+}
+
+bool Shape::isInCollision(CollisionBox* box)
+{
+  return shapeCollisionBox.check(box);
+}
+
+void Shape::setAutoUpdateCollision(bool etat)
+{
+  autoUpdateCollision = etat;
 }
 
 RectangleShape::RectangleShape()
@@ -127,6 +144,11 @@ void RectangleShape::updateVBO()
   //top left
   vertices[18] = p.x; vertices[19] = p.y;
   shapeVBO.update(vertices, sizeof(vertices));
+  if (autoUpdateCollision){
+    shapeCollisionBox.setPosition(pos);
+    shapeCollisionBox.setSize(size);
+    shapeCollisionBox.setOrigin(origin);
+  }
 }
 
 void RectangleShape::updateVBORGB()

@@ -6,6 +6,7 @@
 
 #include "bbopMathClass.h"
 #include "bbopGlobal.h"
+#include "collisonBoxClass.h"
 #include "VAO.h"
 #include "VBO.h"
 #include "EBO.h"
@@ -28,6 +29,9 @@ public:
   void setColor(Vector3i nRGB);
   float getRotation();
   void setRotation(float nRotation);
+  bool isInCollision(CollisionBox* box);
+  CollisionBox* getCollisionBox();
+  void setAutoUpdateCollision(bool etat); 
 protected:
   VAO shapeVAO;
   VBO shapeVBO;
@@ -36,6 +40,8 @@ protected:
   Vector2f size;
   Vector2f origin;
   Vector3i RGB;
+  CollisionBox shapeCollisionBox;
+  bool autoUpdateCollision;
   float rotation;
 };
 
