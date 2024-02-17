@@ -11,8 +11,8 @@ ajout de class pour les formes géometrique //
 ajout de filtre de couleur et autre sur les sprite et les formes //
 ajout d'effets de lumière
 ajout de class text
-optimisation du tous sous forme de package unique
-utiliser un var global pour la taille de la fenetre
+optimisation du tous sous forme de package unique x
+utiliser un var global pour la taille de la fenetre x
 passer certaine variable par reference pour eviter les duplication
 marquer comme "const" les method qui ne modifie pas les objet pour optimise
 gerer les fuites de memoire et les destructeurs
