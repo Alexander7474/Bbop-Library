@@ -1,21 +1,9 @@
 # Bibibop engine
-
-## Lancer le projet
-### Compilation:
-Make dans le dossier racine du projet
-```
-make
-```
-### Execution:
-```
-./final
-```
-
-## Installation environement dev 
-### Installer les lib nécessaires: 
+# Installation  
+## Installer les lib nécessaires: 
 ```
 sudo apt-get install libglew-dev libglfw3-dev xorg-dev
-sudo apt-get install libwayland-dev libxkbcommon-dev wayland-protocols extra-cmake-modules
+sudo apt-get install libwayland-dev libxkbcommon-dev wayland-protocols extra-cmake-modules libstb-dev
 ```
 ### Installer glfw: 
 on clone le repo glfw
@@ -50,6 +38,13 @@ cmake \
     -B build .
 cmake --build build -- all
 cmake --build build -- install
+```
+## Compiler et installer bibibop
+### !!! Attention a bien avoir installer les libs necessaires !!!
+```
+git clone https://github.com/Alexander7474/BibibopEngine.git Bibibop
+cd Bibibop
+make && sudo make install
 ```
 ## Documentation
 
