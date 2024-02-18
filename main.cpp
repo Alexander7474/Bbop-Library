@@ -1,14 +1,11 @@
+////////////////////////////////////////////////////////////////////
+//CECI N'EST QU'UN EXEMPLE POUR TESTER SI BIBIBOP EST BIEN INSTALLER
+////////////////////////////////////////////////////////////////////
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
-//#include <cmath>
-//#include <stdio.h>
-//#include <stdlib.h>
 
 #include "include/BBOP/Graphics.h"
-#include "include/BBOP/Graphics/bbopGlobal.h"
-#include "include/BBOP/Graphics/bbopMathClass.h"
-#include "include/BBOP/Performance/benchmark.h"
 
 using namespace std;
 
@@ -61,13 +58,9 @@ int main() {
   //FPS end init #######
   // Initialisation Fin ##############################################################################
   Scene defaultScene;
-  Sprite testspr("imgTesting/ario.png");
-  testspr.setSize(Vector2f(100.0f,100.0f));
-  testspr.setPosition(Vector2f(450.0f,450.0f));
   RectangleShape test;
-  test.setSize(Vector2f(5.0f,5.0f));
+  test.setSize(Vector2f(50.0f,50.0f));
   test.setColor(Vector3i(250,0,0)); 
-  test.setPosition(Vector2f(testspr.getPosition().x,testspr.getPosition().y));
   // Main while loop
 	while (!glfwWindowShouldClose(window))
 	{
@@ -93,17 +86,8 @@ int main() {
     //////////////////////////////////////////////////////////////
     ///code zone
     //////////////////////////////////////////////////////////////
-    if(glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS){
-      testspr.setRotation(testspr.getRotation()+0.1f);
-    }
-    if(glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS){
-      testspr.setOrigin(Vector2f(testspr.getOrigin().x+1.0f,testspr.getOrigin().y+1.0f));  
-    }
-    if(glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS){
-      testspr.setOrigin(Vector2f(testspr.getOrigin().x-1.0f,testspr.getOrigin().y-1.0f));  
-    }
+    
     defaultScene.Use();
-    defaultScene.Draw(testspr);
     defaultScene.Draw(test);
 
     //////////////////////////////////////////////////////////////
