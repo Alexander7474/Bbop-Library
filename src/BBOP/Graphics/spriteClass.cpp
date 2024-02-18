@@ -47,17 +47,25 @@ void Sprite::updateVBO()
   //  vecteur taille de la fenetre
   Vector2f w(BIBIBOP_WINDOW_SIZE.x/2.0f,BIBIBOP_WINDOW_SIZE.y/2.0f);
   // vecteur position normalizé
-  Vector2f p(((pos.x-origin.x)/w.x)-1.0f, ((-pos.y+origin.y)/w.y)+1.0f);
-  // vecteur position normalizé avec la taille en plus
-  Vector2f ps(p.x+(size.x/w.x),p.y-(size.y/w.y));
+  Vector2f pTL(((pos.x-origin.x)/w.x)-1.0f, ((pos.y-origin.y)/w.y)-1.0f);
+  Vector2f pTR(pTL.x+(size.x/w.x),pTL.y);
+  Vector2f pBR(pTR.x,pTL.y+(size.y/w.y));
+  Vector2f pBL(pTL.x,pBR.y);
+  //application de la rotation
+  float cosAngle = cos(rotation);
+  float sinAngle = sin(rotation);
+  pTL = Vector2f(pTL.x * cosAngle - pTL.y*sinAngle,pTL.x*sinAngle+pTL.y*cosAngle);
+  pTR = Vector2f(pTR.x * cosAngle - pTR.y*sinAngle,pTR.x*sinAngle+pTR.y*cosAngle);
+  pBR = Vector2f(pBR.x * cosAngle - pBR.y*sinAngle,pBR.x*sinAngle+pBR.y*cosAngle);
+  pBL = Vector2f(pBL.x * cosAngle - pBL.y*sinAngle,pBL.x*sinAngle+pBL.y*cosAngle);
   //top right
-  vertices[0] = ps.x; vertices[1] = p.y;
+  vertices[0] = pTR.x; vertices[1] = -pTR.y;
   //botton right
-  vertices[8] = ps.x; vertices[9] = ps.y;
+  vertices[8] = pBR.x; vertices[9] = -pBR.y;
   //bottom left
-  vertices[16] = p.x; vertices[17] = ps.y;
+  vertices[16] = pBL.x; vertices[17] = -pBL.y;
   //top left
-  vertices[24] = p.x; vertices[25] = p.y;
+  vertices[24] = pTL.x; vertices[25] = -pTL.y;
   shapeVBO.update(vertices, sizeof(vertices));
   if (autoUpdateCollision){
     shapeCollisionBox.setPosition(pos);

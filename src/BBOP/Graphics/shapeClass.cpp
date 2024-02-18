@@ -8,7 +8,8 @@ Shape::Shape(GLfloat* vertices, GLsizeiptr verticesSize, GLuint* indices, GLsize
     origin(0.0f, 0.0f),
     RGB(255,255,255),
     shapeCollisionBox(pos, origin, size),
-    autoUpdateCollision(true)
+    autoUpdateCollision(true),
+    rotation(0.0f)
 {}
 
 void Shape::setSize(Vector2f nSize)
@@ -38,6 +39,7 @@ void Shape::setColor(Vector3i nRGB)
 void Shape::setRotation(float nRotation)
 {
   rotation = nRotation;
+  updateVBO();
 }
 
 Vector2f Shape::getSize()
