@@ -1,7 +1,8 @@
 #include "../../../include/BBOP/Graphics/sceneClass.h"
+#include "../../../include/BBOP/Graphics/shaders.h"
 
 Scene::Scene()
-  : sceneShader("shaders/defaultVertex.vert", "shaders/defaultFragment.frag")
+  : sceneShader(defaultVertex, defaultFragment)
 {
   ambiantLightLoc = sceneShader.getUniformLoc("ambiantLight");
   ambiantLightValue = 1.0f;

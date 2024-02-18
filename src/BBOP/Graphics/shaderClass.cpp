@@ -2,14 +2,8 @@
 
 using namespace std;
 
-Shader::Shader(const char* vertexFile, const char* fragmentFile)
+Shader::Shader(const char* vertexSource, const char* fragmentSource)
 {
-	string vertexCode = getFileData(vertexFile);
-	string fragmentCode = getFileData(fragmentFile);
-
-	const char* vertexSource = vertexCode.c_str();
-	const char* fragmentSource = fragmentCode.c_str();
- 
 	// creation du vertexShader et recup de la reference
 	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
 	// recup u code source du shader

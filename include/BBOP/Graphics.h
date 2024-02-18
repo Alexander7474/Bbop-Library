@@ -4,6 +4,7 @@
 //Headers
 ////////////////////////
 
+#include "Graphics/shaders.h"
 #include "Graphics/lightClass.h"
 #include "Graphics/bbopGlobal.h"
 #include "Graphics/bbopMathClass.h"
