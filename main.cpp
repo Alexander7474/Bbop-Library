@@ -1,15 +1,24 @@
 ////////////////////////////////////////////////////////////////////
 //CECI N'EST QU'UN EXEMPLE POUR TESTER SI BIBIBOP EST BIEN INSTALLER
 ////////////////////////////////////////////////////////////////////
+#include <BBOP/Graphics/bbopGlobal.h>
+#include <BBOP/Graphics/shapeClass.h>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <cstdlib>
 #include <iostream>
+#include <random>
+#include <vector>
 
 #include "include/BBOP/Graphics.h"
 
 using namespace std;
 
 int main() {
+  random_device rd;
+  mt19937 gen(rd());
+  uniform_int_distribution<> distribx(0, BIBIBOP_WINDOW_SIZE.x);
+  uniform_int_distribution<> distriby(0, BIBIBOP_WINDOW_SIZE.y);
   //Initialisation Début ############################################################################
   // Initialisation de GLFW
   if (!glfwInit()) {
@@ -38,7 +47,7 @@ int main() {
       return -1;
   }
   // Désactiver la synchronisation verticale (V-Sync)
-  //glfwSwapInterval(0);
+  glfwSwapInterval(1);
   //General info
   cout << "Bibibop Engine Version 0.0.1" << endl << "Author: Alexander74" << endl << "Contact: alexandre.lanternier@outlook.fr" << endl << "License: GPL-3.0" << endl; 
   //GPU info
@@ -58,9 +67,18 @@ int main() {
   //FPS end init #######
   // Initialisation Fin ##############################################################################
   Scene defaultScene;
-  RectangleShape test;
-  test.setSize(Vector2f(50.0f,50.0f));
-  test.setColor(Vector3i(250,0,0)); 
+  vector<RectangleShape> rectList;
+  RectangleShape driverRect;
+  driverRect.setSize(Vector2f(25,25));
+  driverRect.setPosition(Vector2f(BIBIBOP_WINDOW_SIZE.x/2,BIBIBOP_WINDOW_SIZE.y/2));
+  driverRect.setColor(Vector3i(0,255,0));
+  RectangleShape apple;
+  apple.setSize(Vector2f(25,25));
+  apple.setColor(Vector3i(255,0,0));
+  apple.setPosition(Vector2f(distribx(gen),distriby(gen)));
+  int direction = 1;
+  int TARGET_FPS = 10;
+  double lastFrameTime = glfwGetTime();
   // Main while loop
 	while (!glfwWindowShouldClose(window))
 	{
@@ -86,10 +104,51 @@ int main() {
     //////////////////////////////////////////////////////////////
     ///code zone
     //////////////////////////////////////////////////////////////
-    
-    defaultScene.Use();
-    defaultScene.Draw(test);
+   defaultScene.Use();
+    defaultScene.Draw(driverRect);
+    for(int i = (int)rectList.size()-1; i >= 0; i--){
+      if (i == 0){
+        rectList[i].setPosition(driverRect.getPosition());
+      }else {
+        rectList[i].setPosition(rectList[i-1].getPosition());
+      }
+      defaultScene.Draw(rectList[i]);
+      if (driverRect.isInCollision(rectList[i].getCollisionBox())){
+        break;
+      }
+    }
 
+    defaultScene.Draw(apple);
+    if(glfwGetKey(window,GLFW_KEY_UP) == GLFW_PRESS){
+      direction = 1;
+    }else if(glfwGetKey(window,GLFW_KEY_DOWN) == GLFW_PRESS){
+      direction = 2;
+    }else if(glfwGetKey(window,GLFW_KEY_LEFT) == GLFW_PRESS){
+      direction = 3;
+    }else if(glfwGetKey(window,GLFW_KEY_RIGHT) == GLFW_PRESS){
+      direction = 4;
+    }
+
+    if (direction == 1){
+      driverRect.setPosition(Vector2f(driverRect.getPosition().x,driverRect.getPosition().y-25.0f));
+
+    }else if(direction == 2){
+      driverRect.setPosition(Vector2f(driverRect.getPosition().x,driverRect.getPosition().y+25.0f));
+
+    }else if(direction == 3){
+      driverRect.setPosition(Vector2f(driverRect.getPosition().x-25.0f,driverRect.getPosition().y));
+      
+    }else if(direction == 4){
+      driverRect.setPosition(Vector2f(driverRect.getPosition().x+25.0f,driverRect.getPosition().y));
+    }
+
+    if(driverRect.isInCollision(apple.getCollisionBox())){
+      RectangleShape newRect;
+      newRect.setSize(Vector2f(25,25));
+      newRect.setColor(Vector3i(0,255,0));
+      rectList.push_back(newRect);
+      apple.setPosition(Vector2f(distribx(gen),distriby(gen)));
+    }
     //////////////////////////////////////////////////////////////
     //Check d'erreur
     GLenum error = glGetError();
@@ -98,7 +157,19 @@ int main() {
     }
     // Swap the back buffer with the front buffer
 		glfwSwapBuffers(window);
-		// Take care of all GLFW events
+		 // Calculer le temps écoulé depuis la dernière frame
+    double currentFrameTime = glfwGetTime();
+    double deltaTime = currentFrameTime - lastFrameTime;
+
+    // Attendre si nécessaire pour atteindre le taux de rafraîchissement cible
+    while (deltaTime < 1.0 / TARGET_FPS) {
+      glfwWaitEventsTimeout((1.0 / TARGET_FPS - deltaTime) * 0.9); // Attente avec un petit marge
+      currentFrameTime = glfwGetTime();
+      deltaTime = currentFrameTime - lastFrameTime;
+    }
+    lastFrameTime = currentFrameTime;
+    
+    // Take care of all GLFW events
 		glfwPollEvents();
 	}
 	// Delete window before ending the program
