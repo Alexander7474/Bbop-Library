@@ -1,5 +1,4 @@
 #include "../../../include/BBOP/Graphics/bbopGlobal.h"
-#include <istream>
 
 int BBOP_SHADER_MODE_TEXTURE = 0;
 int BBOP_SHADER_MODE_COLOR = 1;
@@ -71,10 +70,10 @@ int bbopInit(int windowX, int windowY, const char* windowName, GLFWwindow*& wind
   return 1;
 }
 
-void bbopCleanWindow()
+void bbopCleanWindow(Vector3i rgb, float alpha)
 {
   // Specify the color of the background
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClearColor(rgb.x/255.0f, rgb.y/255.0f, rgb.z/255.0f, alpha);
 	// Clean the back buffer and assign the new color to it
 	glClear(GL_COLOR_BUFFER_BIT);    
 }

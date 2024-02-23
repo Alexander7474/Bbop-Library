@@ -18,7 +18,7 @@ int main() {
   // Main while loop
 	while (!glfwWindowShouldClose(window))
 	{
-    bbopCleanWindow();
+    bbopCleanWindow(Vector3i(255,0,0),1.0);
 
     //////////////////////////////////////////////////////////////
     ///code zone

@@ -1,9 +1,14 @@
 #include "../../../include/BBOP/Graphics/bbopMathClass.h"
 
 Vector2f::Vector2f(float nx, float ny): x(nx), y(ny){}
-Vector2i::Vector2i(int nx, int ny): x(nx), y(ny){}
 Vector2d::Vector2d(double nx, double ny): x(nx), y(ny){}
+Vector2i::Vector2i(int nx, int ny): x(nx), y(ny){}
 Vector3i::Vector3i(int nx, int ny, int nz): x(nx), y(ny), z(nz){}
+Vector3f::Vector3f(float nx, float ny, float nz): x(nx), y(ny), z(nz){}
+Vector3d::Vector3d(double nx, double ny, double nz): x(nx), y(ny), z(nz){}
+//Vector4i::Vector4i(int nx, int ny, int nz, int nw): x(nx), y(ny), z(nz), w(nw){}
+//Vector4f::Vector4f(float nx, float ny, float nz, float nw): x(nx), y(ny), z(nz), w(nw){}
+//Vector4d::Vector4d(double nx, double ny, double nz, double nw): x(nx), y(ny), z(nz), w(nw){}
 
 Vector2f rotatePoint(Vector2f point, Vector2f origin, float angle)
 {
@@ -22,3 +27,4 @@ Vector2f rotatePoint(Vector2f point, Vector2f origin, float angle)
   point.y = ynew + origin.y;
   return point;
 }
+
