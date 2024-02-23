@@ -19,6 +19,7 @@ public:
   virtual void buildVAO() = 0;
   virtual void updateVBO() = 0;
   virtual void updateVBORGB() = 0;
+  virtual void updateVBOAlpha() = 0;
   Vector2f getSize();
   void setSize(Vector2f nSize);
   Vector2f getPosition();
@@ -56,6 +57,7 @@ public:
   void buildVAO() override;
   void updateVBO() override;
   void updateVBORGB() override;
+  void updateVBOAlpha() override;
   void Draw(GLint renderModeLoc) const override;
 private:
   GLfloat vertices[24];
@@ -69,6 +71,7 @@ public:
 
   void buildVAO() override;
   void updateVBO() override;
+  void updateVBOAlpha() override;
   void Draw(GLint renderModeLoc) const override;
 };
 

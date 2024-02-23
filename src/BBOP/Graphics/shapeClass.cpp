@@ -4,7 +4,7 @@ Shape::Shape(GLfloat* vertices, GLsizeiptr verticesSize, GLuint* indices, GLsize
   : shapeVBO(vertices, verticesSize, GL_DYNAMIC_DRAW),
     shapeEBO(indices, indicesSize),
     pos(0.0f, 0.0f),
-    size(0.0f, 0.0f),
+    size(50.0f, 50.0f),
     origin(0.0f, 0.0f),
     RGB(255,255,255),
     shapeCollisionBox(pos, origin, size),
@@ -46,7 +46,7 @@ void Shape::setRotation(float nRotation)
 void Shape::setAlpha(float nAlpha)
 {
   alpha = nAlpha;
-  updateVBORGB();
+  updateVBOAlpha();
 }
 
 Vector2f Shape::getSize()
@@ -77,6 +77,7 @@ float Shape::getRotation()
 float Shape::getAlpha()
 {
   return alpha;
+  updateVBOAlpha();
 }
 
 CollisionBox* Shape::getCollisionBox()
@@ -180,6 +181,15 @@ void RectangleShape::updateVBORGB()
   float r = RGB.x/255.0f;float g = RGB.y/255.0f;float b = RGB.z/255.0f;
   for(int i = 0; i < 24;i+=6){
     vertices[i+2] = r;vertices[i+3] = g; vertices[i+4] = b;
+  }
+  shapeVBO.update(vertices, sizeof(vertices));
+}
+
+void RectangleShape::updateVBOAlpha()
+{
+  // alpha change ########################################
+  for(int i = 0; i < 24;i+=6){
+    vertices[i+5] = alpha;
   }
   shapeVBO.update(vertices, sizeof(vertices));
 }
