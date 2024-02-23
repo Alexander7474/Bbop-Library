@@ -67,4 +67,24 @@ int bbopInit(int windowX, int windowY, const char* windowName, GLFWwindow*& wind
   cout << "OpenGL Vendor: " << vendor << endl;
   cout << "OpenGL Renderer: " << renderer << endl;
   cout << "Window size: " << BBOP_WINDOW_SIZE.x << "x" << BBOP_WINDOW_SIZE.y << endl;
+  
+  return 1;
 }
+
+void bbopCleanWindow()
+{
+  // Specify the color of the background
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	// Clean the back buffer and assign the new color to it
+	glClear(GL_COLOR_BUFFER_BIT);    
+}
+
+void bbopErrorCheck()
+{
+  //Check d'erreur
+  GLenum error = glGetError();
+  if (error != GL_NO_ERROR) {
+    std::cerr << "OpenGL error: " << error << std::endl;
+  }  
+}
+
