@@ -1,61 +1,27 @@
 ////////////////////////////////////////////////////////////////////
-//CECI N'EST QU'UN EXEMPLE POUR TESTER SI BIBIBOP EST BIEN INSTALLER
+//CECI N'EST QU'UN EXEMPLE POUR TESTER SI BBOP EST BIEN INSTALLER
 ////////////////////////////////////////////////////////////////////
-#include <BBOP/Graphics/bbopGlobal.h>
-#include <BBOP/Graphics/shapeClass.h>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include <cstdlib>
 #include <iostream>
 #include <random>
 #include <vector>
 
 #include "include/BBOP/Graphics.h"
+#include "include/BBOP/Graphics/bbopGlobal.h"
 
 using namespace std;
 
 int main() {
+  
+  GLFWwindow * window;
+  bbopInit(956,1044,"test",window);
+
   random_device rd;
   mt19937 gen(rd());
-  uniform_int_distribution<> distribx(0, BIBIBOP_WINDOW_SIZE.x);
-  uniform_int_distribution<> distriby(0, BIBIBOP_WINDOW_SIZE.y);
-  //Initialisation Début ############################################################################
-  // Initialisation de GLFW
-  if (!glfwInit()) {
-      cerr << "Échec de l'initialisation de GLFW" << endl;
-      return -1;
-  }
-  // Configuration de GLFW pour utiliser le profil OpenGL Core
-  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-  glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-  glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-  // Création d'une fenêtre GLFW
-  GLFWwindow* window = glfwCreateWindow(BIBIBOP_WINDOW_SIZE.x, BIBIBOP_WINDOW_SIZE.y, "Bibibop engine", nullptr, nullptr);
-  if (!window) {
-      cerr << "Échec de la création de la fenêtre GLFW" << endl;
-      glfwTerminate();
-      return -1;
-  }
-  // Définition de la fenêtre comme le contexte OpenGL courant
-  glfwMakeContextCurrent(window);
-  // Initialisation de GLEW
-  glewExperimental = GL_TRUE;
-  if (glewInit() != GLEW_OK) {
-      cerr << "Échec de l'initialisation de GLEW" << endl;
-      glfwTerminate();
-      return -1;
-  }
-  // Désactiver la synchronisation verticale (V-Sync)
-  glfwSwapInterval(1);
-  //General info
-  cout << "Bibibop Engine Version 0.0.1" << endl << "Author: Alexander74" << endl << "Contact: alexandre.lanternier@outlook.fr" << endl << "License: GPL-3.0" << endl; 
-  //GPU info
-  const GLubyte* vendor = glGetString(GL_VENDOR);
-  const GLubyte* renderer = glGetString(GL_RENDERER);
-  cout << "OpenGL Vendor: " << vendor << endl;
-  cout << "OpenGL Renderer: " << renderer << endl;
-  cout << "Window size: " << BIBIBOP_WINDOW_SIZE.x << "x" << BIBIBOP_WINDOW_SIZE.y << endl;
+  uniform_int_distribution<> distribx(0, BBOP_WINDOW_SIZE.x);
+  uniform_int_distribution<> distriby(0, BBOP_WINDOW_SIZE.y);
+
   //FPS counter
   int nbFrames = 0;
   //double frameTarget = 1.0/60.0;
@@ -70,7 +36,7 @@ int main() {
   vector<RectangleShape> rectList;
   RectangleShape driverRect;
   driverRect.setSize(Vector2f(25,25));
-  driverRect.setPosition(Vector2f(BIBIBOP_WINDOW_SIZE.x/2,BIBIBOP_WINDOW_SIZE.y/2));
+  driverRect.setPosition(Vector2f(BBOP_WINDOW_SIZE.x/2.0f,BBOP_WINDOW_SIZE.y/2.0f));
   driverRect.setColor(Vector3i(0,255,0));
   RectangleShape apple;
   apple.setSize(Vector2f(25,25));
