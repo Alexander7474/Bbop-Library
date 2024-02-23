@@ -4,6 +4,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include "include/BBOP/Graphics.h"
+#include "include/BBOP/Graphics/spriteClass.h"
 
 int main() {
   
@@ -19,10 +20,12 @@ int main() {
   defaultRect.setColor(Vector3i(15,182,245));
   defaultRect.setPosition(Vector2f(BBOP_WINDOW_SIZE.x/2.0f,BBOP_WINDOW_SIZE.y/2.0f));
 
+  Sprite defaultSprite("imgTesting/mario.png");
+
   // Main while loop
 	while (!glfwWindowShouldClose(window))
 	{
-    bbopCleanWindow(Vector3i(255,0,0),1.0);
+    bbopCleanWindow(Vector3i(0,0,0),1.0);
 
     //////////////////////////////////////////////////////////////
     ///code zone
@@ -32,7 +35,8 @@ int main() {
     defaultScene.Use();
     //affichage du rectangle 
     defaultRect.setRotation(defaultRect.getRotation()+0.1);
-    defaultScene.Draw(defaultRect);
+    //defaultScene.Draw(defaultRect);
+    defaultScene.Draw(defaultSprite);
 
     //////////////////////////////////////////////////////////////
     

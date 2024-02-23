@@ -33,8 +33,8 @@ void Sprite::buildVAO()
   shapeVAO.Bind();
   shapeVBO.update(vertices, sizeof(vertices));
   shapeEBO.update(indices, sizeof(indices));
-  shapeVAO.LinkVBO(shapeVBO, 0, 3, 8, 0);
-  shapeVAO.LinkVBO(shapeVBO, 1, 3, 8, 3);
+  shapeVAO.LinkVBO(shapeVBO, 0, 2, 8, 0);
+  shapeVAO.LinkVBO(shapeVBO, 1, 4, 8, 2);
   shapeVAO.LinkVBO(shapeVBO, 2, 2, 8, 6);
   shapeVAO.Unbind();
   shapeVBO.Unbind();
@@ -79,15 +79,13 @@ void Sprite::updateVBORGB()
   // color change ########################################
   float r = RGB.x/255.0f;float g = RGB.y/255.0f;float b = RGB.z/255.0f;
   for(int i = 0; i < 24;i+=8){
-    vertices[i+3] = r;vertices[i+4] = g; vertices[i+5] = b;
+    vertices[i+2] = r;vertices[i+3] = g; vertices[i+4] = b;
   }
   shapeVBO.update(vertices, sizeof(vertices));
 }
 
 void Sprite::Draw(GLint renderModeLoc) const 
 {
-  glEnable(GL_BLEND);
-  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
   if (!isRGBFilter)
     glUniform1i(renderModeLoc, BBOP_SHADER_MODE_TEXTURE);
   else
