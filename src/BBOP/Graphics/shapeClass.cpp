@@ -9,7 +9,8 @@ Shape::Shape(GLfloat* vertices, GLsizeiptr verticesSize, GLuint* indices, GLsize
     RGB(255,255,255),
     shapeCollisionBox(pos, origin, size),
     autoUpdateCollision(true),
-    rotation(0.0f)
+    rotation(0.0f),
+    alpha(1.0f)
 {}
 
 void Shape::setSize(Vector2f nSize)
@@ -110,22 +111,22 @@ void RectangleShape::buildVAO()
   // init coordinate ########################################
   //top right
   vertices[0] = ((pos.x-origin.x+size.x)/(BBOP_WINDOW_SIZE.x/2.0f))-1.0f; vertices[1] = ((-pos.y+origin.y)/(BBOP_WINDOW_SIZE.y/2.0f))+1.0f;
-  vertices[3] = RGB.x/255.0f; vertices[4] = RGB.x/255.0f; vertices[5] = RGB.x/255.0f;
+  vertices[2] = RGB.x/255.0f; vertices[3] = RGB.x/255.0f; vertices[4] = RGB.x/255.0f;vertices[5] = alpha;
   //botton right
   vertices[6] = ((pos.x-origin.x+size.x)/(BBOP_WINDOW_SIZE.x/2.0f))-1.0f; vertices[7] = ((-pos.y+origin.y-size.y)/(BBOP_WINDOW_SIZE.y/2.0f))+1.0f;
-  vertices[9] = RGB.x/255.0f; vertices[10] = RGB.x/255.0f; vertices[11] = RGB.x/255.0f;
+  vertices[8] = RGB.x/255.0f; vertices[9] = RGB.x/255.0f; vertices[10] = RGB.x/255.0f;vertices[11] = alpha;
   //bottom left
   vertices[12] = ((pos.x-origin.x)/(BBOP_WINDOW_SIZE.x/2.0f))-1.0f; vertices[13] = ((-pos.y+origin.y-size.y)/(BBOP_WINDOW_SIZE.y/2.0f))+1.0f;
-  vertices[15] = RGB.x/255.0f; vertices[16] = RGB.x/255.0f; vertices[17] = RGB.x/255.0f;
+  vertices[14] = RGB.x/255.0f; vertices[15] = RGB.x/255.0f; vertices[16] = RGB.x/255.0f;vertices[17] = alpha;
   //top left
   vertices[18] = ((pos.x-origin.x)/(BBOP_WINDOW_SIZE.x/2.0f))-1.0f; vertices[19] = ((-pos.y+origin.y)/(BBOP_WINDOW_SIZE.y/2.0f))+1.0f;
-  vertices[21] = RGB.x/255.0f; vertices[22] = RGB.x/255.0f; vertices[23] = RGB.x/255.0f;
+  vertices[20] = RGB.x/255.0f; vertices[21] = RGB.x/255.0f; vertices[22] = RGB.x/255.0f;vertices[23] = alpha;
   indices[0] = 0;indices[1] = 1;indices[2] = 3;indices[3] = 1;indices[4] = 2;indices[5] = 3;
-  shapeVAO.Bind();  
+  shapeVAO.Bind(); 
   shapeVBO.update(vertices, sizeof(vertices));
   shapeEBO.update(indices, sizeof(indices));
-  shapeVAO.LinkVBO(shapeVBO, 0, 3, 6, 0);
-  shapeVAO.LinkVBO(shapeVBO, 1, 3, 6, 3);
+  shapeVAO.LinkVBO(shapeVBO, 0, 2, 6, 0);
+  shapeVAO.LinkVBO(shapeVBO, 1, 4, 6, 2);
   shapeVAO.Unbind();
   shapeVBO.Unbind();
   shapeEBO.Unbind();
@@ -178,7 +179,7 @@ void RectangleShape::updateVBORGB()
   // color change ########################################
   float r = RGB.x/255.0f;float g = RGB.y/255.0f;float b = RGB.z/255.0f;
   for(int i = 0; i < 24;i+=6){
-    vertices[i+3] = r;vertices[i+4] = g; vertices[i+5] = b;
+    vertices[i+2] = r;vertices[i+3] = g; vertices[i+4] = b;
   }
   shapeVBO.update(vertices, sizeof(vertices));
 }
