@@ -1,4 +1,4 @@
-# Bibibop engine
+# Bbop Library
 # Installation  
 ## Installer les lib nécessaires: 
 ```
