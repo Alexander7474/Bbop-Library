@@ -14,6 +14,10 @@ int main() {
   Scene defaultScene;
   //creation d'un rectangle a afficher, par default blanc en haut a gauche de l'image
   RectangleShape defaultRect;
+  defaultRect.setSize(Vector2f(100.0f,100.0f));
+  defaultRect.setOrigin(Vector2f(50.0f,50.0f));
+  defaultRect.setColor(Vector3i(15,182,245));
+  defaultRect.setPosition(Vector2f(BBOP_WINDOW_SIZE.x/2.0f,BBOP_WINDOW_SIZE.y/2.0f));
 
   // Main while loop
 	while (!glfwWindowShouldClose(window))
@@ -27,6 +31,7 @@ int main() {
     //utilisation de la scene par default
     defaultScene.Use();
     //affichage du rectangle 
+    defaultRect.setRotation(defaultRect.getRotation()+0.1);
     defaultScene.Draw(defaultRect);
 
     //////////////////////////////////////////////////////////////
