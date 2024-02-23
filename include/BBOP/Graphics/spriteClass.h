@@ -27,6 +27,7 @@ public:
   void buildVAO() override;
   void updateVBO() override;
   void updateVBORGB() override;
+  void updateVBOAlpha() override;
   void move(Vector2f vecM);
   void setRGBFilterState(bool etat);
 private:

@@ -5,7 +5,8 @@ Sprite::Sprite(const char* textureFileName)
     spriteTexture(textureFileName),
     isRGBFilter(false)
 {
-    // Build du vao
+  size.x = spriteTexture.getWidth(); size.y = spriteTexture.getHeight();
+  // Build du vao
   //construtiopn du VAO en fontion de la position du sprite, de  sa taille et de la taille de la fenetre
   buildVAO();
   cout << "Sprite created with texture " << textureFileName << endl;
@@ -27,14 +28,19 @@ void Sprite::buildVAO()
   vertices[16] = ((pos.x-origin.x)/(BBOP_WINDOW_SIZE.x/2.0f))-1.0f; vertices[17] = ((-pos.y+origin.y-size.y)/(BBOP_WINDOW_SIZE.y/2.0f))+1.0f;
   //top left
   vertices[24] = ((pos.x-origin.x)/(BBOP_WINDOW_SIZE.x/2.0f))-1.0f; vertices[25] = ((-pos.y+origin.y)/(BBOP_WINDOW_SIZE.y/2.0f))+1.0f;
+  /// color change ########################################
+  float r = RGB.x/255.0f;float g = RGB.y/255.0f;float b = RGB.z/255.0f;
+  for(int i = 0; i < 32;i+=8){
+    vertices[i+2] = r;vertices[i+3] = g; vertices[i+4] = b;vertices[i+5] = alpha;
+  }
   //texture coo
   vertices[6] = 1.0f;vertices[7] = 1.0f;vertices[14] = 1.0f;vertices[31] = 1.0f;
   indices[0] = 0;indices[1] = 1;indices[2] = 3;indices[3] = 1;indices[4] = 2;indices[5] = 3;
   shapeVAO.Bind();
   shapeVBO.update(vertices, sizeof(vertices));
   shapeEBO.update(indices, sizeof(indices));
-  shapeVAO.LinkVBO(shapeVBO, 0, 3, 8, 0);
-  shapeVAO.LinkVBO(shapeVBO, 1, 3, 8, 3);
+  shapeVAO.LinkVBO(shapeVBO, 0, 2, 8, 0);
+  shapeVAO.LinkVBO(shapeVBO, 1, 4, 8, 2);
   shapeVAO.LinkVBO(shapeVBO, 2, 2, 8, 6);
   shapeVAO.Unbind();
   shapeVBO.Unbind();
@@ -78,16 +84,23 @@ void Sprite::updateVBORGB()
 {
   // color change ########################################
   float r = RGB.x/255.0f;float g = RGB.y/255.0f;float b = RGB.z/255.0f;
-  for(int i = 0; i < 24;i+=8){
-    vertices[i+3] = r;vertices[i+4] = g; vertices[i+5] = b;
+  for(int i = 0; i < 32;i+=8){
+    vertices[i+2] = r;vertices[i+3] = g; vertices[i+4] = b;
+  }
+  shapeVBO.update(vertices, sizeof(vertices));
+}
+
+void Sprite::updateVBOAlpha()
+{
+  // alpha change ########################################
+  for(int i = 0; i < 32;i+=8){
+    vertices[i+5] = alpha;
   }
   shapeVBO.update(vertices, sizeof(vertices));
 }
 
 void Sprite::Draw(GLint renderModeLoc) const 
 {
-  glEnable(GL_BLEND);
-  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
   if (!isRGBFilter)
     glUniform1i(renderModeLoc, BBOP_SHADER_MODE_TEXTURE);
   else

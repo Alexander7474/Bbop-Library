@@ -18,11 +18,17 @@ int main() {
   defaultRect.setOrigin(Vector2f(50.0f,50.0f));
   defaultRect.setColor(Vector3i(15,182,245));
   defaultRect.setPosition(Vector2f(BBOP_WINDOW_SIZE.x/2.0f,BBOP_WINDOW_SIZE.y/2.0f));
+  defaultRect.setAlpha(0.5f);
 
+  Sprite defaultSprite("imgTesting/mario.png");
+  defaultSprite.setAlpha(0.5f);
+  defaultSprite.setSize(Vector2f(100.0f,100.0f));
+  defaultSprite.setRGBFilterState(true);
+  
   // Main while loop
 	while (!glfwWindowShouldClose(window))
 	{
-    bbopCleanWindow(Vector3i(255,0,0),1.0);
+    bbopCleanWindow(Vector3i(0,0,0),1.0);
 
     //////////////////////////////////////////////////////////////
     ///code zone
@@ -30,9 +36,11 @@ int main() {
 
     //utilisation de la scene par default
     defaultScene.Use();
-    //affichage du rectangle 
+    //affichage du rectangle  avec sa rotation
     defaultRect.setRotation(defaultRect.getRotation()+0.1);
     defaultScene.Draw(defaultRect);
+    //affichage du sprite mario, texture par default si non trouvé
+    defaultScene.Draw(defaultSprite);
 
     //////////////////////////////////////////////////////////////
     

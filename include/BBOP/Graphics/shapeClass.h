@@ -19,6 +19,7 @@ public:
   virtual void buildVAO() = 0;
   virtual void updateVBO() = 0;
   virtual void updateVBORGB() = 0;
+  virtual void updateVBOAlpha() = 0;
   Vector2f getSize();
   void setSize(Vector2f nSize);
   Vector2f getPosition();
@@ -27,6 +28,8 @@ public:
   void setOrigin(Vector2f nOrigin);
   Vector3i getColor();
   void setColor(Vector3i nRGB);
+  float getAlpha();
+  void setAlpha(float nAlpha);
   float getRotation();
   void setRotation(float nRotation);
   bool isInCollision(CollisionBox* box);
@@ -43,6 +46,7 @@ protected:
   CollisionBox shapeCollisionBox;
   bool autoUpdateCollision;
   float rotation;
+  float alpha;
 };
 
 class RectangleShape : public Shape
@@ -53,6 +57,7 @@ public:
   void buildVAO() override;
   void updateVBO() override;
   void updateVBORGB() override;
+  void updateVBOAlpha() override;
   void Draw(GLint renderModeLoc) const override;
 private:
   GLfloat vertices[24];
@@ -66,6 +71,7 @@ public:
 
   void buildVAO() override;
   void updateVBO() override;
+  void updateVBOAlpha() override;
   void Draw(GLint renderModeLoc) const override;
 };
 
