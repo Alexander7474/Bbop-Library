@@ -33,7 +33,10 @@ int main() {
     //////////////////////////////////////////////////////////////
     ///code zone
     //////////////////////////////////////////////////////////////
-
+    
+    //test des collision entre sprite et rectangle par default
+    if(defaultSprite.getCollisionBox()->check(defaultRect.getCollisionBox()))
+      cout << "hit" << glfwGetTime() << endl;
     //utilisation de la scene par default
     defaultScene.Use();
     //affichage du rectangle  avec sa rotation
@@ -42,6 +45,15 @@ int main() {
     //affichage du sprite mario, texture par default si non trouvé
     defaultScene.Draw(defaultSprite);
 
+    //gestiond des mouvement de mario
+    if(glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
+      defaultSprite.move(Vector2f(0.0f,-5.0f));
+    if(glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
+      defaultSprite.move(Vector2f(0.0f,5.0f));
+    if(glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
+      defaultSprite.move(Vector2f(5.0f,0.0f));   
+    if(glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
+      defaultSprite.move(Vector2f(-5.0f,0.0f));
     //////////////////////////////////////////////////////////////
     
     bbopErrorCheck();

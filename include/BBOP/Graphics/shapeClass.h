@@ -32,7 +32,6 @@ public:
   void setAlpha(float nAlpha);
   float getRotation();
   void setRotation(float nRotation);
-  bool isInCollision(CollisionBox* box);
   CollisionBox* getCollisionBox();
   void setAutoUpdateCollision(bool etat); 
 protected:

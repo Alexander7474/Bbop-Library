@@ -85,11 +85,6 @@ CollisionBox* Shape::getCollisionBox()
   return &shapeCollisionBox;
 }
 
-bool Shape::isInCollision(CollisionBox* box)
-{
-  return shapeCollisionBox.check(box);
-}
-
 void Shape::setAutoUpdateCollision(bool etat)
 {
   autoUpdateCollision = etat;

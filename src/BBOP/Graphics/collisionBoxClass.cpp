@@ -4,18 +4,19 @@ CollisionBox::CollisionBox(Vector2f nPos, Vector2f nOrigin, Vector2f nSize): pos
 
 bool CollisionBox::check(CollisionBox* box)
 {
-  //cout << x << ";" << posY << " " << size.x << ";" << size.y <<  endl << box->getPosition().x << ";" << box->getPosition().y << endl;
+  //cout << x << ";" << posY << " " << size.x << ";" << size.y <<  endl << otherBoxX << ";" << otherBoxY << endl;
   float posX = pos.x-origin.x; float posY = pos.y-origin.y;
-  if (posX <= box->getPosition().x && box->getPosition().x <= posX+size.x && posY <= box->getPosition().y && box->getPosition().y <= posY+size.y){
+  float otherBoxX = box->getPosition().x-box->getOrigin().x;float otherBoxY = box->getPosition().y-box->getOrigin().y;
+  if (posX <= otherBoxX && otherBoxX <= posX+size.x && posY <= otherBoxY && otherBoxY <= posY+size.y){
     return true;
   }
-  if (posX <= box->getPosition().x+box->getSize().x && box->getPosition().x+box->getSize().x <= posX+size.x && posY <= box->getPosition().y && box->getPosition().y <= posY+size.y){
+  if (posX <= otherBoxX+box->getSize().x && otherBoxX+box->getSize().x <= posX+size.x && posY <= otherBoxY && otherBoxY <= posY+size.y){
     return true;
   }
-  if (posX <= box->getPosition().x && box->getPosition().x <= posX+size.x && posY <= box->getPosition().y+box->getSize().y && box->getPosition().y+box->getSize().y <= posY+size.y){
+  if (posX <= otherBoxX && otherBoxX <= posX+size.x && posY <= otherBoxY+box->getSize().y && otherBoxY+box->getSize().y <= posY+size.y){
     return true;
   }
-  if (posX <= box->getPosition().x+box->getSize().x && box->getPosition().x+box->getSize().x <= posX+size.x && posY <= box->getPosition().y+box->getSize().y && box->getPosition().y+box->getSize().y <= posY+size.y){
+  if (posX <= otherBoxX+box->getSize().x && otherBoxX+box->getSize().x <= posX+size.x && posY <= otherBoxY+box->getSize().y && otherBoxY+box->getSize().y <= posY+size.y){
     return true;
   }
   return false;
