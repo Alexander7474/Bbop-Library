@@ -42,6 +42,12 @@ void Shape::setRotation(float nRotation)
   updateVBO();
 }
 
+void Shape::setAlpha(float nAlpha)
+{
+  alpha = nAlpha;
+  updateVBORGB();
+}
+
 Vector2f Shape::getSize()
 {
   return size;
@@ -65,6 +71,11 @@ Vector3i Shape::getColor()
 float Shape::getRotation()
 {
   return rotation;
+}
+
+float Shape::getAlpha()
+{
+  return alpha;
 }
 
 CollisionBox* Shape::getCollisionBox()

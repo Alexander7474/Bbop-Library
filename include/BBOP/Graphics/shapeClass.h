@@ -27,6 +27,8 @@ public:
   void setOrigin(Vector2f nOrigin);
   Vector3i getColor();
   void setColor(Vector3i nRGB);
+  float getAlpha();
+  void setAlpha(float nAlpha);
   float getRotation();
   void setRotation(float nRotation);
   bool isInCollision(CollisionBox* box);
@@ -43,6 +45,7 @@ protected:
   CollisionBox shapeCollisionBox;
   bool autoUpdateCollision;
   float rotation;
+  float alpha;
 };
 
 class RectangleShape : public Shape
