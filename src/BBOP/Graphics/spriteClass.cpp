@@ -20,13 +20,13 @@ void Sprite::buildVAO()
     indices[i] = 0;
   // init sprite and texture coordinate ########################################
   //top right
-  vertices[0] = ((pos.x-origin.x+size.x)/(BIBIBOP_WINDOW_SIZE.x/2.0f))-1.0f; vertices[1] = ((-pos.y+origin.y)/(BIBIBOP_WINDOW_SIZE.y/2.0f))+1.0f;
+  vertices[0] = ((pos.x-origin.x+size.x)/(BBOP_WINDOW_SIZE.x/2.0f))-1.0f; vertices[1] = ((-pos.y+origin.y)/(BBOP_WINDOW_SIZE.y/2.0f))+1.0f;
   //botton right
-  vertices[8] = ((pos.x-origin.x+size.x)/(BIBIBOP_WINDOW_SIZE.x/2.0f))-1.0f; vertices[9] = ((-pos.y+origin.y-size.y)/(BIBIBOP_WINDOW_SIZE.y/2.0f))+1.0f;
+  vertices[8] = ((pos.x-origin.x+size.x)/(BBOP_WINDOW_SIZE.x/2.0f))-1.0f; vertices[9] = ((-pos.y+origin.y-size.y)/(BBOP_WINDOW_SIZE.y/2.0f))+1.0f;
   //bottom left
-  vertices[16] = ((pos.x-origin.x)/(BIBIBOP_WINDOW_SIZE.x/2.0f))-1.0f; vertices[17] = ((-pos.y+origin.y-size.y)/(BIBIBOP_WINDOW_SIZE.y/2.0f))+1.0f;
+  vertices[16] = ((pos.x-origin.x)/(BBOP_WINDOW_SIZE.x/2.0f))-1.0f; vertices[17] = ((-pos.y+origin.y-size.y)/(BBOP_WINDOW_SIZE.y/2.0f))+1.0f;
   //top left
-  vertices[24] = ((pos.x-origin.x)/(BIBIBOP_WINDOW_SIZE.x/2.0f))-1.0f; vertices[25] = ((-pos.y+origin.y)/(BIBIBOP_WINDOW_SIZE.y/2.0f))+1.0f;
+  vertices[24] = ((pos.x-origin.x)/(BBOP_WINDOW_SIZE.x/2.0f))-1.0f; vertices[25] = ((-pos.y+origin.y)/(BBOP_WINDOW_SIZE.y/2.0f))+1.0f;
   //texture coo
   vertices[6] = 1.0f;vertices[7] = 1.0f;vertices[14] = 1.0f;vertices[31] = 1.0f;
   indices[0] = 0;indices[1] = 1;indices[2] = 3;indices[3] = 1;indices[4] = 2;indices[5] = 3;
@@ -45,7 +45,7 @@ void Sprite::updateVBO()
 {
   //  coordinate change ########################################
   //  vecteur taille de la fenetre
-  Vector2f w(BIBIBOP_WINDOW_SIZE.x/2.0f,BIBIBOP_WINDOW_SIZE.y/2.0f);
+  Vector2f w(BBOP_WINDOW_SIZE.x/2.0f,BBOP_WINDOW_SIZE.y/2.0f);
   // vecteur position normalizé
   Vector2f pTL(((pos.x-origin.x)/w.x)-1.0f, ((pos.y-origin.y)/w.y)-1.0f);
   Vector2f pTR(pTL.x+(size.x/w.x),pTL.y);
@@ -89,9 +89,9 @@ void Sprite::Draw(GLint renderModeLoc) const
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
   if (!isRGBFilter)
-    glUniform1i(renderModeLoc, BIBIBOP_SHADER_MODE_TEXTURE);
+    glUniform1i(renderModeLoc, BBOP_SHADER_MODE_TEXTURE);
   else
-    glUniform1i(renderModeLoc, BIBIBOP_SHADER_MODE_MIX);
+    glUniform1i(renderModeLoc, BBOP_SHADER_MODE_MIX);
   spriteTexture.Bind();
   shapeVAO.Bind();  
   glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);

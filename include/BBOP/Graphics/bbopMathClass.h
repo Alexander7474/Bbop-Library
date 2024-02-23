@@ -37,6 +37,21 @@ public:
   Vector3i(int nx, int ny, int nz);
 };
 
+class Vector3f
+{
+public:
+  float x,y,z;
+  Vector3f(float nx, float ny, float nz);
+};
+
+class Vector3d
+{
+public:
+  double x,y,z;
+  Vector3d(double nx, double ny, double nz);
+};
+
+
 Vector2f rotatePoint(Vector2f point, Vector2f origin, float angle);
 
 #endif // ! MATH_CLASS_H

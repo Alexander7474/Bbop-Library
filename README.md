@@ -1,4 +1,4 @@
-# Bibibop engine
+# Bbop Library
 # Installation  
 ## Installer les lib nécessaires: 
 ```
@@ -39,7 +39,7 @@ cmake \
 cmake --build build -- all
 cmake --build build -- install
 ```
-## Compiler et installer bibibop
+## Compiler et installer bbop
 ### !!! Attention a bien avoir installer les libs necessaires !!!
 ```
 git clone https://github.com/Alexander7474/BibibopEngine.git Bibibop
