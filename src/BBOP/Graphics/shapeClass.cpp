@@ -207,8 +207,8 @@ void RectangleShape::updateVBOAlpha()
 }
 
 ConvexShape::ConvexShape(int nnPoint, Vector2f* nlistPoint)
-  : //vertices(new GLfloat[nnPoint*6]),
-    //indices(new GLuint[(nnPoint-1)*3]),
+  : vertices(new GLfloat[nnPoint*6]),
+    indices(new GLuint[(nnPoint-1)*3]),
     Shape(vertices, sizeof(GLfloat)*6*nnPoint, indices, sizeof(GLuint)*3*(nnPoint-1)),
     nPoint(nnPoint),
     listPoint(nlistPoint)
@@ -226,13 +226,19 @@ void ConvexShape::buildVAO()
   // init coordinate ########################################
   //  vecteur taille de la fenetre
   Vector2f w(BBOP_WINDOW_SIZE.x/2.0f,BBOP_WINDOW_SIZE.y/2.0f);
+  //vecteur de positio nen focntio nde l'origine
   Vector2f posO(pos.x-origin.x,pos.y-origin.y);
+  //valeur des couleurs normalisé
   float r = RGB.x/255.0f;float g = RGB.y/255.0f;float b = RGB.z/255.0f;
+  //calcule cos et sin pour la rotation
+  float cosAngle = cos(rotation);
+  float sinAngle = sin(rotation);
 
   for (int i = 0; i < nPoint; i++){
-    vertices[i*6] = (posO.x+listPoint[i].x)/w.x-1.0f; vertices[i*6+1] = -((posO.y+listPoint[i].y)/w.y-1.0f);
+    Vector2f finalPos((posO.x+listPoint[i].x)/w.x-1.0f, (posO.y+listPoint[i].y)/w.y-1.0f);
+    finalPos = Vector2f(finalPos.x * cosAngle - finalPos.y*sinAngle,finalPos.x*sinAngle+finalPos.y*cosAngle);
+    vertices[i*6] = finalPos.x; vertices[i*6+1] = -finalPos.y;
     vertices[i*6+2] = r;vertices[i*6+3] = g; vertices[i*6+4] = b;vertices[i*6+5] = alpha;
-    cout << vertices[i*6] << ";"<< vertices[i*6+1] << ";"<< vertices[i*6+2] << ";"<< vertices[i*6+3] << ";"<< vertices[i*6+4] << ";"<< vertices[i*6+5] << ";" << endl;
   }
 
   for (int i = 0; i < nPoint-1; i++){
@@ -241,12 +247,10 @@ void ConvexShape::buildVAO()
     }else {
       indices[i*3] = 0;indices[i*3+1] = 1+i; indices[i*3+2] = 1;
     }
-    cout << indices[i*3] << ";" << indices[i*3+1] << ";" << indices[i*3+2] << ";" << endl;
   }
-
   shapeVAO.Bind();
-  shapeVBO.update(vertices, sizeof(vertices));
-  shapeEBO.update(indices, sizeof(indices));
+  shapeVBO.update(vertices, sizeof(GLfloat)*6*nPoint);
+  shapeEBO.update(indices, sizeof(GLuint)*3*(nPoint-1));
   shapeVAO.LinkVBO(shapeVBO, 0, 2, 6, 0);
   shapeVAO.LinkVBO(shapeVBO, 1, 4, 6, 2);
   shapeVAO.Unbind();
@@ -256,9 +260,46 @@ void ConvexShape::buildVAO()
 
 }
 
-void ConvexShape::updateVBO(){}
-void ConvexShape::updateVBORGB(){}
-void ConvexShape::updateVBOAlpha(){}
+void ConvexShape::updateVBO()
+{
+  //  vecteur taille de la fenetre
+  Vector2f w(BBOP_WINDOW_SIZE.x/2.0f,BBOP_WINDOW_SIZE.y/2.0f);
+  //vecteur de positio nen focntio nde l'origine
+  Vector2f posO(pos.x-origin.x,pos.y-origin.y);
+  //calcule cos et sin pour la rotation
+  float cosAngle = cos(rotation);
+  float sinAngle = sin(rotation);
+
+  for (int i = 0; i < nPoint; i++){
+    Vector2f finalPos((posO.x+listPoint[i].x)/w.x-1.0f, (posO.y+listPoint[i].y)/w.y-1.0f);
+    finalPos = Vector2f(finalPos.x * cosAngle - finalPos.y*sinAngle,finalPos.x*sinAngle+finalPos.y*cosAngle);
+    vertices[i*6] = finalPos.x; vertices[i*6+1] = -finalPos.y;
+  }
+
+  shapeVBO.update(vertices, sizeof(GLfloat)*6*nPoint);
+}
+
+void ConvexShape::updateVBORGB()
+{
+  //valeur des couleurs normalisé
+  float r = RGB.x/255.0f;float g = RGB.y/255.0f;float b = RGB.z/255.0f;
+
+  for (int i = 0; i < nPoint; i++){
+    vertices[i*6+2] = r;vertices[i*6+3] = g; vertices[i*6+4] = b;
+  }
+
+  shapeVBO.update(vertices, sizeof(GLfloat)*6*nPoint);
+}
+
+void ConvexShape::updateVBOAlpha()
+{
+  for (int i = 0; i < nPoint; i++){
+    vertices[i*6+5] = alpha;
+  }
+
+  shapeVBO.update(vertices, sizeof(GLfloat)*6*nPoint);
+}
+
 
 void ConvexShape::Draw(GLint renderModeLoc) const
 {

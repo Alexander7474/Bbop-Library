@@ -75,8 +75,8 @@ public:
   void updateVBOAlpha() override;
   void Draw(GLint renderModeLoc) const override;
 private:
-  GLfloat vertices[42];
-  GLuint indices[18];
+  GLfloat* vertices;
+  GLuint* indices;
   int nPoint;
   Vector2f* listPoint;
 };
