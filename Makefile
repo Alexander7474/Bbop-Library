@@ -21,10 +21,10 @@ clean:
 	rm -rf /usr/local/shaders
 
 install:
-	ar rcs libbibibop.a $(OBJSNM)
+	ar rcs libbbop.a $(OBJSNM)
 	cp -r include/BBOP /usr/include/BBOP/
-	mv libbibibop.a /usr/local/lib/
+	mv libbbop.a /usr/local/lib/
 
 uninstall:
-	rm /usr/local/lib/libbibibop.a
+	rm /usr/local/lib/libbbop.a
 	rm -rf /usr/include/BBOP
