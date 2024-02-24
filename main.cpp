@@ -4,6 +4,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include "include/BBOP/Graphics.h"
+#include "include/BBOP/Graphics/shapeClass.h"
 
 int main() {
   
@@ -24,7 +25,10 @@ int main() {
   defaultSprite.setAlpha(0.5f);
   defaultSprite.setSize(Vector2f(100.0f,100.0f));
   defaultSprite.setRGBFilterState(true);
-  
+ 
+  Vector2f list[7] = {Vector2f(100.0f,100.0f),Vector2f(170.0f,10.0f),Vector2f(189.0f,75.0f),Vector2f(189.0f,199.0f),Vector2f(89.0f,120.0f),Vector2f(5.0f,158.0f),Vector2f(15.0f,17.0f)};
+  ConvexShape defaultConvex(7,list);
+
   // Main while loop
 	while (!glfwWindowShouldClose(window))
 	{
@@ -43,7 +47,10 @@ int main() {
     defaultRect.setRotation(defaultRect.getRotation()+0.1);
     defaultScene.Draw(defaultRect);
     //affichage du sprite mario, texture par default si non trouvé
-    defaultScene.Draw(defaultSprite);
+    //defaultScene.Draw(defaultSprite);
+    
+    glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
+    defaultScene.Draw(defaultConvex);
 
     //gestiond des mouvement de mario
     if(glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
