@@ -18,17 +18,18 @@ int main() {
   defaultRect.setSize(Vector2f(100.0f,100.0f));
   defaultRect.setOrigin(Vector2f(50.0f,50.0f));
   defaultRect.setColor(Vector3i(15,182,245));
-  defaultRect.setPosition(Vector2f(BBOP_WINDOW_SIZE.x/2.0f,BBOP_WINDOW_SIZE.y/2.0f));
+  defaultRect.setPosition(Vector2f(BBOP_WINDOW_SIZE.x/2.0f+100.0f,BBOP_WINDOW_SIZE.y/2.0f+100.0f));
   defaultRect.setAlpha(0.5f);
 
   Sprite defaultSprite("imgTesting/mario.png");
   defaultSprite.setAlpha(0.5f);
+  defaultSprite.setPosition(Vector2f(150.0f,150.0f));
   defaultSprite.setSize(Vector2f(100.0f,100.0f));
   defaultSprite.setRGBFilterState(true);
  
-  Vector2f list[6] = {Vector2f(100.0f,100.0f),Vector2f(170.0f,10.0f),Vector2f(189.0f,75.0f),Vector2f(189.0f,199.0f),Vector2f(32.0f,112.0f),Vector2f(15.0f,17.0f)};
+  Vector2f list[6] = {Vector2f(100.0f,100.0f),Vector2f(170.0f,10.0f),Vector2f(189.0f,75.0f),Vector2f(189.0f,199.0f),Vector2f(32.0f,112.0f),Vector2f(0.0f,0.0f)};
   ConvexShape defaultConvex(6,list);
-  defaultConvex.setPosition(Vector2f(750.0f,50.0f));
+  defaultConvex.setPosition(Vector2f(650.0f,250.0f));
   defaultConvex.setColor(Vector3i(100,0,255));
 
   // Main while loop
@@ -50,8 +51,8 @@ int main() {
     defaultScene.Draw(defaultRect);
     //affichage du sprite mario, texture par default si non trouvé
     defaultScene.Draw(defaultSprite);
-    defaultConvex.setRotation(defaultConvex.getRotation()+0.01);
     //affichage de la forme convex
+    defaultConvex.setRotation(defaultConvex.getRotation()+0.01);
     defaultScene.Draw(defaultConvex);
 
     //gestiond des mouvement de mario

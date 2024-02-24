@@ -106,11 +106,12 @@ void RectangleShape::buildVAO()
     indices[i] = 0;
   //construtiopn du VAO fontion de la position du rectangle de sa taille et de la taille de la fenetre
   // init coordinate ########################################
-  //  vecteur taille de la fenetre
+   //  vecteur taille de la fenetre
   Vector2f w(BBOP_WINDOW_SIZE.x/2.0f,BBOP_WINDOW_SIZE.y/2.0f);
-  
+  // vecteur de position normalisé
+  Vector2f posO(pos.x/w.x-1.0f,pos.y/w.y-1.0f);
   // vecteur position normalizé
-  Vector2f pTL(((pos.x-origin.x)/w.x)-1.0f, ((pos.y-origin.y)/w.y)-1.0f);
+  Vector2f pTL(-origin.x/w.x, -origin.y/w.y);
   Vector2f pTR(pTL.x+(size.x/w.x),pTL.y);
   Vector2f pBR(pTR.x,pTL.y+(size.y/w.y));
   Vector2f pBL(pTL.x,pBR.y);
@@ -122,13 +123,14 @@ void RectangleShape::buildVAO()
   pBR = Vector2f(pBR.x * cosAngle - pBR.y*sinAngle,pBR.x*sinAngle+pBR.y*cosAngle);
   pBL = Vector2f(pBL.x * cosAngle - pBL.y*sinAngle,pBL.x*sinAngle+pBL.y*cosAngle);
   //top right
-  vertices[0] = pTR.x; vertices[1] = -pTR.y;
+  vertices[0] = pTR.x+posO.x; vertices[1] = -(pTR.y+posO.y);
   //botton right
-  vertices[6] = pBR.x; vertices[7] = -pBR.y;
+  vertices[6] = pBR.x+posO.x; vertices[7] = -(pBR.y+posO.y);
   //bottom left
-  vertices[12] = pBL.x; vertices[13] = -pBL.y;
+  vertices[12] = pBL.x+posO.x; vertices[13] = -(pBL.y+posO.y);
   //top left
-  vertices[18] = pTL.x; vertices[19] = -pTL.y;
+  vertices[18] = pTL.x+posO.x; vertices[19] = -(pTL.y+posO.y);
+ 
   // color change ########################################
   float r = RGB.x/255.0f;float g = RGB.y/255.0f;float b = RGB.z/255.0f;
   for(int i = 0; i < 24;i+=6){
@@ -158,9 +160,10 @@ void RectangleShape::updateVBO()
   //  coordinate change ########################################
   //  vecteur taille de la fenetre
   Vector2f w(BBOP_WINDOW_SIZE.x/2.0f,BBOP_WINDOW_SIZE.y/2.0f);
-  
+  // vecteur de position normalisé
+  Vector2f posO(pos.x/w.x-1.0f,pos.y/w.y-1.0f);
   // vecteur position normalizé
-  Vector2f pTL(((pos.x-origin.x)/w.x)-1.0f, ((pos.y-origin.y)/w.y)-1.0f);
+  Vector2f pTL(-origin.x/w.x, -origin.y/w.y);
   Vector2f pTR(pTL.x+(size.x/w.x),pTL.y);
   Vector2f pBR(pTR.x,pTL.y+(size.y/w.y));
   Vector2f pBL(pTL.x,pBR.y);
@@ -172,13 +175,13 @@ void RectangleShape::updateVBO()
   pBR = Vector2f(pBR.x * cosAngle - pBR.y*sinAngle,pBR.x*sinAngle+pBR.y*cosAngle);
   pBL = Vector2f(pBL.x * cosAngle - pBL.y*sinAngle,pBL.x*sinAngle+pBL.y*cosAngle);
   //top right
-  vertices[0] = pTR.x; vertices[1] = -pTR.y;
+  vertices[0] = pTR.x+posO.x; vertices[1] = -(pTR.y+posO.y);
   //botton right
-  vertices[6] = pBR.x; vertices[7] = -pBR.y;
+  vertices[6] = pBR.x+posO.x; vertices[7] = -(pBR.y+posO.y);
   //bottom left
-  vertices[12] = pBL.x; vertices[13] = -pBL.y;
+  vertices[12] = pBL.x+posO.x; vertices[13] = -(pBL.y+posO.y);
   //top left
-  vertices[18] = pTL.x; vertices[19] = -pTL.y;
+  vertices[18] = pTL.x+posO.x; vertices[19] = -(pTL.y+posO.y);
   shapeVBO.update(vertices, sizeof(vertices));
   if (autoUpdateCollision){
     shapeCollisionBox.setPosition(pos);
@@ -226,18 +229,18 @@ void ConvexShape::buildVAO()
   // init coordinate ########################################
   //  vecteur taille de la fenetre
   Vector2f w(BBOP_WINDOW_SIZE.x/2.0f,BBOP_WINDOW_SIZE.y/2.0f);
-  //vecteur de positio nen focntio nde l'origine
-  Vector2f posO(pos.x-origin.x,pos.y-origin.y);
+  //vecteur de position normalisé
+  Vector2f posO(pos.x/w.x-1.0f,pos.y/w.y-1.0f);
   //valeur des couleurs normalisé
   float r = RGB.x/255.0f;float g = RGB.y/255.0f;float b = RGB.z/255.0f;
   //calcule cos et sin pour la rotation
   float cosAngle = cos(rotation);
   float sinAngle = sin(rotation);
-
+  
   for (int i = 0; i < nPoint; i++){
-    Vector2f finalPos((posO.x+listPoint[i].x)/w.x-1.0f, (posO.y+listPoint[i].y)/w.y-1.0f);
+    Vector2f finalPos((listPoint[i].x-origin.x)/w.x, (listPoint[i].y-origin.y)/w.y);
     finalPos = Vector2f(finalPos.x * cosAngle - finalPos.y*sinAngle,finalPos.x*sinAngle+finalPos.y*cosAngle);
-    vertices[i*6] = finalPos.x; vertices[i*6+1] = -finalPos.y;
+    vertices[i*6] = finalPos.x+posO.x; vertices[i*6+1] = -(finalPos.y+posO.y);
     vertices[i*6+2] = r;vertices[i*6+3] = g; vertices[i*6+4] = b;vertices[i*6+5] = alpha;
   }
 
@@ -257,23 +260,22 @@ void ConvexShape::buildVAO()
   shapeVBO.Unbind();
   shapeEBO.Unbind();
   cout << "ConvexShape created" << endl;
-
 }
 
 void ConvexShape::updateVBO()
 {
   //  vecteur taille de la fenetre
   Vector2f w(BBOP_WINDOW_SIZE.x/2.0f,BBOP_WINDOW_SIZE.y/2.0f);
-  //vecteur de positio nen focntio nde l'origine
-  Vector2f posO(pos.x-origin.x,pos.y-origin.y);
+  //vecteur de position normalisé
+  Vector2f posO(pos.x/w.x-1.0f,pos.y/w.y-1.0f);
   //calcule cos et sin pour la rotation
   float cosAngle = cos(rotation);
   float sinAngle = sin(rotation);
 
   for (int i = 0; i < nPoint; i++){
-    Vector2f finalPos((posO.x+listPoint[i].x)/w.x-1.0f, (posO.y+listPoint[i].y)/w.y-1.0f);
+    Vector2f finalPos((listPoint[i].x-origin.x)/w.x, (listPoint[i].y-origin.y)/w.y);
     finalPos = Vector2f(finalPos.x * cosAngle - finalPos.y*sinAngle,finalPos.x*sinAngle+finalPos.y*cosAngle);
-    vertices[i*6] = finalPos.x; vertices[i*6+1] = -finalPos.y;
+    vertices[i*6] = finalPos.x+posO.x; vertices[i*6+1] = -(finalPos.y+posO.y);
   }
 
   shapeVBO.update(vertices, sizeof(GLfloat)*6*nPoint);

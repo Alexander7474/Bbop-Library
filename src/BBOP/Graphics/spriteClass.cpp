@@ -20,15 +20,31 @@ void Sprite::buildVAO()
   for(int i = 0; i < (int)(sizeof(indices)/sizeof(GLuint)); i++)
     indices[i] = 0;
   // init sprite and texture coordinate ########################################
+  //  vecteur taille de la fenetre
+  Vector2f w(BBOP_WINDOW_SIZE.x/2.0f,BBOP_WINDOW_SIZE.y/2.0f);
+  // vecteur de position normalisé
+  Vector2f posO(pos.x/w.x-1.0f,pos.y/w.y-1.0f);
+  // vecteur position normalizé
+  Vector2f pTL(-origin.x/w.x, -origin.y/w.y);
+  Vector2f pTR(pTL.x+(size.x/w.x),pTL.y);
+  Vector2f pBR(pTR.x,pTL.y+(size.y/w.y));
+  Vector2f pBL(pTL.x,pBR.y);
+  //application de la rotation
+  float cosAngle = cos(rotation);
+  float sinAngle = sin(rotation);
+  pTL = Vector2f(pTL.x * cosAngle - pTL.y*sinAngle,pTL.x*sinAngle+pTL.y*cosAngle);
+  pTR = Vector2f(pTR.x * cosAngle - pTR.y*sinAngle,pTR.x*sinAngle+pTR.y*cosAngle);
+  pBR = Vector2f(pBR.x * cosAngle - pBR.y*sinAngle,pBR.x*sinAngle+pBR.y*cosAngle);
+  pBL = Vector2f(pBL.x * cosAngle - pBL.y*sinAngle,pBL.x*sinAngle+pBL.y*cosAngle);
   //top right
-  vertices[0] = ((pos.x-origin.x+size.x)/(BBOP_WINDOW_SIZE.x/2.0f))-1.0f; vertices[1] = ((-pos.y+origin.y)/(BBOP_WINDOW_SIZE.y/2.0f))+1.0f;
+  vertices[0] = pTR.x+posO.x; vertices[1] = -(pTR.y+posO.y);
   //botton right
-  vertices[8] = ((pos.x-origin.x+size.x)/(BBOP_WINDOW_SIZE.x/2.0f))-1.0f; vertices[9] = ((-pos.y+origin.y-size.y)/(BBOP_WINDOW_SIZE.y/2.0f))+1.0f;
+  vertices[8] = pBR.x+posO.x; vertices[9] = -(pBR.y+posO.y);
   //bottom left
-  vertices[16] = ((pos.x-origin.x)/(BBOP_WINDOW_SIZE.x/2.0f))-1.0f; vertices[17] = ((-pos.y+origin.y-size.y)/(BBOP_WINDOW_SIZE.y/2.0f))+1.0f;
+  vertices[16] = pBL.x+posO.x; vertices[17] = -(pBL.y+posO.y);
   //top left
-  vertices[24] = ((pos.x-origin.x)/(BBOP_WINDOW_SIZE.x/2.0f))-1.0f; vertices[25] = ((-pos.y+origin.y)/(BBOP_WINDOW_SIZE.y/2.0f))+1.0f;
-  /// color change ########################################
+  vertices[24] = pTL.x+posO.x; vertices[25] = -(pTL.y+posO.y);
+ /// color change ########################################
   float r = RGB.x/255.0f;float g = RGB.y/255.0f;float b = RGB.z/255.0f;
   for(int i = 0; i < 32;i+=8){
     vertices[i+2] = r;vertices[i+3] = g; vertices[i+4] = b;vertices[i+5] = alpha;
@@ -49,11 +65,13 @@ void Sprite::buildVAO()
 
 void Sprite::updateVBO()
 {
-  //  coordinate change ########################################
+  //  coordinate change ######################################## 
   //  vecteur taille de la fenetre
   Vector2f w(BBOP_WINDOW_SIZE.x/2.0f,BBOP_WINDOW_SIZE.y/2.0f);
+  // vecteur de position normalisé
+  Vector2f posO(pos.x/w.x-1.0f,pos.y/w.y-1.0f);
   // vecteur position normalizé
-  Vector2f pTL(((pos.x-origin.x)/w.x)-1.0f, ((pos.y-origin.y)/w.y)-1.0f);
+  Vector2f pTL(-origin.x/w.x, -origin.y/w.y);
   Vector2f pTR(pTL.x+(size.x/w.x),pTL.y);
   Vector2f pBR(pTR.x,pTL.y+(size.y/w.y));
   Vector2f pBL(pTL.x,pBR.y);
@@ -65,13 +83,14 @@ void Sprite::updateVBO()
   pBR = Vector2f(pBR.x * cosAngle - pBR.y*sinAngle,pBR.x*sinAngle+pBR.y*cosAngle);
   pBL = Vector2f(pBL.x * cosAngle - pBL.y*sinAngle,pBL.x*sinAngle+pBL.y*cosAngle);
   //top right
-  vertices[0] = pTR.x; vertices[1] = -pTR.y;
+  vertices[0] = pTR.x+posO.x; vertices[1] = -(pTR.y+posO.y);
   //botton right
-  vertices[8] = pBR.x; vertices[9] = -pBR.y;
+  vertices[8] = pBR.x+posO.x; vertices[9] = -(pBR.y+posO.y);
   //bottom left
-  vertices[16] = pBL.x; vertices[17] = -pBL.y;
+  vertices[16] = pBL.x+posO.x; vertices[17] = -(pBL.y+posO.y);
   //top left
-  vertices[24] = pTL.x; vertices[25] = -pTL.y;
+  vertices[24] = pTL.x+posO.x; vertices[25] = -(pTL.y+posO.y);
+  
   shapeVBO.update(vertices, sizeof(vertices));
   if (autoUpdateCollision){
     shapeCollisionBox.setPosition(pos);
