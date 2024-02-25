@@ -3,6 +3,7 @@
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <initializer_list>
 
 #include "bbopMathClass.h"
 #include "bbopGlobal.h"
@@ -63,15 +64,21 @@ private:
   GLuint indices[6];
 };
 
-class CircleShape : public Shape
+class ConvexShape : public Shape
 {
 public:
-  CircleShape();
+  ConvexShape(int nnPoint, Vector2f* nlistPoint);
 
   void buildVAO() override;
   void updateVBO() override;
+  void updateVBORGB() override;
   void updateVBOAlpha() override;
   void Draw(GLint renderModeLoc) const override;
+private:
+  GLfloat* vertices;
+  GLuint* indices;
+  int nPoint;
+  Vector2f* listPoint;
 };
 
 #endif // ! SHAPE_CLASS_H
