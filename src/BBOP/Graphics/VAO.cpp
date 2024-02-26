@@ -22,7 +22,7 @@ void VAO::Bind() const
 }
 
 // Unbinds the VAO
-void VAO::Unbind()
+void VAO::Unbind() const
 {
 	glBindVertexArray(0);
 }

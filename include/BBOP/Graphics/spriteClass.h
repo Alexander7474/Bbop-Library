@@ -19,7 +19,7 @@ using namespace std;
 class Sprite : public Shape
 {
 public:
-  Sprite(const char* textureFileName);
+  Sprite(Texture nTexture);
 
   void Draw(GLint renderModeLoc) const override;
   void Delete();
@@ -29,12 +29,22 @@ public:
   void updateVBORGB() override;
   void updateVBOAlpha() override;
   void move(Vector2f vecM);
+  bool getRGBFilterState();
   void setRGBFilterState(bool etat);
 private:
   Texture spriteTexture;
+protected:
   GLfloat vertices[32];
   GLuint indices[6];
   bool isRGBFilter;
  };
+
+class NoTextureSprite : public Sprite
+{
+public:
+  NoTextureSprite();
+
+  void Draw(GLint renderModeLoc) const override;
+};
 
 #endif // !SPRITE_CLASS_H

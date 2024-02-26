@@ -13,7 +13,7 @@ public:
   Texture(const char* textureFileName);
   
   void Bind() const;
-  void Unbind();
+  void Unbind() const;
   void Delete();
   int getWidth();
   int getHeight();

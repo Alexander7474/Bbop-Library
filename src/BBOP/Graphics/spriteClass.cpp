@@ -1,15 +1,15 @@
 #include "../../../include/BBOP/Graphics/spriteClass.h"
 
-Sprite::Sprite(const char* textureFileName)
+Sprite::Sprite(Texture nTexture)
   : Shape(vertices, sizeof(vertices), indices, sizeof(indices)),
-    spriteTexture(textureFileName),
+    spriteTexture(nTexture),
     isRGBFilter(false)
 {
   size.x = spriteTexture.getWidth(); size.y = spriteTexture.getHeight();
   // Build du vao
   //construtiopn du VAO en fontion de la position du sprite, de  sa taille et de la taille de la fenetre
   buildVAO();
-  cout << "Sprite created with texture " << textureFileName << endl;
+  cout << "Sprite created" << endl;
 }
 
 void Sprite::buildVAO()
@@ -127,6 +127,8 @@ void Sprite::Draw(GLint renderModeLoc) const
   spriteTexture.Bind();
   shapeVAO.Bind();  
   glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+  shapeVAO.Unbind();
+  spriteTexture.Unbind();
 }
 
 void Sprite::Delete()
@@ -151,5 +153,25 @@ void Sprite::move(Vector2f vecM)
 void Sprite::setRGBFilterState(bool etat)
 {
   isRGBFilter = etat;
+}
+
+bool Sprite::getRGBFilterState()
+{
+  return isRGBFilter;
+}
+
+NoTextureSprite::NoTextureSprite() : Sprite(Texture("NONE")) {
+  setSize(Vector2f(50.0f,50.0f));
+  
+}
+
+void NoTextureSprite::Draw(GLint renderModeLoc) const 
+{
+  if (!isRGBFilter)
+    glUniform1i(renderModeLoc, BBOP_SHADER_MODE_TEXTURE);
+  else
+    glUniform1i(renderModeLoc, BBOP_SHADER_MODE_MIX);
+  shapeVAO.Bind();  
+  glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }
 
