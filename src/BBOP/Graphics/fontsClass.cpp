@@ -1,8 +1,10 @@
 #include "../../../include/BBOP/Graphics/fontsClass.h"
+#include <algorithm>
+#include <cstring>
 #include <vector>
 
 // Charge une police TrueType en tant que texture OpenGL
-void loadFontTexture(const char* fontPath, int fontSize, GLuint* textures, int numTextures) {
+void loadFontTexture(const char* fontPath, int fontSize, Character* charList, int numTextures) {
    
   FT_Library ft;
     if (FT_Init_FreeType(&ft) != 0) {
@@ -35,6 +37,8 @@ void loadFontTexture(const char* fontPath, int fontSize, GLuint* textures, int n
             continue;
         }
 
+        FT_Render_Glyph(face->glyph, FT_RENDER_MODE_NORMAL);
+
         // Inverser le glyph
         for (unsigned int row = 0; row < face->glyph->bitmap.rows / 2; ++row) {
           for (unsigned int col = 0; col < face->glyph->bitmap.width; ++col) {
@@ -45,8 +49,9 @@ void loadFontTexture(const char* fontPath, int fontSize, GLuint* textures, int n
         
         // Générer une texture OpenGL pour le glyphe
     
-        glGenTextures(1, &textures[i]);
-        glBindTexture(GL_TEXTURE_2D, textures[i]);
+        glGenTextures(1, &charList[i].TextureID);
+        glBindTexture(GL_TEXTURE_2D, charList[i].TextureID);
+        
 
         // Create a new image buffer for RGBA format
         std::vector<unsigned char> rgbaBuffer(face->glyph->bitmap.width * face->glyph->bitmap.rows * 4); // 4 channels for RGBA
@@ -62,7 +67,11 @@ void loadFontTexture(const char* fontPath, int fontSize, GLuint* textures, int n
             pixel[3] = (red == 0) ? 0 : 255; // Alpha channel (fully opaque)
           }
         }
-
+ 
+        charList[i].size.x = face->glyph->bitmap.width;
+        charList[i].size.y = face->glyph->bitmap.rows;
+        charList[i].bearing.x = face->glyph->bitmap_left; // Conversion de la valeur en pixels
+        charList[i].bearing.y = face->glyph->bitmap_top; // Conversion de la valeur en pixels
         // Load the glyph as GL_RGBA format
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, face->glyph->bitmap.width, face->glyph->bitmap.rows, 0, GL_RGBA, GL_UNSIGNED_BYTE, rgbaBuffer.data());
 
@@ -72,10 +81,98 @@ void loadFontTexture(const char* fontPath, int fontSize, GLuint* textures, int n
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         glBindTexture(GL_TEXTURE_2D, 0);
-
   }
 
     // Libérer les ressources FreeType
     FT_Done_Face(face);
     FT_Done_FreeType(ft);
 }
+
+Texte::Texte(const char * nTexte,int glyphSize, const char* ttfPath)
+  : pos(0.0f,0.0f),
+    origin(0.0f,0.0f),
+    rotation(0.0f),
+    RGB(255,255,255),
+    alpha(1.0f),
+    texte(nTexte),
+    offset(2.5f)
+{
+  sizeTexte = static_cast<unsigned int>(strlen(texte));
+  glyphList = new NoTextureSprite[sizeTexte];
+  loadFontTexture(ttfPath, glyphSize, charL, 128);
+  buildTexte();
+}
+
+void Texte::buildTexte()
+{
+  float sizeTotal = 0.0f;
+  for (unsigned int i = 0; i < sizeTexte; i++){
+    glyphList[i].setSize(Vector2f(charL[texte[i]].size.x,charL[texte[i]].size.y));
+    glyphList[i].setOrigin(Vector2f(-(sizeTotal+charL[texte[i]].bearing.x)+origin.x,charL[texte[i]].bearing.y+origin.y));
+    glyphList[i].setPosition(pos);
+    if(texte[i] == ' ')
+      sizeTotal+=5.0f;
+    sizeTotal+=charL[texte[i]].size.x+charL[texte[i]].bearing.x;
+  }
+}
+
+void Texte::Draw(GLint renderModeLoc) const
+{
+  for (unsigned int i = 0; i < sizeTexte; i++){
+    glBindTexture(GL_TEXTURE_2D, charL[texte[i]].TextureID);
+    glyphList[i].Draw(renderModeLoc);
+  }
+}
+
+Vector2f Texte::getPosition()
+{
+  return pos;
+}
+
+void Texte::setPosition(Vector2f nPos)
+{
+  pos = nPos;
+  buildTexte();
+}
+
+Vector2f Texte::getOrigin()
+{
+  return origin;
+}
+
+void Texte::setOrigin(Vector2f nOrigin)
+{
+  pos = nOrigin;
+  buildTexte();
+}
+
+Vector3i Texte::getColor()
+{
+  return RGB;
+}
+
+void Texte::setColor(Vector3i nRGB)
+{
+  RGB= nRGB;
+}
+
+void Texte::setAlpha(float nAlpha)
+{
+  alpha = nAlpha;
+}
+
+float Texte::getAlpha()
+{
+  return alpha;
+}
+
+void Texte::setRotation(float nRotation)
+{
+  rotation = nRotation;
+}
+
+float Texte::getRotation()
+{
+  return rotation;
+}
+

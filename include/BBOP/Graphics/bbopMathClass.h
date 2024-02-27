@@ -19,6 +19,7 @@ public:
   float y;
 
   Vector2f(float nx, float ny);
+  Vector2f();
 };
 
 class Vector2d

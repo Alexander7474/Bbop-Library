@@ -32,19 +32,15 @@ int main() {
   defaultSprite.setPosition(Vector2f(150.0f,150.0f));
   defaultSprite.setSize(Vector2f(100.0f,100.0f));
   //defaultSprite.setRGBFilterState(true);
- 
-  cout << "creation de la forme convex" << endl;
-  Vector2f list[6] = {Vector2f(100.0f,100.0f),Vector2f(170.0f,10.0f),Vector2f(189.0f,75.0f),Vector2f(189.0f,199.0f),Vector2f(32.0f,112.0f),Vector2f(0.0f,0.0f)};
-  ConvexShape defaultConvex(6,list);
-  defaultConvex.setPosition(Vector2f(650.0f,250.0f));
-  defaultConvex.setColor(Vector3i(100,0,255));
 
-  cout << "chargement des chars" << endl;
-  // Chargement de la police de caractères et génération des textures OpenGL
-  const int numTextures = 128; // Nombre de caractères à charger (ASCII)
-  GLuint textures[numTextures];
-  loadFontTexture("fonts/arial.ttf", 48, textures, numTextures);
-  NoTextureSprite test;
+  Texte test("abc de fghijklmnopqr stuvwxyz", 40,"fonts/arial.ttf");
+  test.setPosition(Vector2f(0.0f,150.0f));
+
+  //cout << "creation de la forme convex" << endl;
+  //Vector2f list[6] = {Vector2f(100.0f,100.0f),Vector2f(170.0f,10.0f),Vector2f(189.0f,75.0f),Vector2f(189.0f,199.0f),Vector2f(32.0f,112.0f),Vector2f(0.0f,0.0f)};
+  //ConvexShape defaultConvex(6,list);
+  //defaultConvex.setPosition(Vector2f(650.0f,250.0f));
+  //defaultConvex.setColor(Vector3i(100,0,255));
 
   // Main while loop
 	while (!glfwWindowShouldClose(window))
@@ -66,10 +62,9 @@ int main() {
     //affichage du sprite mario, texture par default si non trouvé
     defaultScene.Draw(defaultSprite);
     //affichage de la forme convex
-    defaultConvex.setRotation(defaultConvex.getRotation()+0.01);
-    defaultScene.Draw(defaultConvex);
+    //defaultConvex.setRotation(defaultConvex.getRotation()+0.01);
+    //defaultScene.Draw(defaultConvex);
 
-    glBindTexture(GL_TEXTURE_2D, textures['e']);
     defaultScene.Draw(test);
 
     //gestiond des mouvement de mario
