@@ -3,6 +3,7 @@
 ////////////////////////////////////////////////////////////////////
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <iostream>
 
 #include "include/BBOP/Graphics.h"
 #include "include/BBOP/Graphics/shapeClass.h"
@@ -32,7 +33,7 @@ int main() {
   defaultSprite.setPosition(Vector2f(150.0f,150.0f));
   defaultSprite.setSize(Vector2f(100.0f,100.0f));
   //defaultSprite.setRGBFilterState(true);
-
+  //
   Texte test("abc de fghijklmnopqr stuvwxyz", 40,"fonts/arial.ttf");
   test.setPosition(Vector2f(0.0f,150.0f));
 
@@ -41,8 +42,7 @@ int main() {
   //ConvexShape defaultConvex(6,list);
   //defaultConvex.setPosition(Vector2f(650.0f,250.0f));
   //defaultConvex.setColor(Vector3i(100,0,255));
-
-  // Main while loop
+   // Main while loop
 	while (!glfwWindowShouldClose(window))
 	{
     bbopCleanWindow(Vector3i(0,0,0),1.0);
@@ -64,7 +64,8 @@ int main() {
     //affichage de la forme convex
     //defaultConvex.setRotation(defaultConvex.getRotation()+0.01);
     //defaultScene.Draw(defaultConvex);
-
+    
+    test.setRotation(test.getRotation()+0.05f);
     defaultScene.Draw(test);
 
     //gestiond des mouvement de mario

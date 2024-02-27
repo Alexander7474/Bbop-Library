@@ -92,7 +92,7 @@ Texte::Texte(const char * nTexte,int glyphSize, const char* ttfPath)
   : pos(0.0f,0.0f),
     origin(0.0f,0.0f),
     rotation(0.0f),
-    RGB(255,255,255),
+    RGB(255,255,0),
     alpha(1.0f),
     texte(nTexte),
     offset(2.5f)
@@ -110,6 +110,9 @@ void Texte::buildTexte()
     glyphList[i].setSize(Vector2f(charL[texte[i]].size.x,charL[texte[i]].size.y));
     glyphList[i].setOrigin(Vector2f(-(sizeTotal+charL[texte[i]].bearing.x)+origin.x,charL[texte[i]].bearing.y+origin.y));
     glyphList[i].setPosition(pos);
+    glyphList[i].setRotation(rotation);
+    glyphList[i].setColor(RGB);
+    glyphList[i].setAlpha(alpha);
     if(texte[i] == ' ')
       sizeTotal+=5.0f;
     sizeTotal+=charL[texte[i]].size.x+charL[texte[i]].bearing.x;
@@ -132,7 +135,8 @@ Vector2f Texte::getPosition()
 void Texte::setPosition(Vector2f nPos)
 {
   pos = nPos;
-  buildTexte();
+  for (unsigned int i = 0; i < sizeTexte; i++)
+    glyphList[i].setPosition(pos);
 }
 
 Vector2f Texte::getOrigin()
@@ -143,7 +147,13 @@ Vector2f Texte::getOrigin()
 void Texte::setOrigin(Vector2f nOrigin)
 {
   pos = nOrigin;
-  buildTexte();
+  float sizeTotal = 0.0f;
+  for (unsigned int i = 0; i < sizeTexte; i++){
+    glyphList[i].setOrigin(Vector2f(-(sizeTotal+charL[texte[i]].bearing.x)+origin.x,charL[texte[i]].bearing.y+origin.y));
+    if(texte[i] == ' ')
+      sizeTotal+=5.0f;
+    sizeTotal+=charL[texte[i]].size.x+charL[texte[i]].bearing.x;
+  }
 }
 
 Vector3i Texte::getColor()
@@ -154,11 +164,15 @@ Vector3i Texte::getColor()
 void Texte::setColor(Vector3i nRGB)
 {
   RGB= nRGB;
+  for (unsigned int i = 0; i < sizeTexte; i++)
+    glyphList[i].setColor(RGB);
 }
 
 void Texte::setAlpha(float nAlpha)
 {
   alpha = nAlpha;
+  for (unsigned int i = 0; i < sizeTexte; i++)
+    glyphList[i].setAlpha(alpha);
 }
 
 float Texte::getAlpha()
@@ -169,6 +183,8 @@ float Texte::getAlpha()
 void Texte::setRotation(float nRotation)
 {
   rotation = nRotation;
+  for (unsigned int i = 0; i < sizeTexte; i++)
+    glyphList[i].setRotation(rotation);
 }
 
 float Texte::getRotation()

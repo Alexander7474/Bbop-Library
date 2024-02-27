@@ -20,10 +20,11 @@ class Sprite : public Shape
 {
 public:
   Sprite(Texture nTexture);
+  Sprite();
 
   void Draw(GLint renderModeLoc) const override;
   void Delete();
-  void setTexture(Texture nTexture);
+  void setTexture(Texture* nTexture);
   void buildVAO() override;
   void updateVBO() override;
   void updateVBORGB() override;
@@ -32,7 +33,7 @@ public:
   bool getRGBFilterState();
   void setRGBFilterState(bool etat);
 private:
-  Texture spriteTexture;
+  Texture* spriteTexture;
 protected:
   GLfloat vertices[32];
   GLuint indices[6];
@@ -42,8 +43,6 @@ protected:
 class NoTextureSprite : public Sprite
 {
 public:
-  NoTextureSprite();
-
   void Draw(GLint renderModeLoc) const override;
 };
 
