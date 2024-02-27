@@ -92,7 +92,7 @@ Texte::Texte(const char * nTexte,int glyphSize, const char* ttfPath)
   : pos(0.0f,0.0f),
     origin(0.0f,0.0f),
     rotation(0.0f),
-    RGB(255,255,0),
+    RGB(255,255,255),
     alpha(1.0f),
     texte(nTexte),
     offset(2.5f)

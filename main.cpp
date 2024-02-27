@@ -34,14 +34,15 @@ int main() {
   defaultSprite.setSize(Vector2f(100.0f,100.0f));
   //defaultSprite.setRGBFilterState(true);
   //
-  Texte test("abc de fghijklmnopqr stuvwxyz", 40,"fonts/arial.ttf");
+  Texte test("Hello World !", 40,"fonts/arial.ttf");
+  Texte test2("abc de fghijklmnopqr stuvwxyz", 40,"fonts/arial.ttf");
   test.setPosition(Vector2f(0.0f,150.0f));
 
-  //cout << "creation de la forme convex" << endl;
-  //Vector2f list[6] = {Vector2f(100.0f,100.0f),Vector2f(170.0f,10.0f),Vector2f(189.0f,75.0f),Vector2f(189.0f,199.0f),Vector2f(32.0f,112.0f),Vector2f(0.0f,0.0f)};
-  //ConvexShape defaultConvex(6,list);
-  //defaultConvex.setPosition(Vector2f(650.0f,250.0f));
-  //defaultConvex.setColor(Vector3i(100,0,255));
+  cout << "creation de la forme convex" << endl;
+  Vector2f list[6] = {Vector2f(100.0f,100.0f),Vector2f(170.0f,10.0f),Vector2f(189.0f,75.0f),Vector2f(189.0f,199.0f),Vector2f(32.0f,112.0f),Vector2f(0.0f,0.0f)};
+  ConvexShape defaultConvex(6,list);
+  defaultConvex.setPosition(Vector2f(650.0f,250.0f));
+  defaultConvex.setColor(Vector3i(100,0,255));
    // Main while loop
 	while (!glfwWindowShouldClose(window))
 	{
@@ -62,10 +63,9 @@ int main() {
     //affichage du sprite mario, texture par default si non trouvé
     defaultScene.Draw(defaultSprite);
     //affichage de la forme convex
-    //defaultConvex.setRotation(defaultConvex.getRotation()+0.01);
-    //defaultScene.Draw(defaultConvex);
-    
-    test.setRotation(test.getRotation()+0.05f);
+    defaultConvex.setRotation(defaultConvex.getRotation()+0.01);
+    defaultScene.Draw(defaultConvex);
+
     defaultScene.Draw(test);
 
     //gestiond des mouvement de mario
