@@ -1,6 +1,7 @@
 #ifndef TEXTURE_CLASS_H
 #define TEXTURE_CLASS_H
 
+#include "bbopMathClass.h"
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
@@ -13,7 +14,7 @@ public:
   Texture(const char* textureFileName);
   
   void Bind() const;
-  void Unbind();
+  void Unbind() const;
   void Delete();
   int getWidth();
   int getHeight();

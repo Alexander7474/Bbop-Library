@@ -1,8 +1,8 @@
 CC = g++
-CFLAGS = -std=c++11 -Wall
-LIBS = -lglfw -lGLEW -lGL
+CFLAGS = -std=c++11 -Wall -I/usr/include/freetype2
+LIBS = -lglfw -lGLEW -lGL -lfreetype 
 
-SRCS = src/BBOP/Graphics/shaders.cpp src/BBOP/Graphics/bbopMathClass.cpp src/BBOP/Graphics/bbopGlobal.cpp src/BBOP/Graphics/sceneClass.cpp src/BBOP/Graphics/shaderClass.cpp src/BBOP/Graphics/textureClass.cpp src/BBOP/Graphics/VBO.cpp src/BBOP/Graphics/VAO.cpp src/BBOP/Graphics/EBO.cpp src/BBOP/Graphics/spriteClass.cpp src/BBOP/Graphics/collisionBoxClass.cpp src/BBOP/Graphics/shapeClass.cpp src/BBOP/Performance/benchmark.cpp
+SRCS = src/BBOP/Graphics/fontsClass.cpp src/BBOP/Graphics/shaders.cpp src/BBOP/Graphics/bbopMathClass.cpp src/BBOP/Graphics/bbopGlobal.cpp src/BBOP/Graphics/sceneClass.cpp src/BBOP/Graphics/shaderClass.cpp src/BBOP/Graphics/textureClass.cpp src/BBOP/Graphics/VBO.cpp src/BBOP/Graphics/VAO.cpp src/BBOP/Graphics/EBO.cpp src/BBOP/Graphics/spriteClass.cpp src/BBOP/Graphics/collisionBoxClass.cpp src/BBOP/Graphics/shapeClass.cpp src/BBOP/Performance/benchmark.cpp
 SRCSM = main.cpp
 
 OBJS = $(SRCSM:.cpp=.o) $(SRCS:.cpp=.o)

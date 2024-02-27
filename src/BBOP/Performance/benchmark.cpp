@@ -13,7 +13,7 @@ uniform_int_distribution<int> distribs(0,255);
 
 bool bbopBenchMark(Scene& sceneToUse)
 {
-  spriteList.push_back(Sprite("nope"));
+  spriteList.push_back(Sprite(Texture("nope")));
   rectList.push_back(RectangleShape());
   sceneToUse.Use();
   lastTime = glfwGetTime();

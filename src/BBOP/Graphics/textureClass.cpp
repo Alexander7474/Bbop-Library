@@ -35,6 +35,7 @@ Texture::Texture(const char* textureFileName){
     }
   }
   stbi_image_free(data); 
+  glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 int Texture::getWidth()
@@ -52,7 +53,7 @@ void Texture::Bind() const
   glBindTexture(GL_TEXTURE_2D, ID);
 }
 
-void Texture::Unbind()
+void Texture::Unbind() const
 {
   glBindTexture(GL_TEXTURE_2D, 0);
 }

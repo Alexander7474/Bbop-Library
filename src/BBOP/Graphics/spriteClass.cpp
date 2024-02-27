@@ -1,15 +1,25 @@
 #include "../../../include/BBOP/Graphics/spriteClass.h"
 
-Sprite::Sprite(const char* textureFileName)
+Sprite::Sprite(Texture nTexture)
   : Shape(vertices, sizeof(vertices), indices, sizeof(indices)),
-    spriteTexture(textureFileName),
+    spriteTexture(new Texture(nTexture)),
     isRGBFilter(false)
 {
-  size.x = spriteTexture.getWidth(); size.y = spriteTexture.getHeight();
+  size.x = spriteTexture->getWidth(); size.y = spriteTexture->getHeight();
   // Build du vao
   //construtiopn du VAO en fontion de la position du sprite, de  sa taille et de la taille de la fenetre
   buildVAO();
-  cout << "Sprite created with texture " << textureFileName << endl;
+  cout << "Sprite created" << endl;
+}
+
+Sprite::Sprite()
+  : Shape(vertices, sizeof(vertices), indices, sizeof(indices)),
+    spriteTexture(nullptr),
+    isRGBFilter(true)
+{
+  size.x = 50.0f; size.y = 50.0f;
+  buildVAO();
+  cout << "Default sprite created" << endl;
 }
 
 void Sprite::buildVAO()
@@ -124,9 +134,11 @@ void Sprite::Draw(GLint renderModeLoc) const
     glUniform1i(renderModeLoc, BBOP_SHADER_MODE_TEXTURE);
   else
     glUniform1i(renderModeLoc, BBOP_SHADER_MODE_MIX);
-  spriteTexture.Bind();
+  spriteTexture->Bind();
   shapeVAO.Bind();  
   glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+  shapeVAO.Unbind();
+  spriteTexture->Unbind();
 }
 
 void Sprite::Delete()
@@ -134,10 +146,10 @@ void Sprite::Delete()
   shapeVAO.Delete();
   shapeVBO.Delete();
   shapeEBO.Delete();
-  spriteTexture.Delete();
+  spriteTexture->Delete();
 }
 
-void Sprite::setTexture(Texture nTexture)
+void Sprite::setTexture(Texture* nTexture)
 {
   spriteTexture = nTexture;
 }
@@ -151,5 +163,20 @@ void Sprite::move(Vector2f vecM)
 void Sprite::setRGBFilterState(bool etat)
 {
   isRGBFilter = etat;
+}
+
+bool Sprite::getRGBFilterState()
+{
+  return isRGBFilter;
+}
+
+void NoTextureSprite::Draw(GLint renderModeLoc) const 
+{
+  if (!isRGBFilter)
+    glUniform1i(renderModeLoc, BBOP_SHADER_MODE_TEXTURE);
+  else
+    glUniform1i(renderModeLoc, BBOP_SHADER_MODE_MIX);
+  shapeVAO.Bind();  
+  glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }
 
