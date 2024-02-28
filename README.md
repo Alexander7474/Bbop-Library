@@ -114,7 +114,7 @@ Même chose que pour le Vector2~ mais pour des paires de 3 comme rgb.
 
 ## Scene
 
-### $${\color{lightblue}Scene() \space $$
+### $${\color{lightblue}Scene$$
 Permet de gérer l'éclairage gloabal, le shader utilisé, les variables uniform de shader et l'affichage de n'importe quelles forme/sprite/texte.
 La class n'est pas encore finalisé est ne permet pas encore une gestion complète de l'éclairage.
 #### Exemple d'utilisation
