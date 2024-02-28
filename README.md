@@ -1,4 +1,8 @@
 # Bbop Library
+## Informations
+Bbop est un projet de library graphique utilisant opengl. La lib permet de gérer plus que de simple forme géométrique comme l'éclairage d'une scène, des points de lumières ou encore des ombrages.
+Auteur: Alexandre L
+Versions: 0.1
 # Installation  
 ## Installer les lib nécessaires: 
 ```
@@ -46,6 +50,6 @@ git clone https://github.com/Alexander7474/BibibopEngine.git Bibibop
 cd Bibibop
 make && sudo make install
 ```
-## Documentation
+# Documentation
 
 pas encore fait ¯\_(ツ)_/¯
