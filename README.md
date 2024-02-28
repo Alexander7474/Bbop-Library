@@ -112,6 +112,7 @@ int main()
 ```
 
 ## Vector~~
+La librairie bbop utilise toujours des vector pour transferer et utiliser n'importe quelle paire ou triplet de int, float ou double.
 
 ### Vector2i(int x, int y) Vector2f(float x, float y) Vector2d(double x, double y)
 Prend en paramètre x et y et permet de gèrer des paire. (Position, vecteur de vitesse, ext...).
@@ -126,10 +127,21 @@ std::cout << vector.x << ";" << vector.y << std::endl;
 Même chose que pour le Vector2~ mais pour des paires de 3 comme rgb.
 
 ## Scene
-
-### <span style="color:blue">Scene()</span>
 Permet de gérer l'éclairage gloabal, le shader utilisé, les variables uniform de shader et l'affichage de n'importe quelles forme/sprite/texte.
-La class n'est pas encore finalisé est ne permet pas encore une gestion complète de l'éclairage.
+
+### Scene()
+Constructeur par défault de scene qui eclaire la scène avec une lumière blanche.
+
+### Scene(float nAmbiantLightValue, Vector3i nAmbiantLightColor)
+Constructeur de scène
+nAmbiantLightValuee: puissance de l'éclairage de la scène.
+nAbiantLightColor: couleur de l'éclairage de la scène.
+
+### void Use()
+Permet de spécifier la scène à utiliser
+
+### void setAmbiantLightValue(float nAmbiantLightValue)
+
 #### Exemple d'utilisation
 ```
 // creation d'une scène
