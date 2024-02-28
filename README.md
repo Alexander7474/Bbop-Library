@@ -52,42 +52,77 @@ make && sudo make install
 ```
 # Documentation
 
-## Fonction de la lib
+## Init et autre
 
 ### bbopInit(int windowX, int windowY, const char* windowName, GLFW*& window)
 Initialise opengl et bbop pour pouvoir utiliser la lib.
-Cette fonction prend en paramètre la taille de la fenêtre, son nom et la fenêtre glfw à utiliser comme contexte opengl.
-#### Exemple
-'''
-//creation de la fenêtre glfw
-GLFWwindow * window;
-//initialisation de la lib
-bbopInit(1920,1080,"window name",window);
-'''
+Prend en paramètre la taille de la fenêtre, son nom et la fenêtre glfw à utiliser comme contexte opengl.
 
-## Class Vector~~
+### bbopCleanWindow(Vector3i rgb, float alpha)
+Nettoie la fenêtre avant un nouvelle affichage
+Prend en paramètre la couleur de fond et la transparence de la fenêtre.
+
+### bbopErrorCheck()
+Vérifie le cache d'erreur opengl et affiche des possibles erreurs
+
+#### Exemple
+```
+int main()
+{
+    //creation de la fenêtre glfw
+    GLFWwindow * window;
+    //initialisation de la lib
+    bbopInit(1920,1080,"window name",window);
+    //main while loop
+    while (!glfwWindowShouldClose(window))
+    {
+      // clear de la fenêtre en noire
+      bbopCleanWindow(Vector3i(0,0,0),1.0f));
+    
+      ///////////////
+      // ton code ici
+      ///////////////
+    
+      // vérification des erreurs
+      bbopErrorCheck();
+      // swap du back buffer avec le front buffer
+      glfwSwapBuffer(window);
+      // recupération des events glfw
+      glfwPollEvents();
+    }
+    // destruction de la fen^tre et fin de glfw
+    glfwDestroyWindow(window);
+    glfwTerminate();
+
+    return 0;
+}
+```
+
+## Vector~~
 
 ### Vector2i(int x, int y) Vector2f(float x, float y) Vector2d(double x, double y)
 Prend en paramètre x et y et permet de gèrer des paire. (Position, vecteur de vitesse, ext...).
 x et y ne sont pas privé.
 #### Exemple
-'''
+```
 Vector2f vector(120.0f, 564.2f);
 std::cout << vector.x << ";" << vector.y << std::endl;
-'''
+```
 
 ### Vector3i(int x, int y, intz) Vector3f(float x, float y, float z) Vector3d(double x, doule y, double z)
 Même chose que pour le Vector2~ mais pour des paires de 3 comme rgb.
 
 ## Scene
+
+### Scene()
 Permet de gérer l'éclairage gloabal, le shader utilisé, les variables uniform de shader et l'affichage de n'importe quelles forme/sprite/texte.
 La class n'est pas encore finalisé est ne permet pas encore une gestion complète de l'éclairage.
 #### Exemple d'utilisation
-'''
+```
 // creation d'une scène
 Scene defaultScene;
 // creation d'un rectangle
 RectangleShape rectangle;
 // affichage du rectangle
 defaultScene.Draw(rectangle);
-'''
+```
