@@ -1,11 +1,18 @@
 # Bbop Library
 ## Informations
 
-[![Version 0.1](lien_vers_image_badge)](https://github.com/Alexander7474/Bbop-Library/releases/tag/apha)
-[![Release](lien_vers_image_badge)](https://github.com/Alexander7474/Bbop-Library/releases)
+[![Last version](https://img.shields.io/badge/Last_version-0.1-blue)](https://github.com/Alexander7474/Bbop-Library/releases/tag/apha)
+[![All release](https://img.shields.io/badge/Release-page-green)](https://github.com/Alexander7474/Bbop-Library/releases)
+[![Auteur](https://img.shields.io/badge/Author-8A2BE2)](https://github.com/Alexander7474)
+[![License](https://img.shields.io/badge/License-GPL-&#45;3.0-blue)](https://github.com/Alexander7474)
+[![OpenGL](https://img.shields.io/badge/OpenGL-%23FFFFFF.svg?style=for-the-badge&logo=opengl)](https://www.opengl.org)
 
 Bbop est un projet de library graphique utilisant opengl. La lib permet de gérer plus que de simple forme géométrique comme l'éclairage d'une scène, des points de lumières ou encore des ombrages.
 Auteur: Alexandre L
+
+1. [Installation](#installation)
+2. [Documentation](#documentation)
+
 # Installation  
 ## Installer les lib nécessaires: 
 ```
