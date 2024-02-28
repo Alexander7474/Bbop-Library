@@ -94,13 +94,21 @@ Texte::Texte(const char * nTexte,int glyphSize, const char* ttfPath)
     rotation(0.0f),
     RGB(255,255,255),
     alpha(1.0f),
-    texte(nTexte),
+    texte(new char[strlen(nTexte) + 1]),
+    sizeTexte(static_cast<unsigned int>(strlen(nTexte)+1)),
+    glyphList(new NoTextureSprite[strlen(nTexte)+ 1]),
     offset(2.5f)
 {
+  strcpy(const_cast<char*>(texte), nTexte);
   sizeTexte = static_cast<unsigned int>(strlen(texte));
-  glyphList = new NoTextureSprite[sizeTexte];
   loadFontTexture(ttfPath, glyphSize, charL, 128);
   buildTexte();
+}
+
+Texte::~Texte()
+{
+  delete [] glyphList;
+  delete [] texte;
 }
 
 void Texte::buildTexte()
@@ -190,5 +198,16 @@ void Texte::setRotation(float nRotation)
 float Texte::getRotation()
 {
   return rotation;
+}
+
+void Texte::setTexte(const char * nTexte)
+{
+  delete [] texte;
+  texte = new char[strlen(nTexte)+ 1];
+  strcpy(const_cast<char*>(texte), nTexte);
+  sizeTexte = static_cast<unsigned int>(strlen(texte));
+  delete[] glyphList;
+  glyphList = new NoTextureSprite[sizeTexte];
+  buildTexte();
 }
 

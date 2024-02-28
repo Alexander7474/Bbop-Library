@@ -7,25 +7,31 @@
 #include <variant>
 #include <vector>
 
+#include "bbopMathClass.h"
 #include "spriteClass.h"
 #include "shaderClass.h"
+#include "shaders.h"
 #include "bbopGlobal.h"
-
-using namespace std;
 
 class Scene
 {
 public:
   Scene();
+  Scene(float nAmbiantLightValue, Vector3i nAmbiantLightColor);
 
   void Use();
-  void Delete();
+  void setAmbiantLightValue(float nAmbiantLightValue);
+  float getAmbiantLightValue();
+  void setAmbiantLightColor(Vector3i nAmbiantLightColor);
+  Vector3i getAmbiantLightColor();
   void Draw(BbopDrawable& spr);
 private:
   Shader sceneShader;
-  GLfloat ambiantLightValue;
+  float ambiantLightValue;
+  Vector3i ambiantLightColor;
   GLint ambiantLightLoc;
   GLint renderModeLoc;
+  Vector3f ambiantLight;
 };
 
 #endif // !SCENE_CLASS_H

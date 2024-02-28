@@ -69,6 +69,7 @@ class ConvexShape : public Shape
 {
 public:
   ConvexShape(int nnPoint, Vector2f* nlistPoint);
+  ~ConvexShape();
 
   void buildVAO() override;
   void updateVBO() override;

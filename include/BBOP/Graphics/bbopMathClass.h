@@ -10,6 +10,7 @@ public:
   int y;
 
   Vector2i(int nx, int ny);
+  Vector2i();
 };
 
 class Vector2f
@@ -29,27 +30,34 @@ public:
   double y;
 
   Vector2d(double nx, double ny);
+  Vector2d();
 };
 
 class Vector3i
 {
 public:
   int x,y,z;
+
   Vector3i(int nx, int ny, int nz);
+  Vector3i();
 };
 
 class Vector3f
 {
 public:
   float x,y,z;
+
   Vector3f(float nx, float ny, float nz);
+  Vector3f();
 };
 
 class Vector3d
 {
 public:
   double x,y,z;
+
   Vector3d(double nx, double ny, double nz);
+  Vector3d();
 };
 
 

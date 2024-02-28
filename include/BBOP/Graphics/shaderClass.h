@@ -11,8 +11,6 @@
 
 #include "bbopGlobal.h"
 
-using namespace std;
-
 class Shader
 {
 public:

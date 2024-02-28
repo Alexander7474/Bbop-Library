@@ -4,8 +4,6 @@
 #include "bbopMathClass.h"
 #include <iostream>
 
-using namespace std;
-
 class CollisionBox 
 {
 public:

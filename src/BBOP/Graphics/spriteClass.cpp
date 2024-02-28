@@ -9,7 +9,6 @@ Sprite::Sprite(Texture nTexture)
   // Build du vao
   //construtiopn du VAO en fontion de la position du sprite, de  sa taille et de la taille de la fenetre
   buildVAO();
-  cout << "Sprite created" << endl;
 }
 
 Sprite::Sprite()
@@ -19,7 +18,11 @@ Sprite::Sprite()
 {
   size.x = 50.0f; size.y = 50.0f;
   buildVAO();
-  cout << "Default sprite created" << endl;
+}
+
+Sprite::~Sprite()
+{
+  delete spriteTexture;
 }
 
 void Sprite::buildVAO()

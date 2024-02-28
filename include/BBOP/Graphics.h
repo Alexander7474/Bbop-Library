@@ -16,4 +16,6 @@
 #include "Graphics/shaderClass.h"
 #include "Graphics/shapeClass.h"
 #include "Graphics/spriteClass.h"
+#include "Graphics/fontsClass.h"
+#include "Graphics/bbopFunc.h"
 #include "Graphics/textureClass.h"

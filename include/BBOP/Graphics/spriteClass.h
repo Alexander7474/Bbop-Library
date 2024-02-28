@@ -14,13 +14,12 @@
 #include "VBO.h"
 #include "EBO.h"
 
-using namespace std;
-
 class Sprite : public Shape
 {
 public:
   Sprite(Texture nTexture);
   Sprite();
+  ~Sprite();
 
   void Draw(GLint renderModeLoc) const override;
   void Delete();

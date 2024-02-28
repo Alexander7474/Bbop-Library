@@ -10,7 +10,6 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-
 struct Character {
     unsigned int TextureID;  // ID handle of the glyph texture
     Vector2f size;       // Size of glyph
@@ -24,6 +23,7 @@ class Texte : public BbopDrawable
 {
 public:
   Texte(const char * nTexte, int glyphSize, const char* ttfPath);
+  ~Texte();
 
   Vector2f getPosition();
   void setPosition(Vector2f nPos);

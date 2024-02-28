@@ -6,9 +6,8 @@
 #include <iostream>
 
 #include "include/BBOP/Graphics.h"
-#include "include/BBOP/Graphics/shapeClass.h"
-#include "include/BBOP/Graphics/fontsClass.h"
-#include "include/BBOP/Graphics/spriteClass.h"
+
+using namespace std;
 
 int main() {
   
@@ -17,7 +16,7 @@ int main() {
   
   //Creation de la scene pour afficher nos formes
   cout << "creation de la scene" << endl;
-  Scene defaultScene;
+  Scene defaultScene(1.0f,Vector3i(255,255,255));
   //creation d'un rectangle a afficher, par default blanc en haut a gauche de l'image
   cout << "creation du rectangle" << endl;
   RectangleShape defaultRect;
@@ -35,7 +34,7 @@ int main() {
   //defaultSprite.setRGBFilterState(true);
   //
   Texte test("Hello World !", 40,"fonts/arial.ttf");
-  Texte test2("abc de fghijklmnopqr stuvwxyz", 40,"fonts/arial.ttf");
+  Texte est2("abc de fghijklmnopqr stuvwxyz", 40,"fonts/arial.ttf");
   test.setPosition(Vector2f(0.0f,150.0f));
 
   cout << "creation de la forme convex" << endl;
@@ -43,7 +42,8 @@ int main() {
   ConvexShape defaultConvex(6,list);
   defaultConvex.setPosition(Vector2f(650.0f,250.0f));
   defaultConvex.setColor(Vector3i(100,0,255));
-   // Main while loop
+
+  // Main while loop
 	while (!glfwWindowShouldClose(window))
 	{
     bbopCleanWindow(Vector3i(0,0,0),1.0);

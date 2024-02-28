@@ -1,10 +1,11 @@
 #include "../../../include/BBOP/Graphics/textureClass.h"
 
+using namespace std;
+
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb/stb_image.h>
 
 Texture::Texture(const char* textureFileName){
-  cout << "Creating Texture " << textureFileName << endl;
   glGenTextures(1, &ID);
   glBindTexture(GL_TEXTURE_2D, ID);
   // définit les options de la texture actuellement liée
@@ -22,7 +23,7 @@ Texture::Texture(const char* textureFileName){
   }
   else
   {
-    cout << "-> failed to load texture, loading default texture" << endl;
+    cerr << "-> failed to load texture, loading default texture" << endl;
     textureFileName = "imgTesting/noTexture.png";
     data = stbi_load(textureFileName, &width, &height, &nrChannels, STBI_rgb_alpha);
     if (data)
@@ -31,7 +32,7 @@ Texture::Texture(const char* textureFileName){
     }
     else
     {
-      cout << "-> failed to load default texture" << endl;
+      cerr << "-> failed to load default texture" << endl;
     }
   }
   stbi_image_free(data); 

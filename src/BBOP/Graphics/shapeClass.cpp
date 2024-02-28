@@ -144,7 +144,6 @@ void RectangleShape::buildVAO()
   shapeVAO.Unbind();
   shapeVBO.Unbind();
   shapeEBO.Unbind();
-  cout << "RectangleShape created" << endl;
 }
 
 void RectangleShape::Draw(GLint renderModeLoc) const
@@ -213,9 +212,19 @@ ConvexShape::ConvexShape(int nnPoint, Vector2f* nlistPoint)
     indices(new GLuint[(nnPoint-1)*3]),
     Shape(vertices, sizeof(GLfloat)*6*nnPoint, indices, sizeof(GLuint)*3*(nnPoint-1)),
     nPoint(nnPoint),
-    listPoint(nlistPoint)
+    listPoint(new Vector2f[nnPoint])
 {
+  for(int i = 0; i < nnPoint; i++)
+    listPoint[i] = nlistPoint[i];
+  size.x = 1.0f; size.y=1.0f;
   buildVAO();
+}
+
+ConvexShape::~ConvexShape()
+{
+  delete [] vertices;
+  delete [] indices;
+  delete [] listPoint;
 }
 
 void ConvexShape::buildVAO()
@@ -237,7 +246,7 @@ void ConvexShape::buildVAO()
   float sinAngle = sin(rotation);
   
   for (int i = 0; i < nPoint; i++){
-    Vector2f finalPos((listPoint[i].x-origin.x)/w.x, (listPoint[i].y-origin.y)/w.y);
+    Vector2f finalPos((listPoint[i].x*size.x-origin.x)/w.x, (listPoint[i].y*size.y-origin.y)/w.y);
     finalPos = Vector2f(finalPos.x * cosAngle - finalPos.y*sinAngle,finalPos.x*sinAngle+finalPos.y*cosAngle);
     vertices[i*6] = finalPos.x+posO.x; vertices[i*6+1] = -(finalPos.y+posO.y);
     vertices[i*6+2] = r;vertices[i*6+3] = g; vertices[i*6+4] = b;vertices[i*6+5] = alpha;
@@ -258,7 +267,6 @@ void ConvexShape::buildVAO()
   shapeVAO.Unbind();
   shapeVBO.Unbind();
   shapeEBO.Unbind();
-  cout << "ConvexShape created" << endl;
 }
 
 void ConvexShape::updateVBO()
@@ -272,7 +280,7 @@ void ConvexShape::updateVBO()
   float sinAngle = sin(rotation);
 
   for (int i = 0; i < nPoint; i++){
-    Vector2f finalPos((listPoint[i].x-origin.x)/w.x, (listPoint[i].y-origin.y)/w.y);
+    Vector2f finalPos((listPoint[i].x*size.x-origin.x)/w.x, (listPoint[i].y*size.y-origin.y)/w.y);
     finalPos = Vector2f(finalPos.x * cosAngle - finalPos.y*sinAngle,finalPos.x*sinAngle+finalPos.y*cosAngle);
     vertices[i*6] = finalPos.x+posO.x; vertices[i*6+1] = -(finalPos.y+posO.y);
   }
