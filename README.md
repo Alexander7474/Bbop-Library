@@ -142,6 +142,16 @@ defaultScene.Draw(rectangle);
 
 # Report Bug
 
+Merci d'avance de votre contribution au projet.
+
+[![Static Badge](https://img.shields.io/badge/Report_issue-github-black?style=for-the-badge&logo=github)](https://github.com/Alexander7474/Bbop-Library/issues)
+
 # Supporting
 
+La librairie est libre de droit, merci d'avance de votre soutien.
+
+![Static Badge](https://img.shields.io/badge/Sponsor_on_github-Alexander7474-pink?style=for-the-badge&logo=githubsponsors)
+
 # Contributors
+
+[![Static Badge](https://img.shields.io/badge/Je_suis_seule-Alexander7474-red?style=for-the-badge&logoColor=red)](https://github.com/Alexander7474)
