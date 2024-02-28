@@ -5,7 +5,8 @@
 [![All release](https://img.shields.io/badge/Release-page-green)](https://github.com/Alexander7474/Bbop-Library/releases)
 [![Auteur](https://img.shields.io/badge/Author-8A2BE2)](https://github.com/Alexander7474)
 [![License](https://img.shields.io/badge/License-GPL-&#45;3.0-blue)](https://github.com/Alexander7474)
-[![OpenGL](https://img.shields.io/badge/OpenGL-%23FFFFFF.svg?style=for-the-badge&logo=opengl)](https://www.opengl.org)
+![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/t/Alexander7474/Bbop-Library/main)
+![GitHub last commit](https://img.shields.io/github/last-commit/Alexander7474/Bbop-Library?link=https%3A%2F%2Fgithub.com%2FAlexander7474%2FBbop-Library%2Fcommits%2Fmain%2F)
 
 Bbop est un projet de library graphique utilisant opengl. La lib permet de gérer plus que de simple forme géométrique comme l'éclairage d'une scène, des points de lumières ou encore des ombrages.
 
@@ -14,6 +15,7 @@ Bbop est un projet de library graphique utilisant opengl. La lib permet de gére
 
 # Installation  
 ## Installer les lib nécessaires: 
+[![OpenGL](https://img.shields.io/badge/OpenGL-%23FFFFFF.svg?style=for-the-badge&logo=opengl)](https://www.opengl.org)
 ```
 sudo apt-get install libglew-dev libglfw3-dev xorg-dev
 sudo apt-get install libwayland-dev libxkbcommon-dev wayland-protocols extra-cmake-modules libstb-dev
