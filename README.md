@@ -67,15 +67,15 @@ make && sudo make install
 
 ## Init et autre
 
-### bbopInit(int windowX, int windowY, const char* windowName, GLFW*& window)
+### int bbopInit(int windowX, int windowY, const char* windowName, GLFW*& window)
 Initialise opengl et bbop pour pouvoir utiliser la lib.
 Prend en paramètre la taille de la fenêtre, son nom et la fenêtre glfw à utiliser comme contexte opengl.
 
-### bbopCleanWindow(Vector3i rgb, float alpha)
+### void bbopCleanWindow(Vector3i rgb, float alpha)
 Nettoie la fenêtre avant un nouvelle affichage
 Prend en paramètre la couleur de fond et la transparence de la fenêtre.
 
-### bbopErrorCheck()
+### void bbopErrorCheck()
 Vérifie le cache d'erreur opengl et affiche des possibles erreurs
 
 #### Exemple
@@ -134,13 +134,56 @@ Constructeur par défault de scene qui eclaire la scène avec une lumière blanc
 
 ### Scene(float nAmbiantLightValue, Vector3i nAmbiantLightColor)
 Constructeur de scène
-nAmbiantLightValuee: puissance de l'éclairage de la scène.
-nAbiantLightColor: couleur de l'éclairage de la scène.
+Param:
+    nAmbiantLightValue-: puissance de l'éclairage de la scène.
+    nAbiantLightColor: couleur de l'éclairage de la scène.
 
 ### void Use()
 Permet de spécifier la scène à utiliser
 
 ### void setAmbiantLightValue(float nAmbiantLightValue)
+Change la puissance de l'éclairage d'une scène.
+Param:
+    nAmbiantLightValue: puissance de l'éclairage.
+
+### void getAmbiantLightValue()
+Return: 
+    ambiantLightValue: puissance de l'éclairage de la scène
+
+### void setAmbiantLightColor(float nAmbiantLightColor)
+Change la couleur de l'éclairage d'une scène.
+Param:
+    nAmbiantLightColor: couleur de l'éclairage.
+
+### void getAmbiantLightColor()
+Return: 
+    ambiantLightColor: couleur de l'éclairage de la scène
+
+### void Draw(BbopDrawable& spr)
+Dessine avec les paramètres de scène l'objet passé en paramètre
+Param:
+    spr: objet BbopDrawble à dessiner
+
+## Shape
+La plus part des objets dessinables de la librairie hérite de cette classe, elle permet de gérer leur taille, position, origine, rotation, couleur, collision et transparence. Cette class hérite aussi de BbopDrawable et tous ces enfants peuvent êtres dessinés dans une scène.
+
+## RectangleShape
+Gére une forme rectangulaire, hérite de Shape.
+
+## ConvexShape
+Gére une forme convex, hérite de Shape.
+
+## Sprite
+Gère un sprite, hérite de Shape.
+
+## Texte
+Gère une boîte de dialogue, hérite de BbopDrawable.
+
+## CollisionBox
+Gère une boîte de collision.
+
+## Texture
+Gère une texture.
 
 #### Exemple d'utilisation
 ```
