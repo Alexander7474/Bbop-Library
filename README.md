@@ -8,7 +8,6 @@
 [![OpenGL](https://img.shields.io/badge/OpenGL-%23FFFFFF.svg?style=for-the-badge&logo=opengl)](https://www.opengl.org)
 
 Bbop est un projet de library graphique utilisant opengl. La lib permet de gérer plus que de simple forme géométrique comme l'éclairage d'une scène, des points de lumières ou encore des ombrages.
-Auteur: Alexandre L
 
 1. [Installation](#installation)
 2. [Documentation](#documentation)
