@@ -1,17 +1,19 @@
 # Bbop Library
 ## Informations
 
-[![Last version](https://img.shields.io/badge/Last_version-0.1-blue)](https://github.com/Alexander7474/Bbop-Library/releases/tag/apha)
-[![All release](https://img.shields.io/badge/Release-page-green)](https://github.com/Alexander7474/Bbop-Library/releases)
-[![Auteur](https://img.shields.io/badge/Author-8A2BE2)](https://github.com/Alexander7474)
+[![Last version](https://img.shields.io/badge/Last_version-0.1-blue)](https://github.com/Alexander7474/Bbop-Library/releases)
 [![License](https://img.shields.io/badge/License-GPL-&#45;3.0-blue)](https://github.com/Alexander7474)
 ![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/t/Alexander7474/Bbop-Library/main)
 ![GitHub last commit](https://img.shields.io/github/last-commit/Alexander7474/Bbop-Library?link=https%3A%2F%2Fgithub.com%2FAlexander7474%2FBbop-Library%2Fcommits%2Fmain%2F)
+![GitHub top language](https://img.shields.io/github/languages/top/Alexander7474/Bbop-Library?logo=c%2B%2B&logoColor=red&color=red)
 
 Bbop est un projet de library graphique utilisant opengl. La lib permet de gérer plus que de simple forme géométrique comme l'éclairage d'une scène, des points de lumières ou encore des ombrages.
 
-1. [Installation](#installation)
-2. [Documentation](#documentation)
+1. [![Installation](https://img.shields.io/badge/Installation-lightgreen?style=for-the-badge)](#installation)
+2. [![Static Badge](https://img.shields.io/badge/Documentation-lightblue?style=for-the-badge)](#documentation)
+3. [![Static Badge](https://img.shields.io/badge/Report_Bug-red?style=for-the-badge&logoColor=red)](#report-bug)
+4. [![Static Badge](https://img.shields.io/badge/Support-purple?style=for-the-badge)](#supporting)
+5. [![Static Badge](https://img.shields.io/badge/Contributors-yellow?style=for-the-badge)](#contributors)
 
 # Installation  
 ## Installer les lib nécessaires: 
@@ -137,3 +139,9 @@ RectangleShape rectangle;
 // affichage du rectangle
 defaultScene.Draw(rectangle);
 ```
+
+# Report Bug
+
+# Supporting
+
+# Contributors
