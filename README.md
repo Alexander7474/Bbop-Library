@@ -167,10 +167,10 @@ Param:
 ## Shape
 La plus part des objets dessinables de la librairie hérite de cette classe, elle permet de gérer leur taille, position, origine, rotation, couleur, collision et transparence. Cette class hérite aussi de BbopDrawable et tous ces enfants peuvent êtres dessinés dans une scène.
 
-## RectangleShape
+## RectangleShape
 Gére une forme rectangulaire, hérite de Shape.
 
-## ConvexShape
+## ConvexShape
 Gére une forme convex, hérite de Shape.
 
 ## Sprite
@@ -182,7 +182,7 @@ Gère une boîte de dialogue, hérite de BbopDrawable.
 ## CollisionBox
 Gère une boîte de collision.
 
-## Texture
+## Texture
 Gère une texture.
 
 #### Exemple d'utilisation
