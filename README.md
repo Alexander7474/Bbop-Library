@@ -157,15 +157,79 @@ Param:
 
 ### void getAmbiantLightColor()
 Return: 
-    ambiantLightColor: couleur de l'éclairage de la scène
+    ambiantLightColor: couleur de l'éclairage de la scène.
 
 ### void Draw(BbopDrawable& spr)
-Dessine avec les paramètres de scène l'objet passé en paramètre
+Dessine avec les paramètres de scène l'objet passé en paramètre.
 Param:
-    spr: objet BbopDrawble à dessiner
+    spr: objet BbopDrawble à dessiner.
 
 ## Shape
 La plus part des objets dessinables de la librairie hérite de cette classe, elle permet de gérer leur taille, position, origine, rotation, couleur, collision et transparence. Cette class hérite aussi de BbopDrawable et tous ces enfants peuvent êtres dessinés dans une scène.
+
+### Vector2f getSize()
+Return:
+    size: taille de la shape.
+
+### void setSize(Vector2f nSize)
+Change la taille de la shape.
+Param:
+    nSize: taille de la shape.
+
+### Vector2f getPosition()
+Return:
+    pos: position de la shape
+
+### void setPosition(Vector2f nPos)
+Change la position de la shape.
+Param:
+    nPos: position de la shape.
+
+### Vector2f getOrigin()
+Return:
+    nOrigin: origin de la shape.
+
+### void setOrigin()
+Change l'origin de la shape.
+Param:
+    nOrigin: origin dela shape.
+
+### Vector3i getColor();
+Return:
+    RGB: couleur de la shape.
+
+### void setColor(Vector3i nRGB)
+Change la couleur de la shape.
+Param:
+    nRGB: couleur de la shape.
+
+### float getAlpha();
+Return:
+    alpha: transparence de la shape.
+
+### void setAlpha(float nAlpha)
+Change la transparence de la shape.
+Param:
+    nAlpha: transparence de la shape.
+
+### float getRotation();
+Return:
+    rotation: angle de rotation de la shape en radian.
+
+### void setRotation(float nRotation)
+Change la rotation de la shape.
+Param:
+    nRotation: angle de rotation de la shape en radian.
+
+### CollisionBox* getCollisionBox()
+Renvoie la box de collision de la shape pour la modifier ou la comparer a d'autre box(A savoir que collsionBox possède les même méthode que shape pour changer de taille, d'origine et de position).
+Return:
+    shapeCollisionBox: boîte de collision de la shape.
+
+### void setAutoUpdateCollision(bool etat)
+Change la mise à jour auto de la boîte de collision en fonctio de la shape, cela permet d'avior une boîte de collision avec des propriétées différentes de la shape et personnaliées.
+Param:
+    etat: état de la mise a jour auto (true activé et false désactivé)
 
 ## RectangleShape
 Gére une forme rectangulaire, hérite de Shape.
