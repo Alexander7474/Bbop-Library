@@ -76,7 +76,8 @@ make && sudo make install
 9. [CollisionBox](#collisionbox)
 10. [Texture](#texture)
 
-## Init et autre
+## Init et autre 
+[Go back](#documentation)
 
 ### int bbopInit(int windowX, int windowY, const char* windowName, GLFW*& window)
 Initialise opengl et bbop pour pouvoir utiliser la lib.
@@ -123,6 +124,7 @@ int main()
 ```
 
 ## Vector~~
+[Go back](#documentation)
 La librairie bbop utilise toujours des vector pour transferer et utiliser n'importe quelle paire ou triplet de int, float ou double.
 
 ### Vector2i(int x, int y) Vector2f(float x, float y) Vector2d(double x, double y)
@@ -186,6 +188,7 @@ defaultScene.Draw(rectangle);
 ```
 
 ## Shape
+[Go back](#documentation)
 La plus part des objets dessinables de la librairie hérite de cette classe, elle permet de gérer leur taille, position, origine, rotation, couleur, collision et transparence. Cette class hérite aussi de BbopDrawable et tous ces enfants peuvent êtres dessinés dans une scène.  
 
 ### Vector2f getSize()
@@ -253,6 +256,7 @@ Param:
     &nbsp;&nbsp;etat: état de la mise a jour auto (true activé et false désactivé)  
 
 ## RectangleShape
+[Go back](#documentation)
 Gére une forme rectangulaire, hérite de Shape.   
 Tous les aspects du rectangle étant déjà gérer par Shape, cette class n'a pas besoin de documentation spécifique.
 
@@ -261,6 +265,7 @@ Constructeur par défault de rectangleShape.
 Le rectangle est en position 0;0, est blanc et fais une taille de 50px*50px
 
 ## ConvexShape
+[Go back](#documentation)
 Gére une forme convex, hérite de Shape.   
 **Cette class ne gère pas sa taille de la même manière que rectangle shape. Son attribue size représente la proportion de ces coordonnées dans la fenêtre.
 A 1.0;1.0, 1px dans les coordonées de la convex vaut 1px dans la fenêtre.**
@@ -273,6 +278,7 @@ Param:
     &nbsp;&nbsp;nlistPoint: List de point où le premier point est toujours utiliser comment centre pour créer la convex.
 
 ## Sprite
+[Go back](#documentation)
 Gère un sprite, hérite de Shape.  
 **Cette class ne gère pas sa couleur comme les autres shape, son attribue rgb est un filtre qui s'applique à la texture du sprite si l'option est active.**
 
@@ -299,6 +305,7 @@ Param:
     &nbsp;&nbsp;etat: true si le filtre rgb est actif et false si non.  
 
 ## Texte
+[Go back](#documentation)
 Gère une boîte de dialogue, hérite de BbopDrawable.  
 **Cette class n'hérite pas de shape mais possède exactement les même fonction pourgérer sa position, son origine, sa couleur, sa transprence et son angle de rotation. Ces méthodes ne seront pas réexpliqué dans cette section**  
 
@@ -319,6 +326,7 @@ Param:
     &nbsp;&nbsp;nTexte: Nouveau texte a afficher.
 
 ## CollisionBox
+[Go back](#documentation)
 Gère une boîte de collision.  
 **Cette class n'hérite pas de shape mais possède exactement les même fonction pourgérer sa position, son origine, et sa taille. Ces méthodes ne seront pas réexpliqué dans cette section** 
 
@@ -337,6 +345,7 @@ Return:
     &nbsp;&nbsp;bool: true si les boîtes sont en collision et false si non.  
 
 ## Texture
+[Go back](#documentation)
 Gère une texture. Cette etxture peut ensuite être utilisé avec un sprite ou un autre objet qui demande une texture.  
 
 ### Texture(const char* textureFileName)
