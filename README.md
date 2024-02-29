@@ -65,16 +65,16 @@ make && sudo make install
 ```
 # Documentation
 
-1. [Initialisation](##Init_et_autre)
-2. [Vector](##Vector~~)
-3. [Scene](##Scene)
-4. [Shape](##Shape)
-5. [RectangleShape](##RectangleShape)
-6. [ConvexShape](##ConvexShape)
-7. [Sprite](##Sprite)
-8. [Texte](##Texte)
-9. [CollisionBox](##CollisionBox)
-10. [Texture](##Texture)
+1. [Initialisation](##init-et-autre)
+2. [Vector](##vector~~)
+3. [Scene](##scene)
+4. [Shape](##shape)
+5. [RectangleShape](##rectangleShape)
+6. [ConvexShape](##convexShape)
+7. [Sprite](##sprite)
+8. [Texte](##texte)
+9. [CollisionBox](##collisionBox)
+10. [Texture](##texture)
 
 ## Init et autre
 
@@ -174,6 +174,16 @@ Return:
 Dessine avec les paramètres de scène l'objet passé en paramètre.  
 Param:  
     &nbsp;&nbsp;spr: objet BbopDrawble à dessiner.  
+
+#### Exemple d'utilisation
+```
+// creation d'une scène
+Scene defaultScene;
+// creation d'un rectangle
+RectangleShape rectangle;
+// affichage du rectangle
+defaultScene.Draw(rectangle);
+```
 
 ## Shape
 La plus part des objets dessinables de la librairie hérite de cette classe, elle permet de gérer leur taille, position, origine, rotation, couleur, collision et transparence. Cette class hérite aussi de BbopDrawable et tous ces enfants peuvent êtres dessinés dans une scène.  
@@ -289,23 +299,50 @@ Param:
     &nbsp;&nbsp;etat: true si le filtre rgb est actif et false si non.  
 
 ## Texte
-Gère une boîte de dialogue, hérite de BbopDrawable.
+Gère une boîte de dialogue, hérite de BbopDrawable.  
+**Cette class n'hérite pas de shape mais possède exactement les même fonction pourgérer sa position, son origine, sa couleur, sa transprence et son angle de rotation. Ces méthodes ne seront pas réexpliqué dans cette section**  
+
+### Texte(const char * nTexte, int glyphSize, const char* ttfPath)
+Constructeur de la class Texte.  
+Param:  
+    &nbsp;&nbsp;nTexte: Texte à afficher avec la class.  
+    &nbsp;&nbsp;glyphSize: Taille des caractères.  
+    &nbsp;&nbsp;ttfPath: Chemin d'accès vers la police d'écriture en .ttf.  
+
+### const char* getTexte()
+Return:  
+    &nbsp;&nbsp;texte: Texte affiché par la class.
+
+### void setTexte(const char* nTexte)
+Change le texte affiché par la class.  
+Param:  
+    &nbsp;&nbsp;nTexte: Nouveau texte a afficher.
 
 ## CollisionBox
-Gère une boîte de collision.
+Gère une boîte de collision.  
+**Cette class n'hérite pas de shape mais possède exactement les même fonction pourgérer sa position, son origine, et sa taille. Ces méthodes ne seront pas réexpliqué dans cette section** 
+
+### CollisionBox(Vector2f nPos, Vector2f nOrigin, Vector2f nSize)
+Constructeur de CollisionBox.  
+Param:  
+    &nbsp;&nbsp;nPos: Position de la box.  
+    &nbsp;&nbsp;nOrigin: Origin de la box.  
+    &nbsp;&nbsp;nSize: Taille de la box.  
+
+### bool check(CollisionBox *box)
+Vérifie si deux box sont en collision.  
+Param:  
+    &nbsp;&nbsp;box: Boîte à comparer avec la boîte qui appelle la méthode.  
+Return:  
+    &nbsp;&nbsp;bool: true si les boîtes sont en collision et false si non.  
 
 ## Texture
-Gère une texture.
+Gère une texture. Cette etxture peut ensuite être utilisé avec un sprite ou un autre objet qui demande une texture.  
 
-#### Exemple d'utilisation
-```
-// creation d'une scène
-Scene defaultScene;
-// creation d'un rectangle
-RectangleShape rectangle;
-// affichage du rectangle
-defaultScene.Draw(rectangle);
-```
+### Texture(const char* textureFileName)
+Cosntructeur de la class Texture.  
+Param:  
+    &nbsp;&nbsp;textureFileName: Chemin d'accès de la texture en .png.  
 
 # Report Bug
 
