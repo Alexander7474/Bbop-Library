@@ -364,7 +364,7 @@ Merci d'avance de votre contribution au projet.
 
 La librairie est libre de droit, merci d'avance de votre soutien.
 
-![Static Badge](https://img.shields.io/badge/Sponsor_on_github-Alexander7474-pink?style=for-the-badge&logo=githubsponsors)
+[![Static Badge](https://img.shields.io/badge/Sponsor_on_github-Alexander7474-pink?style=for-the-badge&logo=githubsponsors)](https://github.com/sponsors/Alexander7474)
 
 # Contributors
 
