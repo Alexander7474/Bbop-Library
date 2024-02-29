@@ -65,6 +65,17 @@ make && sudo make install
 ```
 # Documentation
 
+1. [Initialisation](##Init_et_autre)
+2. [Vector](##Vector~~)
+3. [Scene](##Scene)
+4. [Shape](##Shape)
+5. [RectangleShape](##RectangleShape)
+6. [ConvexShape](##ConvexShape)
+7. [Sprite](##Sprite)
+8. [Texte](##Texte)
+9. [CollisionBox](##CollisionBox)
+10. [Texture](##Texture)
+
 ## Init et autre
 
 ### int bbopInit(int windowX, int windowY, const char* windowName, GLFW*& window)
