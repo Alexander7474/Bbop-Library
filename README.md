@@ -65,16 +65,16 @@ make && sudo make install
 ```
 # Documentation
 
-1. [Initialisation](##init-et-autre)
-2. [Vector](##vector~~)
-3. [Scene](##scene)
-4. [Shape](##shape)
-5. [RectangleShape](##rectangleShape)
-6. [ConvexShape](##convexShape)
-7. [Sprite](##sprite)
-8. [Texte](##texte)
-9. [CollisionBox](##collisionBox)
-10. [Texture](##texture)
+1. [Initialisation](#init-et-autre)
+2. [Vector](#vector)
+3. [Scene](#scene)
+4. [Shape](#shape)
+5. [RectangleShape](#rectangleshape)
+6. [ConvexShape](#convexshape)
+7. [Sprite](#sprite)
+8. [Texte](#texte)
+9. [CollisionBox](#collisionbox)
+10. [Texture](#texture)
 
 ## Init et autre
 
