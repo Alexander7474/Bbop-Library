@@ -23,7 +23,7 @@ public:
 
   void Draw(GLint renderModeLoc) const override;
   void Delete();
-  void setTexture(Texture* nTexture);
+  void setTexture(Texture nTexture);
   void buildVAO() override;
   void updateVBO() override;
   void updateVBORGB() override;

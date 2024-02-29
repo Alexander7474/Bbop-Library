@@ -152,9 +152,10 @@ void Sprite::Delete()
   spriteTexture->Delete();
 }
 
-void Sprite::setTexture(Texture* nTexture)
+void Sprite::setTexture(Texture nTexture)
 {
-  spriteTexture = nTexture;
+  delete spriteTexture;
+  spriteTexture = new Texture(nTexture);
 }
 
 void Sprite::move(Vector2f vecM)
