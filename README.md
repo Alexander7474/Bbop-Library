@@ -347,7 +347,7 @@ Return:
 
 ## Texture
 [Go back](#documentation)
-Gère une texture. Cette etxture peut ensuite être utilisé avec un sprite ou un autre objet qui demande une texture.  
+Gère une texture. Cette texture peut ensuite être utilisé avec un sprite ou un autre objet qui demande une texture.  
 
 ### Texture(const char* textureFileName)
 Cosntructeur de la class Texture.  
