@@ -232,13 +232,50 @@ Param:
     &nbsp;&nbsp;etat: état de la mise a jour auto (true activé et false désactivé)  
 
 ## RectangleShape
-Gére une forme rectangulaire, hérite de Shape.
+Gére une forme rectangulaire, hérite de Shape.   
+Tous les aspects du rectangle étant déjà gérer par Shape, cette class n'a pas besoin de documentation spécifique.
+
+### RectangleShape()
+Constructeur par défault de rectangleShape.  
+Le rectangle est en position 0;0, est blanc et fais une taille de 50px*50px
 
 ## ConvexShape
-Gére une forme convex, hérite de Shape.
+Gére une forme convex, hérite de Shape.   
+**Cette class ne gère pas sa taille de la même manière que rectangle shape. Son attribue size représente la proportion de ces coordonnées dans la fenêtre.
+A 1.0;1.0, 1px dans les coordonées de la convex vaut 1px dans la fenêtre.**
+
+### ConvexShape(int nnPoint, Vector2f* nlistPoint)
+Contructeur de ConvexShape.  
+Créer une forme convex a partir d'une liste de point x;y.  
+Param:  
+    &nbsp;&nbsp;nnPoint: Nombre de point dans nlistPoint.  
+    &nbsp;&nbsp;nlistPoint: List de point où le premier point est toujours utiliser comment centre pour créer la convex.
 
 ## Sprite
-Gère un sprite, hérite de Shape.
+Gère un sprite, hérite de Shape.  
+**Cette class ne gère pas sa couleur comme les autres shape, son attribue rgb est un filtre qui s'applique à la texture du sprite si l'option est active.**
+
+### Sprite(Texture nTexture)
+Constructeur de sprite avec la texture à attribuer.
+Param:
+    &nbsp;&nbsp;nTexture: Texture du sprite.
+
+### Sprite()
+Constructeur par défault de sprite, la texture dois être associé avant de draw sinon des erreur de pointeur peuvent arriver.
+
+### setTexture(Texture nTexture)
+Associe une texture avec le sprite.  
+Param:  
+    &nbsp;&nbsp;nTexture: Texture du sprite.
+
+### bool getRGBFilterState()
+Return:   
+    &nbsp;&nbsp;isRGBFilter: true si le filtre rgb est actif et false si non.  
+
+### void setRGBFilterState(bool etat)
+Active ou désactive le filtre rgb.  
+Param:  
+    &nbsp;&nbsp;etat: true si le filtre rgb est actif et false si non.  
 
 ## Texte
 Gère une boîte de dialogue, hérite de BbopDrawable.
