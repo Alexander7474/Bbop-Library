@@ -208,7 +208,12 @@ Return:
 ### void setPosition(Vector2f nPos)
 Change la position de la shape.  
 Param:  
-    &nbsp;&nbsp;nPos: position de la shape.  
+    &nbsp;&nbsp;nPos: position de la shape.
+
+### void move(Vector2f vecM)
+Shape peut aussi changer de position en lui appliquant un vecteur de mouvement
+Param:  
+     &nbsp;&nbsp;vecM: Vecteur de mouvement appliquer à la position de shape.
 
 ### Vector2f getOrigin()
 Return:  

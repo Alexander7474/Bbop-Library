@@ -28,7 +28,6 @@ public:
   void updateVBO() override;
   void updateVBORGB() override;
   void updateVBOAlpha() override;
-  void move(Vector2f vecM);
   bool getRGBFilterState();
   void setRGBFilterState(bool etat);
 private:

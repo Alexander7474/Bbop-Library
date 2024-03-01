@@ -158,12 +158,6 @@ void Sprite::setTexture(Texture nTexture)
   spriteTexture = new Texture(nTexture);
 }
 
-void Sprite::move(Vector2f vecM)
-{
-  pos.x += vecM.x; pos.y += vecM.y;
-  updateVBO();
-}
-
 void Sprite::setRGBFilterState(bool etat)
 {
   isRGBFilter = etat;

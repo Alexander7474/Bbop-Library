@@ -36,6 +36,7 @@ public:
   void setRotation(float nRotation);
   CollisionBox* getCollisionBox();
   void setAutoUpdateCollision(bool etat); 
+  void move(Vector2f vecM);
 protected:
   VAO shapeVAO;
   VBO shapeVBO;

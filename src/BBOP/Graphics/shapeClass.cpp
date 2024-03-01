@@ -49,6 +49,14 @@ void Shape::setAlpha(float nAlpha)
   updateVBOAlpha();
 }
 
+void Shape::move(Vector2f vecM)
+{
+  pos.x += vecM.x; pos.y += vecM.y;
+  updateVBO();
+}
+
+
+
 Vector2f Shape::getSize()
 {
   return size;
