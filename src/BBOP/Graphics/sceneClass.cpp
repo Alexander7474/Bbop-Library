@@ -1,18 +1,15 @@
 #include "../../../include/BBOP/Graphics/sceneClass.h"
 
-#include <glm/glm.hpp>
-#include <glm/gtc/type_ptr.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-
 Scene::Scene()
   : sceneShader(defaultVertex, defaultFragment),
     ambiantLightValue(1.0f),
-    ambiantLightColor(Vector3i(255,255,255))
-{
-  ambiantLight = Vector3f(ambiantLightValue*(ambiantLightColor.x/255.0f), ambiantLightValue*(ambiantLightColor.y/255.0f), ambiantLightValue*(ambiantLightColor.z/255.0f));
-  ambiantLightLoc = sceneShader.getUniformLoc("ambiantLight");
-  renderModeLoc = sceneShader.getUniformLoc("renderMode");
-}
+    ambiantLightColor(Vector3i(255,255,255)),
+    projectionMatrix(new glm::mat4(glm::ortho(0.0f, 956.0f, 1044.0f, 0.0f, -1.0f, 1.0f))),
+    ambiantLightLoc(sceneShader.getUniformLoc("ambiantLight")),
+    renderModeLoc(sceneShader.getUniformLoc("renderMode")),
+    projectionMatLoc(sceneShader.getUniformLoc("projection")),
+    ambiantLight(Vector3f(ambiantLightValue*(ambiantLightColor.x/255.0f), ambiantLightValue*(ambiantLightColor.y/255.0f), ambiantLightValue*(ambiantLightColor.z/255.0f)))
+{}
 
 Scene::Scene(float nAmbiantLightValue, Vector3i nAmbiantLightColor)
   : sceneShader(defaultVertex, defaultFragment),
@@ -24,18 +21,25 @@ Scene::Scene(float nAmbiantLightValue, Vector3i nAmbiantLightColor)
   renderModeLoc = sceneShader.getUniformLoc("renderMode");
 }
 
+Scene::~Scene()
+{
+  delete projectionMatrix;
+}
+
 void Scene::Use()
 {
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
   sceneShader.Activate();
+  glm::mat4* projection = new glm::mat4(glm::ortho(0.0f, 956.0f, 1044.0f, 0.0f, -1.0f, 1.0f));
+  glUniformMatrix4fv(sceneShader.getUniformLoc("projection"), 1, GL_FALSE, glm::value_ptr(*projection));
+  delete projection;
   glUniform4f(ambiantLightLoc,ambiantLight.x,ambiantLight.y,ambiantLight.z,1.0f);
 }
 
 void Scene::Draw(BbopDrawable& spr)
 {
-  glm::mat4 projection = glm::ortho(0.0f, 956.0f, 1044.0f, 0.0f, -1.0f, 1.0f);
-  glUniformMatrix4fv(sceneShader.getUniformLoc("projection"), 1, GL_FALSE, glm::value_ptr(projection));
+  
   spr.Draw(renderModeLoc);
 }
 
