@@ -19,8 +19,8 @@ Bbop est un projet de library graphique utilisant opengl. La lib permet de gére
 ## Installer les lib nécessaires: 
 [![OpenGL](https://img.shields.io/badge/OpenGL-%23FFFFFF.svg?style=for-the-badge&logo=opengl)](https://www.opengl.org)
 ```
-sudo apt-get install libglew-dev libglfw3-dev xorg-dev
-sudo apt-get install libwayland-dev libxkbcommon-dev wayland-protocols extra-cmake-modules libstb-dev
+sudo apt-get install libglew-dev libglfw3-dev xorg-dev libfreetype6-dev
+sudo apt-get install libwayland-dev libxkbcommon-dev wayland-protocols extra-cmake-modules libstb-dev 
 ```
 ### Installer glfw: 
 on clone le repo glfw
@@ -44,7 +44,7 @@ make && sudo make install
 ### Installer glm
 on clone le repo glm
 ```
-git clone https://github.com/glfw/glfw.git
+git clone https://github.com/g-truc/glm.git
 cd glm
 ```
 Cmake avec le projet
@@ -62,6 +62,11 @@ cmake --build build -- install
 git clone https://github.com/Alexander7474/BibibopEngine.git Bibibop
 cd Bibibop
 make && sudo make install
+```
+### compiler et lancer un projet
+```
+g++ -I/usr/include/freetype2 -c main.cpp -o main.o
+g++ main.o -o final -std=c++11 -Wall -lbbop -lGLEW -lGL -lglfw -lfreetype2
 ```
 # Documentation
 

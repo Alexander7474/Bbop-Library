@@ -33,10 +33,8 @@ private:
   Shader sceneShader;
   float ambiantLightValue;
   Vector3i ambiantLightColor;
-  glm::mat4* projectionMatrix;
   GLint ambiantLightLoc;
   GLint renderModeLoc;
-  GLint projectionMatLoc;
   Vector3f ambiantLight;
 };
 
