@@ -7,8 +7,8 @@ vector<RectangleShape> rectList;
 double lastTime;
 random_device rd;
 mt19937 gen(rd());
-uniform_int_distribution<int> distribx(0, 100);
-uniform_int_distribution<int> distriby(0, 100);
+uniform_int_distribution<int> distribx(0, BBOP_WINDOW_SIZE.x);
+uniform_int_distribution<int> distriby(0, BBOP_WINDOW_SIZE.y);
 uniform_int_distribution<int> distribs(0,255);
 
 bool bbopBenchMark(Scene& sceneToUse)
