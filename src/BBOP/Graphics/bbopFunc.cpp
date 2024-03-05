@@ -1,4 +1,5 @@
 #include "../../../include/BBOP/Graphics/bbopFunc.h"
+#include <GLFW/glfw3.h>
 
 using namespace std;
 
@@ -46,12 +47,16 @@ int bbopInit(int windowX, int windowY, const char* windowName, GLFWwindow*& wind
   return 1;
 }
 
-void bbopCleanWindow(Vector3i rgb, float alpha)
+void bbopCleanWindow(GLFWwindow*& window, Vector3i rgb, float alpha)
 {
   // Specify the color of the background
 	glClearColor(rgb.x/255.0f, rgb.y/255.0f, rgb.z/255.0f, alpha);
 	// Clean the back buffer and assign the new color to it
-	glClear(GL_COLOR_BUFFER_BIT);    
+	glClear(GL_COLOR_BUFFER_BIT);
+  // redimention de la fenêtre
+  int width, height;
+  glfwGetWindowSize(window, &width, &height);
+  glViewport(0, 0, width, height);
 }
 
 void bbopErrorCheck()

@@ -66,7 +66,7 @@ make && sudo make install
 ### compiler et lancer un projet
 ```
 g++ -I/usr/include/freetype2 -c main.cpp -o main.o
-g++ main.o -o final -std=c++11 -Wall -lbbop -lGLEW -lGL -lglfw -lfreetype2
+g++ main.o -o final -std=c++11 -Wall -lbbop -lGLEW -lGL -lglfw -lfreetype
 ```
 # Documentation
 

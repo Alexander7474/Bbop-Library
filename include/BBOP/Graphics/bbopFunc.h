@@ -9,7 +9,7 @@
 #include <iostream>
 
 int bbopInit(int windowX, int windowY, const char* windowName, GLFWwindow*& window);
-void bbopCleanWindow(Vector3i rgb, float alpha);
+void bbopCleanWindow(GLFWwindow*& window,Vector3i rgb, float alpha);
 void bbopErrorCheck();
 void bbopChangeWindowSize();
 

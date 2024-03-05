@@ -23,7 +23,6 @@ int main() {
   defaultRect.setSize(Vector2f(100.0f,100.0f));
   defaultRect.setOrigin(Vector2f(50.0f,50.0f));
   defaultRect.setColor(Vector3i(15,182,245));
-  defaultRect.setPosition(Vector2f(BBOP_WINDOW_SIZE.x/2.0f+100.0f,BBOP_WINDOW_SIZE.y/2.0f+100.0f));
   defaultRect.setAlpha(0.5f);
 
   cout << "creation du sprite" << endl;
@@ -32,10 +31,13 @@ int main() {
   defaultSprite.setPosition(Vector2f(150.0f,150.0f));
   defaultSprite.setSize(Vector2f(100.0f,100.0f));
   //defaultSprite.setRGBFilterState(true);
+  int width,height;
+  glfwGetWindowSize(window, &width, &height);
+  cout << width << ";" << height << endl;
    // Main while loop
 	while (!glfwWindowShouldClose(window))
 	{
-    bbopCleanWindow(Vector3i(0,0,0),1.0);
+    bbopCleanWindow(window, Vector3i(0,0,0),1.0);
 
     //////////////////////////////////////////////////////////////
     ///code zone
