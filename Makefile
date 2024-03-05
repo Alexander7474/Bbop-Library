@@ -28,3 +28,8 @@ install:
 uninstall:
 	rm /usr/local/lib/libbbop.a
 	rm -rf /usr/include/BBOP
+
+update:
+	make clean
+	make
+	sudo make install
