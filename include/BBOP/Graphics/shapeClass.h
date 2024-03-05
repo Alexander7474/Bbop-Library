@@ -17,7 +17,8 @@ class Shape : public BbopDrawable
 public:
   Shape(GLfloat* vertices, GLsizeiptr verticesSize, GLuint* indices, GLsizeiptr indicesSize);
   Shape();
-  
+
+  void init(GLfloat* vertices, GLsizeiptr verticesSize, GLuint* indices, GLsizeiptr indicesSize);
   virtual void buildVAO() = 0;
   virtual void updateVBO() = 0;
   virtual void updateVBORGB() = 0;

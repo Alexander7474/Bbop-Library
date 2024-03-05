@@ -12,6 +12,9 @@ public:
 	GLuint ID;
 	// Constructor that generates a Vertex Buffer Object and links it to vertices
 	VBO(GLfloat* vertices, GLsizeiptr size, GLenum typeVBO);
+  VBO();
+
+  void init(GLfloat* vertices, GLsizeiptr size, GLenum typeVBO);
 
 	// Binds the VBO
 	void Bind() const;

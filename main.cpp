@@ -18,23 +18,11 @@ int main() {
   cout << "creation de la scene" << endl;
   Scene defaultScene(1.0f,Vector3i(255,255,255));
   //creation d'un rectangle a afficher, par default blanc en haut a gauche de l'image
-  cout << "creation du rectangle" << endl;
-  RectangleShape defaultRect;
-  defaultRect.setSize(Vector2f(100.0f,100.0f));
-  defaultRect.setOrigin(Vector2f(50.0f,50.0f));
-  defaultRect.setColor(Vector3i(15,182,245));
-  defaultRect.setAlpha(0.5f);
+  
+  Vector2f list[8] = {Vector2f(0.0f,0.0f), Vector2f(124.0f,56.0f), Vector2f(32.0f,125.0f), Vector2f(52.0f,250.0f),Vector2f(0.0f,0.0f), Vector2f(124.0f,56.0f), Vector2f(32.0f,125.0f), Vector2f(52.0f,250.0f)};
+  ConvexShape defaultConvex(8,list);
 
-  cout << "creation du sprite" << endl;
-  Sprite defaultSprite(Texture("imgTesting/mario.png"));
-  defaultSprite.setAlpha(0.5f);
-  defaultSprite.setPosition(Vector2f(150.0f,150.0f));
-  defaultSprite.setSize(Vector2f(100.0f,100.0f));
-  //defaultSprite.setRGBFilterState(true);
-  int width,height;
-  glfwGetWindowSize(window, &width, &height);
-  cout << width << ";" << height << endl;
-   // Main while loop
+  // Main while loop
 	while (!glfwWindowShouldClose(window))
 	{
     bbopCleanWindow(window, Vector3i(0,0,0),1.0);
@@ -43,25 +31,8 @@ int main() {
     ///code zone
     //////////////////////////////////////////////////////////////
     
-    //test des collision entre sprite et rectangle par default
-    if(defaultSprite.getCollisionBox()->check(defaultRect.getCollisionBox()))
-      cout << "hit" << glfwGetTime() << endl;
-    //utilisation de la scene par default
     defaultScene.Use();
-    //affichage du rectangle  avec sa rotation
-    defaultRect.setRotation(defaultRect.getRotation()+0.1);
-    defaultScene.Draw(defaultRect);
-    //affichage du sprite mario, texture par default si non trouvé
-    defaultScene.Draw(defaultSprite);
-     //gestiond des mouvement de mario
-    if(glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
-      defaultSprite.move(Vector2f(0.0f,-5.0f));
-    if(glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
-      defaultSprite.move(Vector2f(0.0f,5.0f));
-    if(glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
-      defaultSprite.move(Vector2f(5.0f,0.0f));   
-    if(glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
-      defaultSprite.move(Vector2f(-5.0f,0.0f));
+    defaultScene.Draw(defaultConvex);
 
     //////////////////////////////////////////////////////////////
     
