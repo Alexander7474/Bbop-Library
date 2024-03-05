@@ -25,7 +25,7 @@ sudo apt-get install libwayland-dev libxkbcommon-dev wayland-protocols extra-cma
 ### Installer glfw: 
 on clone le repo glfw
 ```
-git clone https://github.com/glfw/glfw.github
+git clone https://github.com/glfw/glfw.git
 cd glfw
 ```
 Création du dossier de build
