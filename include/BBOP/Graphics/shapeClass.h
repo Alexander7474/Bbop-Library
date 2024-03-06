@@ -18,7 +18,7 @@ public:
   Shape(GLfloat* vertices, GLsizeiptr verticesSize, GLuint* indices, GLsizeiptr indicesSize);
   Shape();
 
-  void init(GLfloat* vertices, GLsizeiptr verticesSize, GLuint* indices, GLsizeiptr indicesSize);
+  void initShape(GLfloat* vertices, GLsizeiptr verticesSize, GLuint* indices, GLsizeiptr indicesSize);
   virtual void buildVAO() = 0;
   virtual void updateVBO() = 0;
   virtual void updateVBORGB() = 0;
@@ -71,8 +71,10 @@ class ConvexShape : public Shape
 {
 public:
   ConvexShape(int nnPoint, Vector2f* nlistPoint);
+  ConvexShape();
   ~ConvexShape();
 
+  void initConvex(int nnPoint, Vector2f* nlistPoint);
   void buildVAO() override;
   void updateVBO() override;
   void updateVBORGB() override;
@@ -83,6 +85,21 @@ private:
   GLuint* indices;
   int nPoint;
   Vector2f* listPoint;
+};
+
+class CircleShape : public ConvexShape
+{
+public:
+  CircleShape(int nnPoint, float nRadius);
+
+  void buildConvex();
+  float getRadius();
+  void setRadius(float nRadius);
+  int getNPointCircle();
+  void setNPointCircle(int nnPoint);
+private:
+  float radius;
+  int nPointCircle;
 };
 
 #endif // ! SHAPE_CLASS_H
