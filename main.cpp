@@ -53,10 +53,6 @@ int main() {
     ///code zone
     //////////////////////////////////////////////////////////////
     
-    //test des collision entre sprite et rectangle par default
-    if(defaultSprite.getCollisionBox()->check(defaultRect.getCollisionBox()))
-      cout << "hit" << glfwGetTime() << endl;
-    //utilisation de la scene par default
     defaultScene.Use();
     //affichage du rectangle  avec sa rotation
     defaultRect.setRotation(defaultRect.getRotation()+0.1);
@@ -79,7 +75,6 @@ int main() {
       defaultSprite.move(Vector2f(5.0f,0.0f));   
     if(glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
       defaultSprite.move(Vector2f(-5.0f,0.0f));
-
 
     //////////////////////////////////////////////////////////////
     
