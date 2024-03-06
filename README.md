@@ -76,21 +76,28 @@ g++ main.o -o final -std=c++11 -Wall -lbbop -lGLEW -lGL -lglfw -lfreetype
 4. [Shape](#shape)
 5. [RectangleShape](#rectangleshape)
 6. [ConvexShape](#convexshape)
-7. [Sprite](#sprite)
-8. [Texte](#texte)
-9. [CollisionBox](#collisionbox)
-10. [Texture](#texture)
+7. [CircleShape](#circleshape)
+8. [Sprite](#sprite)
+9. [Texte](#texte)
+10. [CollisionBox](#collisionbox)
+11. [Texture](#texture)
 
 ## Init et autre 
 [Go back](#documentation)
 
 ### int bbopInit(int windowX, int windowY, const char* windowName, GLFW*& window)
 Initialise opengl et bbop pour pouvoir utiliser la lib.
-Prend en paramètre la taille de la fenêtre, son nom et la fenêtre glfw à utiliser comme contexte opengl.
+Param:  
+  &nbsp;&nbsp;windowX,windowY: Taille de la fenêtre.  
+  &nbsp;&nbsp;windowName: Nom de la fenêtre.  
+  &nbsp;&nbsp;window: Fenêtre glfw à utiliser comme contexte opengl.  
 
-### void bbopCleanWindow(Vector3i rgb, float alpha)
+### void bbopCleanWindow(GLFWwindow*& window, Vector3i rgb, float alpha)
 Nettoie la fenêtre avant un nouvelle affichage
-Prend en paramètre la couleur de fond et la transparence de la fenêtre.
+Param:   
+  &nbsp;&nbsp;window: fnêtre glfw à clean.   
+  &nbsp;&nbsp;rgb: Couleur de fond de la fenêtre.  
+  &nbsp;&nbsp;alpha: Transparence du nettoyage(si en dessous de 1,on pourra encore voire les ancien objet sur chaque frame).  
 
 ### void bbopErrorCheck()
 Vérifie le cache d'erreur opengl et affiche des possibles erreurs
@@ -107,7 +114,7 @@ int main()
     while (!glfwWindowShouldClose(window))
     {
       // clear de la fenêtre en noire
-      bbopCleanWindow(Vector3i(0,0,0),1.0f));
+      bbopCleanWindow(window,Vector3i(0,0,0),1.0f));
     
       ///////////////
       // ton code ici
@@ -286,7 +293,43 @@ Contructeur de ConvexShape.
 Créer une forme convex a partir d'une liste de point x;y.  
 Param:  
     &nbsp;&nbsp;nnPoint: Nombre de point dans nlistPoint.  
-    &nbsp;&nbsp;nlistPoint: List de point où le premier point est toujours utiliser comment centre pour créer la convex.
+    &nbsp;&nbsp;nlistPoint: List de point où le premier point est toujours utiliser comment centre pour créer la convex.  
+
+### ConvexShape()
+Constructeur par défault de ConvexShape.  
+Créer une convex sans paramètre. La convex doit tous de même être initialiser avant d'être Draw() avec initConvex().  
+
+### initConvex(int nnPoint, Vector2f* nlistPoint)
+Initialise les convex créé avec le constructeur par défault, fonctionne de la même manière que le premier constructeur de ConvexShape.  
+
+## CircleShape
+[Go back](#documentation)
+Gére une forme circulaire, hérite de ConvexShape(c'est juste un class pour gérer une convex comme un cercle ou un triangle).   
+
+### CircleShape(int nnPoint, float nRadius)
+Contructeur de de CircleShape.  
+Créer une forme circulaire a partir de sont nombre de point et de saon rayon, peut aussi créer un triangle si on utilise 3 points.  
+Param:  
+    &nbsp;&nbsp;nnPoint: Nombre de point.  
+    &nbsp;&nbsp;nRadius: Rayon du cercle.
+
+### float getRadius()
+Return:  
+  &nbsp;&nbsp;radius: Rayon de l'objet.  
+
+### void setRadius(float nRadius)
+Change le rayon de CircleShape.  
+Param:  
+  &nbsp;&nbsp;nRadius: Nouveau rayon de l'objet.  
+
+### int getNPointCircle()
+Return:  
+  &nbsp;&nbsp;nPointCircle: Nombre de point de l'objet.  
+
+### void setNPointCircle(int nnPoint)
+Change le nombre de point de CircleShape.  
+Param:  
+  &nbsp;&nbsp;nnPoint: Nouveau nombre de point de l'objet.  
 
 ## Sprite
 [Go back](#documentation)

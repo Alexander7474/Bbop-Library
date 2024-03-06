@@ -28,7 +28,7 @@ Shape::Shape()
     alpha(1.0f)
 {}
 
-void Shape::init(GLfloat* vertices, GLsizeiptr verticesSize, GLuint* indices, GLsizeiptr indicesSize)
+void Shape::initShape(GLfloat* vertices, GLsizeiptr verticesSize, GLuint* indices, GLsizeiptr indicesSize)
 {
   shapeVBO.init(vertices, verticesSize, GL_DYNAMIC_DRAW);
   shapeEBO.init(indices, indicesSize);
@@ -236,7 +236,31 @@ ConvexShape::ConvexShape(int nnPoint, Vector2f* nlistPoint)
     nPoint(nnPoint),
     listPoint(new Vector2f[nnPoint])
 {
-  init(vertices, sizeof(GLfloat)*6*nnPoint, indices, sizeof(GLuint)*3*(nnPoint-1));
+  initShape(vertices, sizeof(GLfloat)*6*nnPoint, indices, sizeof(GLuint)*3*(nnPoint-1));
+  for(int i = 0; i < nnPoint; i++)
+    listPoint[i] = nlistPoint[i];
+  size.x = 1.0f; size.y=1.0f;
+  buildVAO();
+}
+
+ConvexShape::ConvexShape()
+  : Shape(),
+    vertices(new GLfloat[0]),
+    indices(new GLuint[0]),
+    nPoint(0),
+    listPoint(new Vector2f[0])
+{}
+
+void ConvexShape::initConvex(int nnPoint, Vector2f* nlistPoint)
+{
+  delete [] vertices;
+  delete [] indices;
+  delete [] listPoint;
+  vertices = new GLfloat[nnPoint*6];
+  indices = new GLuint[(nnPoint-1)*3];
+  nPoint = nnPoint;
+  listPoint = new Vector2f[nnPoint];
+  initShape(vertices, sizeof(GLfloat)*6*nnPoint, indices, sizeof(GLuint)*3*(nnPoint-1));
   for(int i = 0; i < nnPoint; i++)
     listPoint[i] = nlistPoint[i];
   size.x = 1.0f; size.y=1.0f;
@@ -324,10 +348,53 @@ void ConvexShape::updateVBOAlpha()
   shapeVBO.update(vertices, sizeof(GLfloat)*6*nPoint);
 }
 
-
 void ConvexShape::Draw(GLint renderModeLoc) const
 {
   glUniform1i(renderModeLoc, BBOP_SHADER_MODE_COLOR);
   shapeVAO.Bind();  
   glDrawElements(GL_TRIANGLES, 3*(nPoint-1), GL_UNSIGNED_INT, 0);
+}
+
+CircleShape::CircleShape(int nnPoint, float nRadius)
+  : ConvexShape(),
+    radius(nRadius),
+    nPointCircle(nnPoint)
+{
+  buildConvex();
+}
+
+void CircleShape::buildConvex()
+{
+  Vector2f lstP[nPointCircle+1];
+  lstP[0] = Vector2f(radius,radius);
+  float angle_increment = 2 * M_PI / nPointCircle; // Angle entre chaque point
+  for (int i = 0; i < nPointCircle; i++) {
+    float angle = i * angle_increment;
+    float x = radius + radius * cos(angle);
+    float y = radius + radius * sin(angle);
+    lstP[i+1] = Vector2f(x,y);
+  }
+  initConvex(nPointCircle+1, lstP);
+}
+
+void CircleShape::setRadius(float nRadius)
+{
+  radius = nRadius;
+  buildConvex();
+}
+
+float CircleShape::getRadius()
+{
+  return radius;
+}
+
+void CircleShape::setNPointCircle(int nnPoint)
+{
+  nPointCircle = nnPoint;
+  buildConvex();
+}
+
+int CircleShape::getNPointCircle()
+{
+  return nPointCircle;
 }
