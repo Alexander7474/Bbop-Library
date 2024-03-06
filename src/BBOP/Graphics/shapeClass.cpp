@@ -1,7 +1,5 @@
 #include "../../../include/BBOP/Graphics/shapeClass.h"
 
-#include <iostream>
-
 using namespace std;
 
 Shape::Shape(GLfloat* vertices, GLsizeiptr verticesSize, GLuint* indices, GLsizeiptr indicesSize)
@@ -16,6 +14,25 @@ Shape::Shape(GLfloat* vertices, GLsizeiptr verticesSize, GLuint* indices, GLsize
     rotation(0.0f),
     alpha(1.0f)
 {}
+
+Shape::Shape()
+  : shapeVBO(),
+    shapeEBO(),
+    pos(0.0f, 0.0f),
+    size(0.0f, 0.0f),
+    origin(0.0f, 0.0f),
+    RGB(255,255,255),
+    shapeCollisionBox(pos, origin, size),
+    autoUpdateCollision(true),
+    rotation(0.0f),
+    alpha(1.0f)
+{}
+
+void Shape::init(GLfloat* vertices, GLsizeiptr verticesSize, GLuint* indices, GLsizeiptr indicesSize)
+{
+  shapeVBO.init(vertices, verticesSize, GL_DYNAMIC_DRAW);
+  shapeEBO.init(indices, indicesSize);
+}
 
 void Shape::setSize(Vector2f nSize)
 {
@@ -213,12 +230,13 @@ void RectangleShape::updateVBOAlpha()
 }
 
 ConvexShape::ConvexShape(int nnPoint, Vector2f* nlistPoint)
-  : vertices(new GLfloat[nnPoint*6]),
+  : Shape(),
+    vertices(new GLfloat[nnPoint*6]),
     indices(new GLuint[(nnPoint-1)*3]),
-    Shape(vertices, sizeof(GLfloat)*6*nnPoint, indices, sizeof(GLuint)*3*(nnPoint-1)),
     nPoint(nnPoint),
     listPoint(new Vector2f[nnPoint])
 {
+  init(vertices, sizeof(GLfloat)*6*nnPoint, indices, sizeof(GLuint)*3*(nnPoint-1));
   for(int i = 0; i < nnPoint; i++)
     listPoint[i] = nlistPoint[i];
   size.x = 1.0f; size.y=1.0f;
