@@ -249,16 +249,6 @@ ConvexShape::ConvexShape()
     listPoint(new Vector2f[0])
 {}
 
-ConvexShape::ConvexShape(const ConvexShape& other)
-  : Shape(other),
-    vertices(new GLfloat[other.nPoint*6]),
-    indices(new GLuint[(other.nPoint-1)*3]),
-    nPoint(other.nPoint),
-    listPoint(new Vector2f(nPoint))
-{
-  
-}
-
 void ConvexShape::initConvex(int nnPoint, Vector2f* nlistPoint)
 {
   delete [] vertices;
