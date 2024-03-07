@@ -19,7 +19,10 @@ class Sprite : public Shape
 public:
   Sprite(Texture nTexture);
   Sprite();
+  Sprite(const Sprite& other);
   ~Sprite();
+
+  Sprite& operator=(const Sprite& other);
 
   void Draw(GLint renderModeLoc) const override;
   void Delete();

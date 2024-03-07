@@ -121,6 +121,7 @@ void Texte::buildTexte()
     glyphList[i].setRotation(rotation);
     glyphList[i].setColor(RGB);
     glyphList[i].setAlpha(alpha);
+    glyphList[i].setRGBFilterState(true);
     if(texte[i] == ' ')
       sizeTotal+=5.0f;
     sizeTotal+=charL[texte[i]].size.x+charL[texte[i]].bearing.x;

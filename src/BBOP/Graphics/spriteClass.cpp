@@ -14,10 +14,29 @@ Sprite::Sprite(Texture nTexture)
 Sprite::Sprite()
   : Shape(vertices, sizeof(vertices), indices, sizeof(indices)),
     spriteTexture(nullptr),
-    isRGBFilter(true)
+    isRGBFilter(false)
 {
   size.x = 50.0f; size.y = 50.0f;
   buildVAO();
+}
+
+Sprite::Sprite(const Sprite& other)
+  : Shape(other),
+    spriteTexture(new Texture(*other.spriteTexture)),
+    isRGBFilter(other.isRGBFilter)
+{
+  buildVAO();
+}
+
+Sprite& Sprite::operator=(const Sprite& other)
+{
+  if (this != &other){
+    Shape::operator=(other);
+
+    delete spriteTexture;
+    spriteTexture = new Texture(*other.spriteTexture);
+  }
+  return *this;
 }
 
 Sprite::~Sprite()
