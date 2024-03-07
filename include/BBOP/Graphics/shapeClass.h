@@ -72,7 +72,10 @@ class ConvexShape : public Shape
 public:
   ConvexShape(int nnPoint, Vector2f* nlistPoint);
   ConvexShape();
+  ConvexShape(const ConvexShape& other);
   ~ConvexShape();
+
+  ConvexShape& operator=(const ConvexShape& other);
 
   void initConvex(int nnPoint, Vector2f* nlistPoint);
   void buildVAO() override;
