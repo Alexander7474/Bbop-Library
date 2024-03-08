@@ -17,12 +17,9 @@ public:
   float getScale();
   void setPosition(Vector2f nPos);
   Vector2f getPosition();
-  void setOrigin(Vector2f nOrigin);
-  Vector2f getOrigin();
   Vector2f camX;
   Vector2f camY;
 private:
-  Vector2f origin;
   Vector2f pos;
   float scale;
 };

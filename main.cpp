@@ -48,7 +48,7 @@ int main() {
 
   CircleShape circleDefault(99, 50.0f);
 
-  Camera cam;
+  Camera cam(defaultSprite.getPosition(),1.0f);
 
   // Main while loop
 	while (!glfwWindowShouldClose(window))

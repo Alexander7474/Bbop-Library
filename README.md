@@ -403,9 +403,34 @@ Return:
 [Go back](#documentation)
 Gère une texture. Cette texture peut ensuite être utilisé avec un sprite ou un autre objet qui demande une texture.  
 
+### Texture(const char* textureFileName)
+Constructeur de Texture.  
+Param:  
+    &nbsp;&nbsp;textureFileName: Chemin d'accès vers la texture(png de préférence, les autres formats ne sont pas testé).  
+
 ## Camera
 [Go back](#documentation)
-Gère une camera qui peut utilisé par une Scene pour Draw.
+Gère une camera qui peut utilisé par une Scene pour Draw.  
+**Même méthode que Shape pour changer la position**  
+
+### Camera()
+Constructeur par défault de Camera.  
+La camera fait la taille de la fenêtre et est positionné au centre.  
+
+### Camera(Vector2f nPos, float nScale)
+Contructeur de la camera.  
+Param:  
+    &nbsp;&nbsp;nPos: Position de la camera.  
+    &nbsp;&nbsp;nScale: Scale de la camera(à 1.0 la camera fait la taille de la fenêtre).   
+
+### void setScale(float nScale)
+Change la scale de la camera.  
+Param:  
+    &nbsp;&nbsp;nScale: Scale de la camera.  
+
+### float getScale()
+Return:  
+    &nbsp;&nbsp;scale: Scale de la camera.  
 
 ### Texture(const char* textureFileName)
 Cosntructeur de la class Texture.  
