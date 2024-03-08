@@ -57,16 +57,31 @@ cmake --build build -- all
 cmake --build build -- install
 ```
 ## Compiler et installer bbop
-### !!! Attention a bien avoir installer les libs necessaires !!!
+### Linux
 ```
-git clone https://github.com/Alexander7474/BibibopEngine.git Bibibop
-cd Bibibop
+git clone https://github.com/Alexander7474/Bbop-Library.git
+cd Bbop-Library
 make && sudo make install
 ```
-### compiler et lancer un projet
+### MacOS
+```
+git clone https://github.com/Alexander7474/Bbop-Library.git
+cd Bbop-Library
+```
+Avant d'utiliser make pour compiler et installer bbop sur macOS il faut modifier le makefile selon commentaires de celui ci.
+```
+make && sudo make install
+```
+## Compiler un projet
+### Linux
 ```
 g++ -I/usr/include/freetype2 -c main.cpp -o main.o
 g++ main.o -o final -std=c++11 -Wall -lbbop -lGLEW -lGL -lglfw -lfreetype
+```
+### MacOS
+```
+g++ -I/opt/homebrew/Cellar/freetype/2.13.2/include/freetype2 -I/opt/homebrew/Cellar/glew/2.2.0_1/include -I/usr/local/include/GLFW -c main.cpp -o main.o
+g++ main.o -o final -std=c++11 -Wall -lbbop -L/opt/homebrew/Cellar/freetype/2.13.2/lib -L/opt/homebrew/Cellar/glew/2.2.0_1/lib -framework Cocoa -framework OpenGL -framework IOKit -lfreetype  -lglfw3 -lGLEW.2.2.0
 ```
 # Documentation
 
