@@ -33,8 +33,11 @@ int main() {
   defaultSprite.setSize(Vector2f(100.0f,100.0f));
   //defaultSprite.setRGBFilterState(true);
   //
-  Texte test("Hello World !", 40,"fonts/arial.ttf");
-  test.setPosition(Vector2f(0.0f,150.0f));
+  TexteBox test("Hello World !", 40,"fonts/arial.ttf");
+
+  TexteBox test2("piwo", 40,"fonts/arial.ttf");
+  test2.setPosition(Vector2f(0.0f,150.0f));
+  test = test2;
 
   cout << "creation de la forme convex" << endl;
   Vector2f list[6] = {Vector2f(100.0f,100.0f),Vector2f(170.0f,10.0f),Vector2f(189.0f,75.0f),Vector2f(189.0f,199.0f),Vector2f(32.0f,112.0f),Vector2f(0.0f,0.0f)};

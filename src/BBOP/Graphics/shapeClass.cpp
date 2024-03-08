@@ -249,6 +249,37 @@ ConvexShape::ConvexShape()
     listPoint(new Vector2f[0])
 {}
 
+ConvexShape::ConvexShape(const ConvexShape& other)
+  : Shape(other),
+    vertices(new GLfloat[other.nPoint*6]),
+    indices(new GLuint[(other.nPoint-1)*3]),
+    nPoint(other.nPoint),
+    listPoint(new Vector2f[other.nPoint])
+{
+  for(int i = 0; i < nPoint; i++)
+    listPoint[i] = other.listPoint[i];
+  buildVAO();
+}
+
+ConvexShape& ConvexShape::operator=(const ConvexShape& other)
+{
+ if (this != &other){
+    Shape::operator=(other);
+
+    delete [] vertices;
+    delete [] indices;
+    delete [] listPoint;
+    vertices = new GLfloat[other.nPoint*6];
+    indices = new GLuint[(other.nPoint-1)*3];
+    nPoint = other.nPoint;
+    listPoint = new Vector2f[other.nPoint];
+    for(int i = 0; i < nPoint; i++)
+      listPoint[i] = other.listPoint[i];
+    buildVAO();
+  }
+  return *this;
+}
+
 void ConvexShape::initConvex(int nnPoint, Vector2f* nlistPoint)
 {
   delete [] vertices;

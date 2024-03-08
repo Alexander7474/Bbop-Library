@@ -32,9 +32,11 @@ Sprite& Sprite::operator=(const Sprite& other)
 {
   if (this != &other){
     Shape::operator=(other);
-
-    delete spriteTexture;
-    spriteTexture = new Texture(*other.spriteTexture);
+    
+    if (spriteTexture != nullptr){
+      delete spriteTexture;
+      spriteTexture = new Texture(*other.spriteTexture);
+    }
   }
   return *this;
 }

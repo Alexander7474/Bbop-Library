@@ -1,6 +1,7 @@
 #include "../../../include/BBOP/Graphics/fontsClass.h"
 #include <algorithm>
 #include <cstring>
+#include <ostream>
 #include <vector>
 
 // Charge une police TrueType en tant que texture OpenGL
@@ -88,7 +89,7 @@ void loadFontTexture(const char* fontPath, int fontSize, Character* charList, in
     FT_Done_FreeType(ft);
 }
 
-Texte::Texte(const char * nTexte,int glyphSize, const char* ttfPath)
+TexteBox::TexteBox(const char * nTexte,int glyphSize, const char* ttfPath)
   : pos(0.0f,0.0f),
     origin(0.0f,0.0f),
     rotation(0.0f),
@@ -102,16 +103,58 @@ Texte::Texte(const char * nTexte,int glyphSize, const char* ttfPath)
   strcpy(const_cast<char*>(texte), nTexte);
   sizeTexte = static_cast<unsigned int>(strlen(texte));
   loadFontTexture(ttfPath, glyphSize, charL, 128);
-  buildTexte();
+  buildTexteBox();
 }
 
-Texte::~Texte()
+TexteBox::TexteBox(const TexteBox& other)
+  : pos(other.pos),
+    origin(other.origin),
+    rotation(other.rotation),
+    RGB(other.RGB),
+    alpha(other.alpha),
+    texte(new char[other.sizeTexte]),
+    sizeTexte(other.sizeTexte),
+    glyphList(new NoTextureSprite[other.sizeTexte]),
+    offset(other.offset)
+{
+  strcpy(const_cast<char*>(texte), other.texte);
+  for(int i = 0; i < 128; i++)
+    charL[i] = other.charL[i];
+  for(int i = 0; i < sizeTexte; i++)
+    glyphList[i] = other.glyphList[i];
+}
+
+TexteBox& TexteBox::operator=(const TexteBox& other)
+{
+  if (this != &other){
+    pos = other.pos;
+    origin = other.origin;
+    rotation = other.rotation;
+    RGB = other.RGB;
+    alpha = other.alpha;
+    sizeTexte = other.sizeTexte;
+    offset = other.offset;
+    delete [] texte;
+    delete [] glyphList;
+    texte = new char[sizeTexte];
+    glyphList = new NoTextureSprite[sizeTexte];
+    strcpy(const_cast<char*>(texte), other.texte);
+    for(int i = 0; i < 128; i++)
+      charL[i] = other.charL[i];
+    for(int i = 0; i < sizeTexte; i++){
+      glyphList[i] = other.glyphList[i];
+    }
+  }
+  return *this;
+}
+
+TexteBox::~TexteBox()
 {
   delete [] glyphList;
   delete [] texte;
 }
 
-void Texte::buildTexte()
+void TexteBox::buildTexteBox()
 {
   float sizeTotal = 0.0f;
   for (unsigned int i = 0; i < sizeTexte; i++){
@@ -128,7 +171,7 @@ void Texte::buildTexte()
   }
 }
 
-void Texte::Draw(GLint renderModeLoc) const
+void TexteBox::Draw(GLint renderModeLoc) const
 {
   for (unsigned int i = 0; i < sizeTexte; i++){
     glBindTexture(GL_TEXTURE_2D, charL[texte[i]].TextureID);
@@ -136,24 +179,24 @@ void Texte::Draw(GLint renderModeLoc) const
   }
 }
 
-Vector2f Texte::getPosition()
+Vector2f TexteBox::getPosition()
 {
   return pos;
 }
 
-void Texte::setPosition(Vector2f nPos)
+void TexteBox::setPosition(Vector2f nPos)
 {
   pos = nPos;
   for (unsigned int i = 0; i < sizeTexte; i++)
     glyphList[i].setPosition(pos);
 }
 
-Vector2f Texte::getOrigin()
+Vector2f TexteBox::getOrigin()
 {
   return origin;
 }
 
-void Texte::setOrigin(Vector2f nOrigin)
+void TexteBox::setOrigin(Vector2f nOrigin)
 {
   pos = nOrigin;
   float sizeTotal = 0.0f;
@@ -165,43 +208,43 @@ void Texte::setOrigin(Vector2f nOrigin)
   }
 }
 
-Vector3i Texte::getColor()
+Vector3i TexteBox::getColor()
 {
   return RGB;
 }
 
-void Texte::setColor(Vector3i nRGB)
+void TexteBox::setColor(Vector3i nRGB)
 {
   RGB= nRGB;
   for (unsigned int i = 0; i < sizeTexte; i++)
     glyphList[i].setColor(RGB);
 }
 
-void Texte::setAlpha(float nAlpha)
+void TexteBox::setAlpha(float nAlpha)
 {
   alpha = nAlpha;
   for (unsigned int i = 0; i < sizeTexte; i++)
     glyphList[i].setAlpha(alpha);
 }
 
-float Texte::getAlpha()
+float TexteBox::getAlpha()
 {
   return alpha;
 }
 
-void Texte::setRotation(float nRotation)
+void TexteBox::setRotation(float nRotation)
 {
   rotation = nRotation;
   for (unsigned int i = 0; i < sizeTexte; i++)
     glyphList[i].setRotation(rotation);
 }
 
-float Texte::getRotation()
+float TexteBox::getRotation()
 {
   return rotation;
 }
 
-void Texte::setTexte(const char * nTexte)
+void TexteBox::setTexte(const char * nTexte)
 {
   delete [] texte;
   texte = new char[strlen(nTexte)+ 1];
@@ -209,6 +252,6 @@ void Texte::setTexte(const char * nTexte)
   sizeTexte = static_cast<unsigned int>(strlen(texte));
   delete[] glyphList;
   glyphList = new NoTextureSprite[sizeTexte];
-  buildTexte();
+  buildTexteBox();
 }
 
