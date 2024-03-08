@@ -18,11 +18,16 @@ Bbop est un projet de library graphique utilisant opengl. La lib permet de gére
 # Installation  
 ## Installer les lib nécessaires: 
 [![OpenGL](https://img.shields.io/badge/OpenGL-%23FFFFFF.svg?style=for-the-badge&logo=opengl)](https://www.opengl.org)
+### Linux Packages
 ```
 sudo apt-get install libglew-dev libglfw3-dev xorg-dev libfreetype6-dev
 sudo apt-get install libwayland-dev libxkbcommon-dev wayland-protocols extra-cmake-modules libstb-dev 
 ```
-### Installer glfw: 
+### MacOS Packages
+```
+brew install glew freetype 
+```
+### Installer glfw:
 on clone le repo glfw
 ```
 git clone https://github.com/glfw/glfw.git
