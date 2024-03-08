@@ -78,9 +78,10 @@ g++ main.o -o final -std=c++11 -Wall -lbbop -lGLEW -lGL -lglfw -lfreetype
 6. [ConvexShape](#convexshape)
 7. [CircleShape](#circleshape)
 8. [Sprite](#sprite)
-9. [Texte](#texte)
+9. [TexteBox](#textebox)
 10. [CollisionBox](#collisionbox)
 11. [Texture](#texture)
+12. [Camera](#camera)
 
 ## Init et autre 
 [Go back](#documentation)
@@ -358,13 +359,13 @@ Active ou désactive le filtre rgb.
 Param:  
     &nbsp;&nbsp;etat: true si le filtre rgb est actif et false si non.  
 
-## Texte
+## TexteBox
 [Go back](#documentation)
 Gère une boîte de dialogue, hérite de BbopDrawable.  
 **Cette class n'hérite pas de shape mais possède exactement les même fonction pourgérer sa position, son origine, sa couleur, sa transprence et son angle de rotation. Ces méthodes ne seront pas réexpliqué dans cette section**  
 
-### Texte(const char * nTexte, int glyphSize, const char* ttfPath)
-Constructeur de la class Texte.  
+### TexteBox(const char * nTexte, int glyphSize, const char* ttfPath)
+Constructeur de la class TexteBox.  
 Param:  
     &nbsp;&nbsp;nTexte: Texte à afficher avec la class.  
     &nbsp;&nbsp;glyphSize: Taille des caractères.  
@@ -401,6 +402,10 @@ Return:
 ## Texture
 [Go back](#documentation)
 Gère une texture. Cette texture peut ensuite être utilisé avec un sprite ou un autre objet qui demande une texture.  
+
+## Camera
+[Go back](#documentation)
+Gère une camera qui peut utilisé par une Scene pour Draw.
 
 ### Texture(const char* textureFileName)
 Cosntructeur de la class Texture.  

@@ -10,6 +10,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+#include "cameraClass.h"
 #include "bbopMathClass.h"
 #include "spriteClass.h"
 #include "shaderClass.h"
@@ -24,6 +25,7 @@ public:
   ~Scene();
 
   void Use();
+  void useCamera(Camera *camAddr);
   void setAmbiantLightValue(float nAmbiantLightValue);
   float getAmbiantLightValue();
   void setAmbiantLightColor(Vector3i nAmbiantLightColor);
@@ -36,6 +38,7 @@ private:
   GLint ambiantLightLoc;
   GLint renderModeLoc;
   Vector3f ambiantLight;
+  Camera* sceneCamera;
 };
 
 #endif // !SCENE_CLASS_H

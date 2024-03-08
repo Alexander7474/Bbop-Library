@@ -13,6 +13,7 @@
 #include "Graphics/VBO.h"
 #include "Graphics/EBO.h"
 #include "Graphics/sceneClass.h"
+#include "Graphics/cameraClass.h"
 #include "Graphics/shaderClass.h"
 #include "Graphics/shapeClass.h"
 #include "Graphics/spriteClass.h"

@@ -31,6 +31,7 @@ int main() {
   defaultSprite.setAlpha(0.5f);
   defaultSprite.setPosition(Vector2f(150.0f,150.0f));
   defaultSprite.setSize(Vector2f(100.0f,100.0f));
+  defaultSprite.setOrigin(Vector2f(50.0f,50.0f));
   //defaultSprite.setRGBFilterState(true);
   //
   TexteBox test("Hello World !", 40,"fonts/arial.ttf");
@@ -47,6 +48,8 @@ int main() {
 
   CircleShape circleDefault(99, 50.0f);
 
+  Camera cam;
+
   // Main while loop
 	while (!glfwWindowShouldClose(window))
 	{
@@ -56,7 +59,9 @@ int main() {
     ///code zone
     //////////////////////////////////////////////////////////////
     
+    cam.setPosition(defaultSprite.getPosition());
     defaultScene.Use();
+    defaultScene.useCamera(&cam);
     //affichage du rectangle  avec sa rotation
     defaultRect.setRotation(defaultRect.getRotation()+0.1);
     defaultScene.Draw(defaultRect);
