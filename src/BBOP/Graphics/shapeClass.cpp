@@ -37,18 +37,27 @@ void Shape::initShape(GLfloat* vertices, GLsizeiptr verticesSize, GLuint* indice
 void Shape::setSize(Vector2f nSize)
 {
   size = nSize;
+  if (autoUpdateCollision){
+    shapeCollisionBox.setSize(size);
+  }
   updateVBO();
 }
 
 void Shape::setPosition(Vector2f nPos)
 {
   pos = nPos;
+  if (autoUpdateCollision){
+    shapeCollisionBox.setPosition(pos);
+  }
   updateVBO();
 }
 
 void Shape::setOrigin(Vector2f nOrigin)
 {
   origin = nOrigin;
+  if (autoUpdateCollision){
+    shapeCollisionBox.setOrigin(origin);
+  }
   updateVBO();
 }
 
@@ -73,6 +82,8 @@ void Shape::setAlpha(float nAlpha)
 void Shape::move(Vector2f vecM)
 {
   pos.x += vecM.x; pos.y += vecM.y;
+  if(autoUpdateCollision)
+    shapeCollisionBox.setPosition(pos);
   updateVBO();
 }
 
@@ -201,11 +212,6 @@ void RectangleShape::updateVBO()
   //top left
   vertices[18] = pTL.x+pos.x; vertices[19] = pTL.y+pos.y;
   shapeVBO.update(vertices, sizeof(vertices));
-  if (autoUpdateCollision){
-    shapeCollisionBox.setPosition(pos);
-    shapeCollisionBox.setSize(size);
-    shapeCollisionBox.setOrigin(origin);
-  }
 }
 
 void RectangleShape::updateVBORGB()

@@ -48,3 +48,24 @@ float Camera::getScale()
   return scale;
 }
 
+Vector2f Camera::screenPosToCamPos(Vector2f screenPos)
+{
+  Vector2f finalPos(pos.x-scale*(BBOP_WINDOW_SIZE.x/2.0f),pos.y-scale*(BBOP_WINDOW_SIZE.y/2.0f));
+  finalPos.x += screenPos.x*scale;
+  finalPos.y += screenPos.y*scale;
+  return finalPos;
+}
+
+//ne marche que avec les formes rectangulaires
+bool Camera::isInCamView(Shape& obj)
+{
+  float left = obj.getPosition().x-obj.getOrigin().x;
+  float right = left+obj.getSize().x;
+  float top = obj.getPosition().y-obj.getOrigin().y;
+  float bottom = top+obj.getSize().y;
+  if(right<=camX.x || left >= camX.y || top >= camY.y || bottom <= camY.x){
+    return false;
+  }
+  return true;
+}
+

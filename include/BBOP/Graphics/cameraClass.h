@@ -3,6 +3,7 @@
 
 #include "bbopGlobal.h"
 #include "bbopMathClass.h"
+#include "shapeClass.h"
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
@@ -17,6 +18,8 @@ public:
   float getScale();
   void setPosition(Vector2f nPos);
   Vector2f getPosition();
+  Vector2f screenPosToCamPos(Vector2f screenPos);
+  bool isInCamView(Shape& obj);
   Vector2f camX;
   Vector2f camY;
 private:
