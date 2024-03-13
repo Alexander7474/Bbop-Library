@@ -9,9 +9,9 @@ Shape::Shape(GLfloat* vertices, GLsizeiptr verticesSize, GLuint* indices, GLsize
     size(0.0f, 0.0f),
     origin(0.0f, 0.0f),
     RGB(255,255,255),
-    shapeCollisionBox(pos, origin, size),
     autoUpdateCollision(true),
     rotation(0.0f),
+    shapeCollisionBox(pos, origin, size, rotation),
     alpha(1.0f)
 {}
 
@@ -22,9 +22,9 @@ Shape::Shape()
     size(0.0f, 0.0f),
     origin(0.0f, 0.0f),
     RGB(255,255,255),
-    shapeCollisionBox(pos, origin, size),
     autoUpdateCollision(true),
     rotation(0.0f),
+    shapeCollisionBox(pos, origin, size, rotation),
     alpha(1.0f)
 {}
 
@@ -70,6 +70,8 @@ void Shape::setColor(Vector3i nRGB)
 void Shape::setRotation(float nRotation)
 {
   rotation = nRotation;
+  if(autoUpdateCollision)
+    shapeCollisionBox.setRotation(rotation);
   updateVBO();
 }
 
@@ -128,12 +130,34 @@ void Shape::setAutoUpdateCollision(bool etat)
   autoUpdateCollision = etat;
 }
 
-RectangleShape::RectangleShape()
+
+RectangleShape::RectangleShape(Vector2f nSize, Vector2f nPos, Vector3i nRGB, Vector2f nOrigin, float nRotation, float nAlpha)
   : Shape(vertices, sizeof(vertices), indices, sizeof(indices))
 {
-  size.x = 50.0f, size.y = 50.0f;
+  size = nSize;
+  pos = nPos;
+  RGB = nRGB;
+  origin = nOrigin;
+  rotation = nRotation;
+  alpha = nAlpha;
+  shapeCollisionBox.setRotation(rotation);
+  shapeCollisionBox.setOrigin(origin);
+  shapeCollisionBox.setSize(size);
+  shapeCollisionBox.setPosition(pos);
   buildVAO();
 }
+
+RectangleShape::RectangleShape(Vector2f nSize, Vector2f nPos, Vector3i nRGB, Vector2f nOrigin)
+  : RectangleShape(nSize, nPos, nRGB, nOrigin, 0.0f, 1.0f)
+{}
+
+RectangleShape::RectangleShape(Vector2f nSize, Vector2f nPos)
+  : RectangleShape(nSize, nPos, Vector3i(255,255,255), Vector2f(0.0f,0.0f), 0.0f, 1.0f)
+{}
+
+RectangleShape::RectangleShape()
+  : RectangleShape(Vector2f(50.0f,50.0f), Vector2f(0.0f,0.0f), Vector3i(255,255,255), Vector2f(0.0f,0.0f), 0.0f, 1.0f)
+{}
 
 void RectangleShape::buildVAO()
 {
@@ -233,7 +257,7 @@ void RectangleShape::updateVBOAlpha()
   shapeVBO.update(vertices, sizeof(vertices));
 }
 
-ConvexShape::ConvexShape(int nnPoint, Vector2f* nlistPoint)
+ConvexShape::ConvexShape(int nnPoint, Vector2f* nlistPoint, Vector2f nSize, Vector2f nPos, Vector3i nRGB, Vector2f nOrigin, float nRotation, float nAlpha)
   : Shape(),
     vertices(new GLfloat[nnPoint*6]),
     indices(new GLuint[(nnPoint-1)*3]),
@@ -243,9 +267,26 @@ ConvexShape::ConvexShape(int nnPoint, Vector2f* nlistPoint)
   initShape(vertices, sizeof(GLfloat)*6*nnPoint, indices, sizeof(GLuint)*3*(nnPoint-1));
   for(int i = 0; i < nnPoint; i++)
     listPoint[i] = nlistPoint[i];
-  size.x = 1.0f; size.y=1.0f;
+  size = nSize;
+  pos = nPos;
+  RGB = nRGB;
+  origin = nOrigin;
+  rotation = nRotation;
+  alpha = nAlpha;
   buildVAO();
 }
+
+ConvexShape::ConvexShape(int nnPoint, Vector2f* nlistPoint, Vector2f nSize, Vector2f nPos, Vector3i nRGB, Vector2f nOrigin)
+  : ConvexShape(nnPoint, nlistPoint, nSize, nPos, nRGB, nOrigin, 0.0f, 1.0f)
+{}
+
+ConvexShape::ConvexShape(int nnPoint, Vector2f* nlistPoint, Vector2f nSize, Vector2f nPos)
+  : ConvexShape(nnPoint, nlistPoint, nSize, nPos, Vector3i(255,255,255), Vector2f(0.0f,0.0f), 0.0f, 1.0f)
+{}
+
+ConvexShape::ConvexShape(int nnPoint, Vector2f* nlistPoint)
+  : ConvexShape(nnPoint, nlistPoint, Vector2f(1.0f,1.0f), Vector2f(0.0f,0.0f), Vector3i(255,255,255), Vector2f(0.0f,0.0f), 0.0f, 1.0f)
+{}
 
 ConvexShape::ConvexShape()
   : Shape(),
@@ -390,13 +431,31 @@ void ConvexShape::Draw(GLint renderModeLoc) const
   glDrawElements(GL_TRIANGLES, 3*(nPoint-1), GL_UNSIGNED_INT, 0);
 }
 
-CircleShape::CircleShape(int nnPoint, float nRadius)
+CircleShape::CircleShape(int nnPoint, float nRadius, Vector2f nSize, Vector2f nPos, Vector3i nRGB, Vector2f nOrigin, float nRotation, float nAlpha)
   : ConvexShape(),
     radius(nRadius),
     nPointCircle(nnPoint)
 {
+  size = nSize;
+  pos = nPos;
+  RGB = nRGB;
+  origin = nOrigin;
+  rotation = nRotation;
+  alpha = nAlpha;
   buildConvex();
 }
+
+CircleShape::CircleShape(int nnPoint, float nRadius, Vector2f nSize, Vector2f nPos, Vector3i nRGB, Vector2f nOrigin)
+  : CircleShape(nnPoint, nRadius, nSize, nPos, nRGB, nOrigin, 0.0f, 1.0f)
+{}
+
+CircleShape::CircleShape(int nnPoint, float nRadius, Vector2f nSize, Vector2f nPos)
+  : CircleShape(nnPoint, nRadius, nSize, nPos, Vector3i(255,255,255), Vector2f(0.0f,0.0f), 0.0f, 1.0f)
+{}
+
+CircleShape::CircleShape(int nnPoint, float nRadius)
+  : CircleShape(nnPoint, nRadius, Vector2f(1.0f,1.0f), Vector2f(0.0f,0.0f), Vector3i(255,255,255), Vector2f(0.0f,0.0f), 0.0f, 1.0f)
+{}
 
 void CircleShape::buildConvex()
 {

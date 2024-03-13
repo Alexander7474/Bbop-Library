@@ -89,8 +89,14 @@ void loadFontTexture(const char* fontPath, int fontSize, Character* charList, in
     FT_Done_FreeType(ft);
 }
 
-TexteBox::TexteBox(const char * nTexte,int glyphSize, const char* ttfPath)
-  : pos(0.0f,0.0f),
+Font::Font(int glyphSize, const char *ttfPath)
+{
+  loadFontTexture(ttfPath, glyphSize, charL, 128);
+}
+
+TexteBox::TexteBox(const char * nTexte, Font* nFont)
+  : texteFont(nFont),
+    pos(0.0f,0.0f),
     origin(0.0f,0.0f),
     rotation(0.0f),
     RGB(255,255,255),
@@ -102,12 +108,12 @@ TexteBox::TexteBox(const char * nTexte,int glyphSize, const char* ttfPath)
 {
   strcpy(const_cast<char*>(texte), nTexte);
   sizeTexte = static_cast<unsigned int>(strlen(texte));
-  loadFontTexture(ttfPath, glyphSize, charL, 128);
   buildTexteBox();
 }
 
 TexteBox::TexteBox(const TexteBox& other)
-  : pos(other.pos),
+  : texteFont(other.texteFont),
+    pos(other.pos),
     origin(other.origin),
     rotation(other.rotation),
     RGB(other.RGB),
@@ -118,8 +124,6 @@ TexteBox::TexteBox(const TexteBox& other)
     offset(other.offset)
 {
   strcpy(const_cast<char*>(texte), other.texte);
-  for(int i = 0; i < 128; i++)
-    charL[i] = other.charL[i];
   for(int i = 0; i < sizeTexte; i++)
     glyphList[i] = other.glyphList[i];
 }
@@ -127,6 +131,7 @@ TexteBox::TexteBox(const TexteBox& other)
 TexteBox& TexteBox::operator=(const TexteBox& other)
 {
   if (this != &other){
+    texteFont = other.texteFont;
     pos = other.pos;
     origin = other.origin;
     rotation = other.rotation;
@@ -139,8 +144,6 @@ TexteBox& TexteBox::operator=(const TexteBox& other)
     texte = new char[sizeTexte];
     glyphList = new NoTextureSprite[sizeTexte];
     strcpy(const_cast<char*>(texte), other.texte);
-    for(int i = 0; i < 128; i++)
-      charL[i] = other.charL[i];
     for(int i = 0; i < sizeTexte; i++){
       glyphList[i] = other.glyphList[i];
     }
@@ -158,8 +161,8 @@ void TexteBox::buildTexteBox()
 {
   float sizeTotal = 0.0f;
   for (unsigned int i = 0; i < sizeTexte; i++){
-    glyphList[i].setSize(Vector2f(charL[texte[i]].size.x,charL[texte[i]].size.y));
-    glyphList[i].setOrigin(Vector2f(-(sizeTotal+charL[texte[i]].bearing.x)+origin.x,charL[texte[i]].bearing.y+origin.y));
+    glyphList[i].setSize(Vector2f(texteFont->charL[texte[i]].size.x,texteFont->charL[texte[i]].size.y));
+    glyphList[i].setOrigin(Vector2f(-(sizeTotal+texteFont->charL[texte[i]].bearing.x)+origin.x,texteFont->charL[texte[i]].bearing.y+origin.y));
     glyphList[i].setPosition(pos);
     glyphList[i].setRotation(rotation);
     glyphList[i].setColor(RGB);
@@ -167,14 +170,14 @@ void TexteBox::buildTexteBox()
     glyphList[i].setRGBFilterState(true);
     if(texte[i] == ' ')
       sizeTotal+=5.0f;
-    sizeTotal+=charL[texte[i]].size.x+charL[texte[i]].bearing.x;
+    sizeTotal+=texteFont->charL[texte[i]].size.x+texteFont->charL[texte[i]].bearing.x;
   }
 }
 
 void TexteBox::Draw(GLint renderModeLoc) const
 {
   for (unsigned int i = 0; i < sizeTexte; i++){
-    glBindTexture(GL_TEXTURE_2D, charL[texte[i]].TextureID);
+    glBindTexture(GL_TEXTURE_2D, texteFont->charL[texte[i]].TextureID);
     glyphList[i].Draw(renderModeLoc);
   }
 }
@@ -201,10 +204,10 @@ void TexteBox::setOrigin(Vector2f nOrigin)
   pos = nOrigin;
   float sizeTotal = 0.0f;
   for (unsigned int i = 0; i < sizeTexte; i++){
-    glyphList[i].setOrigin(Vector2f(-(sizeTotal+charL[texte[i]].bearing.x)+origin.x,charL[texte[i]].bearing.y+origin.y));
+    glyphList[i].setOrigin(Vector2f(-(sizeTotal+texteFont->charL[texte[i]].bearing.x)+origin.x,texteFont->charL[texte[i]].bearing.y+origin.y));
     if(texte[i] == ' ')
       sizeTotal+=5.0f;
-    sizeTotal+=charL[texte[i]].size.x+charL[texte[i]].bearing.x;
+    sizeTotal+=texteFont->charL[texte[i]].size.x+texteFont->charL[texte[i]].bearing.x;
   }
 }
 

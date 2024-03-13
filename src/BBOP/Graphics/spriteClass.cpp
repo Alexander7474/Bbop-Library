@@ -1,15 +1,32 @@
 #include "../../../include/BBOP/Graphics/spriteClass.h"
 
-Sprite::Sprite(Texture nTexture)
+Sprite::Sprite(Texture nTexture, Vector2f nPos, Vector3i nRGB, Vector2f nOrigin, float nRotation, float nAlpha)
   : Shape(vertices, sizeof(vertices), indices, sizeof(indices)),
     spriteTexture(new Texture(nTexture)),
     isRGBFilter(false)
 {
   size.x = spriteTexture->getWidth(); size.y = spriteTexture->getHeight();
+  pos = nPos;
+  RGB = nRGB;
+  origin = nOrigin;
+  rotation = nRotation;
+  alpha = nAlpha;
   // Build du vao
   //construtiopn du VAO en fontion de la position du sprite, de  sa taille et de la taille de la fenetre
   buildVAO();
 }
+
+Sprite::Sprite(Texture nTexture, Vector2f nPos, Vector3i nRGB, Vector2f nOrigin)
+  : Sprite(nTexture, nPos, nRGB, nOrigin, 0.0f, 1.0f)
+{}
+
+Sprite::Sprite(Texture nTexture, Vector2f nPos)
+  : Sprite(nTexture, nPos, Vector3i(255,255,255), Vector2f(0.0f,0.0f), 0.0f, 1.0f)
+{}
+
+Sprite::Sprite(Texture nTexture)
+  : Sprite(nTexture, Vector2f(0.0f,0.0f), Vector3i(255,255,255), Vector2f(0.0f,0.0f), 0.0f, 1.0f)
+{}
 
 Sprite::Sprite()
   : Shape(vertices, sizeof(vertices), indices, sizeof(indices)),

@@ -17,6 +17,9 @@
 class Sprite : public Shape
 {
 public:
+  Sprite(Texture nTexture, Vector2f nPos, Vector3i nRGB, Vector2f nOrigin, float nRotation, float nAlpha);
+  Sprite(Texture nTexture, Vector2f nPos, Vector3i nRGB, Vector2f nOrigin);
+  Sprite(Texture nTexture, Vector2f nPos);
   Sprite(Texture nTexture);
   Sprite();
   Sprite(const Sprite& other);

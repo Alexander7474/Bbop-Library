@@ -11,6 +11,6 @@
 int bbopInit(int windowX, int windowY, const char* windowName, GLFWwindow*& window);
 void bbopCleanWindow(GLFWwindow*& window,Vector3i rgb, float alpha);
 void bbopErrorCheck();
-void bbopChangeWindowSize();
+void bbopChangeWindowSize(Vector2i nWinSize);
 
 #endif // !BBOP_FUNCTION_H

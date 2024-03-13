@@ -19,10 +19,17 @@ struct Character {
 
 void loadFontTexture(const char* fontPath, int fontSize, Character* charList, int numTextures);
 
+class Font
+{
+public:
+  Font(int glyphSize, const char *ttfPath);
+  Character charL[128];
+};
+
 class TexteBox : public BbopDrawable
 {
 public:
-  TexteBox(const char * nTexte, int glyphSize, const char* ttfPath);
+  TexteBox(const char * nTexte, Font *nFont);
   TexteBox(const TexteBox& other);
   ~TexteBox();
 
@@ -43,7 +50,7 @@ public:
   void buildTexteBox();
   void Draw(GLint renderModeLoc) const override;
 private:
-  Character charL[128]; 
+  Font *texteFont;
   Vector2f pos;
   Vector2f origin;
   float rotation;

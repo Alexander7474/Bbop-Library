@@ -68,3 +68,7 @@ void bbopErrorCheck()
   }  
 }
 
+void bbopChangeWindowSize(Vector2i nWinSize)
+{
+  BBOP_WINDOW_SIZE = nWinSize;
+}

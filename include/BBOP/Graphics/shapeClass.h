@@ -46,9 +46,9 @@ protected:
   Vector2f size;
   Vector2f origin;
   Vector3i RGB;
-  CollisionBox shapeCollisionBox;
   bool autoUpdateCollision;
   float rotation;
+  CollisionBox shapeCollisionBox;
   float alpha;
 };
 
@@ -56,6 +56,9 @@ class RectangleShape : public Shape
 {
 public:
   RectangleShape();
+  RectangleShape(Vector2f nSize, Vector2f nPos);
+  RectangleShape(Vector2f nSize, Vector2f nPos, Vector3i nRGB, Vector2f nOrigin);
+  RectangleShape(Vector2f nSize, Vector2f nPos, Vector3i nRGB, Vector2f nOrigin, float nRotation, float nAlpha);
   
   void buildVAO() override;
   void updateVBO() override;
@@ -70,8 +73,12 @@ private:
 class ConvexShape : public Shape
 {
 public:
-  ConvexShape(int nnPoint, Vector2f* nlistPoint);
   ConvexShape();
+  ConvexShape(int nnPoint, Vector2f* nlistPoint);
+  ConvexShape(int nnPoint, Vector2f* nlistPoint, Vector2f nSize, Vector2f nPos);
+  ConvexShape(int nnPoint, Vector2f* nlistPoint, Vector2f nSize, Vector2f nPos, Vector3i nRGB, Vector2f nOrigin);
+  ConvexShape(int nnPoint, Vector2f* nlistPoint, Vector2f nSize, Vector2f nPos, Vector3i nRGB, Vector2f nOrigin, float nRotation, float nAlpha);
+
   ConvexShape(const ConvexShape& other);
   ~ConvexShape();
 
@@ -94,6 +101,9 @@ class CircleShape : public ConvexShape
 {
 public:
   CircleShape(int nnPoint, float nRadius);
+  CircleShape(int nnPoint, float nRadius, Vector2f nSize, Vector2f nPos);
+  CircleShape(int nnPoint, float nRadius, Vector2f nSize, Vector2f nPos, Vector3i nRGB, Vector2f nOrigin);
+  CircleShape(int nnPoint, float nRadius, Vector2f nSize, Vector2f nPos, Vector3i nRGB, Vector2f nOrigin, float nRotation, float nAlpha);
 
   void buildConvex();
   float getRadius();

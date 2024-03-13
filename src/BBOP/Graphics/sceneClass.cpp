@@ -28,12 +28,6 @@ void Scene::Use()
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
   sceneShader.Activate();
-  glm::mat4 projection;
-  if (sceneCamera != nullptr)
-    projection = glm::ortho(sceneCamera->camX.x, sceneCamera->camX.y, sceneCamera->camY.y, sceneCamera->camY.x, -1.0f, 1.0f);
-  else
-    projection = glm::ortho(0.0f, static_cast<float>(BBOP_WINDOW_SIZE.x), static_cast<float>(BBOP_WINDOW_SIZE.y), 0.0f, -1.0f, 1.0f);
-  glUniformMatrix4fv(sceneShader.getUniformLoc("projection"), 1, GL_FALSE, glm::value_ptr(projection));
   glUniform4f(ambiantLightLoc,ambiantLight.x,ambiantLight.y,ambiantLight.z,1.0f);
 }
 
@@ -44,7 +38,12 @@ void Scene::useCamera(Camera* camAddr)
 
 void Scene::Draw(BbopDrawable& spr)
 {
-  
+  glm::mat4 projection;
+  if (sceneCamera != nullptr)
+    projection = glm::ortho(sceneCamera->camX.x, sceneCamera->camX.y, sceneCamera->camY.y, sceneCamera->camY.x, -1.0f, 1.0f);
+  else
+    projection = glm::ortho(0.0f, static_cast<float>(BBOP_WINDOW_SIZE.x), static_cast<float>(BBOP_WINDOW_SIZE.y), 0.0f, -1.0f, 1.0f);
+  glUniformMatrix4fv(sceneShader.getUniformLoc("projection"), 1, GL_FALSE, glm::value_ptr(projection));
   spr.Draw(renderModeLoc);
 }
 
