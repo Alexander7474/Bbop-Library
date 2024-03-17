@@ -419,6 +419,9 @@ Param:
 Return:  
     &nbsp;&nbsp;bool: true si les boîtes sont en collision et false si non.  
 
+### bool checkWithRotation(CollisionBox *box)
+Même méthode que check sauf que la rotation de la box est prise en compte(cette méthode est plus gourmande en performance).
+
 ## Texture
 [Go back](#documentation)
 Gère une texture. Cette texture peut ensuite être utilisé avec un sprite ou un autre objet qui demande une texture.  
@@ -451,6 +454,18 @@ Param:
 ### float getScale()
 Return:  
     &nbsp;&nbsp;scale: Scale de la camera.  
+
+### Vector2f screenPosToCamPos(Vector2f screenPos)
+Convertie des coordonnée de l'écran en coordonnée sur le monde en fonction de la caméra.  
+Param:  
+    &nbsp;&nbsp;screenPos: Coordonnée sur l'écran.  
+Return:  
+    &nbsp;&nbsp;finalPos: Coordonnée dans le monde.  
+
+### bool isInCamView(Shape& obj)
+Détermine si oui ou non un objet est visible sur la caméra.  
+Param:  
+    &nbsp;&nbsp;obj: Objet à vérifier.  
 
 ### Texture(const char* textureFileName)
 Cosntructeur de la class Texture.  
