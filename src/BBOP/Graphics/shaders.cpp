@@ -30,15 +30,31 @@ uniform sampler2D outTexture;
 uniform vec4 ambiantLight;
 uniform int renderMode;
 
+vec4 provisory;
+
+const vec2 lightPosition = vec2(0.5, 0.5); // Position de la source de lumière (2D)
+const vec3 lightColor = vec3(1.0, 1.0, 1.0); // Couleur de la lumière
+const float lightIntensity = 5.0; // Intensité de la lumière
+
+const float constantAttenuation = 0.1; // Attnuation constante
+const float linearAttenuation = 0.1; // Attnuation linéaire
+const float quadraticAttenuation = 0.01; // Attnuation quadratique
+
 void main()
 {
   if (renderMode == 0){ 
-    FragColor = texture(outTexture, TexCoord) * ambiantLight;
+    provisory = texture(outTexture, TexCoord) * ambiantLight;
   } else if (renderMode == 1){
-    FragColor = outColor * ambiantLight;
+    provisory = outColor * ambiantLight;
   } else if (renderMode == 2){
-    FragColor = texture(outTexture, TexCoord) * outColor * ambiantLight;
+    provisory = texture(outTexture, TexCoord) * outColor * ambiantLight;
   }
+
+  float distance = length(lightPosition - gl_FragCoord.xy);
+  float attenuation = 1.0 / (constantAttenuation + linearAttenuation * distance + quadraticAttenuation * distance * distance);
+  float intensity = lightIntensity * attenuation;
+
+  FragColor = provisory*intensity;
 }
 )glsl";
 

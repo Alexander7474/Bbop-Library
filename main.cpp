@@ -17,7 +17,7 @@ int main() {
   
   //Creation de la scene pour afficher nos formes
   cout << "creation de la scene" << endl;
-  Scene defaultScene(1.0f,Vector3i(255,255,255));
+  Scene defaultScene(0.5f,Vector3i(255,255,255));
   //creation d'un rectangle a afficher, par default blanc en haut a gauche de l'image
   cout << "creation du rectangle" << endl;
   RectangleShape defaultRect(Vector2f(100.0f,100.0f),Vector2f(BBOP_WINDOW_SIZE.x/2.0f,BBOP_WINDOW_SIZE.y/2.0f),Vector3i(15,182,245),Vector2f(-100.0f,-100.0f));
