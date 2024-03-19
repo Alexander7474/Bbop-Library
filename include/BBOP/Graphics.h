@@ -8,7 +8,7 @@
 #include "Graphics/lightClass.h"
 #include "Graphics/bbopGlobal.h"
 #include "Graphics/bbopMathClass.h"
-#include "Graphics/collisonBoxClass.h"
+#include "Graphics/collisionBoxClass.h"
 #include "Graphics/VAO.h"
 #include "Graphics/VBO.h"
 #include "Graphics/EBO.h"

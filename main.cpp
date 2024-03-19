@@ -6,6 +6,7 @@
 #include <iostream>
 
 #include "include/BBOP/Graphics.h"
+#include "include/BBOP/Graphics/bbopFunc.h"
 #include "include/BBOP/Graphics/bbopGlobal.h"
 
 using namespace std;
@@ -61,6 +62,7 @@ int main() {
     defaultScene.Draw(circleDefault);
 
 
+    bbopDebugCollisionBox(defaultSprite.getCollisionBox(), defaultScene);
     //gestiond des mouvement de mario
     if(glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
       defaultSprite.move(Vector2f(0.0f,-5.0f));
@@ -73,6 +75,7 @@ int main() {
 
     if(defaultSprite.getCollisionBox()->checkWithRotation(defaultRect.getCollisionBox()))
       cout << glfwGetTime() << endl;
+
 
     //////////////////////////////////////////////////////////////
     
