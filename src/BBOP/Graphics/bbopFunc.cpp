@@ -1,5 +1,4 @@
 #include "../../../include/BBOP/Graphics/bbopFunc.h"
-#include <GLFW/glfw3.h>
 
 using namespace std;
 
@@ -71,4 +70,12 @@ void bbopErrorCheck()
 void bbopChangeWindowSize(Vector2i nWinSize)
 {
   BBOP_WINDOW_SIZE = nWinSize;
+}
+
+void bbopDebugCollisionBox(CollisionBox* box, Scene& scene)
+{
+  RectangleShape rect(box->getSize(),box->getPosition(),Vector3i(255,0,0),box->getOrigin());
+  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+  scene.Draw(rect);
+  glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }

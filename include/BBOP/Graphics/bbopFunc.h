@@ -3,6 +3,9 @@
 
 #include "bbopMathClass.h"
 #include "bbopGlobal.h"
+#include "collisionBoxClass.h"
+#include "sceneClass.h"
+#include "shapeClass.h"
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -50,5 +53,15 @@ void bbopErrorCheck();
 * @see Dans bbopFunc.cpp 
 */
 void bbopChangeWindowSize(Vector2i nWinSize);
+
+/**
+* @brief Debug de collision Box en les affichant
+* 
+* @param[in] box Boîte de collision à afficher
+* @param[in] scene Scene a utiliser pour afficher la box
+*
+* @see Dans bbopFunc.cpp
+*/
+void bbopDebugCollisionBox(CollisionBox* box, Scene& scene);
 
 #endif // !BBOP_FUNCTION_H

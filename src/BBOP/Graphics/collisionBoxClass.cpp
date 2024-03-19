@@ -1,4 +1,4 @@
-#include "../../../include/BBOP/Graphics/collisonBoxClass.h"
+#include "../../../include/BBOP/Graphics/collisionBoxClass.h"
 #include <cmath>
 
 #include <iostream>
