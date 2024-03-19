@@ -124,7 +124,7 @@ TexteBox::TexteBox(const TexteBox& other)
     offset(other.offset)
 {
   strcpy(const_cast<char*>(texte), other.texte);
-  for(int i = 0; i < sizeTexte; i++)
+  for(unsigned int i = 0; i < sizeTexte; i++)
     glyphList[i] = other.glyphList[i];
 }
 
@@ -144,7 +144,7 @@ TexteBox& TexteBox::operator=(const TexteBox& other)
     texte = new char[sizeTexte];
     glyphList = new NoTextureSprite[sizeTexte];
     strcpy(const_cast<char*>(texte), other.texte);
-    for(int i = 0; i < sizeTexte; i++){
+    for(unsigned int i = 0; i < sizeTexte; i++){
       glyphList[i] = other.glyphList[i];
     }
   }
@@ -161,23 +161,23 @@ void TexteBox::buildTexteBox()
 {
   float sizeTotal = 0.0f;
   for (unsigned int i = 0; i < sizeTexte; i++){
-    glyphList[i].setSize(Vector2f(texteFont->charL[texte[i]].size.x,texteFont->charL[texte[i]].size.y));
-    glyphList[i].setOrigin(Vector2f(-(sizeTotal+texteFont->charL[texte[i]].bearing.x)+origin.x,texteFont->charL[texte[i]].bearing.y+origin.y));
+    glyphList[i].setSize(Vector2f(texteFont->charL[static_cast<unsigned char>(texte[i])].size.x,texteFont->charL[static_cast<unsigned char>(texte[i])].size.y));
+    glyphList[i].setOrigin(Vector2f(-(sizeTotal+texteFont->charL[static_cast<unsigned char>(texte[i])].bearing.x)+origin.x,texteFont->charL[static_cast<unsigned char>(texte[i])].bearing.y+origin.y));
     glyphList[i].setPosition(pos);
     glyphList[i].setRotation(rotation);
     glyphList[i].setColor(RGB);
     glyphList[i].setAlpha(alpha);
     glyphList[i].setRGBFilterState(true);
-    if(texte[i] == ' ')
+    if(static_cast<unsigned char>(texte[i]) == ' ')
       sizeTotal+=5.0f;
-    sizeTotal+=texteFont->charL[texte[i]].size.x+texteFont->charL[texte[i]].bearing.x;
+    sizeTotal+=texteFont->charL[static_cast<unsigned char>(texte[i])].size.x+texteFont->charL[static_cast<unsigned char>(texte[i])].bearing.x;
   }
 }
 
 void TexteBox::Draw(GLint renderModeLoc) const
 {
   for (unsigned int i = 0; i < sizeTexte; i++){
-    glBindTexture(GL_TEXTURE_2D, texteFont->charL[texte[i]].TextureID);
+    glBindTexture(GL_TEXTURE_2D, texteFont->charL[static_cast<unsigned char>(texte[i])].TextureID);
     glyphList[i].Draw(renderModeLoc);
   }
 }
@@ -204,10 +204,10 @@ void TexteBox::setOrigin(Vector2f nOrigin)
   pos = nOrigin;
   float sizeTotal = 0.0f;
   for (unsigned int i = 0; i < sizeTexte; i++){
-    glyphList[i].setOrigin(Vector2f(-(sizeTotal+texteFont->charL[texte[i]].bearing.x)+origin.x,texteFont->charL[texte[i]].bearing.y+origin.y));
-    if(texte[i] == ' ')
+    glyphList[i].setOrigin(Vector2f(-(sizeTotal+texteFont->charL[static_cast<unsigned char>(texte[i])].bearing.x)+origin.x,texteFont->charL[static_cast<unsigned char>(texte[i])].bearing.y+origin.y));
+    if(static_cast<unsigned char>(texte[i]) == ' ')
       sizeTotal+=5.0f;
-    sizeTotal+=texteFont->charL[texte[i]].size.x+texteFont->charL[texte[i]].bearing.x;
+    sizeTotal+=texteFont->charL[static_cast<unsigned char>(texte[i])].size.x+texteFont->charL[static_cast<unsigned char>(texte[i])].bearing.x;
   }
 }
 
