@@ -1,9 +1,6 @@
 #include "../../../include/BBOP/Graphics/collisonBoxClass.h"
 #include <cmath>
 
-#include <iostream>
-using namespace std;
-
 CollisionBox::CollisionBox(Vector2f nPos, Vector2f nOrigin, Vector2f nSize, float nRotation): pos(nPos.x ,nPos.y), origin(nOrigin.x, nOrigin.y), size(nSize.x, nSize.y), rotation(nRotation) {}
 
 bool CollisionBox::check(CollisionBox* otherBox)
