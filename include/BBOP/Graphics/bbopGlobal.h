@@ -15,7 +15,6 @@ extern int BBOP_SHADER_MODE_MIX;
 extern Vector2i BBOP_WINDOW_SIZE;
 
 std::string getFileData(const char* filename);
-void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 
 class BbopDrawable
 {

@@ -24,7 +24,7 @@ public:
   Scene(float nAmbiantLightValue, Vector3i nAmbiantLightColor);
   ~Scene();
 
-  void Use();
+  void Use(GLFWwindow*& window);
   void useCamera(Camera *camAddr);
   void setAmbiantLightValue(float nAmbiantLightValue);
   float getAmbiantLightValue();
@@ -37,6 +37,8 @@ private:
   Vector3i ambiantLightColor;
   GLint ambiantLightLoc;
   GLint renderModeLoc;
+  GLint windowSizeLoc;
+  GLint windowResoLoc;
   Vector3f ambiantLight;
   Camera* sceneCamera;
 };
