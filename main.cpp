@@ -18,10 +18,11 @@ int main() {
   
   //Creation de la scene pour afficher nos formes
   cout << "creation de la scene" << endl;
-  Scene defaultScene(0.5f,Vector3i(255,255,255));
+  Scene defaultScene(0.0f,Vector3i(255,255,255));
   //creation d'un rectangle a afficher, par default blanc en haut a gauche de l'image
   cout << "creation du rectangle" << endl;
-  RectangleShape defaultRect(Vector2f(100.0f,100.0f),Vector2f(BBOP_WINDOW_SIZE.x/2.0f,BBOP_WINDOW_SIZE.y/2.0f),Vector3i(15,182,245),Vector2f(-100.0f,-100.0f));
+  RectangleShape defaultRect(Vector2f(100.0f,100.0f),Vector2f(BBOP_WINDOW_SIZE.x/2.0f,BBOP_WINDOW_SIZE.y/2.0f),Vector3i(15,182,245),Vector2f(-20.0f,-20.0f));
+  RectangleShape bg(Vector2f(956.0f,1044.0f),Vector2f(0.0f,0.0f),Vector3i(100,100,100),Vector2f(0.0f,0.0f));
 
   cout << "creation du sprite" << endl;
   Sprite defaultSprite(Texture("imgTesting/mario.png"), Vector2f(150.0f,150.0f));
@@ -48,10 +49,11 @@ int main() {
     //////////////////////////////////////////////////////////////
     
     cam.setPosition(defaultSprite.getPosition());
-    defaultScene.Use();
-    defaultScene.useCamera(&cam);
+    defaultScene.Use(window);
+    //defaultScene.useCamera(&cam);
+    defaultScene.Draw(bg);
     //affichage du rectangle  avec sa rotation
-    defaultRect.setRotation(defaultRect.getRotation()+0.1);
+    defaultRect.setRotation(defaultRect.getRotation()+0.01);
     defaultScene.Draw(defaultRect);
     //affichage du sprite mario, texture par default si non trouvé
     defaultScene.Draw(defaultSprite);

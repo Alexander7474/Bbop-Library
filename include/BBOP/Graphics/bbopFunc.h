@@ -55,7 +55,7 @@ void bbopErrorCheck();
 void bbopChangeWindowSize(Vector2i nWinSize);
 
 /**
-* @brief Debug de collision Box en les affichant
+* @brief Debug de collision en affichant une box
 * 
 * @param[in] box Boîte de collision à afficher
 * @param[in] scene Scene a utiliser pour afficher la box

@@ -1,5 +1,7 @@
 #include "../../../include/BBOP/Graphics/sceneClass.h"
 
+#include <iostream>
+
 Scene::Scene()
   : sceneShader(defaultVertex, defaultFragment),
     ambiantLightValue(1.0f),
@@ -19,16 +21,22 @@ Scene::Scene(float nAmbiantLightValue, Vector3i nAmbiantLightColor)
   ambiantLight = Vector3f(ambiantLightValue*(ambiantLightColor.x/255.0f), ambiantLightValue*(ambiantLightColor.y/255.0f), ambiantLightValue*(ambiantLightColor.z/255.0f));
   ambiantLightLoc = sceneShader.getUniformLoc("ambiantLight");
   renderModeLoc = sceneShader.getUniformLoc("renderMode");
+  windowSizeLoc = sceneShader.getUniformLoc("windowSize");
+  windowResoLoc = sceneShader.getUniformLoc("windowResolution");
 }
 
 Scene::~Scene() {}
 
-void Scene::Use()
+void Scene::Use(GLFWwindow*& window)
 {
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
   sceneShader.Activate();
   glUniform4f(ambiantLightLoc,ambiantLight.x,ambiantLight.y,ambiantLight.z,1.0f);
+  int width, height;
+  glfwGetWindowSize(window, &width, &height);
+  glUniform2f(windowSizeLoc,width,height);
+  glUniform2f(windowResoLoc,static_cast<float>(BBOP_WINDOW_SIZE.x),static_cast<float>(BBOP_WINDOW_SIZE.y));
 }
 
 void Scene::useCamera(Camera* camAddr)
