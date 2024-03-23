@@ -55,7 +55,7 @@ void bbopCleanWindow(GLFWwindow*& window, Vector3i rgb, float alpha)
 	glClear(GL_COLOR_BUFFER_BIT);
   // redimention de la fenêtre
   int width, height;
-  glfwGetWindowSize(window, &width, &height);
+  glfwGetFramebufferSize(window, &width, &height);
   glViewport(0, 0, width, height);
 }
 
