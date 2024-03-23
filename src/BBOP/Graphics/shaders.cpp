@@ -21,19 +21,42 @@ void main()
 
 const char* defaultFragment = R"glsl(
 #version 330 core
+// pixel de sortie du frag
 out vec4 FragColor;
-  
+
+// info entrantes dans le fragshader depuis le vertexshader
 in vec4 outColor;
 in vec2 TexCoord;
 
-uniform sampler2D outTexture;
+// structure Light utiliser pour transmettre des lumières
+struct Light { 
+  vec2 lightPosition; // Position de la source de lumière (2D)
+  vec3 lightColor; // Couleur de la lumière
+  float lightIntensity; // Intensité de la lumière
+  float constantAttenuation; // Attnuation constante
+  float linearAttenuation; // Attnuation linéaire
+  float quadraticAttenuation; // Attnuation quadratique
+};
+
+// information général utile pour render envoyé par la class Scene
 uniform vec4 ambiantLight;
-uniform int renderMode;
 uniform vec2 windowSize;
 uniform vec2 windowResolution;
 
+// Permet de déterminer sir le shader doit render une texture, de la couluer ou les deux
+uniform int renderMode;
+
+// Texture a render quand rendermode vaut 0 ou 2
+uniform sampler2D outTexture;
+
+// Pixel de sortie du frag provisoire avant les calcule de la lumière
 vec4 provisory;
 
+// création d'une light
+int numLight = 4;
+Light lights[4];
+
+// convertie des coordonnées en focntion de la résolution souhaité de la fenêtre
 vec2 convertCoords(vec2 coord) 
 {
   vec2 convertedCoords = coord;
@@ -43,6 +66,7 @@ vec2 convertCoords(vec2 coord)
   return convertedCoords;
 }
 
+// normalise des coordonnées entre 1 et -1 !!Attention a bien avoir convertie les coords
 vec2 normalizeVec2(vec2 vector)
 {
   vec2 normalized; 
@@ -52,17 +76,13 @@ vec2 normalizeVec2(vec2 vector)
   return normalized;
 }
 
-
-const vec2 lightPosition = vec2(200.0, 800.0); // Position de la source de lumière (2D)
-const vec3 lightColor = vec3(1.0, 1.0, 1.0); // Couleur de la lumière
-const float lightIntensity = 0.2; // Intensité de la lumière
-
-const float constantAttenuation = 0.1; // Attnuation constante
-const float linearAttenuation = 1.1; // Attnuation linéaire
-const float quadraticAttenuation = 0.1; // Attnuation quadratique
-
 void main()
 {
+  lights[0] = Light(vec2(800.0,100.0),vec3(1.0,1.0,0.0),0.2,0.1,0.1,2.0);
+  lights[1] = Light(vec2(800.0,800.0),vec3(1.0,0.0,1.0),0.2,0.1,0.1,2.0);
+  lights[2] = Light(vec2(100.0,800.0),vec3(0.0,0.0,1.0),0.2,0.1,0.1,2.0);
+  lights[3] = Light(vec2(100.0,100.0),vec3(0.0,1.0,1.0),0.2,0.1,0.1,2.0);
+  // coloration du pixel en fonction de rendermode
   if (renderMode == 0){ 
     provisory = texture(outTexture, TexCoord);
   } else if (renderMode == 1){
@@ -71,12 +91,21 @@ void main()
     provisory = texture(outTexture, TexCoord) * outColor;
   }
   
+  // calcule de l'éclairage du pixel
   vec2 convertedFrag = convertCoords(gl_FragCoord.xy);
-  float distance = length(normalizeVec2(lightPosition) - normalizeVec2(convertedFrag));
-  float attenuation = 1.0 / (constantAttenuation + linearAttenuation * distance + quadraticAttenuation * distance * distance);
-  float intensity = ambiantLight.x+(attenuation*lightIntensity);
-  vec4 finalLight = intensity*vec4(lightColor, 1.0);
+  vec4 finalLight = vec4(0.0,0.0,0.0,0.0);
+  for (int i = 0; i < numLight; i++){
+    float distance = length(normalizeVec2(lights[i].lightPosition) - normalizeVec2(convertedFrag));
+    float attenuation = 1.0 / (lights[i].constantAttenuation + lights[i].linearAttenuation * distance + lights[i].quadraticAttenuation * distance * distance);
+    float intensity = ambiantLight.x+(attenuation*lights[i].lightIntensity);
+    vec4 thislight = intensity*vec4(lights[i].lightColor, 0.0);
+    finalLight+=thislight;
+  }
 
+  //reset de l'alpha de la lumière(toujours 1.0 pour laisser l'alpha des texture et des shape seul déterminant de la transparence)
+  finalLight.w = 1.0;
+
+  //pixel final
   FragColor = provisory*finalLight;
 }
 
