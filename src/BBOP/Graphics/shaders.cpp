@@ -78,10 +78,10 @@ vec2 normalizeVec2(vec2 vector)
 
 void main()
 {
-  lights[0] = Light(vec2(800.0,100.0),vec3(1.0,1.0,0.0),0.2,0.1,0.1,2.0);
-  lights[1] = Light(vec2(800.0,800.0),vec3(1.0,0.0,1.0),0.2,0.1,0.1,2.0);
-  lights[2] = Light(vec2(100.0,800.0),vec3(0.0,0.0,1.0),0.2,0.1,0.1,2.0);
-  lights[3] = Light(vec2(100.0,100.0),vec3(0.0,1.0,1.0),0.2,0.1,0.1,2.0);
+  lights[0] = Light(vec2(800.0,100.0),vec3(1.0,1.0,1.0),0.1,0.1,0.5,2.0);
+  lights[1] = Light(vec2(800.0,800.0),vec3(1.0,1.0,1.0),0.1,0.1,0.5,2.0);
+  lights[2] = Light(vec2(100.0,800.0),vec3(1.0,1.0,1.0),0.1,0.1,0.5,2.0);
+  lights[3] = Light(vec2(100.0,100.0),vec3(1.0,1.0,1.0),0.1,0.1,0.5,2.0);
   // coloration du pixel en fonction de rendermode
   if (renderMode == 0){ 
     provisory = texture(outTexture, TexCoord);
