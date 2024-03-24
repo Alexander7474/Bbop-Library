@@ -16,8 +16,8 @@ using namespace std;
 struct Light { 
   glm::vec2 pos; // Position de la source de lumière (2D)
   float pad0;
+  float pad1;
   glm::vec3 color; // Couleur de la lumière
-  float pad2;
   float intensity; // Intensité de la lumière
   float constantAttenuation; // Attnuation constante
   float linearAttenuation; // Attnuation linéaire
@@ -55,12 +55,11 @@ int main() {
   vector<Light> lightsList;
   Light testLight;
   testLight.pos = glm::vec2(200.0,200.0);
-  testLight.color = glm::vec3(1.0,1.0,1.0);
-  testLight.pad2 = 1.0;
-  testLight.intensity = 1.0f;
-  testLight.constantAttenuation = 0.1f;
+  testLight.color = glm::vec3(1.0,0.0,1.0);
+  testLight.intensity = 0.5f;
+  testLight.constantAttenuation = 0.2f;
   testLight.linearAttenuation = 0.5f;
-  testLight.quadraticAttenuation = 2.0f;
+  testLight.quadraticAttenuation = 0.01f;
   lightsList.push_back(testLight);
   GLuint lightsUBO;
   glGenBuffers(1, &lightsUBO);

@@ -55,7 +55,7 @@ struct Light {
 
 // création d'une light
 layout(std140) uniform LightsBlock {
-  Light lights[1];
+  Light lights[100];
 };
 uniform int nLight;
 
@@ -93,7 +93,7 @@ void main()
   // calcule de l'éclairage du pixel
   vec2 convertedFrag = convertCoords(gl_FragCoord.xy);
   vec4 finalLight = vec4(0.0,0.0,0.0,0.0);
-  for (int i = 0; i < 1; i++){
+  for (int i = 0; i < nLight; i++){
     float distance = length(normalizeVec2(lights[i].pos) - normalizeVec2(convertedFrag));
     float attenuation = 1.0 / (lights[i].constantAttenuation + lights[i].linearAttenuation * distance + lights[i].quadraticAttenuation * distance * distance);
     float intensity = ambiantLight.x+(attenuation*lights[i].intensity);
