@@ -39,6 +39,7 @@ private:
   GLint renderModeLoc;
   GLint windowSizeLoc;
   GLint windowResoLoc;
+  GLint nLightLoc;
   Vector3f ambiantLight;
   Camera* sceneCamera;
 };

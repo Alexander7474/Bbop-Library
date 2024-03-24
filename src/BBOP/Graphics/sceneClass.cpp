@@ -23,6 +23,7 @@ Scene::Scene(float nAmbiantLightValue, Vector3i nAmbiantLightColor)
   renderModeLoc = sceneShader.getUniformLoc("renderMode");
   windowSizeLoc = sceneShader.getUniformLoc("windowSize");
   windowResoLoc = sceneShader.getUniformLoc("windowResolution");
+  nLightLoc = sceneShader.getUniformLoc("nLight");
 }
 
 Scene::~Scene() {}
@@ -37,6 +38,8 @@ void Scene::Use(GLFWwindow*& window)
   glfwGetWindowSize(window, &width, &height);
   glUniform2f(windowSizeLoc,width,height);
   glUniform2f(windowResoLoc,static_cast<float>(BBOP_WINDOW_SIZE.x),static_cast<float>(BBOP_WINDOW_SIZE.y));
+  glUniform1i(nLightLoc, 1);
+  
 }
 
 void Scene::useCamera(Camera* camAddr)

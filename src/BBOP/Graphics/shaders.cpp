@@ -28,15 +28,6 @@ out vec4 FragColor;
 in vec4 outColor;
 in vec2 TexCoord;
 
-// structure Light utiliser pour transmettre des lumières
-struct Light { 
-  vec2 lightPosition; // Position de la source de lumière (2D)
-  vec3 lightColor; // Couleur de la lumière
-  float lightIntensity; // Intensité de la lumière
-  float constantAttenuation; // Attnuation constante
-  float linearAttenuation; // Attnuation linéaire
-  float quadraticAttenuation; // Attnuation quadratique
-};
 
 // information général utile pour render envoyé par la class Scene
 uniform vec4 ambiantLight;
@@ -52,9 +43,21 @@ uniform sampler2D outTexture;
 // Pixel de sortie du frag provisoire avant les calcule de la lumière
 vec4 provisory;
 
+// structure Light utiliser pour transmettre des lumières
+struct Light { 
+  vec2 pos; // Position de la source de lumière (2D)
+  vec3 color; // Couleur de la lumière
+  float intensity; // Intensité de la lumière
+  float constantAttenuation; // Attnuation constante
+  float linearAttenuation; // Attnuation linéaire
+  float quadraticAttenuation; // Attnuation quadratique
+};
+
 // création d'une light
-int numLight = 4;
-Light lights[4];
+layout(std140) uniform LightsBlock {
+  Light lights[1];
+};
+uniform int nLight;
 
 // convertie des coordonnées en focntion de la résolution souhaité de la fenêtre
 vec2 convertCoords(vec2 coord) 
@@ -78,10 +81,6 @@ vec2 normalizeVec2(vec2 vector)
 
 void main()
 {
-  lights[0] = Light(vec2(800.0,100.0),vec3(1.0,1.0,1.0),0.1,0.1,0.5,2.0);
-  lights[1] = Light(vec2(800.0,800.0),vec3(1.0,1.0,1.0),0.1,0.1,0.5,2.0);
-  lights[2] = Light(vec2(100.0,800.0),vec3(1.0,1.0,1.0),0.1,0.1,0.5,2.0);
-  lights[3] = Light(vec2(100.0,100.0),vec3(1.0,1.0,1.0),0.1,0.1,0.5,2.0);
   // coloration du pixel en fonction de rendermode
   if (renderMode == 0){ 
     provisory = texture(outTexture, TexCoord);
@@ -94,11 +93,11 @@ void main()
   // calcule de l'éclairage du pixel
   vec2 convertedFrag = convertCoords(gl_FragCoord.xy);
   vec4 finalLight = vec4(0.0,0.0,0.0,0.0);
-  for (int i = 0; i < numLight; i++){
-    float distance = length(normalizeVec2(lights[i].lightPosition) - normalizeVec2(convertedFrag));
+  for (int i = 0; i < 1; i++){
+    float distance = length(normalizeVec2(lights[i].pos) - normalizeVec2(convertedFrag));
     float attenuation = 1.0 / (lights[i].constantAttenuation + lights[i].linearAttenuation * distance + lights[i].quadraticAttenuation * distance * distance);
-    float intensity = ambiantLight.x+(attenuation*lights[i].lightIntensity);
-    vec4 thislight = intensity*vec4(lights[i].lightColor, 0.0);
+    float intensity = ambiantLight.x+(attenuation*lights[i].intensity);
+    vec4 thislight = intensity*vec4(lights[i].color, 0.0);
     finalLight+=thislight;
   }
 

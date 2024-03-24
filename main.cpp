@@ -3,6 +3,8 @@
 ////////////////////////////////////////////////////////////////////
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <glm/fwd.hpp>
+#include <glm/glm.hpp>
 #include <iostream>
 
 #include "include/BBOP/Graphics.h"
@@ -10,6 +12,17 @@
 #include "include/BBOP/Graphics/bbopGlobal.h"
 
 using namespace std;
+
+struct Light { 
+  glm::vec2 pos; // Position de la source de lumière (2D)
+  float pad0;
+  glm::vec3 color; // Couleur de la lumière
+  float pad2;
+  float intensity; // Intensité de la lumière
+  float constantAttenuation; // Attnuation constante
+  float linearAttenuation; // Attnuation linéaire
+  float quadraticAttenuation; // Attnuation quadratique
+};
 
 int main() {
   
@@ -38,11 +51,36 @@ int main() {
 
   Camera cam(defaultSprite.getPosition(),1.0f);
 
+  ///////////////
+  vector<Light> lightsList;
+  Light testLight;
+  testLight.pos = glm::vec2(200.0,200.0);
+  testLight.color = glm::vec3(1.0,1.0,1.0);
+  testLight.pad2 = 1.0;
+  testLight.intensity = 1.0f;
+  testLight.constantAttenuation = 0.1f;
+  testLight.linearAttenuation = 0.5f;
+  testLight.quadraticAttenuation = 2.0f;
+  lightsList.push_back(testLight);
+  GLuint lightsUBO;
+  glGenBuffers(1, &lightsUBO);
+  glBindBuffer(GL_UNIFORM_BUFFER, lightsUBO);
+  glBufferData(GL_UNIFORM_BUFFER, 1 * sizeof(Light), &lightsList[0], GL_DYNAMIC_DRAW);
+  glBindBufferBase(GL_UNIFORM_BUFFER, 0, lightsUBO);
+  glBufferSubData(GL_UNIFORM_BUFFER, 0, lightsList.size() * sizeof(Light), &lightsList[0]);
+
+  
+  //////////////
+
 
   // Main while loop
 	while (!glfwWindowShouldClose(window))
 	{
     bbopCleanWindow(window, Vector3i(0,0,0),1.0);
+    glBindBuffer(GL_UNIFORM_BUFFER, lightsUBO);
+    glBufferData(GL_UNIFORM_BUFFER, 1 * sizeof(Light), &lightsList[0], GL_DYNAMIC_DRAW);
+    glBindBufferBase(GL_UNIFORM_BUFFER, 0, lightsUBO);
+    glBufferSubData(GL_UNIFORM_BUFFER, 0, lightsList.size() * sizeof(Light), &lightsList[0]);
 
     //////////////////////////////////////////////////////////////
     ///code zone
