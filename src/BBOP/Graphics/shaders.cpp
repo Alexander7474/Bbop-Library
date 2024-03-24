@@ -28,7 +28,6 @@ out vec4 FragColor;
 in vec4 outColor;
 in vec2 TexCoord;
 
-
 // information général utile pour render envoyé par la class Scene
 uniform vec4 ambiantLight;
 uniform vec2 windowSize;
