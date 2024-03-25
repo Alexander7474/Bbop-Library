@@ -38,7 +38,7 @@ void Scene::Use(GLFWwindow*& window)
   glfwGetWindowSize(window, &width, &height);
   glUniform2f(windowSizeLoc,width,height);
   glUniform2f(windowResoLoc,static_cast<float>(BBOP_WINDOW_SIZE.x),static_cast<float>(BBOP_WINDOW_SIZE.y));
-  glUniform1i(nLightLoc, 1);
+  glUniform1i(nLightLoc, 3);
 }
 
 void Scene::useCamera(Camera* camAddr)
