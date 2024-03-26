@@ -1,6 +1,11 @@
 #include "../../../include/BBOP/Graphics/lightClass.h"
 
-LightPoint::LightPoint(Vector2f nPos, float nPower)
-  : pos(nPos.x, nPos.y),
-    lightPower(nPower)
+
+Light::Light(Vector2f nPos, float nIntensity, Vector3i nRGB, float nConstantAttenuation,float nLinearAttenuation, float nQuadraticAttenuation)
+  : pos(nPos),
+    RGB(nRGB),
+    intensity(nIntensity),
+    constantAttenuation(nConstantAttenuation),
+    linearAttenuation(nLinearAttenuation),
+    quadraticAttenuation(nQuadraticAttenuation)
 {}
