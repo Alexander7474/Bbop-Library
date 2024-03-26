@@ -97,7 +97,7 @@ void Sprite::buildVAO()
     vertices[i+2] = r;vertices[i+3] = g; vertices[i+4] = b;vertices[i+5] = alpha;
   }
   //texture coo
-  vertices[6] = 1.0f;vertices[7] = 1.0f;vertices[14] = 1.0f;vertices[31] = 1.0f;
+  vertices[6] = 1.0f;vertices[7] = 1.0f;vertices[14] = 1.0f;vertices[15] = 0.0f;vertices[22] = 0.0f;vertices[23] = 0.0f;vertices[30] = 0.0f;vertices[31] = 1.0f;
   indices[0] = 0;indices[1] = 1;indices[2] = 3;indices[3] = 1;indices[4] = 2;indices[5] = 3;
   shapeVAO.Bind();
   shapeVBO.update(vertices, sizeof(vertices));

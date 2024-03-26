@@ -26,7 +26,7 @@ Scene::Scene(float nAmbiantLightValue, Vector3i nAmbiantLightColor)
   nLightLoc = sceneShader.getUniformLoc("nLight");
   glGenBuffers(1, &lightsUBO);
   glBindBuffer(GL_UNIFORM_BUFFER, lightsUBO);
-  glBufferData(GL_UNIFORM_BUFFER, lightsVec.size() * sizeof(UniformLight), &lightsVec[0], GL_DYNAMIC_DRAW);
+  glBufferData(GL_UNIFORM_BUFFER, 100 * sizeof(UniformLight), &lightsVec[0], GL_DYNAMIC_DRAW);
 }
 
 Scene::~Scene() {}
@@ -41,10 +41,10 @@ void Scene::Use(GLFWwindow*& window)
   glfwGetWindowSize(window, &width, &height);
   glUniform2f(windowSizeLoc,width,height);
   glUniform2f(windowResoLoc,static_cast<float>(BBOP_WINDOW_SIZE.x),static_cast<float>(BBOP_WINDOW_SIZE.y));
-  glUniform1i(nLightLoc, 3);
-  glBindBuffer(GL_UNIFORM_BUFFER, lightsUBO);
+  glUniform1i(nLightLoc, lightsVec.size());
   glBindBufferBase(GL_UNIFORM_BUFFER, 0, lightsUBO);
   glBufferSubData(GL_UNIFORM_BUFFER, 0, lightsVec.size() * sizeof(UniformLight), &lightsVec[0]);
+  lightsVec.clear();
 }
 
 void Scene::useCamera(Camera* camAddr)
@@ -88,4 +88,11 @@ float Scene::getAmbiantLightValue()
 void Scene::addLight(Light& l)
 {
   UniformLight nLight;
+  nLight.pos.x = l.getPosistion().x; nLight.pos.y = l.getPosistion().y;
+  nLight.color.x = l.getColor().x/255.0f; nLight.color.y = l.getColor().y/255.0f; nLight.color.z = l.getColor().z/255.0f;
+  nLight.intensity = l.getIntensity();
+  nLight.linearAttenuation = l.getLinear();
+  nLight.constantAttenuation = l.getConstant();
+  nLight.quadraticAttenuation = l.getQuadratic();
+  lightsVec.push_back(nLight);
 }

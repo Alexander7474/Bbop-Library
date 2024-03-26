@@ -3,17 +3,15 @@
 ////////////////////////////////////////////////////////////////////
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <cstddef>
 #include <glm/fwd.hpp>
 #include <glm/glm.hpp>
 #include <iostream>
+#include <string>
 
 #include "include/BBOP/Graphics.h"
-#include "include/BBOP/Graphics/bbopFunc.h"
-#include "include/BBOP/Graphics/bbopGlobal.h"
 
 using namespace std;
-
-
 
 int main() {
   
@@ -21,26 +19,34 @@ int main() {
   bbopInit(956,1044,"test",window);
   
   //Creation de la scene pour afficher nos formes
-  cout << "creation de la scene" << endl;
   Scene defaultScene(0.0f,Vector3i(255,255,255));
   //creation d'un rectangle a afficher, par default blanc en haut a gauche de l'image
-  cout << "creation du rectangle" << endl;
-  RectangleShape defaultRect(Vector2f(100.0f,100.0f),Vector2f(BBOP_WINDOW_SIZE.x/2.0f,BBOP_WINDOW_SIZE.y/2.0f),Vector3i(15,182,245),Vector2f(-20.0f,-20.0f));
-  RectangleShape bg(Vector2f(956.0f,1044.0f),Vector2f(0.0f,0.0f),Vector3i(100,100,100),Vector2f(0.0f,0.0f));
 
-  cout << "creation du sprite" << endl;
-  Sprite defaultSprite(Texture("imgTesting/mario.png"), Vector2f(150.0f,150.0f));
+  Sprite defaultSprite(Texture("imgTesting/anim/00001.png"), Vector2f(0.0f,0.0f), Vector3i(255,255,255), Vector2f(50.0f,50.0f));
   defaultSprite.setSize(Vector2f(100.0f,100.0f));
-  defaultSprite.setOrigin(Vector2f(50.0f,50.0f));
+  std::vector<Texture> animList;
+  int animState = 0;
+  for(int i = 0; i < 19; i++){
+    std::string file;
+    if(i < 10-1)
+      file = "imgTesting/anim/0000"+std::to_string(i+1)+".png";
+    else
+      file = "imgTesting/anim/000"+std::to_string(i+1)+".png";
+    Texture t(file.c_str());
+    animList.push_back(t);
+  }
 
-  cout << "creation de la forme convex" << endl;
-  Vector2f list[6] = {Vector2f(100.0f,100.0f),Vector2f(170.0f,10.0f),Vector2f(189.0f,75.0f),Vector2f(189.0f,199.0f),Vector2f(32.0f,112.0f),Vector2f(0.0f,0.0f)};
-  ConvexShape defaultConvex(6,list,Vector2f(1.0f,1.0f),Vector2f(650.0f,250.0f));
-  defaultConvex.setColor(Vector3i(100,0,255));
-
-  CircleShape circleDefault(99, 50.0f);
+  // ground gestion
+  std::vector<Sprite> ground;
+  for(int i = 0; i < 20; i++){
+    Sprite g(Texture("imgTesting/ground.png"), Vector2f(i*200.0f-200.0f,200.0f));
+    g.setSize(Vector2f(300.0f,75.0f));
+    ground.push_back(g);
+  }
 
   Camera cam(defaultSprite.getPosition(),1.0f);
+
+  Light testLight0(defaultSprite.getPosition(), 0.6f, Vector3i(242,175,90), 0.5f, 0.5f, 0.1f);
 
   // Main while loop
 	while (!glfwWindowShouldClose(window))
@@ -52,35 +58,37 @@ int main() {
     //////////////////////////////////////////////////////////////
     
     cam.setPosition(defaultSprite.getPosition());
+    testLight0.setPosition(Vector2f(defaultSprite.getPosition().x+45.0f, defaultSprite.getPosition().y+50.0f));
+    defaultScene.addLight(testLight0);
     defaultScene.Use(window);
-    //defaultScene.useCamera(&cam);
-    defaultScene.Draw(bg);
-    //affichage du rectangle  avec sa rotation
-    defaultRect.setRotation(defaultRect.getRotation()+0.01);
-    defaultScene.Draw(defaultRect);
-    //affichage du sprite mario, texture par default si non trouvé
+    defaultScene.useCamera(&cam);
+    
+    //draw player
+    if(animState >= static_cast<int>(animList.size())*5)
+      animState = 0;
+    defaultSprite.setTexture(animList[animState/5]);
     defaultScene.Draw(defaultSprite);
-    //affichage de la forme convex
-    defaultConvex.setRotation(defaultConvex.getRotation()+0.01);
-    defaultScene.Draw(defaultConvex);
 
-    defaultScene.Draw(circleDefault);
+    //draw ground
+    for(size_t i = 0; i < ground.size(); i++){
+      defaultScene.Draw(ground[i]);
+    }
 
+    //gravity
+    if(defaultSprite.getPosition().y+40.0f <= ground[0].getPosition().y)
+      defaultSprite.move(Vector2f(0.0f,9.8f));
 
-    bbopDebugCollisionBox(defaultSprite.getCollisionBox(), defaultScene);
     //gestiond des mouvement de mario
-    if(glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
-      defaultSprite.move(Vector2f(0.0f,-5.0f));
-    if(glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
-      defaultSprite.move(Vector2f(0.0f,5.0f));
-    if(glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
+    if(glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS){
       defaultSprite.move(Vector2f(5.0f,0.0f));   
-    if(glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
+      animState++;
+    } 
+    if(glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS){
       defaultSprite.move(Vector2f(-5.0f,0.0f));
-
-    if(defaultSprite.getCollisionBox()->checkWithRotation(defaultRect.getCollisionBox()))
-      cout << glfwGetTime() << endl;
-
+      animState++;
+    }
+    if(glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
+      defaultSprite.move(Vector2f(0.0f,-25.0f));
 
     //////////////////////////////////////////////////////////////
     
