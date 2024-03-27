@@ -16,6 +16,18 @@
 #include "shaderClass.h"
 #include "shaders.h"
 #include "bbopGlobal.h"
+#include "lightClass.h"
+
+struct UniformLight {
+  glm::vec2 pos; // Position de la source de lumière (2D)
+  float p0[2];
+  glm::vec3 color; // Couleur de la lumière
+  float intensity; // Intensité de la lumière
+  float constantAttenuation; // Attnuation constante
+  float linearAttenuation; // Attnuation linéaire
+  float quadraticAttenuation; // Attnuation quadratique
+  float p1[1];
+};
 
 class Scene
 {
@@ -24,12 +36,13 @@ public:
   Scene(float nAmbiantLightValue, Vector3i nAmbiantLightColor);
   ~Scene();
 
-  void Use();
+  void Use(GLFWwindow*& window);
   void useCamera(Camera *camAddr);
   void setAmbiantLightValue(float nAmbiantLightValue);
   float getAmbiantLightValue();
   void setAmbiantLightColor(Vector3i nAmbiantLightColor);
   Vector3i getAmbiantLightColor();
+  void addLight(Light& l);
   void Draw(BbopDrawable& spr);
 private:
   Shader sceneShader;
@@ -37,6 +50,11 @@ private:
   Vector3i ambiantLightColor;
   GLint ambiantLightLoc;
   GLint renderModeLoc;
+  GLint windowSizeLoc;
+  GLint windowResoLoc;
+  GLint nLightLoc;
+  GLuint lightsUBO;
+  std::vector<UniformLight> lightsVec;
   Vector3f ambiantLight;
   Camera* sceneCamera;
 };

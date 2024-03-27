@@ -7,7 +7,7 @@
 
 #include "bbopMathClass.h"
 #include "bbopGlobal.h"
-#include "collisonBoxClass.h"
+#include "collisionBoxClass.h"
 #include "VAO.h"
 #include "VBO.h"
 #include "EBO.h"

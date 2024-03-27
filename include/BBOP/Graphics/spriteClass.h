@@ -6,7 +6,7 @@
 #include <cmath>
 
 #include "textureClass.h"
-#include "collisonBoxClass.h"
+#include "collisionBoxClass.h"
 #include "bbopMathClass.h"
 #include "bbopGlobal.h"
 #include "shapeClass.h"

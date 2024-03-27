@@ -1,4 +1,4 @@
-#include "../../../include/BBOP/Graphics/collisonBoxClass.h"
+#include "../../../include/BBOP/Graphics/collisionBoxClass.h"
 #include <cmath>
 
 CollisionBox::CollisionBox(Vector2f nPos, Vector2f nOrigin, Vector2f nSize, float nRotation): pos(nPos.x ,nPos.y), origin(nOrigin.x, nOrigin.y), size(nSize.x, nSize.y), rotation(nRotation) {}

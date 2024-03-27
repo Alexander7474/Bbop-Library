@@ -6,19 +6,30 @@
 #include "bbopMathClass.h"
 #include "bbopGlobal.h"
 
-class LightPoint: public BbopDrawable
+class Light
 {
 public:
-  LightPoint(Vector2f nPos, float nPower);
+  Light(Vector2f nPos, float nIntensity, Vector3i nRGB, float nConstantAttenuation,float nLinearAttenuation, float nQuadraticAttenuation);
 
+  Vector3i getColor();
+  void setColor(Vector3i nRGB);
+  Vector2f getPosistion();
   void setPosition(Vector2f nPos);
-  Vector2f getPosition();
-  void setPower(float nPower);
-  float getPower();
-  void Draw(GLint renderModeLoc) const override;
+  float getIntensity();
+  void setIntensity(float nIntensity);
+  float getConstant();
+  void setConstant(float nConstant);
+  float getLinear();
+  void setLinear(float nLinear);
+  float getQuadratic();
+  void setQuadratic(float nQuadratic);
 private:
-  float lightPower;
   Vector2f pos;
+  Vector3i RGB; // Couleur de la lumière
+  float intensity; // Intensité de la lumière
+  float constantAttenuation; // Attnuation constante
+  float linearAttenuation; // Attnuation linéaire
+  float quadraticAttenuation; // Attnuation quadratique
 };
 
 #endif // ! LIGHT_CLASS_H
