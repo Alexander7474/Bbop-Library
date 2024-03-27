@@ -24,6 +24,7 @@ int main() {
 
   Sprite defaultSprite(Texture("imgTesting/anim/00001.png"), Vector2f(0.0f,0.0f), Vector3i(255,255,255), Vector2f(50.0f,50.0f));
   defaultSprite.setSize(Vector2f(100.0f,100.0f));
+  defaultSprite.flipVertically();
   std::vector<Texture> animList;
   int animState = 0;
   for(int i = 0; i < 19; i++){
@@ -35,12 +36,16 @@ int main() {
     Texture t(file.c_str());
     animList.push_back(t);
   }
+  int playerDirection = 0;
+  bool playerInMovement = false;
+  Vector2f playerMoveVec(0.0f,0.0f);
 
   // ground gestion
   std::vector<Sprite> ground;
-  for(int i = 0; i < 20; i++){
+  for(int i = 0; i < 3; i++){
     Sprite g(Texture("imgTesting/ground.png"), Vector2f(i*200.0f-200.0f,200.0f));
     g.setSize(Vector2f(300.0f,75.0f));
+    g.flipHorizontally();
     ground.push_back(g);
   }
 
@@ -74,22 +79,48 @@ int main() {
       defaultScene.Draw(ground[i]);
     }
 
-    //gravity
-    if(defaultSprite.getPosition().y+40.0f <= ground[0].getPosition().y)
-      defaultSprite.move(Vector2f(0.0f,9.8f));
-
-    //gestiond des mouvement de mario
+    //gestion des mouvement
+    playerInMovement = false;
+    playerMoveVec.x=0.0f;
+    if(defaultSprite.getPosition().y+40.0f <= ground[0].getPosition().y && playerMoveVec.y <= -2.0f)
+      playerMoveVec.y/=1.2f;
+    else if(defaultSprite.getPosition().y+40.0f <= ground[0].getPosition().y && playerMoveVec.y >= -2.0f)
+     playerMoveVec.y=9.81f;
+    else
+     playerMoveVec.y=0.0f;
     if(glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS){
-      defaultSprite.move(Vector2f(5.0f,0.0f));   
-      animState++;
+      if(playerDirection != 1){
+        playerDirection = 1;
+        defaultSprite.flipVertically();
+      }
+      playerInMovement = true;
     } 
     if(glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS){
-      defaultSprite.move(Vector2f(-5.0f,0.0f));
-      animState++;
+      if(playerDirection != 0){
+        playerDirection = 0;
+        defaultSprite.flipVertically();
+      }
+      playerInMovement = true;
     }
-    if(glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
-      defaultSprite.move(Vector2f(0.0f,-25.0f));
+    if(glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS){
+      if(defaultSprite.getPosition().y+40.0f >= ground[0].getPosition().y)
+        playerMoveVec.y-=25.0f;
+    }
+    
+    if (playerInMovement){
+      switch (playerDirection) {
+        case 0:   
+          playerMoveVec.x-=5.0f;
+          animState++;
+          break;
+        case 1:
+          playerMoveVec.x+=5.0f;
+          animState++;
+          break;
+      } 
+    }
 
+    defaultSprite.move(playerMoveVec);
     //////////////////////////////////////////////////////////////
     
     bbopErrorCheck();

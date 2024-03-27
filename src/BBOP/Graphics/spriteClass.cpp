@@ -198,6 +198,29 @@ bool Sprite::getRGBFilterState()
   return isRGBFilter;
 }
 
+void Sprite::flipVertically()
+{
+  Vector2f tempCoord(vertices[6], vertices[7]);
+  vertices[6] = vertices[30];vertices[7] = vertices[31];
+  vertices[30] = tempCoord.x;vertices[31] = tempCoord.y;
+  
+  tempCoord.x = vertices[14]; tempCoord.y = vertices[15];
+  vertices[14] = vertices[22];vertices[15] = vertices[23];
+  vertices[22] = tempCoord.x;vertices[23] = tempCoord.y;
+}
+
+
+void Sprite::flipHorizontally()
+{
+  Vector2f tempCoord(vertices[6], vertices[7]);
+  vertices[6] = vertices[14];vertices[7] = vertices[15];
+  vertices[14] = tempCoord.x;vertices[15] = tempCoord.y;
+  
+  tempCoord.x = vertices[22]; tempCoord.y = vertices[23];
+  vertices[22] = vertices[30];vertices[23] = vertices[31];
+  vertices[30] = tempCoord.x;vertices[31] = tempCoord.y;
+}
+
 void NoTextureSprite::Draw(GLint renderModeLoc) const 
 {
   if (!isRGBFilter)

@@ -36,6 +36,8 @@ public:
   void updateVBOAlpha() override;
   bool getRGBFilterState();
   void setRGBFilterState(bool etat);
+  void flipHorizontally();
+  void flipVertically();
 private:
   Texture* spriteTexture;
 protected:
