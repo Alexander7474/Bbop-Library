@@ -43,44 +43,44 @@ animate_loading() {
     done
 }
 
-install_packet() {
+install_package() {
   #creation du process pour animer le texte
-  animate_loading "Installing $packet " &
+  animate_loading "Installing $package " &
   local animation_pid=$!
 
-  #on install le packet avec le packet manager
-  if [[ $packet_manager == "dpkg" ]]
+  #on install le package avec le package manager
+  if [[ $package_manager == "dpkg" ]]
   then
-    sudo apt install -y $1 &> /dev/null
-  elif [[ $packet_manager == "rpm" ]]
+    apt install -y $1 &> /dev/null
+  elif [[ $package_manager == "rpm" ]]
   then
-    sudo dnf install -y $1
-  elif [[ $packet_manager == "pacman" ]]
+    dnf install -y $1
+  elif [[ $package_manager == "pacman" ]]
   then
-    sudo pacman -S --noconfirm $1
+    pacman -S --noconfirm $1
   fi
 
   #on kill l'animation
   kill $animation_pid &> /dev/null
   echo ""
 
-  #Check si le packet c'st bien installé
+  #Check si le package c'st bien installé
   if [[ $? -ne 0 ]]
   then
-    echo_error "Problème lors de l'installation de $1"
+    echo_error "Installation failed $1"
   else
     echo -e "${Green}$1 install with succes !"
   fi
 }
 
-detect_packet() {
-  if [[ $packet_manager == "dpkg" ]]
+detect_package() {
+  if [[ $package_manager == "dpkg" ]]
   then
     result=$(dpkg -l |grep $1)
-  elif [[ $packet_manager == "pacman" ]]
+  elif [[ $package_manager == "pacman" ]]
   then
     result=$(pacman -Q $1)
-  elif [[ $packet_manager == "rpm" ]]
+  elif [[ $package_manager == "rpm" ]]
   then
     result=$(rpm -q $1)
   fi
@@ -95,47 +95,148 @@ detect_packet() {
 #Vérification des paramètres
 if [[ "$#" -ne 0 ]]
 then
-  echo_error "Ce script ne prend pas de paramètre !"
+  echo_error "This script oes not take parameters"
+fi
+#check si root
+if [ `id -u` -ne 0 ]
+then
+  echo_error "This script need to be root !"
 fi
 
 #installation des libs nécessaires
-packet_manager="not_found"
+package_manager="not_found"
 
-#on determine le packet manager
+#on determine le package manager
 if command -v dpkg &> /dev/null
 then 
-  packet_manager="dpkg"
+  package_manager="dpkg"
 elif command -v rpm &> /dev/null
 then 
-  packet_manager="rpm"
+  package_manager="rpm"
 elif command -v pacman &> /dev/null
 then 
-  packet_manager="pacman"
+  package_manager="pacman"
 fi
 
-if [[ $packet_manager == "not_found" ]]
+if [[ $package_manager == "not_found" ]]
 then
-  echo_error "Packet manager not found !"
+  echo_error "package manager not found !"
 else
-  echo -e "${Yellow}Packet manager found:${Color_Off} $packet_manager"
+  echo -e "${Yellow}package manager found:${Color_Off} $package_manager"
 fi
 
-#list des packet a installer
-packet_list=("libglew-dev" "xorg-dev" "libfreetype6-dev" "libwayland-dev" "libxkbcommon-dev" "wayland-protocols" "libstb-dev" "extra-cmake-modules")
+#list des package a installer
+package_list=("libglew-dev" "xorg-dev" "libfreetype6-dev" "libwayland-dev" "libxkbcommon-dev" "wayland-protocols" "libstb-dev" "extra-cmake-modules")
 
-echo -e "${Yellow}Installing necessary packets"
-for packet in "${packet_list[@]}"
+echo -e "${Yellow}Installing necessary packages"
+for package in "${package_list[@]}"
 do 
-  #on cherche le packet avec le packet manager detecte
-  echo -e "${Yellow}Installing: ${Color_Off}$packet"
+  #on cherche le package avec le package manager detecte
+  echo -e "${Yellow}Installing: ${Color_Off}$package"
   
-  #on install le packet si il ne l'est pas
-  if detect_packet $packet
+  #on install le package si il ne l'est pas
+  if detect_package $package
   then
-    echo -e "${Green}$packet is already installed !"
+    echo -e "${Green}$package is already installed !"
   else
-    install_packet $packet
+    install_package $package
   fi
 done
 
-echo -e "${Green}Packet install done !"
+echo -e "${Green}Package install done !"
+
+#installation de glfw
+echo -e "${Yellow}Installing GLFW${Color_Off}"
+
+#verification de l'install de glfw
+install_glfw=0
+if [[ -d "/usr/local/include/GLFW" ]] || [[ -f "/usr/local/lib/libglfw3.a" ]]
+then
+  read -p "GLFW is already installed, do you want to update ?[y,N]: " response
+  if [ "$response" != "y" ]
+  then
+    install_glfw=1
+  fi
+fi
+
+if [[ $install_glfw -eq 0 ]]
+then
+  git clone https://github.com/glfw/glfw.git
+
+  #creation du dossier de build
+  cd glfw
+  mkdir build
+  cd build
+  cmake ..
+  make && sudo make install
+  cd ../../ 
+  rm -r glfw
+  echo -e "${Green}GLFW install done !"
+fi
+
+#installation de glm
+echo -e "${Yellow}Installing GLM${Color_Off}"
+
+#verification de l'installation de glm
+install_glm=0
+if [[ -d "/usr/local/include/glm" ]] || [[ -f "/usr/local/lib/libglm.a" ]]
+then
+  read -p "GLM is already installed, do you want to update ?[y,N]: " response
+  if [ "$response" != "y" ]
+  then
+    install_glm=1
+  fi
+fi
+
+if [[ $install_glm -eq 0 ]]
+then
+  git clone https://github.com/g-truc/glm.git
+
+  #creation du dossier de build
+  cd glm
+  cmake \
+      -DGLM_BUILD_TESTS=OFF \
+      -DBUILD_SHARED_LIBS=OFF \
+      -B build .
+  cmake --build build -- all
+  cmake --build build -- install
+
+  cd ../ 
+  rm -r glm
+  echo -e "${Green}GLM install done !"
+fi
+
+#installation de glm
+echo -e "${Yellow}Installing BBOP${Color_Off}"
+
+#verification de l'installation de glm
+install_bbop=0
+if [[ -d "/usr/local/include/glm" ]] || [[ -f "/usr/local/lib/libglm.a" ]]
+then
+  read -p "BBOP is already installed, do you want to update ?[y,N]: " response
+  if [ "$response" != "y" ]
+  then
+    install_bbop=1
+  fi
+fi  
+
+if [[ $install_bbop -eq 0 ]]
+then 
+  git clone https://github.com/Alexander7474/Bbop-Library.git 
+  cd Bbop-Library
+  make
+  sudo make install 
+  cd ../ 
+  sudo rm -r Bbop-Library
+  echo -e "${Green}BBOP install done !"
+fi
+
+echo -e "${Purple}Install finished"
+cat << "EOF"
+   ___       _      _                    
+  /   \   __| |    (_)     ___     ___   
+  | - |  / _` |    | |    / _ \   (_-<   
+  |_|_|  \__,_|   _|_|_   \___/   /__/_  
+_|"""""|_|"""""|_|"""""|_|"""""|_|"""""| 
+"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-' 
+EOF

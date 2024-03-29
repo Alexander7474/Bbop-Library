@@ -27,7 +27,7 @@ clean:
 
 install:
 	ar rcs libbbop.a $(OBJSNM)
-	cp -r include/BBOP /usr/local/include/BBOP/
+	cp -r include/BBOP /usr/local/include/
 	mv libbbop.a /usr/local/lib/
 
 uninstall:
