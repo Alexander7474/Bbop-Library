@@ -53,7 +53,7 @@ std::string getFileData(const char* filename);
  * @brief Class Parent de tous ce qui peut être dessiné par une Scene.
  * @details La class Scene utilise cette comme paramètre dans Draw(BbopDrawable).
  *
- * @see Scene.Draw(BbopDrawable)
+ * @see Scene
  */
 class BbopDrawable
 {

@@ -10,6 +10,9 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+/**
+ * @brief Stock un caractère
+ */
 struct Character {
     unsigned int TextureID;  // ID handle of the glyph texture
     Vector2f size;       // Size of glyph
@@ -28,17 +31,41 @@ void loadFontTexture(const char* fontPath, int fontSize, Character* charList, in
 class Font
 {
 public:
+
+  /**
+   * @brief Constructeur de la class Font 
+   *
+   * @param[in] glyphSize Taille de la police de caractère
+   * @param[in] ttfPath Chemin d'accès vers de fichier de police de caractère 
+   *
+   * @attention Les polices de caractères de ne fonctionne que avec des .ttf et charge uniquement les 128 premiers caractères de la police 
+   * @todo Arranger la class pour utiliser tous les caractères de la police
+   */
   Font(int glyphSize, const char *ttfPath);
+
+  /**
+   * @brief List dans la quelles les 128 caractères de la police sont stockées 
+   */
   Character charL[128];
+
 };
 
 /**
  * @class TexteBox
  * @brief Stock du texte pour le draw dans la fenêtre 
+ *
+ * @attention Cette class peut produire des erreurs de segementation dans un tableau dynamique, utiliser de préférence un std::vector en cas de core dump
  */
 class TexteBox : public BbopDrawable
 {
 public:
+
+  /**
+  * @brief Constructeur de la boîter de texte
+  * 
+  * @param[in] nTexte Chaine de la caractères à afficher avec la boîte 
+  * @param[in] nFont Police de caractère à utiliser avec la boîte de texte
+  */
   TexteBox(const char * nTexte, Font *nFont);
   TexteBox(const TexteBox& other);
   ~TexteBox();
@@ -55,10 +82,35 @@ public:
   void setAlpha(float nAlpha);
   float getRotation();
   void setRotation(float nRotation);
+  
+  /**
+  * @brief Renvoie la chaine de caractères affiché
+  *
+  * @return texte
+  */
   const char* getTexte();
+  
+  /**
+  * @brief Change la chaine de caractères
+  *
+  * @param[in] nTexte Nouvelle chaine de caractères 
+  */
   void setTexte(const char* nTexte);
+  
+  /**
+  * @brief Fabrique la liste de NoTextureSprite glyphList
+  * @details Cette liste de NoTextureSprite est utilisé par Draw
+  */
   void buildTexteBox();
+
+  /**
+  * @brief Dessine la boîte de texte 
+  * @overload 
+  *
+  * @param[in] renderModeLoc GPU MEM addr du mode de rendue
+  */
   void Draw(GLint renderModeLoc) const override;
+
 private:
   Font *texteFont;
   Vector2f pos;
