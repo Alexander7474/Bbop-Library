@@ -6,7 +6,6 @@
 #include <cstddef>
 #include <glm/fwd.hpp>
 #include <glm/glm.hpp>
-#include <iostream>
 #include <string>
 
 #include "include/BBOP/Graphics.h"

@@ -5,7 +5,7 @@
 #include "bbopMathClass.h"
 #include "spriteClass.h"
 #include <iostream>
-#include <freetype2/ft2build.h>
+#include <ft2build.h>
 #include FT_FREETYPE_H
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -19,6 +19,12 @@ struct Character {
 
 void loadFontTexture(const char* fontPath, int fontSize, Character* charList, int numTextures);
 
+/**
+ * @class Font
+ * @brief Stock une police de caractère
+ *
+ * @note Utilisé par la class TexteBox
+ */
 class Font
 {
 public:
@@ -26,6 +32,10 @@ public:
   Character charL[128];
 };
 
+/**
+ * @class TexteBox
+ * @brief Stock du texte pour le draw dans la fenêtre 
+ */
 class TexteBox : public BbopDrawable
 {
 public:

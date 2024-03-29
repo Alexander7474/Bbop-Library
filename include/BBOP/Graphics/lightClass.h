@@ -6,6 +6,10 @@
 #include "bbopMathClass.h"
 #include "bbopGlobal.h"
 
+/**
+ * @class Light
+ * @brief Gère un point de lumière
+ */
 class Light
 {
 public:

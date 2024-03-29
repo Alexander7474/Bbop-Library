@@ -12,6 +12,13 @@
 #include "VBO.h"
 #include "EBO.h"
 
+/**
+ * @class Shape
+ * @brief Class parente de tous les formes géométriques(RectangleShape, ConvexShape, CircleShape, Sprite) 
+ * @détails Elle stock et gère tous les attribut de base d'une forme géométrique comme sa position ou encore sa couleur
+ *
+ * @attention Certaine Shape utilise des attributs de cette class parent de manière différente donc renseignez vous sur les shapes que vous utilisez
+ */
 class Shape : public BbopDrawable
 {
 public:
@@ -52,6 +59,9 @@ protected:
   float alpha;
 };
 
+/**
+ * @brief Gère un rectangle/carré
+ */
 class RectangleShape : public Shape
 {
 public:
@@ -70,6 +80,9 @@ private:
   GLuint indices[6];
 };
 
+/**
+ * @brief Gère une convex
+ */
 class ConvexShape : public Shape
 {
 public:
@@ -97,6 +110,9 @@ private:
   Vector2f* listPoint;
 };
 
+/**
+ * Gère un cercle
+ */
 class CircleShape : public ConvexShape
 {
 public:

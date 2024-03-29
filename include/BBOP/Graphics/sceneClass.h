@@ -29,6 +29,13 @@ struct UniformLight {
   float p1[1];
 };
 
+/**
+ * @class Scene
+ * @brief Gère la scene et affiche des BbopDrawable
+ * @details Tous les paramètre d'affichage sont gèré par Scene comme la lumières ambiante, la camera ou encore les points de lumière.
+ *
+ * @attention Cette class est obligatoire pour afficher des éléments
+ */
 class Scene
 {
 public:

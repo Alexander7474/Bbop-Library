@@ -14,6 +14,9 @@
 #include "VBO.h"
 #include "EBO.h"
 
+/**
+  * @brief gère un rectangle avec une texture
+  */
 class Sprite : public Shape
 {
 public:

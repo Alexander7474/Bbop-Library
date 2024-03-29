@@ -1,6 +1,6 @@
 CC = g++
 #comment this if you are on macOS
-CFLAGS = -std=c++11 -Wall -I/usr/include/freetype2
+CFLAGS = -std=c++11 -Wall
 LIBS = -lglfw -lGLEW -lGL -lfreetype 
 
 #Uncomment if you use macOS or if you are gay

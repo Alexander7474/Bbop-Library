@@ -7,24 +7,99 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+/**
+ * @class Camera
+ * @brief Permet de modifier les point de vue et la position de l'affichage de la class Scene
+ *
+ * @note Les attribut de cette class sont utilisé par Scene pour fabriquer la matrice de projection du vertex shader
+ */
 class Camera 
 {
 public:
+  
+  /**
+  * @brief Constructeur de la Camera
+  * 
+  * @param[in] nPos Position du centre de la Camera
+  * @param[in] nScale Scale de la camera, a 1.0 la camera à la même proportion que la résolution BBOP_WINDOW_SIZE
+  */
   Camera(Vector2f nPos, float nScale);
+  
+  /**
+  * @brief Constructeur par défault de la camera.
+  * @details La position de la camera est le milieu de BBOP_WINDOW_SIZE et la scale est de 1.0
+  *
+  * @note Une Camera par défault peut être utile pour convertir des coordonnées de la souris en coordonnées dans le monde avec les méthodes de Camera
+  */
   Camera();
 
+  /**
+  * @brief Determine les limites x et y de la cam avec ces attribut
+  */
   void buildCamera();
+  
+  /**
+  * @brief Change la scale de la camera
+  *
+  * @param[in] nScale Scale de la camera
+  */
   void setScale(float nScale);
+  
+  /**
+  * @brief Renvoie la scale de la camera
+  *
+  * @return scale
+  */
   float getScale();
+
+  /**
+  * @brief Change la position de la camera
+  *
+  * @param[in] nPos Position de la camera
+  *
+  * @attention La postion de la camera est les coordonnées du centre de celle ci
+  */
   void setPosition(Vector2f nPos);
+
+  /**
+  * @brief Renvoie la position actuelle de la camera 
+  *
+  * @return pos
+  */
   Vector2f getPosition();
+
+  /**
+  * @brief Convertue des coordonnées en pixel sur l'écran en coordonnées du monde à travers le prisme de la camera
+  *
+  * @param[in] screenPos Position sur l'écran à convertir
+  * @return finalPos Position du monde calculé à partir de screenPos
+  */
   Vector2f screenPosToCamPos(Vector2f screenPos);
+
+  /**
+  * @brief Détermine si un objet Shape est visible sur l'écran à travers le prisme de la Camera
+  *
+  * @param[in] obj Objet à tester
+  * @return bool Oui ou Non l'objet est visible
+  *
+  * @note Cette méthode est très utile pour eviter d'afficher des objet non visible par le joueur ou même les détruirze quand ils sortent de l'écran.
+  * @attention La méthode n'a été testé que sur des RectangleShape et des Sprite, Il peut y avaoir certain disfonctionnement avec les ConvexShape et les CircleShape. 
+  */
   bool isInCamView(Shape& obj);
+
+  /**
+  * @brief Limites de la camera en X
+  */
   Vector2f camX;
+
+  /**
+  * @brief Limites de la camera en Y
+  */
   Vector2f camY;
+
 private:
-  Vector2f pos;
-  float scale;
+  Vector2f pos; //<! Positon de la camera
+  float scale; //<! Scale de la camera
 };
 
 #endif // !CAMERA_CLASS_H

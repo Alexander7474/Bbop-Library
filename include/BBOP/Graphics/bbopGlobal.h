@@ -60,7 +60,7 @@ class BbopDrawable
 public:
 
   /**
-   * @brief Méthode Draw utilisé par Scene.Draw(BbopDrawable).
+   * @brief Déssine l'objet héritant de la class.
    * @details Cette méthode est utilisé dans Scene.Draw(BbopDrawable) qui lui transmet le renderModeLoc.
    *
    * @see Scene.Draw(BbopDrawable)

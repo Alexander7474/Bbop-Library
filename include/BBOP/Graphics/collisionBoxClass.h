@@ -4,6 +4,12 @@
 #include "bbopMathClass.h"
 #include <iostream>
 
+/**
+ * @class CollisionBox
+ * @brief gère une boîte de collision
+ *
+ * @note Cette class est utilisé par défault pour gèrer les collision des Shape
+ */
 class CollisionBox 
 {
 public:
