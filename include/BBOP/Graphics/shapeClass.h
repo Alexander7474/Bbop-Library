@@ -14,11 +14,11 @@
 
 /**
  * @class Shape
- * @brief Class parente de tous les formes géométriques(RectangleShape, ConvexShape, CircleShape, Sprite) 
+ * @brief Class parente de toutes les formes géométriques(RectangleShape, ConvexShape, CircleShape, Sprite) 
  * @details Elle stock et gère tous les attribut de base d'une forme géométrique comme sa position ou encore sa couleur
  *
  * @attention Certaine Shape utilise des attributs de cette class parent de manière différente donc renseignez vous sur les shapes que vous utilisez
- * @todo Créer une class pour représenter les objet avec une position, une scale et une rotation dont shape héritera
+ * @todo Créer une class pour représenter les objets avec une position, une scale et une rotation dont Shape héritera
  * @todo optimiser les constructeurs des Shape
  * @todo Ajouter les destructeur/delete des VAO/VBO/EBO/Texture
  */

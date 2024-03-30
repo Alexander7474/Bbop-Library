@@ -144,7 +144,6 @@ void Sprite::updateVBO()
 
 void Sprite::updateVBORGB()
 {
-  // color change ########################################
   float r = RGB.x/255.0f;float g = RGB.y/255.0f;float b = RGB.z/255.0f;
   for(int i = 0; i < 32;i+=8){
     vertices[i+2] = r;vertices[i+3] = g; vertices[i+4] = b;
@@ -154,7 +153,6 @@ void Sprite::updateVBORGB()
 
 void Sprite::updateVBOAlpha()
 {
-  // alpha change ########################################
   for(int i = 0; i < 32;i+=8){
     vertices[i+5] = alpha;
   }
