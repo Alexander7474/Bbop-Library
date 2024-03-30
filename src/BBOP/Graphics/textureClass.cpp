@@ -39,12 +39,12 @@ Texture::Texture(const char* textureFileName){
   glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-int Texture::getWidth()
+int Texture::getWidth() const
 {
   return width;
 }
 
-int Texture::getHeight()
+int Texture::getHeight() const
 {
   return height;
 }

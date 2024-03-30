@@ -52,7 +52,7 @@ void Scene::useCamera(Camera* camAddr)
   sceneCamera = camAddr;
 }
 
-void Scene::Draw(BbopDrawable& spr)
+void Scene::Draw(BbopDrawable& spr) const
 {
   glm::mat4 projection;
   if (sceneCamera != nullptr)
@@ -63,13 +63,13 @@ void Scene::Draw(BbopDrawable& spr)
   spr.Draw(renderModeLoc);
 }
 
-void Scene::setAmbiantLightColor(Vector3i nAmbiantLightColor)
+void Scene::setAmbiantLightColor(const Vector3i &nAmbiantLightColor)
 {
   ambiantLightColor = nAmbiantLightColor;
   ambiantLight = Vector3f(ambiantLightValue*(ambiantLightColor.x/255.0f), ambiantLightValue*(ambiantLightColor.y/255.0f), ambiantLightValue*(ambiantLightColor.z/255.0f));
 }
 
-Vector3i Scene::getAmbiantLightColor()
+const Vector3i &Scene::getAmbiantLightColor() const
 {
   return ambiantLightColor;
 }
@@ -80,7 +80,7 @@ void Scene::setAmbiantLightValue(float nAmbiantLightValue)
   ambiantLight = Vector3f(ambiantLightValue*(ambiantLightColor.x/255.0f), ambiantLightValue*(ambiantLightColor.y/255.0f), ambiantLightValue*(ambiantLightColor.z/255.0f));
 }
 
-float Scene::getAmbiantLightValue()
+float Scene::getAmbiantLightValue() const
 {
   return ambiantLightValue;
 }

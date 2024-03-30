@@ -15,7 +15,12 @@
 #include "EBO.h"
 
 /**
-  * @brief gère un rectangle avec une texture
+  * @brief Gère un Sprite (Rectangle avec une Texture)
+  *
+  * @note Hérite de la class Shape pour gérer les infos du rectangle 
+  * @attention L'attribut RGB du Sprite sert comme filtre sur la texture quand isRGBFilter est true
+  *
+  * @see Shape NoTextureSprite
   */
 class Sprite : public Shape
 {
@@ -23,7 +28,19 @@ public:
   Sprite(Texture nTexture, Vector2f nPos, Vector3i nRGB, Vector2f nOrigin, float nRotation, float nAlpha);
   Sprite(Texture nTexture, Vector2f nPos, Vector3i nRGB, Vector2f nOrigin);
   Sprite(Texture nTexture, Vector2f nPos);
+
+  /**
+   * @brief Constructeur du Sprite 
+   *
+   * @param[in] nTexture texture du Sprite
+   */
   Sprite(Texture nTexture);
+
+  /**
+   * @brief Constructeur par défault de Sprite 
+   *
+   * @note Utilsier setTexture avant d'utiliser le Sprite 
+   */ 
   Sprite();
   Sprite(const Sprite& other);
   ~Sprite();
@@ -31,22 +48,48 @@ public:
   Sprite& operator=(const Sprite& other);
 
   void Draw(GLint renderModeLoc) const override;
-  void Delete();
+
+  /**
+  * @brief Change la texture du sprite
+  *
+  * @param[in] nTexture texture 
+  */
   void setTexture(Texture nTexture);
-  void buildVAO() override;
-  void updateVBO() override;
-  void updateVBORGB() override;
-  void updateVBOAlpha() override;
-  bool getRGBFilterState();
+
+  /**
+  * @brief Renvoie si oui ou non le filtre de couleur est activé 
+  *
+  * @return isRGBFilter
+  */
+  bool getRGBFilterState() const;
+
+  /**
+  * @brief Change l'etat du filtre de couleur 
+  *
+  * @param[in] etat Etat du filtre de couleur
+  */
   void setRGBFilterState(bool etat);
+
+  /**
+  * @brief Retourne la Texture horizontallement 
+  */
   void flipHorizontally();
+
+  /**
+  * @brief Retourne la Texture Verticallement
+  */
   void flipVertically();
+
 private:
   Texture* spriteTexture;
 protected:
   GLfloat vertices[32];
   GLuint indices[6];
   bool isRGBFilter;
+  void buildVAO() override; //<! Calcule de la geométrie 
+  void updateVBO() override; //<! Recalcule de la géométrie
+  void updateVBORGB() override; 
+  void updateVBOAlpha() override;
  };
 
 class NoTextureSprite : public Sprite

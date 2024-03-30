@@ -89,21 +89,21 @@ public:
    *
    * @return ambiantLightValue Intensité de la lumière ambiante
    */
-  float getAmbiantLightValue();
+  float getAmbiantLightValue() const;
 
   /**
    * @brief Change la couleur de la lumière ambiante de Scene
    *
    * @param[in] nAmbiantLightColor Couleur de la lumière ambiante
    */
-  void setAmbiantLightColor(Vector3i nAmbiantLightColor);
+  void setAmbiantLightColor(const Vector3i &nAmbiantLightColor);
 
   /**
    * @brief Renvoie la couleur de la lumière ambiante de Scene
    *
    * @return ambiantLightColor Couleur de la lumière ambiante
    */
-  Vector3i getAmbiantLightColor();
+  const Vector3i &getAmbiantLightColor() const;
 
   /**
   * @brief Ajoute un point de lumière dans la Scene
@@ -120,7 +120,7 @@ public:
   *
   * @param[in] spr Objet à dessiner
   */
-  void Draw(BbopDrawable& spr);
+  void Draw(BbopDrawable& spr)const;
 
 private:
   Shader sceneShader; //<! shader 

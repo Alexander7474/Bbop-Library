@@ -1,36 +1,50 @@
 #include "../../../include/BBOP/Graphics/bbopMathClass.h"
 
-Vector2f::Vector2f(float nx, float ny): x(nx), y(ny){}
-Vector2f::Vector2f(): x(0.0f), y(0.0f){}
-Vector2d::Vector2d(double nx, double ny): x(nx), y(ny){}
-Vector2d::Vector2d(): x(0.0), y(0.0){}
-Vector2i::Vector2i(int nx, int ny): x(nx), y(ny){}
-Vector2i::Vector2i(): x(0), y(0){}
-Vector3i::Vector3i(int nx, int ny, int nz): x(nx), y(ny), z(nz){}
-Vector3i::Vector3i(): x(0), y(0), z(0){}
-Vector3f::Vector3f(float nx, float ny, float nz): x(nx), y(ny), z(nz){}
-Vector3f::Vector3f(): x(0.0f), y(0.0f), z(0.0f){}
-Vector3d::Vector3d(double nx, double ny, double nz): x(nx), y(ny), z(nz){}
-Vector3d::Vector3d(): x(0.0), y(0.0), z(0.0){}
-//Vector4i::Vector4i(int nx, int ny, int nz, int nw): x(nx), y(ny), z(nz), w(nw){}
-//Vector4f::Vector4f(float nx, float ny, float nz, float nw): x(nx), y(ny), z(nz), w(nw){}
-//Vector4d::Vector4d(double nx, double ny, double nz, double nw): x(nx), y(ny), z(nz), w(nw){}
+template<typename T>
+Vector2<T>::Vector2() : x(T()), y(T()) {}
 
-Vector2f rotatePoint(Vector2f point, Vector2f origin, float angle)
-{
-  float c = cos(angle);
-  float s = sin(angle);
-  // translate point back to origin:
-  point.x -= origin.x;
-  point.y -= origin.y;
+template<typename T>
+Vector2<T>::Vector2(T x_, T y_) : x(x_), y(y_) {}
 
-  // rotate point
-  float xnew = point.x * c - point.y * s;
-  float ynew = point.x * s + point.y * c;
+// Implémentation de la classe Vector2i
+Vector2i::Vector2i() : Vector2<int>() {}
 
-  // translate point back:
-  point.x = xnew + origin.x;
-  point.y = ynew + origin.y;
-  return point;
-}
+Vector2i::Vector2i(int x_, int y_) : Vector2<int>(x_, y_) {}
+
+// Implémentation de la classe Vector2f
+Vector2f::Vector2f() : Vector2<float>() {}
+
+Vector2f::Vector2f(float x_, float y_) : Vector2<float>(x_, y_) {}
+
+// Implémentation de la classe Vector2d
+Vector2d::Vector2d() : Vector2<double>() {}
+
+Vector2d::Vector2d(double x_, double y_) : Vector2<double>(x_, y_) {}
+
+template<typename T>
+Vector3<T>::Vector3() : x(T()), y(T()), z(T()) {}
+
+template<typename T>
+Vector3<T>::Vector3(T x_, T y_, T z_) : x(x_), y(y_), z(z_) {}
+
+// Implémentation de la classe Vector3i
+Vector3i::Vector3i() : Vector3<int>() {}
+
+Vector3i::Vector3i(int x_, int y_, int z_) : Vector3<int>(x_, y_, z_) {}
+
+// Implémentation de la classe Vector3d
+Vector3f::Vector3f() : Vector3<float>() {}
+
+Vector3f::Vector3f(float x_, float y_, float z_) : Vector3<float>(x_, y_, z_) {}
+
+// Implémentation de la classe Vector3d
+Vector3d::Vector3d() : Vector3<double>() {}
+
+Vector3d::Vector3d(double x_, double y_, double z_) : Vector3<double>(x_, y_, z_) {}
+
+template<typename T>
+Vector4<T>::Vector4() : x(T()), y(T()), z(T()), w(T()) {}
+
+template<typename T>
+Vector4<T>::Vector4(T x_, T y_, T z_, T w_) : x(x_), y(y_), z(z_), w(w_) {}
 

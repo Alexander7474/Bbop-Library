@@ -174,14 +174,6 @@ void Sprite::Draw(GLint renderModeLoc) const
   spriteTexture->Unbind();
 }
 
-void Sprite::Delete()
-{
-  shapeVAO.Delete();
-  shapeVBO.Delete();
-  shapeEBO.Delete();
-  spriteTexture->Delete();
-}
-
 void Sprite::setTexture(Texture nTexture)
 {
   delete spriteTexture;
@@ -193,7 +185,7 @@ void Sprite::setRGBFilterState(bool etat)
   isRGBFilter = etat;
 }
 
-bool Sprite::getRGBFilterState()
+bool Sprite::getRGBFilterState() const
 {
   return isRGBFilter;
 }

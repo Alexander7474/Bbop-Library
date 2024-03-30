@@ -34,7 +34,7 @@ void Shape::initShape(GLfloat* vertices, GLsizeiptr verticesSize, GLuint* indice
   shapeEBO.init(indices, indicesSize);
 }
 
-void Shape::setSize(Vector2f nSize)
+void Shape::setSize(const Vector2f &nSize)
 {
   size = nSize;
   if (autoUpdateCollision){
@@ -43,7 +43,16 @@ void Shape::setSize(Vector2f nSize)
   updateVBO();
 }
 
-void Shape::setPosition(Vector2f nPos)
+void Shape::setSize(float x_, float y_)
+{
+  size.x = x_; size.y = y_;
+  if (autoUpdateCollision){
+    shapeCollisionBox.setSize(size);
+  }
+  updateVBO();
+}
+
+void Shape::setPosition(const Vector2f &nPos)
 {
   pos = nPos;
   if (autoUpdateCollision){
@@ -52,7 +61,16 @@ void Shape::setPosition(Vector2f nPos)
   updateVBO();
 }
 
-void Shape::setOrigin(Vector2f nOrigin)
+void Shape::setPosition(float x_, float y_)
+{
+  pos.x = x_;pos.y = y_;
+  if (autoUpdateCollision){
+    shapeCollisionBox.setPosition(pos);
+  }
+  updateVBO();
+}
+
+void Shape::setOrigin(const Vector2f &nOrigin)
 {
   origin = nOrigin;
   if (autoUpdateCollision){
@@ -61,9 +79,24 @@ void Shape::setOrigin(Vector2f nOrigin)
   updateVBO();
 }
 
-void Shape::setColor(Vector3i nRGB)
+void Shape::setOrigin(float x_, float y_)
+{
+  origin.x = x_; origin.y = y_;
+  if (autoUpdateCollision){
+    shapeCollisionBox.setOrigin(origin);
+  }
+  updateVBO();
+}
+
+void Shape::setColor(const Vector3i &nRGB)
 {
   RGB = nRGB;
+  updateVBORGB();
+}
+
+void Shape::setColor(int x_, int y_, int z_)
+{
+  RGB.x = x_;RGB.y = y_;RGB.z = z_;
   updateVBORGB();
 }
 
@@ -81,7 +114,7 @@ void Shape::setAlpha(float nAlpha)
   updateVBOAlpha();
 }
 
-void Shape::move(Vector2f vecM)
+void Shape::move(const Vector2f &vecM)
 {
   pos.x += vecM.x; pos.y += vecM.y;
   if(autoUpdateCollision)
@@ -89,47 +122,45 @@ void Shape::move(Vector2f vecM)
   updateVBO();
 }
 
-Vector2f Shape::getSize()
+const Vector2f &Shape::getSize() const
 {
   return size;
 }
 
-Vector2f Shape::getOrigin()
+const Vector2f &Shape::getOrigin() const
 {
   return origin;
 }
 
-Vector2f Shape::getPosition()
+const Vector2f &Shape::getPosition() const
 {
   return pos;
 }
 
-Vector3i Shape::getColor()
+const Vector3i &Shape::getColor() const
 {
   return RGB;
 }
 
-float Shape::getRotation()
+float Shape::getRotation() const
 {
   return rotation;
 }
 
-float Shape::getAlpha()
+float Shape::getAlpha() const 
 {
   return alpha;
-  updateVBOAlpha();
 }
 
-CollisionBox* Shape::getCollisionBox()
+const CollisionBox &Shape::getCollisionBox() const 
 {
-  return &shapeCollisionBox;
+  return shapeCollisionBox;
 }
 
 void Shape::setAutoUpdateCollision(bool etat)
 {
   autoUpdateCollision = etat;
 }
-
 
 RectangleShape::RectangleShape(Vector2f nSize, Vector2f nPos, Vector3i nRGB, Vector2f nOrigin, float nRotation, float nAlpha)
   : Shape(vertices, sizeof(vertices), indices, sizeof(indices))
@@ -477,7 +508,7 @@ void CircleShape::setRadius(float nRadius)
   buildConvex();
 }
 
-float CircleShape::getRadius()
+float CircleShape::getRadius() const
 {
   return radius;
 }
@@ -488,7 +519,7 @@ void CircleShape::setNPointCircle(int nnPoint)
   buildConvex();
 }
 
-int CircleShape::getNPointCircle()
+int CircleShape::getNPointCircle() const
 {
   return nPointCircle;
 }
