@@ -23,14 +23,14 @@ public:
   */
   CollisionBox(Vector2f nPos, Vector2f nOrigin, Vector2f nSize, float nRotation);
 
-  void setPosition(Vector2f nPos);
-  Vector2f getPosition();
-  void setSize(Vector2f nSize);
-  Vector2f getSize();
-  void setOrigin(Vector2f nOrigin);
-  Vector2f getOrigin();
+  void setPosition(const Vector2f &nPos);
+  const Vector2f &getPosition() const;
+  void setSize(const Vector2f &nSize);
+  const Vector2f &getSize() const;
+  void setOrigin(const Vector2f &nOrigin);
+  const Vector2f &getOrigin() const;
   void setRotation(float nRotation);
-  float getRotation();
+  float getRotation() const;
 
   /**
   * @brief Detecte si la boîte est en collision avec une autre
@@ -40,7 +40,7 @@ public:
   *
   * @attenion Cette méthode ne prend pas en compte la roation des deux boîte pour des raisons de performances
   */
-  bool check(CollisionBox* otherBox);
+  bool check(const CollisionBox &otherBox) const;
 
   /**
   * @brief Detecte si la boîte est en collision en prenant en compte la rotaion des deux boîtes
@@ -50,7 +50,7 @@ public:
   *
   * @attenion Cette méthode prend en compte la rotation et est donc plus gourmand en ressource, à utiliser seulement si nécessaire
   */
-  bool checkWithRotation(CollisionBox * otherBox);
+  bool checkWithRotation(const CollisionBox &otherBox) const;
 
 private:
   Vector2f pos;

@@ -82,7 +82,7 @@ int main() {
     playerInMovement = false;
     playerMoveVec.x=0.0f;
     if(defaultSprite.getPosition().y+40.0f <= ground[0].getPosition().y && playerMoveVec.y <= -2.0f)
-      playerMoveVec.y/=1.2f;
+      playerMoveVec.y/=1.15f;
     else if(defaultSprite.getPosition().y+40.0f <= ground[0].getPosition().y && playerMoveVec.y >= -2.0f)
      playerMoveVec.y=9.81f;
     else
