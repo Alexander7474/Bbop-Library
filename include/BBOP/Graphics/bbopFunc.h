@@ -52,7 +52,7 @@ void bbopErrorCheck();
 *
 * @see Dans bbopFunc.cpp 
 */
-void bbopChangeWindowSize(Vector2i nWinSize);
+void bbopChangeWindowResolution(const Vector2i &nWinR);
 
 /**
 * @brief Debug de collision en affichant une box

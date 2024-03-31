@@ -31,10 +31,14 @@ extern int BBOP_SHADER_MODE_COLOR;
 extern int BBOP_SHADER_MODE_MIX;
 
 /**
- * @brief Variable global qui stoke la résolution de la fenêtre.
- * @details Pour récupérer la taille réel de la fenêtre (si elle est redimenstionné après sa création) il faut utiliser glfwGetWindowSize().
+ * @brief Variable global qui stoke la taille de la fenêtre.
  */
 extern Vector2i BBOP_WINDOW_SIZE;
+
+/**
+ * @brief Variable global qui stoke la résolution de la fenêtre.
+ */
+extern Vector2i BBOP_WINDOW_RESOLUTION;
 
 /**
  * @brief Récupère les données d'un fichier et les renvoie sous forme de string.

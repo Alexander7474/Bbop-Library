@@ -23,6 +23,7 @@ int bbopInit(int windowX, int windowY, const char* windowName, GLFWwindow*& wind
       return -1;
   }
   BBOP_WINDOW_SIZE.x = windowX; BBOP_WINDOW_SIZE.y = windowY;
+  BBOP_WINDOW_RESOLUTION.x = windowX; BBOP_WINDOW_RESOLUTION.y = windowY;
   // Définition de la fenêtre comme le contexte OpenGL courant
   glfwMakeContextCurrent(window);
   // Initialisation de GLEW
@@ -42,6 +43,7 @@ int bbopInit(int windowX, int windowY, const char* windowName, GLFWwindow*& wind
   cout << "OpenGL Vendor: " << vendor << endl;
   cout << "OpenGL Renderer: " << renderer << endl;
   cout << "Window size: " << BBOP_WINDOW_SIZE.x << "x" << BBOP_WINDOW_SIZE.y << endl;
+  cout << "Window resolution: " << BBOP_WINDOW_RESOLUTION.x << "x" << BBOP_WINDOW_RESOLUTION.y << endl;
  
   return 1;
 }
@@ -53,9 +55,8 @@ void bbopCleanWindow(GLFWwindow*& window, Vector3i rgb, float alpha)
 	// Clean the back buffer and assign the new color to it
 	glClear(GL_COLOR_BUFFER_BIT);
   // redimention de la fenêtre
-  int width, height;
-  glfwGetFramebufferSize(window, &width, &height);
-  glViewport(0, 0, width, height);
+  glfwGetFramebufferSize(window, &BBOP_WINDOW_SIZE.x, &BBOP_WINDOW_SIZE.y);
+  glViewport(0, 0, BBOP_WINDOW_SIZE.x, BBOP_WINDOW_SIZE.y);
 }
 
 void bbopErrorCheck()
@@ -67,9 +68,9 @@ void bbopErrorCheck()
   }  
 }
 
-void bbopChangeWindowSize(Vector2i nWinSize)
+void bbopChangeWindowResolution(const Vector2i &nWinR)
 {
-  BBOP_WINDOW_SIZE = nWinSize;
+  BBOP_WINDOW_RESOLUTION = nWinR;
 }
 
 void bbopDebugCollisionBox(CollisionBox* box, Scene& scene)

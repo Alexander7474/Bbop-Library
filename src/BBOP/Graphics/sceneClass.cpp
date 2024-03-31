@@ -6,11 +6,18 @@ Scene::Scene()
   : sceneShader(defaultVertex, defaultFragment),
     ambiantLightValue(1.0f),
     ambiantLightColor(Vector3i(255,255,255)),
-    ambiantLightLoc(sceneShader.getUniformLoc("ambiantLight")),
-    renderModeLoc(sceneShader.getUniformLoc("renderMode")),
     ambiantLight(Vector3f(ambiantLightValue*(ambiantLightColor.x/255.0f), ambiantLightValue*(ambiantLightColor.y/255.0f), ambiantLightValue*(ambiantLightColor.z/255.0f))),
     sceneCamera(nullptr)
-{}
+{
+  ambiantLightLoc = sceneShader.getUniformLoc("ambiantLight");
+  renderModeLoc = sceneShader.getUniformLoc("renderMode");
+  windowSizeLoc = sceneShader.getUniformLoc("windowSize");
+  windowResoLoc = sceneShader.getUniformLoc("windowResolution");
+  nLightLoc = sceneShader.getUniformLoc("nLight");
+  glGenBuffers(1, &lightsUBO);
+  glBindBuffer(GL_UNIFORM_BUFFER, lightsUBO);
+  glBufferData(GL_UNIFORM_BUFFER, 100 * sizeof(UniformLight), &lightsVec[0], GL_DYNAMIC_DRAW);
+}
 
 Scene::Scene(float nAmbiantLightValue, Vector3i nAmbiantLightColor)
   : sceneShader(defaultVertex, defaultFragment),
@@ -37,10 +44,8 @@ void Scene::Use(GLFWwindow*& window)
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
   sceneShader.Activate();
   glUniform4f(ambiantLightLoc,ambiantLight.x,ambiantLight.y,ambiantLight.z,1.0f);
-  int width, height;
-  glfwGetWindowSize(window, &width, &height);
-  glUniform2f(windowSizeLoc,width,height);
-  glUniform2f(windowResoLoc,static_cast<float>(BBOP_WINDOW_SIZE.x),static_cast<float>(BBOP_WINDOW_SIZE.y));
+  glUniform2f(windowSizeLoc,BBOP_WINDOW_SIZE.x,BBOP_WINDOW_SIZE.y);
+  glUniform2f(windowResoLoc,BBOP_WINDOW_RESOLUTION.x,BBOP_WINDOW_RESOLUTION.y);
   glUniform1i(nLightLoc, lightsVec.size());
   glBindBufferBase(GL_UNIFORM_BUFFER, 0, lightsUBO);
   glBufferSubData(GL_UNIFORM_BUFFER, 0, lightsVec.size() * sizeof(UniformLight), &lightsVec[0]);
@@ -58,7 +63,7 @@ void Scene::Draw(BbopDrawable& spr) const
   if (sceneCamera != nullptr)
     projection = glm::ortho(sceneCamera->camX.x, sceneCamera->camX.y, sceneCamera->camY.y, sceneCamera->camY.x, -1.0f, 1.0f);
   else
-    projection = glm::ortho(0.0f, static_cast<float>(BBOP_WINDOW_SIZE.x), static_cast<float>(BBOP_WINDOW_SIZE.y), 0.0f, -1.0f, 1.0f);
+    projection = glm::ortho(0.0f, static_cast<float>(BBOP_WINDOW_RESOLUTION.x), static_cast<float>(BBOP_WINDOW_RESOLUTION.y), 0.0f, -1.0f, 1.0f);
   glUniformMatrix4fv(sceneShader.getUniformLoc("projection"), 1, GL_FALSE, glm::value_ptr(projection));
   spr.Draw(renderModeLoc);
 }

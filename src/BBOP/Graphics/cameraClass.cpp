@@ -3,7 +3,7 @@
 Camera::Camera()
   : camX(0.0f,0.0f),
     camY(0.0f,0.0f),
-    pos(BBOP_WINDOW_SIZE.x/2.0f,BBOP_WINDOW_SIZE.y/2.0f),
+    pos(BBOP_WINDOW_RESOLUTION.x/2.0f,BBOP_WINDOW_RESOLUTION.y/2.0f),
     scale(1.0f)
 {
   buildCamera();
@@ -20,10 +20,10 @@ Camera::Camera(Vector2f nPos, float nScale)
 
 void Camera::buildCamera()
 {
-  camX.x = pos.x-scale*(BBOP_WINDOW_SIZE.x/2.0f);
-  camX.y = pos.x+scale*(BBOP_WINDOW_SIZE.x/2.0f);
-  camY.x = pos.y-scale*(BBOP_WINDOW_SIZE.y/2.0f);
-  camY.y = pos.y+scale*(BBOP_WINDOW_SIZE.y/2.0f);
+  camX.x = pos.x-scale*(BBOP_WINDOW_RESOLUTION.x/2.0f);
+  camX.y = pos.x+scale*(BBOP_WINDOW_RESOLUTION.x/2.0f);
+  camY.x = pos.y-scale*(BBOP_WINDOW_RESOLUTION.y/2.0f);
+  camY.y = pos.y+scale*(BBOP_WINDOW_RESOLUTION.y/2.0f);
 }
 
 void Camera::setPosition(Vector2f nPos)
@@ -50,7 +50,7 @@ float Camera::getScale()
 
 Vector2f Camera::screenPosToCamPos(Vector2f screenPos)
 {
-  Vector2f finalPos(pos.x-scale*(BBOP_WINDOW_SIZE.x/2.0f),pos.y-scale*(BBOP_WINDOW_SIZE.y/2.0f));
+  Vector2f finalPos(pos.x-scale*(BBOP_WINDOW_RESOLUTION.x/2.0f),pos.y-scale*(BBOP_WINDOW_RESOLUTION.y/2.0f));
   finalPos.x += screenPos.x*scale;
   finalPos.y += screenPos.y*scale;
   return finalPos;
