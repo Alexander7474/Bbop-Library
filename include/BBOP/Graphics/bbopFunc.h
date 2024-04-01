@@ -19,8 +19,6 @@
 * @param[in] windowName Nom de la fenêtre
 * @param[in,out] window Fenêtre glfw à utiliser
 *
-* @see Dans bbopFunc.cpp 
-*
 * @note window dois-être un pointeur
 */
 int bbopInit(int windowX, int windowY, const char* windowName, GLFWwindow*& window);
@@ -31,28 +29,48 @@ int bbopInit(int windowX, int windowY, const char* windowName, GLFWwindow*& wind
 * @param[in] window Fenêtre à nettoyer
 * @param[in] rgb Couleur de fond de la fenêtre
 * @param[in] alpha Transaprence du nettoyage
-*
-* @see Dans bbopFunc.cpp 
-*
-* @note window dois-être un pointeur
 */
 void bbopCleanWindow(GLFWwindow*& window,Vector3i rgb, float alpha);
 
 /**
 * @brief Fonction de verification d'erreur d'opengl
-*
-* @see Dans bbopFunc.cpp 
+* @details Affiche toutes les erreurs acumulées dans le cache opengl 
 */
 void bbopErrorCheck();
 
 /**
-* @brief Fonction d'initialisation de Bbop Library
+* @brief Change la resolution de la fenêtre glfw utilisé dans bbopInit
 *
-* @param[in] wWinSize Nouvelle taille de la fenêtre 
+* @param[in] wWinR Nouvelle resolution de la fenêtre 
 *
-* @see Dans bbopFunc.cpp 
+* @see bbopInit
 */
 void bbopChangeWindowResolution(const Vector2i &nWinR);
+
+/**
+* @brief Change la resolution de la fenêtre glfw utilisé dans bbopInit
+*
+* @param[in] x_ resolution x 
+* @param[in] y_ resolution y
+*/
+void bbopChangeWindowResolution(int x_, int y_);
+
+/**
+* @brief Change la taille de la fenêtre glfw utilisé dans bbopInit
+*
+* @param[in] wWinS Nouvelle taille de la fenêtre 
+*
+* @see bbopInit
+*/
+void bbopChangeWindowSize(const Vector2i &nWinS);
+
+/**
+* @brief Change la taille de la fenêtre glfw utilisé dans bbopInit
+*
+* @param[in] x_ taille x 
+* @param[in] y_ taille y
+*/
+void bbopChangeWindowSize(int x_, int y_);
 
 /**
 * @brief Debug de collision en affichant une box
@@ -60,7 +78,7 @@ void bbopChangeWindowResolution(const Vector2i &nWinR);
 * @param[in] box Boîte de collision à afficher
 * @param[in] scene Scene a utiliser pour afficher la box
 *
-* @see Dans bbopFunc.cpp
+* @see CollisionBox
 */
 void bbopDebugCollisionBox(CollisionBox* box, Scene& scene);
 

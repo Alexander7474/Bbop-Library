@@ -73,6 +73,23 @@ void bbopChangeWindowResolution(const Vector2i &nWinR)
   BBOP_WINDOW_RESOLUTION = nWinR;
 }
 
+void bbopChangeWindowResolution(int x_, int y_)
+{
+  BBOP_WINDOW_RESOLUTION.x = x_;
+  BBOP_WINDOW_RESOLUTION.y = y_;
+}
+
+void bbopChangeWindowSize(const Vector2i &nWinS)
+{
+  BBOP_WINDOW_SIZE = nWinS;
+}
+
+void bbopChangeWindowSize(int x_, int y_)
+{
+  BBOP_WINDOW_SIZE.x = x_;
+  BBOP_WINDOW_SIZE.y = y_;
+}
+
 void bbopDebugCollisionBox(CollisionBox* box, Scene& scene)
 {
   RectangleShape rect(box->getSize(),box->getPosition(),Vector3i(255,0,0),box->getOrigin());
