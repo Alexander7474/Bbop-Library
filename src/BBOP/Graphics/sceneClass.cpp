@@ -57,7 +57,7 @@ void Scene::useCamera(Camera* camAddr)
   sceneCamera = camAddr;
 }
 
-void Scene::Draw(BbopDrawable& spr) const
+void Scene::Draw(const BbopDrawable& spr) const
 {
   glm::mat4 projection;
   if (sceneCamera != nullptr)

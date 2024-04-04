@@ -120,7 +120,7 @@ public:
   *
   * @param[in] spr Objet à dessiner
   */
-  void Draw(BbopDrawable& spr)const;
+  void Draw(const BbopDrawable& spr)const;
 
 private:
   Shader sceneShader; //<! shader 
