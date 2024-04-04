@@ -64,7 +64,7 @@ int main() {
     cam.setPosition(defaultSprite.getPosition());
     testLight0.setPosition(Vector2f(defaultSprite.getPosition().x+45.0f, defaultSprite.getPosition().y+50.0f));
     defaultScene.addLight(testLight0);
-    defaultScene.Use(window);
+    defaultScene.Use();
     defaultScene.useCamera(&cam);
     
     //draw player

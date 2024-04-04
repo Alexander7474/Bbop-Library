@@ -38,7 +38,7 @@ Scene::Scene(float nAmbiantLightValue, Vector3i nAmbiantLightColor)
 
 Scene::~Scene() {}
 
-void Scene::Use(GLFWwindow*& window)
+void Scene::Use()
 {
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

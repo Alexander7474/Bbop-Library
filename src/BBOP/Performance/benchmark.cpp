@@ -15,7 +15,7 @@ bool bbopBenchMark(GLFWwindow*& window, Scene& sceneToUse)
 {
   spriteList.push_back(Sprite(Texture("nope")));
   rectList.push_back(RectangleShape());
-  sceneToUse.Use(window);
+  sceneToUse.Use();
   lastTime = glfwGetTime();
   for(unsigned int i = 0; i< spriteList.size(); i ++){
     spriteList[i].setPosition(Vector2f(distribx(gen),distriby(gen)));

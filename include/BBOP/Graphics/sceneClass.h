@@ -65,7 +65,7 @@ public:
   *
   * @attention Cette méthode est à utiliser à l'initialisation de votre programme et avant chaque changement de scene si la scene doit changer
   */
-  void Use(GLFWwindow*& window);
+  void Use();
 
   /**
   * @brief Utilise une camera pour Draw avec la scene 
