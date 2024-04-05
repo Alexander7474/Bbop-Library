@@ -2,6 +2,7 @@
 #define COLLISION_BOX_CLASS_H
 
 #include "bbopMathClass.h"
+#include "geometricClass.h"
 #include <iostream>
 
 /**
@@ -10,7 +11,7 @@
  *
  * @note Cette class est utilisé par défault pour gèrer les collision des Shape
  */
-class CollisionBox 
+class CollisionBox : public Geometric
 {
 public:
   /**
@@ -22,16 +23,7 @@ public:
   * @param[in] nRotation angle de rotation de la boîte 
   */
   CollisionBox(Vector2f nPos, Vector2f nOrigin, Vector2f nSize, float nRotation);
-
-  void setPosition(const Vector2f &nPos);
-  const Vector2f &getPosition() const;
-  void setSize(const Vector2f &nSize);
-  const Vector2f &getSize() const;
-  void setOrigin(const Vector2f &nOrigin);
-  const Vector2f &getOrigin() const;
-  void setRotation(float nRotation);
-  float getRotation() const;
-
+ 
   /**
   * @brief Detecte si la boîte est en collision avec une autre
   *
@@ -52,11 +44,16 @@ public:
   */
   bool checkWithRotation(const CollisionBox &otherBox) const;
 
+  Vector2f getOffsetX() const;
+  Vector2f getOffsetY() const;
+
+  void setOffsetX(const Vector2f &off_);
+  void setOffsetX(float x_, float y_);
+  void setOffsetY(const Vector2f &off_);
+  void setOffsetY(float x_, float y_);
 private:
-  Vector2f pos;
-  Vector2f origin;
-  Vector2f size;
-  float rotation;
+  Vector2f offsetX;
+  Vector2f offsetY;
 };
 
 

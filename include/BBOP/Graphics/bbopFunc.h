@@ -80,6 +80,6 @@ void bbopChangeWindowSize(int x_, int y_);
 *
 * @see CollisionBox
 */
-void bbopDebugCollisionBox(CollisionBox* box, Scene& scene);
+void bbopDebugCollisionBox(const CollisionBox& box, Scene& scene);
 
 #endif // !BBOP_FUNCTION_H

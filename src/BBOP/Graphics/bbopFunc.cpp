@@ -90,9 +90,13 @@ void bbopChangeWindowSize(int x_, int y_)
   BBOP_WINDOW_SIZE.y = y_;
 }
 
-void bbopDebugCollisionBox(CollisionBox* box, Scene& scene)
+void bbopDebugCollisionBox(const CollisionBox &box, Scene& scene)
 {
-  RectangleShape rect(box->getSize(),box->getPosition(),Vector3i(255,0,0),box->getOrigin());
+  Vector2f pos_ = box.getPosition();
+  pos_.x+=box.getOffsetX().x;pos_.y+=box.getOffsetY().x;
+  Vector2f size_ = box.getSize();
+  size_.x-=(box.getOffsetX().y+box.getOffsetX().x);size_.y-=(box.getOffsetY().y+box.getOffsetY().x);
+  RectangleShape rect(size_,pos_,Vector3i(255,0,0),box.getOrigin());
   glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
   scene.Draw(rect);
   glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);

@@ -152,7 +152,7 @@ float Shape::getAlpha() const
   return alpha;
 }
 
-const CollisionBox &Shape::getCollisionBox() const 
+CollisionBox &Shape::getCollisionBox()
 {
   return shapeCollisionBox;
 }

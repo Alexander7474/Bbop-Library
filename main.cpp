@@ -9,6 +9,7 @@
 #include <string>
 
 #include "include/BBOP/Graphics.h"
+#include "include/BBOP/Graphics/bbopFunc.h"
 
 using namespace std;
 
@@ -52,10 +53,16 @@ int main() {
 
   Light testLight0(defaultSprite.getPosition(), 0.6f, Vector3i(242,175,90), 0.5f, 0.5f, 0.1f);
 
+  Sprite testSprite("fffff");
+  testSprite.setSize(50.0f,50.0f);
+
+  defaultSprite.getCollisionBox().setOffsetX(20.0f,20.0f);
+  defaultSprite.getCollisionBox().setOffsetY(20.0f,20.0f);
   // Main while loop
 	while (!glfwWindowShouldClose(window))
 	{
     bbopCleanWindow(window, Vector3i(0,0,0),1.0);
+
    
     //////////////////////////////////////////////////////////////
     ///code zone
@@ -66,12 +73,18 @@ int main() {
     defaultScene.addLight(testLight0);
     defaultScene.Use();
     defaultScene.useCamera(&cam);
-    
+    defaultScene.Draw(testSprite);
+
     //draw player
     if(animState >= static_cast<int>(animList.size())*5)
       animState = 0;
     defaultSprite.setTexture(animList[animState/5]);
     defaultScene.Draw(defaultSprite);
+
+    bbopDebugCollisionBox(defaultSprite.getCollisionBox(), defaultScene);
+    bbopDebugCollisionBox(testSprite.getCollisionBox(), defaultScene);
+    if(defaultSprite.getCollisionBox().check(testSprite.getCollisionBox()))
+      std::cout << glfwGetTime() << std::endl;
 
     //draw ground
     for(size_t i = 0; i < ground.size(); i++){

@@ -163,7 +163,7 @@ public:
    *
    * @return shapeCollisionBox
    */
-  const CollisionBox &getCollisionBox() const;
+  CollisionBox &getCollisionBox();
 
   /**
    * @brief Change l'état de l'automatisation de la mise a jour de la boîte de collision 
