@@ -10,6 +10,7 @@
 
 #include "include/BBOP/Graphics.h"
 #include "include/BBOP/Graphics/bbopFunc.h"
+#include "include/BBOP/Graphics/bbopMathClass.h"
 
 using namespace std;
 
@@ -21,6 +22,9 @@ int main() {
   //Creation de la scene pour afficher nos formes
   Scene defaultScene(0.0f,Vector3i(255,255,255));
   //creation d'un rectangle a afficher, par default blanc en haut a gauche de l'image
+  
+  Vector2<int> vectest(0,0);
+  Vector2<int> quefgyque(vectest);
 
   Sprite defaultSprite(Texture("imgTesting/anim/00001.png"), Vector2f(0.0f,0.0f), Vector3i(255,255,255), Vector2f(50.0f,50.0f));
   defaultSprite.setSize(Vector2f(100.0f,100.0f));

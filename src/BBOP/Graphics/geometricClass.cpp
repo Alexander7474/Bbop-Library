@@ -1,7 +1,26 @@
 #include "../../../include/BBOP/Graphics/geometricClass.h"
 
 
-Geometric::Geometric(Vector2f nPos, Vector2f nOrigin, Vector2f nSize, float nRotation): pos(nPos.x ,nPos.y), origin(nOrigin.x, nOrigin.y), size(nSize.x, nSize.y), rotation(nRotation) {}
+Geometric::Geometric(Vector2f nPos, Vector2f nOrigin, Vector2f nSize, float nRotation): 
+  pos(nPos.x ,nPos.y), 
+  origin(nOrigin.x, nOrigin.y), 
+  size(nSize.x, nSize.y), 
+  rotation(nRotation) 
+{}
+
+Geometric::Geometric(): 
+  pos(0.f,0.f),
+  origin(0.f,0.f),
+  size(0.f,0.f),
+  rotation(0.f)
+{}
+
+Geometric::Geometric(const Geometric &other): 
+  pos(other.pos), 
+  origin(other.origin), 
+  size(other.size), 
+  rotation(other.rotation) 
+{}
 
 void Geometric::setPosition(const Vector2f &nPos)
 {

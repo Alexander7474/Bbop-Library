@@ -14,6 +14,8 @@ class Geometric
 {
 public:
   Geometric(Vector2f nPos, Vector2f nOrigin, Vector2f nSize, float nRotation);
+  Geometric(const Geometric &other);
+  Geometric();
 
   void setPosition(const Vector2f &nPos);
   const Vector2f &getPosition() const;

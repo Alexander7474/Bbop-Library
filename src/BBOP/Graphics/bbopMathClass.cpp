@@ -6,6 +6,9 @@ Vector2<T>::Vector2() : x(T()), y(T()) {}
 template<typename T>
 Vector2<T>::Vector2(T x_, T y_) : x(x_), y(y_) {}
 
+template<typename T>
+Vector2<T>::Vector2(const Vector2<T>& other): x(other.x), y(other.y) {}
+
 // Implémentation de la classe Vector2i
 Vector2i::Vector2i() : Vector2<int>() {}
 
@@ -15,6 +18,8 @@ Vector2i::Vector2i(int x_, int y_) : Vector2<int>(x_, y_) {}
 Vector2f::Vector2f() : Vector2<float>() {}
 
 Vector2f::Vector2f(float x_, float y_) : Vector2<float>(x_, y_) {}
+
+Vector2f::Vector2f(const Vector2f& other): Vector2<float>(other.x, other.y) {}
 
 // Implémentation de la classe Vector2d
 Vector2d::Vector2d() : Vector2<double>() {}

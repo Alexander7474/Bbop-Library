@@ -2,7 +2,11 @@
 #include <cmath>
 
 CollisionBox::CollisionBox(Vector2f nPos, Vector2f nOrigin, Vector2f nSize, float nRotation):
-  Geometric(nPos, nOrigin, nSize, nRotation), offsetX(0.0f,0.0f), offsetY(0.0f, 0.0f)
+  Geometric(nPos, nOrigin, nSize, nRotation)
+{}
+
+CollisionBox::CollisionBox(const Geometric &to_follow): 
+  Geometric(to_follow)
 {}
 
 bool CollisionBox::check(const CollisionBox &otherBox) const
@@ -77,4 +81,12 @@ void CollisionBox::setOffsetY(float x_, float y_)
 {
   offsetY.x = x_;
   offsetY.y = y_;
+}
+
+void CollisionBox::follow(const Geometric &to_follow)
+{
+  pos = to_follow.getPosition();
+  size = to_follow.getSize();
+  origin = to_follow.getOrigin();
+  rotation = to_follow.getRotation();
 }
