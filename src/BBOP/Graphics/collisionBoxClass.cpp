@@ -1,15 +1,25 @@
 #include "../../../include/BBOP/Graphics/collisionBoxClass.h"
 #include <cmath>
 
-CollisionBox::CollisionBox(Vector2f nPos, Vector2f nOrigin, Vector2f nSize, float nRotation): pos(nPos.x ,nPos.y), origin(nOrigin.x, nOrigin.y), size(nSize.x, nSize.y), rotation(nRotation) {}
+CollisionBox::CollisionBox(Vector2f nPos, Vector2f nOrigin, Vector2f nSize, float nRotation):
+  Geometric(nPos, nOrigin, nSize, nRotation)
+{}
+
+CollisionBox::CollisionBox(const Geometric &to_follow): 
+  Geometric(to_follow)
+{}
 
 bool CollisionBox::check(const CollisionBox &otherBox) const
 {
   //cout << x << ";" << posY << " " << size.x << ";" << size.y <<  endl << otherBoxX << ";" << otherBoxY << endl;
   float left = pos.x-origin.x; float right = left+size.x;
-  float top = pos.y-origin.y;float bottom = top+size.y;
+  left+=offsetX.x;right-=offsetX.y;
+  float top = pos.y-origin.y+offsetY.x;float bottom = top+size.y-offsetY.y;
+  top+=offsetY.x;bottom-=offsetY.y;
   float otherLeft = otherBox.getPosition().x-otherBox.getOrigin().x;float otherRight = otherLeft+otherBox.getSize().x;
+  otherLeft+=otherBox.getOffsetX().x;otherRight-=otherBox.getOffsetX().y;
   float otherTop = otherBox.getPosition().y-otherBox.getOrigin().y;float otherBottom = otherTop+otherBox.getSize().y;
+  otherTop+=otherBox.getOffsetY().x;otherBottom-=otherBox.getOffsetY().y;
   if (left > otherRight || right < otherLeft || top > otherBottom || bottom < otherTop){
     return false;
   }
@@ -41,43 +51,42 @@ bool CollisionBox::checkWithRotation(const CollisionBox &otherBox) const
   return true;
 }
 
-void CollisionBox::setPosition(const Vector2f &nPos)
+Vector2f CollisionBox::getOffsetX() const
 {
-  pos = nPos;
+  return offsetX;  
 }
 
-const Vector2f &CollisionBox::getPosition() const
+Vector2f CollisionBox::getOffsetY() const
 {
-  return pos;
+  return offsetY;
 }
 
-void CollisionBox::setSize(const Vector2f &nSize)
+void CollisionBox::setOffsetX(const Vector2f &off_)
 {
-  size = nSize;
+  offsetX = off_;
 }
 
-const Vector2f &CollisionBox::getSize() const 
+void CollisionBox::setOffsetX(float x_, float y_)
 {
-  return size;
+  offsetX.x = x_;
+  offsetX.y = y_;
 }
 
-void CollisionBox::setOrigin(const Vector2f &nOrigin)
+void CollisionBox::setOffsetY(const Vector2f &off_)
 {
-  origin = nOrigin;
+  offsetY = off_;
 }
 
-const Vector2f &CollisionBox::getOrigin() const 
+void CollisionBox::setOffsetY(float x_, float y_)
 {
-  return origin;
+  offsetY.x = x_;
+  offsetY.y = y_;
 }
 
-void CollisionBox::setRotation(float nRotation)
+void CollisionBox::follow(const Geometric &to_follow)
 {
-  rotation = nRotation;
+  pos = to_follow.getPosition();
+  size = to_follow.getSize();
+  origin = to_follow.getOrigin();
+  rotation = to_follow.getRotation();
 }
-
-float CollisionBox::getRotation() const
-{
-  return rotation;
-}
-

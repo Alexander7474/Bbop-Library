@@ -14,6 +14,7 @@ class Vector2
 public:
   Vector2();
   Vector2(T x_, T y_);
+  Vector2(const Vector2<T>& other);
 
   T x;
   T y;
@@ -29,6 +30,7 @@ class Vector2f : public Vector2<float> {
 public:
     Vector2f();
     Vector2f(float x_, float y_);
+    Vector2f(const Vector2f& other);
 };
 
 class Vector2d : public Vector2<double> {
