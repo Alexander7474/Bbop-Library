@@ -13,26 +13,40 @@ SRCSM = main.cpp
 OBJS = $(SRCSM:.cpp=.o) $(SRCS:.cpp=.o)
 OBJSNM = $(SRCS:.cpp=.o) 
 
+GREEN = \033[0;32m
+CYAN = \033[0;36m
+PURPLE = \033[0;35m
+NC = \033[0m
+
 all: final
 
 final: $(OBJS)
-	$(CC) $(CFLAGS) -o $@ $^ $(LIBS)
+	@echo "$(PURPLE)Linking compiled files $(NC)"
+	@$(CC) $(CFLAGS) -o $@ $^ $(LIBS)
+	@echo "$(GREEN)Linkage done ! $(NC)"
 
 %.o: %.cpp
-	$(CC) $(CFLAGS) -c -o $@ $<
+	@echo "$(GREEN)Compiling $(CYAN)[$@] $(NC)"
+	@$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
-	rm -f final $(OBJS)
-	rm -rf /usr/local/shaders
+	@echo "$(PURPLE)Deleting all objects files and final$(NC)"
+	@rm -f final $(OBJS)
 
 install:
-	ar rcs libbbop.a $(OBJSNM)
-	cp -r include/BBOP /usr/local/include/
-	mv libbbop.a /usr/local/lib/
+	@echo "$(PURPLE)Making $(CYAN)[libbbop.a]$(NC)"
+	@ar rcs libbbop.a $(OBJSNM)
+	@echo "$(CYAN)[libbbop.a]$(GREEN) created !$(NC)"
+	@echo "$(PURPLE)Moving include to $(CYAN)[/usr/local/include/]$(NC)"
+	@cp -r include/BBOP /usr/local/include/
+	@echo "$(GREEN)Move done !$(NC)"
+	@echo "$(PURPLE)Moving $(CYAN)[libbbop.a]$(GREEN) to $(CYAN)[/usr/local/lib/]$(NC)"
+	@mv libbbop.a /usr/local/lib/
+	@echo "$(GREEN)Move done !$(NC)"
 
 uninstall:
-	rm /usr/local/lib/libbbop.a
-	rm -rf /usr/local/include/BBOP
+	@rm /usr/local/lib/libbbop.a
+	@rm -rf /usr/local/include/BBOP
 
 update:
 	make clean
