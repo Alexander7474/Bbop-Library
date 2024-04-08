@@ -265,4 +265,5 @@ void TexteBox::setTexte(const char * nTexte)
 void TexteBox::setFont(Font *font_)
 {
   texteFont = font_;
+  buildTexteBox();
 }
