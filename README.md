@@ -10,7 +10,7 @@
 Bbop est un projet de library graphique utilisant opengl. La lib permet de gérer plus que de simple forme géométrique comme l'éclairage d'une scène, des points de lumières ou encore des ombrages.
 
 1. [![Installation](https://img.shields.io/badge/Installation-lightgreen?style=for-the-badge)](#installation)
-2. [![Static Badge](https://img.shields.io/badge/Documentation-lightblue?style=for-the-badge)](#documentation)
+2. [![Static Badge](https://img.shields.io/badge/Documentation-lightblue?style=for-the-badge)](https://alexander7474.github.io/bbop-web-docs/)
 3. [![Static Badge](https://img.shields.io/badge/Report_Bug-red?style=for-the-badge&logoColor=red)](#report-bug)
 4. [![Static Badge](https://img.shields.io/badge/Support-purple?style=for-the-badge)](#supporting)
 5. [![Static Badge](https://img.shields.io/badge/Contributors-yellow?style=for-the-badge)](#contributors)
