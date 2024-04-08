@@ -8,6 +8,8 @@ template<typename T>
 * @class Vector2
 * @brief Stock deux valeurs
 * @details Cette class est parent de tous les Vector2# (Vector2d, Vector2f, Vector2i) et peut être initialisé avec un type choisi
+*
+* @todo Gérer les constructeur par copy d'une bonne manière
 */
 class Vector2
 {

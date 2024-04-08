@@ -159,6 +159,8 @@ TexteBox::~TexteBox()
 
 void TexteBox::buildTexteBox()
 {
+  if(texteFont == nullptr)
+    std::cerr << "Error buiding texteBox, font initialized has nullptr" << std::endl;
   float sizeTotal = 0.0f;
   for (unsigned int i = 0; i < sizeTexte; i++){
     glyphList[i].setSize(Vector2f(texteFont->charL[static_cast<unsigned char>(texte[i])].size.x,texteFont->charL[static_cast<unsigned char>(texte[i])].size.y));
@@ -258,3 +260,7 @@ void TexteBox::setTexte(const char * nTexte)
   buildTexteBox();
 }
 
+void TexteBox::setFont(Font *font_)
+{
+  texteFont = font_;
+}

@@ -27,6 +27,8 @@ void loadFontTexture(const char* fontPath, int fontSize, Character* charList, in
  * @brief Stock une police de caractère
  *
  * @note Utilisé par la class TexteBox
+ *
+ * @todo créer un Constructeur par défaukt avec une police system
  */
 class Font
 {
@@ -82,6 +84,13 @@ public:
   void setAlpha(float nAlpha);
   float getRotation();
   void setRotation(float nRotation);
+
+  /**
+   * @brief Change la font de la texte box
+   *
+   * @param[in] font_ nouvelle font
+   */
+  void setFont(Font *font);
   
   /**
   * @brief Renvoie la chaine de caractères affiché

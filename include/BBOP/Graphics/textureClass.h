@@ -14,6 +14,7 @@
  * @see Sprite 
  *
  * @todo Ajouter la possibilité de gérer plusieur format d'image comme jpg, jpeg, ou gif ext...
+ * @todo Ajouter la possibilité de généré un list de Texture a partir d'une sprite sheet avec le nombre de colonnes et de lignes
  */
 class Texture 
 {
