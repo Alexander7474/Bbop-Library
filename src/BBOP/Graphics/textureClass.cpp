@@ -24,17 +24,7 @@ Texture::Texture(const char* textureFileName){
   }
   else
   {
-    cerr << "-> failed to load texture, loading default texture" << endl;
-    textureFileName = "imgTesting/noTexture.png";
-    data = stbi_load(textureFileName, &width, &height, &nrChannels, STBI_rgb_alpha);
-    if (data)
-    {
-      glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
-    }
-    else
-    {
-      cerr << "-> failed to load default texture" << endl;
-    }
+    cerr << "BBOP ERROR -> failed to load texture" << endl;
   }
   stbi_image_free(data); 
   glBindTexture(GL_TEXTURE_2D, 0);

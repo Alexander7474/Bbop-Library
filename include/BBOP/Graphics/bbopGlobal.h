@@ -18,17 +18,11 @@
 /**
  * @brief RenderMode avec uniquement les textures
  */
-extern int BBOP_SHADER_MODE_TEXTURE;
-
-/**
- * @brief RenderMode avec uniquement les couleurs
- */
-extern int BBOP_SHADER_MODE_COLOR;
-
-/**
- * @brief RenderMode en mixant les textures et les couleurs
- */
-extern int BBOP_SHADER_MODE_MIX;
+enum BBOP_SHADER_MODE_ENUM:int {
+  BBOP_SHADER_MODE_TEXTURE=0,
+  BBOP_SHADER_MODE_COLOR=1,
+  BBOP_SHADER_MODE_MIX=2
+};
 
 /**
  * @brief Variable global qui stoke la taille de la fenêtre.
@@ -46,11 +40,8 @@ extern Vector2i BBOP_WINDOW_RESOLUTION;
  * 
  * @param[in] filename Chemin d'accès vers le fichier à lire.
  * @return std::string Contenu du fichier.
- *
- * @see Shader
- * @todo Changer son nom en bbopGetFileData et la déplacer dans bbopFunc.h et bbopFunc.cpp
  */
-std::string getFileData(const char* filename);
+std::string bbopGetFileData(const char* filename);
 
 /**
  * @class BbopDrawable
