@@ -21,28 +21,28 @@ NC = \033[0m
 all: final
 
 final: $(OBJS)
-	@echo "$(PURPLE)Linking compiled files $(NC)"
+	@echo -e "$(PURPLE)Linking compiled files $(NC)"
 	@$(CC) $(CFLAGS) -o $@ $^ $(LIBS)
-	@echo "$(GREEN)Linkage done ! $(NC)"
+	@echo -e "$(GREEN)Linkage done ! $(NC)"
 
 %.o: %.cpp
-	@echo "$(GREEN)Compiling $(CYAN)[$@] $(NC)"
+	@echo -e "$(GREEN)Compiling $(CYAN)[$@] $(NC)"
 	@$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
-	@echo "$(PURPLE)Deleting all objects files and final$(NC)"
+	@echo -e "$(PURPLE)Deleting all objects files and final$(NC)"
 	@rm -f final $(OBJS)
 
 install:
-	@echo "$(PURPLE)Making $(CYAN)[libbbop.a]$(NC)"
+	@echo -e "$(PURPLE)Making $(CYAN)[libbbop.a]$(NC)"
 	@ar rcs libbbop.a $(OBJSNM)
-	@echo "$(CYAN)[libbbop.a]$(GREEN) created !$(NC)"
-	@echo "$(PURPLE)Moving include to $(CYAN)[/usr/local/include/]$(NC)"
+	@echo -e "$(CYAN)[libbbop.a]$(GREEN) created !$(NC)"
+	@echo -e "$(PURPLE)Moving include to $(CYAN)[/usr/local/include/]$(NC)"
 	@cp -r include/BBOP /usr/local/include/
-	@echo "$(GREEN)Move done !$(NC)"
-	@echo "$(PURPLE)Moving $(CYAN)[libbbop.a]$(GREEN) to $(CYAN)[/usr/local/lib/]$(NC)"
+	@echo -e "$(GREEN)Move done !$(NC)"
+	@echo -e "$(PURPLE)Moving $(CYAN)[libbbop.a]$(GREEN) to $(CYAN)[/usr/local/lib/]$(NC)"
 	@mv libbbop.a /usr/local/lib/
-	@echo "$(GREEN)Move done !$(NC)"
+	@echo -e "$(GREEN)Move done !$(NC)"
 
 uninstall:
 	@rm /usr/local/lib/libbbop.a
