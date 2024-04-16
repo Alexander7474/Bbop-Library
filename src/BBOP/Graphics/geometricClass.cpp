@@ -1,5 +1,17 @@
-#include "../../../include/BBOP/Graphics/geometricClass.h"
+/*
+ * geometricClass.cpp
+ *
+ * Ce programme est distribué sous les termes de la Licence Publique
+ * Générale GNU, version 3.0, telle que publiée par la Free Software
+ * Foundation. Consultez la Licence Publique Générale GNU pour plus de
+ * détails.
+ *
+ * Vous devez avoir reçu une copie de la Licence Publique Générale GNU
+ * en même temps que ce programme. Si ce n'est pas le cas, consultez
+ * <https://www.gnu.org/licenses/>.
+ */
 
+#include "../../../include/BBOP/Graphics/geometricClass.h"
 
 Geometric::Geometric(Vector2f nPos, Vector2f nOrigin, Vector2f nSize, float nRotation): 
   pos(nPos.x ,nPos.y), 

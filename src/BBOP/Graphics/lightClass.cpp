@@ -1,5 +1,17 @@
-#include "../../../include/BBOP/Graphics/lightClass.h"
+/*
+ * lightClass.cpp
+ *
+ * Ce programme est distribué sous les termes de la Licence Publique
+ * Générale GNU, version 3.0, telle que publiée par la Free Software
+ * Foundation. Consultez la Licence Publique Générale GNU pour plus de
+ * détails.
+ *
+ * Vous devez avoir reçu une copie de la Licence Publique Générale GNU
+ * en même temps que ce programme. Si ce n'est pas le cas, consultez
+ * <https://www.gnu.org/licenses/>.
+ */
 
+#include "../../../include/BBOP/Graphics/lightClass.h"
 
 Light::Light(Vector2f nPos, float nIntensity, Vector3i nRGB, float nConstantAttenuation,float nLinearAttenuation, float nQuadraticAttenuation)
   : pos(nPos),

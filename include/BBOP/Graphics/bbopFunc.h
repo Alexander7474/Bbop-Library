@@ -1,3 +1,16 @@
+/*
+ * bbopFunc.h
+ *
+ * Ce programme est distribué sous les termes de la Licence Publique
+ * Générale GNU, version 3.0, telle que publiée par la Free Software
+ * Foundation. Consultez la Licence Publique Générale GNU pour plus de
+ * détails.
+ *
+ * Vous devez avoir reçu une copie de la Licence Publique Générale GNU
+ * en même temps que ce programme. Si ce n'est pas le cas, consultez
+ * <https://www.gnu.org/licenses/>.
+ */
+
 #ifndef BBOP_FUNCTION_H
 #define BBOP_FUNCTION_H
 
@@ -6,10 +19,12 @@
 #include "collisionBoxClass.h"
 #include "sceneClass.h"
 #include "shapeClass.h"
+#include "textureClass.h"
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include <vector>
 
 /**
 * @brief Fonction d'initialisation de Bbop Library
@@ -81,5 +96,17 @@ void bbopChangeWindowSize(int x_, int y_);
 * @see CollisionBox
 */
 void bbopDebugCollisionBox(const CollisionBox& box, Scene& scene);
+
+/**
+  * @brief Charge une sprite sheet dans un vector de Tetxture
+  *
+  * @param[in] rows Nombre de lignes
+  * @param[in] columns Nombre de colonnes 
+  * @param[in] spriteSheetPath Chemin d'accès vers la sprite sheet
+  * @return std::vector<Texture> Vector de texture avec les sprites chargé de droite à gauche
+  *
+  * @note À utiliser pour faire des animations plus facilement
+  */
+std::vector<Texture> &bbopLoadSpriteSheet(int rows, int columns, const char * spriteSheetPath);
 
 #endif // !BBOP_FUNCTION_H
