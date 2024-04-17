@@ -14,6 +14,9 @@
 #ifndef SHADERS_CODE_H
 #define SHADERS_CODE_H
 
+/**
+ * @todo utiliser des matrices de model, de view et de projection pour le vertex sahder
+ */
 extern const char* defaultFragment;
 extern const char* defaultVertex;
  
