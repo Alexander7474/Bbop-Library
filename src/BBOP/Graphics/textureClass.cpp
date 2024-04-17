@@ -13,11 +13,11 @@
 
 #include "../../../include/BBOP/Graphics/textureClass.h"
 #include <iostream>
+#include <vector>
 
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb/stb_image.h>
 
-using namespace std;
 
 Texture::Texture(const char* textureFileName){
   glGenTextures(1, &ID);
@@ -38,7 +38,7 @@ Texture::Texture(const char* textureFileName){
   }
   else
   {
-    cerr << "BBOP ERROR -> failed to load texture" << endl;
+    std::cerr << "BBOP ERROR -> failed to load texture" << std::endl;
   }
   stbi_image_free(data); 
   glBindTexture(GL_TEXTURE_2D, 0);
@@ -56,6 +56,9 @@ Texture::Texture(const Image &textureImage)
   glGenerateMipmap(GL_TEXTURE_2D);
   // charge et génère la texture
   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textureImage.width, textureImage.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureImage.data);
+  width = textureImage.width;
+  height = textureImage.height;
+  nrChannels = textureImage.nrChannels;
   glBindTexture(GL_TEXTURE_2D, 0);
 }
 
@@ -84,30 +87,56 @@ void Texture::Delete()
   glDeleteTextures(1, &ID);
 }
 
-Image bbopLoadPartialImage(const char *filename, int nrChannels, int x, int y, int width, int height) {
-    Image toLoad;
-    stbi_set_flip_vertically_on_load(true);
-    unsigned char *data = stbi_load(filename, &toLoad.width, &toLoad.height, &toLoad.nrChannels, nrChannels);
-
-    if (x + width > toLoad.width || y + height > toLoad.height) {
-        stbi_image_free(data);
-        toLoad.data = nullptr;
-        return toLoad;
-    }
-
-    toLoad.data = (unsigned char *)malloc(width * height * nrChannels);
-    for (int j = 0; j < height; ++j) {
-        for (int i = 0; i < width; ++i) {
-            for (int k = 0; k < nrChannels; ++k) {
-              toLoad.data[(j * width + i) * nrChannels + k] = data[((toLoad.height - y - height + j) * toLoad.width + (x + i)) * toLoad.nrChannels + k];
-            }
-        }
-     }
-    toLoad.width = width;
-    toLoad.height = height;
-    toLoad.nrChannels = nrChannels;
-
-    stbi_image_free(data);
+Image bbopLoadImage(const char *filename, int nrChannels)
+{
+  Image toLoad;
+  stbi_set_flip_vertically_on_load(true);
+  toLoad.data = stbi_load(filename, &toLoad.width, &toLoad.height, &toLoad.nrChannels, nrChannels);
+  if(toLoad.data){
     return toLoad;
+  }else {
+    std::cerr << "BBOP ERROR -> failed to load " << filename << std::endl;
+    return toLoad;
+  }
+}
+
+Image bbopCCutImage(const Image &toCC, int x, int y, int width, int height)
+{
+  Image result;
+  if (x + width > toCC.width || y + height > toCC.height) {
+      std::cerr << "BBOP ERROR -> failed to cut image" << std::endl;
+      result.data = nullptr;
+      return result;
+  }
+
+  result.data = (unsigned char *)malloc(width * height * toCC.nrChannels);
+  for (int j = 0; j < height; ++j) {
+      for (int i = 0; i < width; ++i) {
+          for (int k = 0; k < toCC.nrChannels; ++k) {
+            result.data[(j * width + i) * toCC.nrChannels + k] = toCC.data[((toCC.height - y - height + j) * toCC.width + (x + i)) * toCC.nrChannels + k];
+          }
+      }
+   }
+  result.width = toCC.width;
+  result.height = toCC.height;
+  result.nrChannels = toCC.nrChannels;
+
+  return result;
+}
+
+Image bbopLoadPartialImage(const char *filename, int nrChannels, int x, int y, int width, int height) {
+    Image notCC = bbopLoadImage(filename, nrChannels);
+    Image cuted = bbopCCutImage(notCC, x, y, width, height);
+    stbi_image_free(notCC.data);
+    return cuted;
+}
+
+std::vector<Texture> bbopLoadSpriteSheet(const char *spriteSheetPath, int rows, int columns)
+{
+  std::vector<Texture> vecSheet;
+  Image imgSheet;
+  stbi_load(spriteSheetPath, &imgSheet.width, &imgSheet.height, &imgSheet.nrChannels, STBI_rgb_alpha);
+
+  return vecSheet;
 }
 

@@ -24,7 +24,8 @@ int main() {
   Scene defaultScene(0.0f,Vector3i(255,255,255));
   //creation d'un rectangle a afficher, par default blanc en haut a gauche de l'image
 
-  Sprite defaultSprite(Texture("imgTesting/anim/00001.png"), Vector2f(0.0f,0.0f), Vector3i(255,255,255), Vector2f(50.0f,50.0f));
+  Image testImage = bbopLoadPartialImage("imgTesting/anim/00001.png", 4, 0, 0, 400, 300);
+  Sprite defaultSprite(Texture(testImage), Vector2f(0.0f,0.0f), Vector3i(255,255,255), Vector2f(50.0f,50.0f));
   defaultSprite.setSize(Vector2f(100.0f,100.0f));
   defaultSprite.flipVertically();
   std::vector<Texture> animList;
@@ -80,7 +81,6 @@ int main() {
     //draw player
     if(animState >= static_cast<int>(animList.size())*5)
       animState = 0;
-    defaultSprite.setTexture(animList[animState/5]);
     defaultScene.Draw(defaultSprite);
 
     bbopDebugCollisionBox(defaultSprite.getCollisionBox(), defaultScene);

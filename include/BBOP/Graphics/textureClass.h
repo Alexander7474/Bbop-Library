@@ -106,6 +106,16 @@ private:
 };
 
 /**
+ * @brief Load une image
+ */
+Image bbopLoadImage(const char *filename, int nrChannels);
+
+/**
+ * @brief Copy et coupe une image
+ */
+Image bbopCCutImage(const Image &toCC, int x, int y, int width, int height);
+
+/**
  * @brief Charge de manière partiel une image 
  *
  * @param[in] filename Chemin d'acès vers l'image 
@@ -130,6 +140,6 @@ Image bbopLoadPartialImage(const char *filename, int nrChannels, int x, int y, i
   *
   * @note À utiliser pour faire des animations plus facilement
   */
-std::vector<Texture> &bbopLoadSpriteSheet(int rows, int columns, const char * spriteSheetPath);
+std::vector<Texture> bbopLoadSpriteSheet(const char *spriteSheetPath, int rows, int columns);
 
 #endif // !TEXTURE_CLASS_H
