@@ -24,8 +24,7 @@ int main() {
   Scene defaultScene(0.0f,Vector3i(255,255,255));
   //creation d'un rectangle a afficher, par default blanc en haut a gauche de l'image
 
-  Image testImage = bbopLoadPartialImage("imgTesting/anim/00001.png", 4, 0, 0, 400, 300);
-  Sprite defaultSprite(Texture(testImage), Vector2f(0.0f,0.0f), Vector3i(255,255,255), Vector2f(50.0f,50.0f));
+  Sprite defaultSprite(Texture("imgTesting/anim/00001.png"), Vector2f(0.0f,0.0f), Vector3i(255,255,255), Vector2f(50.0f,50.0f));
   defaultSprite.setSize(Vector2f(100.0f,100.0f));
   defaultSprite.flipVertically();
   std::vector<Texture> animList;
@@ -42,6 +41,8 @@ int main() {
   int playerDirection = 0;
   bool playerInMovement = false;
   Vector2f playerMoveVec(0.0f,0.0f);
+
+  animList = bbopLoadSpriteSheet("imgTesting/sheet.png", 4, 9);
 
   // ground gestion
   std::vector<Sprite> ground;
@@ -81,6 +82,7 @@ int main() {
     //draw player
     if(animState >= static_cast<int>(animList.size())*5)
       animState = 0;
+    defaultSprite.setTexture(animList[animState/5]);
     defaultScene.Draw(defaultSprite);
 
     bbopDebugCollisionBox(defaultSprite.getCollisionBox(), defaultScene);
@@ -90,6 +92,7 @@ int main() {
 
     //draw ground
     for(size_t i = 0; i < ground.size(); i++){
+      defaultScene.Draw(ground[i]);
     }
 
     //gestion des mouvement

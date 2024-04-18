@@ -43,6 +43,7 @@ struct Image
  *
  * @todo Ajouter la possibilité de gérer plusieur format d'image comme jpg, jpeg, ou gif ext...
  * @todo Ajouter la possibilité de généré un list de Texture a partir d'une sprite sheet avec le nombre de colonnes et de lignes
+ * @todo créer un destructeur de Texture
  */
 class Texture 
 {

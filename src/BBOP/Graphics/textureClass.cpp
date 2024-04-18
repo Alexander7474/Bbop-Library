@@ -117,8 +117,8 @@ Image bbopCCutImage(const Image &toCC, int x, int y, int width, int height)
           }
       }
    }
-  result.width = toCC.width;
-  result.height = toCC.height;
+  result.width = width;
+  result.height = height;
   result.nrChannels = toCC.nrChannels;
 
   return result;
@@ -134,8 +134,21 @@ Image bbopLoadPartialImage(const char *filename, int nrChannels, int x, int y, i
 std::vector<Texture> bbopLoadSpriteSheet(const char *spriteSheetPath, int rows, int columns)
 {
   std::vector<Texture> vecSheet;
-  Image imgSheet;
-  stbi_load(spriteSheetPath, &imgSheet.width, &imgSheet.height, &imgSheet.nrChannels, STBI_rgb_alpha);
+  Image imgSheet = bbopLoadImage(spriteSheetPath, STBI_rgb_alpha);
+
+  const unsigned int rowSize = imgSheet.height/rows; 
+  const unsigned int columnsSize = imgSheet.width/columns; 
+
+  for (int i = 0; i < rows; i++){
+    for(int j = 0; j < columns; j++){
+      Image spr = bbopCCutImage(imgSheet, j*columnsSize, i*rowSize, columnsSize-1, rowSize-1);
+      Texture sprTexture(spr);
+      vecSheet.push_back(sprTexture);
+      stbi_image_free(spr.data);
+    }
+  }
+
+  stbi_image_free(imgSheet.data);
 
   return vecSheet;
 }
