@@ -97,16 +97,4 @@ void bbopChangeWindowSize(int x_, int y_);
 */
 void bbopDebugCollisionBox(const CollisionBox& box, Scene& scene);
 
-/**
-  * @brief Charge une sprite sheet dans un vector de Tetxture
-  *
-  * @param[in] rows Nombre de lignes
-  * @param[in] columns Nombre de colonnes 
-  * @param[in] spriteSheetPath Chemin d'accès vers la sprite sheet
-  * @return std::vector<Texture> Vector de texture avec les sprites chargé de droite à gauche
-  *
-  * @note À utiliser pour faire des animations plus facilement
-  */
-std::vector<Texture> &bbopLoadSpriteSheet(int rows, int columns, const char * spriteSheetPath);
-
 #endif // !BBOP_FUNCTION_H

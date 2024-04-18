@@ -114,3 +114,4 @@ void bbopDebugCollisionBox(const CollisionBox &box, Scene& scene)
   scene.Draw(rect);
   glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
+

@@ -106,6 +106,9 @@ fi
 #installation des libs nécessaires
 package_manager="not_found"
 
+#list des package a installer
+package_list=("libglew-dev" "xorg-dev" "libfreetype6-dev" "libwayland-dev" "libxkbcommon-dev" "wayland-protocols" "libstb-dev" "extra-cmake-modules")
+
 #on determine le package manager
 if command -v dpkg &> /dev/null
 then 
@@ -116,6 +119,7 @@ then
 elif command -v pacman &> /dev/null
 then 
   package_manager="pacman"
+  package_list=("glew" "freetype2")
 fi
 
 if [[ $package_manager == "not_found" ]]
@@ -124,9 +128,6 @@ then
 else
   echo -e "${Yellow}package manager found:${Color_Off} $package_manager"
 fi
-
-#list des package a installer
-package_list=("libglew-dev" "xorg-dev" "libfreetype6-dev" "libwayland-dev" "libxkbcommon-dev" "wayland-protocols" "libstb-dev" "extra-cmake-modules")
 
 echo -e "${Yellow}Installing necessary packages"
 for package in "${package_list[@]}"
