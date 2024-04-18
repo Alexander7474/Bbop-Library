@@ -127,7 +127,7 @@ Image bbopCCutImage(const Image &toCC, int x, int y, int width, int height)
 Image bbopLoadPartialImage(const char *filename, int nrChannels, int x, int y, int width, int height) {
     Image notCC = bbopLoadImage(filename, nrChannels);
     Image cuted = bbopCCutImage(notCC, x, y, width, height);
-    stbi_image_free(notCC.data);
+    bbopFreeImage(notCC);
     return cuted;
 }
 
@@ -144,12 +144,17 @@ std::vector<Texture> bbopLoadSpriteSheet(const char *spriteSheetPath, int rows, 
       Image spr = bbopCCutImage(imgSheet, j*columnsSize, i*rowSize, columnsSize-1, rowSize-1);
       Texture sprTexture(spr);
       vecSheet.push_back(sprTexture);
-      stbi_image_free(spr.data);
+      bbopFreeImage(spr);
     }
   }
 
-  stbi_image_free(imgSheet.data);
+  bbopFreeImage(imgSheet);
 
   return vecSheet;
+}
+
+void bbopFreeImage(Image &image)
+{
+  stbi_image_free(image.data);
 }
 

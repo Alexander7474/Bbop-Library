@@ -25,6 +25,8 @@
  *
  * @note Peut être utiliser avec les fonctions de chargements d'image personnalisées pour être passé en paramètre au constructeur de Texture 
  * @see Texture bbopLoadImagePartial bbopLoadSpriteSheet
+ *
+ * @todo peut-être en faire une class, à voir 
  */
 struct Image 
 {
@@ -132,7 +134,7 @@ Image bbopCCutImage(const Image &toCC, int x, int y, int width, int height);
 Image bbopLoadPartialImage(const char *filename, int nrChannels, int x, int y, int width, int height);
 
 /**
-  * @brief Charge une sprite sheet dans un vector de Tetxture
+  * @brief Charge une sprite sheet dans un vector de Texture
   *
   * @param[in] rows Nombre de lignes
   * @param[in] columns Nombre de colonnes 
@@ -142,5 +144,12 @@ Image bbopLoadPartialImage(const char *filename, int nrChannels, int x, int y, i
   * @note À utiliser pour faire des animations plus facilement
   */
 std::vector<Texture> bbopLoadSpriteSheet(const char *spriteSheetPath, int rows, int columns);
+
+/**
+ * Vide le tablea ude données d'une Image 
+ *
+ * @param[in] image image à vider 
+ */
+void bbopFreeImage(Image &image);
 
 #endif // !TEXTURE_CLASS_H
