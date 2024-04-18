@@ -1,8 +1,9 @@
 # Bbop Library
 ## Informations
 
-[![Last version](https://img.shields.io/badge/Last_version-0.1-blue)](https://github.com/Alexander7474/Bbop-Library/releases)
-[![License](https://img.shields.io/badge/License-GPL-&#45;3.0-blue)](https://github.com/Alexander7474)
+![GitHub License](https://img.shields.io/github/license/Alexander7474/Bbop-Library)
+![GitHub Release](https://img.shields.io/github/v/release/Alexander7474/Bbop-Library?include_prereleases&color=pink)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/Alexander7474/Bbop-Library/latest?color=green)
 ![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/t/Alexander7474/Bbop-Library/main)
 ![GitHub last commit](https://img.shields.io/github/last-commit/Alexander7474/Bbop-Library?link=https%3A%2F%2Fgithub.com%2FAlexander7474%2FBbop-Library%2Fcommits%2Fmain%2F)
 ![GitHub top language](https://img.shields.io/github/languages/top/Alexander7474/Bbop-Library?logo=c%2B%2B&logoColor=red&color=red)
