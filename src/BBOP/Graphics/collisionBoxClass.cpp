@@ -18,6 +18,10 @@ CollisionBox::CollisionBox(Vector2f nPos, Vector2f nOrigin, Vector2f nSize, floa
   Geometric(nPos, nOrigin, nSize, nRotation)
 {}
 
+CollisionBox::CollisionBox():
+  Geometric()
+{}
+
 CollisionBox::CollisionBox(const Geometric &to_follow): 
   Geometric(to_follow)
 {}

@@ -43,6 +43,11 @@ public:
    * @param[in] to_follow Geometric à copier 
    */
   CollisionBox(const Geometric& to_follow);
+  
+  /**
+   * @brief constructeur par défault de la boîte de collision 
+   */ 
+  CollisionBox();
 
   /**
   * @brief Detecte si la boîte est en collision avec une autre
