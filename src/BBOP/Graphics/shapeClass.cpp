@@ -12,6 +12,7 @@
  */
 
 #include "../../../include/BBOP/Graphics/shapeClass.h"
+#include <GLFW/glfw3.h>
 
 using namespace std;
 
@@ -40,6 +41,29 @@ Shape::Shape()
     shapeCollisionBox(pos, origin, size, rotation),
     alpha(1.0f)
 {}
+
+Shape::~Shape()
+{
+  shapeVAO.Delete();
+  shapeVBO.Delete();
+  shapeEBO.Delete();
+  if(shapeVAO.ID == 3)
+    return;
+  //std::cerr << "Shape détruite, EBO:" << shapeEBO.ID << " VBO:" << shapeVBO.ID << " VAO:"  << shapeVAO.ID  << " time:" << glfwGetTime() << std::endl;
+}
+
+Shape::Shape(const Shape &other)
+  : pos(other.pos),
+    size(other.size),
+    origin(other.origin),
+    RGB(other.RGB),
+    autoUpdateCollision(other.autoUpdateCollision),
+    rotation(other.rotation),
+    shapeCollisionBox(other.shapeCollisionBox),
+    alpha(other.alpha)
+{
+  
+}
 
 void Shape::initShape(GLfloat* vertices, GLsizeiptr verticesSize, GLuint* indices, GLsizeiptr indicesSize)
 {

@@ -67,7 +67,7 @@ public:
   *
   * @param[in] nTexture texture 
   */
-  void setTexture(Texture nTexture);
+  void setTexture(const Texture &nTexture);
 
   /**
   * @brief Renvoie si oui ou non le filtre de couleur est activé 
@@ -109,6 +109,7 @@ class NoTextureSprite : public Sprite
 {
 public:
   void Draw(GLint renderModeLoc) const override;
+
 };
 
 #endif // !SPRITE_CLASS_H

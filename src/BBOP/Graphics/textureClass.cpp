@@ -62,6 +62,13 @@ Texture::Texture(const Image &textureImage)
   glBindTexture(GL_TEXTURE_2D, 0);
 }
 
+Texture::Texture(const Texture &other)
+  : ID(other.ID),
+    width(other.width),
+    height(other.height),
+    nrChannels(other.nrChannels)
+{}
+
 int Texture::getWidth() const
 {
   return width;

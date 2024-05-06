@@ -270,7 +270,7 @@ void TexteBox::setTexte(const char * nTexte)
   texte = new char[strlen(nTexte)+ 1];
   strcpy(const_cast<char*>(texte), nTexte);
   sizeTexte = static_cast<unsigned int>(strlen(texte));
-  delete[] glyphList;
+  delete [] glyphList;
   glyphList = new NoTextureSprite[sizeTexte];
   buildTexteBox();
 }

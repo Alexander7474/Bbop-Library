@@ -50,6 +50,16 @@ public:
   Shape();
 
   /**
+   * @brief Constructeur par copie de shape
+   */ 
+  Shape(const Shape &other);
+
+  /**
+   * @brief Destructeur de shape
+   */
+  ~Shape();
+
+  /**
    * @brief Initialise la Shape comme sont constructeur
    */
   void initShape(GLfloat* vertices, GLsizeiptr verticesSize, GLuint* indices, GLsizeiptr indicesSize);

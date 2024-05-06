@@ -185,7 +185,7 @@ void Sprite::Draw(GLint renderModeLoc) const
   spriteTexture->Unbind();
 }
 
-void Sprite::setTexture(Texture nTexture)
+void Sprite::setTexture(const Texture &nTexture)
 {
   delete spriteTexture;
   spriteTexture = new Texture(nTexture);

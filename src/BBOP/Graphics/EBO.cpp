@@ -11,6 +11,8 @@
  * <https://www.gnu.org/licenses/>.
  */
 
+#include <iostream>
+
 #include "../../../include/BBOP/Graphics/EBO.h"
 
 // Constructor that generates a Elements Buffer Object and links it to indices
