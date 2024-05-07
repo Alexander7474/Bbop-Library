@@ -22,6 +22,7 @@
  * @brief gère un objet avec de propriété géométrique
  *
  * @note Class utile pour décrire toute forme géometrique
+ * @todo ajouter a shape
  */
 class Geometric 
 {

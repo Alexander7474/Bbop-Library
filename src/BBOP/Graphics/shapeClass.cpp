@@ -53,7 +53,10 @@ Shape::~Shape()
 }
 
 Shape::Shape(const Shape &other)
-  : pos(other.pos),
+  : shapeVAO(),
+    shapeVBO(),
+    shapeEBO(),
+    pos(other.pos),
     size(other.size),
     origin(other.origin),
     RGB(other.RGB),

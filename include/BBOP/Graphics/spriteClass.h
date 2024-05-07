@@ -55,9 +55,20 @@ public:
    * @note Utilsier setTexture avant d'utiliser le Sprite 
    */ 
   Sprite();
+
+  /**
+   * @brief Constructeur de srpite
+   */
   Sprite(const Sprite& other);
+
+  /**
+   * @brief Destructeur de sprite
+   */
   ~Sprite();
 
+  /**
+   * @brief Operateur = de sprite
+   */
   Sprite& operator=(const Sprite& other);
 
   void Draw(GLint renderModeLoc) const override;
