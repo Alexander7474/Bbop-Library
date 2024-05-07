@@ -47,8 +47,6 @@ Shape::~Shape()
   shapeVAO.Delete();
   shapeVBO.Delete();
   shapeEBO.Delete();
-  if(shapeVAO.ID == 3)
-    return;
   //std::cerr << "Shape détruite, EBO:" << shapeEBO.ID << " VBO:" << shapeVBO.ID << " VAO:"  << shapeVAO.ID  << " time:" << glfwGetTime() << std::endl;
 }
 
