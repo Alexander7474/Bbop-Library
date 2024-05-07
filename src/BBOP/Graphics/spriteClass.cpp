@@ -55,6 +55,12 @@ Sprite::Sprite(const Sprite& other)
     spriteTexture(new Texture(*other.spriteTexture)),
     isRGBFilter(other.isRGBFilter)
 {
+  for(int i = 0; i < 32; i++)
+    vertices[i] = other.vertices[i];
+  for(int i = 0; i < 6; i++)
+    indices[i] = other.indices[i];
+  shapeVBO.init(vertices, sizeof(vertices), GL_DYNAMIC_DRAW);
+  shapeEBO.init(indices, sizeof(indices));
   buildVAO();
 }
 
@@ -185,7 +191,7 @@ void Sprite::Draw(GLint renderModeLoc) const
   spriteTexture->Unbind();
 }
 
-void Sprite::setTexture(Texture nTexture)
+void Sprite::setTexture(const Texture &nTexture)
 {
   delete spriteTexture;
   spriteTexture = new Texture(nTexture);

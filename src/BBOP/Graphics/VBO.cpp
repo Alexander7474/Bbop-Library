@@ -11,6 +11,8 @@
  * <https://www.gnu.org/licenses/>.
  */
 
+#include <iostream>
+
 #include "../../../include/BBOP/Graphics/VBO.h"
 
 // Constructor that generates a Vertex Buffer Object and links it to vertices

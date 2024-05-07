@@ -55,9 +55,20 @@ public:
    * @note Utilsier setTexture avant d'utiliser le Sprite 
    */ 
   Sprite();
+
+  /**
+   * @brief Constructeur de srpite
+   */
   Sprite(const Sprite& other);
+
+  /**
+   * @brief Destructeur de sprite
+   */
   ~Sprite();
 
+  /**
+   * @brief Operateur = de sprite
+   */
   Sprite& operator=(const Sprite& other);
 
   void Draw(GLint renderModeLoc) const override;
@@ -67,7 +78,7 @@ public:
   *
   * @param[in] nTexture texture 
   */
-  void setTexture(Texture nTexture);
+  void setTexture(const Texture &nTexture);
 
   /**
   * @brief Renvoie si oui ou non le filtre de couleur est activé 
@@ -109,6 +120,7 @@ class NoTextureSprite : public Sprite
 {
 public:
   void Draw(GLint renderModeLoc) const override;
+
 };
 
 #endif // !SPRITE_CLASS_H

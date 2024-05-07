@@ -70,7 +70,15 @@ public:
    * @attention Utiliser les fonctions de chargement d'image comme bbopLoadImagePartial
    */
   Texture(const Image &textureImage);
-  
+
+  /**
+   * @brief constructeur par copie de texture 
+   *
+   * @param other autre texture 
+   */ 
+  Texture(const Texture &other);
+
+    
   /**
   * @brief Permet de bin la texture a opengl avant de Draw
   *
