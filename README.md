@@ -1,5 +1,4 @@
 # Bbop Library
-## Informations
 
 ![GitHub License](https://img.shields.io/github/license/Alexander7474/Bbop-Library)
 ![GitHub Release](https://img.shields.io/github/v/release/Alexander7474/Bbop-Library?include_prereleases&color=pink)
@@ -8,89 +7,87 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/Alexander7474/Bbop-Library?link=https%3A%2F%2Fgithub.com%2FAlexander7474%2FBbop-Library%2Fcommits%2Fmain%2F)
 ![GitHub top language](https://img.shields.io/github/languages/top/Alexander7474/Bbop-Library?logo=c%2B%2B&logoColor=red&color=red)
 
-Bbop est un projet de library graphique utilisant opengl. La lib permet de gérer plus que de simple forme géométrique comme l'éclairage d'une scène, des points de lumières ou encore des ombrages.
+Bbop est un projet de librairie graphique utilisant l'api opengl ( :point_right: bientôt sous vulkan :point_left: ).   
+La librairie permet de créer des jeux vidéos 2D ou des applications de bureau. Elle enbarque un grand nombre d'objets en pasant par des formes géométriques et aux sprites jusqu'à la gestions de l'éclairages et des effets de lumières.   
+Elle est principalement développée et maintenue sous linux et macOS ( je fais tous mon possible pour une sortie sur window ).   
 
-1. [![Installation](https://img.shields.io/badge/Installation-lightgreen?style=for-the-badge)](#installation)
-2. [![Static Badge](https://img.shields.io/badge/Documentation-lightblue?style=for-the-badge)](https://alexander7474.github.io/bbop-web-docs/)
-3. [![Static Badge](https://img.shields.io/badge/Report_Bug-red?style=for-the-badge&logoColor=red)](#report-bug)
-4. [![Static Badge](https://img.shields.io/badge/Support-purple?style=for-the-badge)](#supporting)
-5. [![Static Badge](https://img.shields.io/badge/Contributors-yellow?style=for-the-badge)](#contributors)
+# Naviguer
+
+[![Installation](https://img.shields.io/badge/Installation-lightgreen?style=for-the-badge)](#installation)   
+[![Static Badge](https://img.shields.io/badge/Documentation-lightblue?style=for-the-badge)](https://alexander7474.github.io/bbop-web-docs/)   
+[![Static Badge](https://img.shields.io/badge/Exemple_code-lightyellow?style=for-the-badge)](https://alexander7474.github.io/bbop-web-docs/)   
+[![Static Badge](https://img.shields.io/badge/Report_Bug-red?style=for-the-badge&logoColor=red)](#report-bug)   
+[![Static Badge](https://img.shields.io/badge/Support-purple?style=for-the-badge)](#supporting)   
+[![Static Badge](https://img.shields.io/badge/Contributors-yellow?style=for-the-badge)](#contributors)   
 
 # Installation  
-## Installer les lib nécessaires: 
-[![OpenGL](https://img.shields.io/badge/OpenGL-%23FFFFFF.svg?style=for-the-badge&logo=opengl)](https://www.opengl.org)
-### Linux Packages
+
+## Librairies externes nécessaires
+
+### ![Static Badge](https://img.shields.io/badge/Debian-Packages-grey?style=for-the-badge&logo=debian&labelColor=D70A53)
+
 ```
-sudo apt-get install libglew-dev libglfw3-dev xorg-dev libfreetype6-dev
-sudo apt-get install libwayland-dev libxkbcommon-dev wayland-protocols extra-cmake-modules libstb-dev 
+sudo apt-get install libglew-dev libglfw3-dev xorg-dev libfreetype6-dev libstb-dev 
 ```
-### MacOS Packages
+
+### ![Static Badge](https://img.shields.io/badge/Arch_Linux-Packages-grey?style=for-the-badge&logo=arch-linux&logoColor=fff&labelColor=1793D1) 
+
+(I use arch btw)
+
 ```
-brew install glew freetype 
+sudo pacman -S glew glfw stb freetype2 glm
 ```
-### Installer glfw:
-on clone le repo glfw
+
+### ![Static Badge](https://img.shields.io/badge/mac_os-Packages-grey?style=for-the-badge&logo=macos&logoColor=F0F0F0&labelColor=black)
+
 ```
-git clone https://github.com/glfw/glfw.git
-cd glfw
+brew install glew freetype glfw glm
 ```
-Création du dossier de build
-```
-mkdir build
-cd build
-```
-Cmake avec le projet
-```
-cmake ..
-```
-Installation de glfw
-```
-make && sudo make install
-```
-### Installer glm
-on clone le repo glm
-```
-git clone https://github.com/g-truc/glm.git
-cd glm
-```
-Cmake avec le projet
-```
-cmake \
-    -DGLM_BUILD_TESTS=OFF \
-    -DBUILD_SHARED_LIBS=OFF \
-    -B build .
-cmake --build build -- all
-cmake --build build -- install
-```
+
+### :warning: Issue avec glfw et glm :warning:
+
+Dans certain cas il est nécessaires d'installer glfw et glm en les compilants depuis leurs repo github.
+
 ## Compiler et installer bbop
-### Linux
+
+### ![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
 ```
 git clone https://github.com/Alexander7474/Bbop-Library.git
 cd Bbop-Library
 make && sudo make install
 ```
-### MacOS
+
+### ![macOS](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=macos&logoColor=F0F0F0)
+
 ```
 git clone https://github.com/Alexander7474/Bbop-Library.git
 cd Bbop-Library
 ```
+
 Avant d'utiliser make pour compiler et installer bbop sur macOS il faut modifier le makefile selon commentaires de celui ci.
+
 ```
 make && sudo make install
 ```
+
 ## Compiler un projet
-### Linux
+
+### ![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
+
 ```
 g++ -I/usr/include/freetype2 -c main.cpp -o main.o
 g++ main.o -o final -std=c++11 -Wall -lbbop -lGLEW -lGL -lglfw -lfreetype
 ```
-### MacOS
+
+### ![macOS](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=macos&logoColor=F0F0F0)
+
 ```
 g++ -I/opt/homebrew/Cellar/freetype/2.13.2/include/freetype2 -I/opt/homebrew/Cellar/glew/2.2.0_1/include -I/usr/local/include/GLFW -c main.cpp -o main.o
 g++ main.o -o final -std=c++11 -Wall -lbbop -L/opt/homebrew/Cellar/freetype/2.13.2/lib -L/opt/homebrew/Cellar/glew/2.2.0_1/lib -framework Cocoa -framework OpenGL -framework IOKit -lfreetype  -lglfw3 -lGLEW.2.2.0
 ```
 
 # Exemple
+
 ```
 int main()
 {
