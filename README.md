@@ -8,7 +8,7 @@
 ![GitHub top language](https://img.shields.io/github/languages/top/Alexander7474/Bbop-Library?logo=c%2B%2B&logoColor=red&color=red)
 
 Bbop est un projet de librairie graphique utilisant l'api opengl ( :point_right: bientôt sous vulkan :point_left: ).   
-La librairie permet de créer des jeux vidéos 2D ou des applications de bureau. Elle enbarque un grand nombre d'objets en pasant par des formes géométriques et aux sprites jusqu'à la gestions de l'éclairages et des effets de lumières.   
+La librairie permet de créer des jeux vidéos 2D ou des applications de bureau. Elle embarque un grand nombre d'objets en pasant par des formes géométriques et aux sprites jusqu'à la gestions de l'éclairages et des effets de lumières.   
 Elle est principalement développée et maintenue sous linux et macOS ( je fais tous mon possible pour une sortie sur window ).   
 
 # Naviguer
