@@ -128,6 +128,34 @@ public:
   */
   void follow(const Geometric &to_follow);
 
+  /**
+  * @brief Renvoie la position y de la limite haute de la boite 
+  *
+  * @return top 
+  */
+  float getTop();
+
+  /**
+  * @brief Renvoie la position y de la limite basse de la boite 
+  *
+  * @return bottom
+  */
+  float getBottom();
+
+  /**
+  * @brief Renvoie la position x de la limite gauche de la boite 
+  *
+  * @return left 
+  */
+  float getLeft();
+
+  /**
+  * @brief Renvoie la position x de la limite droite de la boite 
+  *
+  * @return right
+  */
+  float getRight();
+
 private:
   Vector2f offsetX; //<! rétrécicement X
   Vector2f offsetY; //<! rétrécicement Y
