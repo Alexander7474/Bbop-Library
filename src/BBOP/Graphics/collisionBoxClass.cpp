@@ -31,7 +31,7 @@ bool CollisionBox::check(const CollisionBox &otherBox) const
   //cout << x << ";" << posY << " " << size.x << ";" << size.y <<  endl << otherBoxX << ";" << otherBoxY << endl;
   float left = pos.x-origin.x; float right = left+size.x;
   left+=offsetX.x;right-=offsetX.y;
-  float top = pos.y-origin.y+offsetY.x;float bottom = top+size.y-offsetY.y;
+  float top = pos.y-origin.y;float bottom = top+size.y;
   top+=offsetY.x;bottom-=offsetY.y;
   float otherLeft = otherBox.getPosition().x-otherBox.getOrigin().x;float otherRight = otherLeft+otherBox.getSize().x;
   otherLeft+=otherBox.getOffsetX().x;otherRight-=otherBox.getOffsetX().y;
