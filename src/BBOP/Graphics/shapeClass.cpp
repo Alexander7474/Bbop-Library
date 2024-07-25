@@ -160,6 +160,14 @@ void Shape::move(const Vector2f &vecM)
   updateVBO();
 }
 
+void Shape::move(float x_, float y_)
+{
+  pos.x += x_; pos.y += y_;
+  if(autoUpdateCollision)
+    shapeCollisionBox.setPosition(pos);
+  updateVBO();
+}
+
 const Vector2f &Shape::getSize() const
 {
   return size;

@@ -201,6 +201,15 @@ public:
    * @param[in] vecM vecteur de mouvement
    */
   void move(const Vector2f &vecM);
+
+  /**
+   * @brief Déplace la Shape
+   *
+   * @param[in] x_ distance en x
+   * @param[in] y_ distance en y
+   */
+  void move(float x_, float y_);
+
 protected:
   VAO shapeVAO; //<! VAO de opengl de la Shape
   VBO shapeVBO; //<! VBO opengl de la Shape
