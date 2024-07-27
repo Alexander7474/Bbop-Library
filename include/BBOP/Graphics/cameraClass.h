@@ -16,6 +16,8 @@
 
 #include "bbopGlobal.h"
 #include "bbopMathClass.h"
+#include "collisionBoxClass.h"
+#include "geometricClass.h"
 #include "shapeClass.h"
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -99,6 +101,19 @@ public:
   * @attention La méthode n'a été testé que sur des RectangleShape et des Sprite, Il peut y avaoir certain disfonctionnement avec les ConvexShape et les CircleShape. 
   */
   bool isInCamView(Shape& obj);
+
+  /**
+  * @brief Détermine si un geometrix est dans le champs de la camera
+  *
+  * @param[in] obj Objet à tester
+  * @return bool Oui ou Non l'objet est visible
+  *
+  * @note Cette méthode est très utile pour eviter d'afficher des objet non visible par le joueur ou même les détruirze quand ils sortent de l'écran.
+  * @attention La méthode n'a été testé que sur des RectangleShape et des Sprite, Il peut y avaoir certain disfonctionnement avec les ConvexShape et les CircleShape.
+  * @todo Gérer l'héritage de geometric sur shape pour avoir seulement une methode 
+  */
+  bool isInCamView(CollisionBox& obj);
+
 
   /**
   * @brief Limites de la camera en X

@@ -76,7 +76,19 @@ bool Camera::isInCamView(Shape& obj)
   float right = left+obj.getSize().x;
   float top = obj.getPosition().y-obj.getOrigin().y;
   float bottom = top+obj.getSize().y;
-  if(right<=camX.x || left >= camX.y || top >= camY.y || bottom <= camY.x){
+  if(right < camX.x || left > camX.y || top > camY.y || bottom < camY.x){
+    return false;
+  }
+  return true;
+}
+
+bool Camera::isInCamView(CollisionBox& obj)
+{
+  float left = obj.getLeft();
+  float right = obj.getRight();
+  float top = obj.getTop();
+  float bottom = obj.getBottom();
+  if(right < camX.x || left > camX.y || top > camY.y || bottom < camY.x){
     return false;
   }
   return true;
