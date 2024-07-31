@@ -49,7 +49,7 @@ int bbopInit(int windowX, int windowY, const char* windowName, GLFWwindow*& wind
   // Désactiver la synchronisation verticale (V-Sync)
   glfwSwapInterval(1);
   //General info
-  cout << "Bbop Engine Version 0.1" << endl << "Author: Alexander74" << endl << "Contact: alexandre.lanternier@outlook.fr" << endl << "License: GPL-3.0" << endl; 
+  cout << "Bbop Engine Version 0.3" << endl << "Author: Alexander74" << endl << "Contact: alexandre.lanternier@outlook.fr" << endl << "License: GPL-3.0" << endl; 
   //GPU info
   const GLubyte* vendor = glGetString(GL_VENDOR);
   const GLubyte* renderer = glGetString(GL_RENDERER);
