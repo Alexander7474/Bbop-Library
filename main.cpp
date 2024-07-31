@@ -31,17 +31,11 @@ int main() {
   bbopInit(956,1044,"test",window);
   
   //Creation de la scene pour afficher nos formes
-  Scene defaultScene(0.0f,Vector3i(255,255,255));
+  Scene defaultScene(1.0f,Vector3i(255,255,255));
 
-  CollisionBox test;
+  Sprite test(Texture("imgTesting/mario.png"));
 
-  test.setPosition(50.f,50.f);
-  test.setSize(40.f,40.f);
-  test.setOrigin(20.f,20.f);
-  test.setOffsetX(-10.f,5.f);
-  test.setOffsetY(3.f,-8.f);
-
-  std::cerr << "top: " << test.getTop() << " bottom: " << test.getBottom() << " right: " << test.getRight() << " left: " << test.getLeft() << std::endl; 
+  test.flipVertically();
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -51,6 +45,10 @@ int main() {
     //////////////////////////////////////////////////////////////
     ///code zone
     //////////////////////////////////////////////////////////////
+    ///
+    defaultScene.Use();
+
+    defaultScene.Draw(test);
        
     //////////////////////////////////////////////////////////////
     
