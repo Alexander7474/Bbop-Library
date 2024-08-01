@@ -18,6 +18,7 @@
 #include <GLFW/glfw3.h>
 #include <glm/fwd.hpp>
 #include <glm/glm.hpp>
+#include <vector>
 
 #include "include/BBOP/Graphics.h"
 #include "include/BBOP/Graphics/collisionBoxClass.h"
@@ -37,6 +38,10 @@ int main() {
 
   test.flipVertically();
 
+  vector<Sprite> tt;
+
+  tt.push_back(test);
+
 	while (!glfwWindowShouldClose(window))
 	{
     bbopCleanWindow(window, Vector3i(0,0,0),1.0);
@@ -48,7 +53,7 @@ int main() {
     ///
     defaultScene.Use();
 
-    defaultScene.Draw(test);
+    defaultScene.Draw(tt[0]);
        
     //////////////////////////////////////////////////////////////
     
