@@ -133,6 +133,13 @@ public:
   */
   void Draw(GLint renderModeLoc) const override;
 
+  /**
+   * @brief renvoie la taille de la boite de texte 
+   *
+   * @return size
+   */
+  const Vector2f &getSize();
+
 private:
   Font *texteFont;
   Vector2f pos;
@@ -144,6 +151,7 @@ private:
   unsigned int sizeTexte;
   NoTextureSprite* glyphList;
   float offset;
+  Vector2f size;
 };
 
 #endif // !FONTS_CLASS_H

@@ -13,6 +13,7 @@
 
 #include "../../../include/BBOP/Graphics/fontsClass.h"
 #include <algorithm>
+#include <cstddef>
 #include <cstring>
 #include <ostream>
 #include <vector>
@@ -176,9 +177,12 @@ void TexteBox::buildTexteBox()
     std::cerr << "Error buiding texteBox, font initialized has nullptr" << std::endl;
     return;
   }
-  float sizeTotal = 0.0f;
+  float sizeTotal = 0.f;
+  float sizeY = 0.f;
   for (unsigned int i = 0; i < sizeTexte; i++){
     glyphList[i].setSize(Vector2f(texteFont->charL[static_cast<unsigned char>(texte[i])].size.x,texteFont->charL[static_cast<unsigned char>(texte[i])].size.y));
+    if(glyphList[i].getSize().y > sizeY)
+      sizeY = glyphList[i].getSize().y;
     glyphList[i].setOrigin(Vector2f(-(sizeTotal+texteFont->charL[static_cast<unsigned char>(texte[i])].bearing.x)+origin.x,texteFont->charL[static_cast<unsigned char>(texte[i])].bearing.y+origin.y));
     glyphList[i].setPosition(pos);
     glyphList[i].setRotation(rotation);
@@ -189,6 +193,8 @@ void TexteBox::buildTexteBox()
       sizeTotal+=5.0f;
     sizeTotal+=texteFont->charL[static_cast<unsigned char>(texte[i])].size.x+texteFont->charL[static_cast<unsigned char>(texte[i])].bearing.x;
   }
+  size.x = sizeTotal;
+  size.y = sizeY;
 }
 
 void TexteBox::Draw(GLint renderModeLoc) const
@@ -279,4 +285,9 @@ void TexteBox::setFont(Font *font_)
 {
   texteFont = font_;
   buildTexteBox();
+}
+
+const Vector2f &TexteBox::getSize()
+{
+  return size;
 }

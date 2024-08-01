@@ -22,6 +22,7 @@
 
 #include "include/BBOP/Graphics.h"
 #include "include/BBOP/Graphics/collisionBoxClass.h"
+#include "include/BBOP/Graphics/fontsClass.h"
 
 
 using namespace std;
@@ -34,13 +35,10 @@ int main() {
   //Creation de la scene pour afficher nos formes
   Scene defaultScene(1.0f,Vector3i(255,255,255));
 
-  Sprite test(Texture("imgTesting/mario.png"));
-
-  test.flipVertically();
-
-  vector<Sprite> tt;
-
-  tt.push_back(test);
+  Font font(20, "fonts/arial.ttf");
+  TexteBox t("T   es    t", &font);
+  t.setPosition(Vector2f(0.f,15.f));
+  std::cerr << t.getSize().x << "  " << t.getSize().y << std::endl;
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -53,8 +51,8 @@ int main() {
     ///
     defaultScene.Use();
 
-    defaultScene.Draw(tt[0]);
        
+    defaultScene.Draw(t);
     //////////////////////////////////////////////////////////////
     
     bbopErrorCheck();
