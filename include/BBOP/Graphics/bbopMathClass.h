@@ -39,6 +39,7 @@ class Vector2i : public Vector2<int> {
 public:
     Vector2i();
     Vector2i(int x_, int y_);
+    Vector2i(const Vector2i& other);
 };
 
 class Vector2f : public Vector2<float> {
@@ -52,6 +53,7 @@ class Vector2d : public Vector2<double> {
 public:
     Vector2d();
     Vector2d(double x_, double y_);
+    Vector2d(const Vector2d& other);
 };
 
 template<typename T>

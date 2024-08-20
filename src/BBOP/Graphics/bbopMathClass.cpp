@@ -27,6 +27,8 @@ Vector2i::Vector2i() : Vector2<int>() {}
 
 Vector2i::Vector2i(int x_, int y_) : Vector2<int>(x_, y_) {}
 
+Vector2i::Vector2i(const Vector2i& other): Vector2<int>(other.x, other.y) {}
+
 // Implémentation de la classe Vector2f
 Vector2f::Vector2f() : Vector2<float>() {}
 
@@ -38,6 +40,8 @@ Vector2f::Vector2f(const Vector2f& other): Vector2<float>(other.x, other.y) {}
 Vector2d::Vector2d() : Vector2<double>() {}
 
 Vector2d::Vector2d(double x_, double y_) : Vector2<double>(x_, y_) {}
+
+Vector2d::Vector2d(const Vector2d& other): Vector2<double>(other.x, other.y) {}
 
 template<typename T>
 Vector3<T>::Vector3() : x(T()), y(T()), z(T()) {}
