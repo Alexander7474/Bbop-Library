@@ -113,7 +113,7 @@ void main()
     float distance = length(lightPos.xy - normalizeVec2(convertedFrag));
     float attenuation = 1.0 / (lights[i].constantAttenuation + lights[i].linearAttenuation * distance + lights[i].quadraticAttenuation * distance * distance);
     float intensity = attenuation*lights[i].intensity;
-    vec4 thislight = intensity*vec4(lights[i].color, 0.0);
+    vec4 thislight = projection*intensity*vec4(lights[i].color, 0.0);
     finalLight+=thislight;
   }
 
