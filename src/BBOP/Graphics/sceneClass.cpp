@@ -73,11 +73,16 @@ void Scene::useCamera(Camera* camAddr)
 void Scene::Draw(const BbopDrawable& spr) const
 {
   glm::mat4 projection;
-  if (sceneCamera != nullptr)
+  float camScale;
+  if (sceneCamera != nullptr){
     projection = glm::ortho(sceneCamera->camX.x, sceneCamera->camX.y, sceneCamera->camY.y, sceneCamera->camY.x, -1.0f, 1.0f);
-  else
+    camScale = sceneCamera->getScale();
+  }else{
     projection = glm::ortho(0.0f, static_cast<float>(BBOP_WINDOW_RESOLUTION.x), static_cast<float>(BBOP_WINDOW_RESOLUTION.y), 0.0f, -1.0f, 1.0f);
+    camScale = 1.f;
+  }
   glUniformMatrix4fv(sceneShader.getUniformLoc("projection"), 1, GL_FALSE, glm::value_ptr(projection));
+  glUniform1f(sceneShader.getUniformLoc("camScale"), camScale);
   spr.Draw(renderModeLoc);
 }
 

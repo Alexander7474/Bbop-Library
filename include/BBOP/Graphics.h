@@ -33,3 +33,5 @@
 #include "Graphics/fontsClass.h"
 #include "Graphics/bbopFunc.h"
 #include "Graphics/textureClass.h"
+#include "Graphics/mapClass.h"
+#include "Graphics/animatedSpriteClass.h"

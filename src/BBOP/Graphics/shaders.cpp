@@ -43,6 +43,7 @@ in vec2 TexCoord;
 
 // proj
 uniform mat4 projection;
+uniform float camScale;
 
 // information général utile pour render envoyé par la class Scene
 uniform vec4 ambiantLight;
@@ -110,7 +111,7 @@ void main()
   vec4 finalLight = ambiantLight;
   for (int i = 0; i < nLight; i++){
     vec4 lightPos = projection * vec4(lights[i].pos, 0.0, 1.0);
-    float distance = length(lightPos.xy - normalizeVec2(convertedFrag));
+    float distance = length(lightPos.xy - normalizeVec2(convertedFrag)) * camScale;
     float attenuation = 1.0 / (lights[i].constantAttenuation + lights[i].linearAttenuation * distance + lights[i].quadraticAttenuation * distance * distance);
     float intensity = attenuation*lights[i].intensity;
     vec4 thislight = intensity*vec4(lights[i].color, 0.0);
