@@ -132,4 +132,25 @@ private:
   float quadraticAttenuation; //<! Attnuation quadratique
 };
 
+/**
+ * @class UnstableLight
+ * @brief Lumière instable dont l'intensité change
+ */
+class UnstableLight : public Light
+{
+  public:
+    UnstableLight(Vector2f intensityRange_);
+
+    void setIntensityRange(const Vector2f& intensityRange_);
+    const Vector2f& getIntensityRange() const;
+  private:
+    Vector2f intensityRange;
+    
+};
+
+class DirectionalLight : public Light
+{
+
+};
+
 #endif // ! LIGHT_CLASS_H
