@@ -107,7 +107,7 @@ fi
 package_manager="not_found"
 
 #list des package a installer
-package_list=("libglew-dev" "xorg-dev" "libfreetype6-dev" "libwayland-dev" "libxkbcommon-dev" "wayland-protocols" "libstb-dev" "extra-cmake-modules")
+package_list=("libglew-dev" "xorg-dev" "libfreetype6-dev" "libwayland-dev" "libxkbcommon-dev" "wayland-protocols" "libstb-dev" "cmake" "extra-cmake-modules")
 
 #on determine le package manager
 if command -v dpkg &> /dev/null
@@ -207,12 +207,48 @@ then
   echo -e "${Green}GLM install done !"
 fi
 
-#installation de glm
+#installation de ldtk
+echo -e "${Yellow}Installing LDtkLoader${Color_Off}"
+
+#installation de ldtkloader
+install_ldtk_loader=0
+if [[ -d "/usr/local/include/LDtkLoader" ]] || [[ -f "/usr/local/lib/libLDtkLoader.a" ]]
+then
+  read -p "LDtkLoader is already installed, do you want to update ?[y,N]: " response
+  if [ "$response" != "y" ]
+  then
+    install_ldtk_loader=1
+  fi
+fi  
+
+if [[ $install_ldtk_loader -eq 0 ]]
+then 
+  git clone https://github.com/Madour/LDtkLoader.git
+  cd LDtkLoader
+  mkdir build && cd build
+  cmake -DCMAKE_BUILD_TYPE=Release ..
+  cmake --build . --config Release
+  sudo mv lib/libLDtkLoader.a /usr/local/lib/
+  sudo mv ../include/LDtkLoader /usr/include/
+  cd ../../ 
+  rm -rf LDtkLoader 
+  echo -e "${Green}LDtkLoader install done !"
+fi
+
+#déplacmeent des header de freetype si non fait
+if [[ -d "/usr/include/freetype2" ]]
+then 
+  sudo mv /usr/include/freetype2/freetype /usr/include/  
+  sudo mv /usr/include/freetype2/ft2build.h /usr/include/ 
+  sudo rmdir /usr/include/freetype2/
+fi
+
+#installation de BBOP
 echo -e "${Yellow}Installing BBOP${Color_Off}"
 
-#verification de l'installation de glm
+#verification de l'installation de BBOP
 install_bbop=0
-if [[ -d "/usr/local/include/glm" ]] || [[ -f "/usr/local/lib/libglm.a" ]]
+if [[ -d "/usr/local/include/BBOP" ]] || [[ -f "/usr/local/lib/libbbop.a" ]]
 then
   read -p "BBOP is already installed, do you want to update ?[y,N]: " response
   if [ "$response" != "y" ]
