@@ -31,7 +31,12 @@ final: $(OBJS)
 
 clean:
 	@echo -e "$(PURPLE)Deleting all objects files and final$(NC)"
-	@rm -f final $(OBJS)
+	@rm -f final libbbop.a $(OBJS)
+
+lib:
+	@echo -e "$(PURPLE)Making $(CYAN)[libbbop.a]$(NC)"
+	@ar rcs libbbop.a $(OBJSNM)
+	@echo -e "$(CYAN)[libbbop.a]$(GREEN) created !$(NC)"
 
 install:
 	@echo -e "$(PURPLE)Making $(CYAN)[libbbop.a]$(NC)"
