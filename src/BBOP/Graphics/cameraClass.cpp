@@ -63,9 +63,12 @@ float Camera::getScale()
 
 Vector2f Camera::screenPosToCamPos(Vector2f screenPos)
 {
-  Vector2f finalPos(pos.x-scale*(BBOP_WINDOW_RESOLUTION.x/2.0f),pos.y-scale*(BBOP_WINDOW_RESOLUTION.y/2.0f));
-  finalPos.x += screenPos.x*scale;
-  finalPos.y += screenPos.y*scale;
+
+  float xRapport = ( BBOP_WINDOW_RESOLUTION.x * scale ) / BBOP_WINDOW_SIZE.x;
+  float yRapport = ( BBOP_WINDOW_RESOLUTION.y * scale ) / BBOP_WINDOW_SIZE.y;
+
+  Vector2f finalPos(xRapport * screenPos.x,yRapport * screenPos.y);
+
   return finalPos;
 }
 
