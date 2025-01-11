@@ -12,6 +12,7 @@
  */
 
 #include "../../../include/BBOP/Graphics/bbopMathClass.h"
+#include <cmath>
 
 template<typename T>
 Vector2<T>::Vector2() : x(T()), y(T()) {}
@@ -69,4 +70,16 @@ Vector4<T>::Vector4() : x(T()), y(T()), z(T()), w(T()) {}
 
 template<typename T>
 Vector4<T>::Vector4(T x_, T y_, T z_, T w_) : x(x_), y(y_), z(z_), w(w_) {}
+
+float bbopGetDistance(Vector2f a, Vector2f b)
+{
+  float result;
+
+  float x = b.x - a.x;
+  float y = b.y - a.y;
+
+  result = sqrtf(x*x + y*y);
+
+  return result;
+}
 

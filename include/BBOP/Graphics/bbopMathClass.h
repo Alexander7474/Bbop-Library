@@ -109,4 +109,13 @@ public:
   T w;
 };
 
+/**
+* @brief Renvoie la distance entre deux point
+*
+* @param[in] a point A 
+* @param[in] b point B 
+* @return float Disctance entre a et b
+*/
+float bbopGetDistance(Vector2f a, Vector2f b);
+
 #endif // ! MATH_CLASS_H

@@ -191,36 +191,6 @@ void Map::Draw(Scene &scene, Camera &ground_camera)
   //}
 }
 
-void Map::indexZone(Vector2f position, float zone, int * tab, int &cpt)
-{
-    for (unsigned i=0; i<tiles.size(); i++)
-    {
-        if(tiles[i].getPosition().x >= position.x-zone && tiles[i].getPosition().x <= position.x+zone 
-        && tiles[i].getPosition().y >= position.y-zone && tiles[i].getPosition().y <= position.y+zone) 
-        {
-            cout << i << endl;
-            tab[cpt] = i;
-            cpt++;
-        }
-    }
-}
-
-
-void Map::destroyBlock(Vector2f position, float zone)
-{
-    int * tab = new int;
-    int N=0;
-    indexZone(position, zone, tab, N);
-
-    for(int i=0; i<N; i++)
-    {
-        tab[i] = tab[i] - i;
-        tiles.erase(tiles.begin()+tab[i]);
-    }
-
-    cout << "bloque(s) supprimé(s)" << endl;
-}
-
 vector<Sprite>& Map::getTiles()
 {
     return tiles;
