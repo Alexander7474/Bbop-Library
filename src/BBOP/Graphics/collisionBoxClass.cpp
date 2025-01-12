@@ -140,3 +140,17 @@ float CollisionBox::getRight()
   float right = pos.x-origin.x+size.x-offsetX.y;
   return right;
 }
+
+void CollisionBox::flipVertically()
+{
+  float save = offsetX.x;
+  offsetX.x = offsetX.y;
+  offsetX.y = save;
+}
+
+void CollisionBox::flipHorizontally()
+{
+  float save = offsetY.x;
+  offsetY.x = offsetY.y;
+  offsetY.y = save;
+}

@@ -221,6 +221,9 @@ void Sprite::flipVertically()
   vertices[14] = vertices[22];vertices[15] = vertices[23];
   vertices[22] = tempCoord.x;vertices[23] = tempCoord.y;
 
+  if(autoUpdateCollision)
+    shapeCollisionBox.flipVertically();
+
   updateVBO();
 }
 
@@ -234,7 +237,10 @@ void Sprite::flipHorizontally()
   tempCoord.x = vertices[22]; tempCoord.y = vertices[23];
   vertices[22] = vertices[30];vertices[23] = vertices[31];
   vertices[30] = tempCoord.x;vertices[31] = tempCoord.y;
-
+  
+  if(autoUpdateCollision)
+    shapeCollisionBox.flipHorizontally();
+ 
   updateVBO();
 }
 

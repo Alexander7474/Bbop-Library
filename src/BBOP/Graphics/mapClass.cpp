@@ -1,5 +1,6 @@
 #include "../../../include/BBOP/Graphics/animatedSpriteClass.h"
 #include "../../../include/BBOP/Graphics/mapClass.h"
+#include "../../../include/BBOP/Graphics.h"
 
 #include <LDtkLoader/DataTypes.hpp>
 #include <LDtkLoader/Tileset.hpp>
@@ -187,7 +188,7 @@ void Map::Draw(Scene &scene, Camera &ground_camera)
 
   //for(CollisionBox& box : collision_layer){
     //if(ground_camera.isInCamView(box))
-    //  bbopDebugCollisionBox(box, scene);
+      //bbopDebugCollisionBox(box, scene);
   //}
 }
 

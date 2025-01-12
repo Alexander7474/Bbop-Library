@@ -156,6 +156,16 @@ public:
   */
   float getRight();
 
+  /**
+  * @brief renverse la boîte de collision horizontallement
+  */
+  void flipHorizontally();
+
+  /**
+  * @brief renverse la boîte de collision verticallement  
+  */
+  void flipVertically();
+
 private:
   Vector2f offsetX; //<! rétrécicement X
   Vector2f offsetY; //<! rétrécicement Y
