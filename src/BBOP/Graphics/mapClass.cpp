@@ -10,7 +10,7 @@
 
 using namespace std;
 
-Map::Map() : Map("assets/map/green_hills/"){}
+Map::Map() : Map("assets/map/default/"){}
 
 Map::Map(const char* map_folder) :
     background(Texture("assets/default.png"))
@@ -167,7 +167,7 @@ void Map::Draw(Scene &scene, Camera &ground_camera)
     scene.addLight(l);
   }
 
- scene.Use();
+  scene.Use();
 
   scene.useCamera(nullptr);
   scene.Draw(background);

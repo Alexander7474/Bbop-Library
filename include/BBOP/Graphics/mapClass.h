@@ -40,6 +40,7 @@ public:
 
   /**
   * @brief Constructeur par défault de Map.
+  * @details Par défault de dossier de la map et assets/map/default/
   *
   * @see Map::Map();
   */
@@ -48,8 +49,7 @@ public:
   /**
   * @brief Constructeur de Map.
   * @overload
-  * @param tiles_folder Chemin d'accès vers le dossier contenant les tuiles de la map de la forme img/map/glace/
-  * @note Le dossier doit contenir un fichier background.png, definition.bmc et un set de tuiles en fonctions de defintion.bmc
+  * @param tiles_folder Chemin d'accès vers le dossier contenant la map au format ldtk
   */
   Map(const char* map_folder);
 
