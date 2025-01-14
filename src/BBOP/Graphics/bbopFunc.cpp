@@ -46,17 +46,21 @@ int bbopInit(int windowX, int windowY, const char* windowName, GLFWwindow*& wind
       glfwTerminate();
       return -1;
   }
-  // Désactiver la synchronisation verticale (V-Sync)
-  glfwSwapInterval(1);
-  //General info
-  cout << "Bbop Engine Version 0.3" << endl << "Author: Alexander74" << endl << "Contact: alexandre.lanternier@outlook.fr" << endl << "License: GPL-3.0" << endl; 
+  
   //GPU info
-  const GLubyte* vendor = glGetString(GL_VENDOR);
-  const GLubyte* renderer = glGetString(GL_RENDERER);
-  cout << "OpenGL Vendor: " << vendor << endl;
-  cout << "OpenGL Renderer: " << renderer << endl;
-  cout << "Window size: " << BBOP_WINDOW_SIZE.x << "x" << BBOP_WINDOW_SIZE.y << endl;
-  cout << "Window resolution: " << BBOP_WINDOW_RESOLUTION.x << "x" << BBOP_WINDOW_RESOLUTION.y << endl;
+  std::string version(reinterpret_cast<const char*>(glGetString(GL_VERSION)));
+  std::string vendor(reinterpret_cast<const char*>(glGetString(GL_VENDOR)));
+  std::string renderer(reinterpret_cast<const char*>(glGetString(GL_RENDERER)));
+
+  // Ajout de première LOGS
+  std::string helloMsg = "";
+  helloMsg = "Bbop Engine Version  \nAuthor: Alexander74  \nContact: alexandre.lanternier@outlook.fr \nLicense: GPL-3.0"; 
+  helloMsg += "\nOpenGL vendor: " + vendor;
+  helloMsg += "\nOpenGL renderer: " + renderer;
+  helloMsg += "\nOpenGL version: " + version;
+  helloMsg += "\n--------------------------------------------------------------------------------------------------------";
+
+  LOGS.push_back(helloMsg);
  
   return 1;
 }

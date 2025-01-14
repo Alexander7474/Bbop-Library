@@ -27,6 +27,7 @@
 #include <algorithm>
 #include <iostream>
 #include <fstream>
+#include <vector>
 
 /**
  * @brief RenderMode avec uniquement les textures
@@ -76,5 +77,12 @@ public:
   virtual void Draw(GLint renderModeLoc) const = 0;
 
 };
+
+/**
+  * @stock les logs de la libs
+  */
+extern std::vector<std::string> LOGS;
+
+#define BBOP_VERSION 0.3;
 
 #endif // ! GLOBALS_H

@@ -12,6 +12,8 @@
  */
 
 #include "../../../include/BBOP/Graphics/textureClass.h"
+#include "../../../include/BBOP/Graphics/bbopGlobal.h"
+
 #include <iostream>
 #include <vector>
 
@@ -38,7 +40,9 @@ Texture::Texture(const char* textureFileName){
   }
   else
   {
-    std::cerr << "BBOP ERROR -> failed to load texture" << std::endl;
+    std::string message = "BBOP ERROR -> failed to load texture ";
+    message += textureFileName;
+    LOGS.push_back(message);
   }
   stbi_image_free(data); 
   glBindTexture(GL_TEXTURE_2D, 0);
@@ -102,7 +106,9 @@ Image bbopLoadImage(const char *filename, int nrChannels)
   if(toLoad.data){
     return toLoad;
   }else {
-    std::cerr << "BBOP ERROR -> failed to load " << filename << std::endl;
+    std::string message = "BBOP ERROR -> failed to load image ";
+    message += filename;
+    LOGS.push_back(message);
     return toLoad;
   }
 }
@@ -111,7 +117,8 @@ Image bbopCCutImage(const Image &toCC, int x, int y, int width, int height)
 {
   Image result;
   if (x + width > toCC.width || y + height > toCC.height) {
-      std::cerr << "BBOP ERROR -> failed to cut image" << std::endl;
+      std::string message = "BBOP ERROR -> failed to cut image";
+      LOGS.push_back(message);
       result.data = nullptr;
       return result;
   }

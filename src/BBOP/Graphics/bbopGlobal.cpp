@@ -12,11 +12,14 @@
  */
 
 #include "../../../include/BBOP/Graphics/bbopGlobal.h"
+#include <string>
+#include <vector>
 
 using namespace std;
 
 Vector2i BBOP_WINDOW_SIZE(0, 0); 
-Vector2i BBOP_WINDOW_RESOLUTION(0, 0); 
+Vector2i BBOP_WINDOW_RESOLUTION(0, 0);
+std::vector<std::string> LOGS;
 
 // Lecture du fichier text et sortie en string
 string bbopGetFileData(const char* filename)
