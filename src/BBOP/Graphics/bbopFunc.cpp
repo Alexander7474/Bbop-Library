@@ -12,6 +12,7 @@
  */
 
 #include "../../../include/BBOP/Graphics/bbopFunc.h"
+#include <string>
 
 using namespace std;
 
@@ -54,7 +55,9 @@ int bbopInit(int windowX, int windowY, const char* windowName, GLFWwindow*& wind
 
   // Ajout de première LOGS
   std::string helloMsg = "";
-  helloMsg = "Bbop Engine Version  \nAuthor: Alexander74  \nContact: alexandre.lanternier@outlook.fr \nLicense: GPL-3.0"; 
+  helloMsg = "Bbop Engine Version: ";
+  helloMsg += BBOP_VERSION;
+  helloMsg += "\nAuthor: Alexander74  \nContact: alexandre.lanternier@outlook.fr \nLicense: GPL-3.0"; 
   helloMsg += "\nOpenGL vendor: " + vendor;
   helloMsg += "\nOpenGL renderer: " + renderer;
   helloMsg += "\nOpenGL version: " + version;

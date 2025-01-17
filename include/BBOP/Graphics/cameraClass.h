@@ -84,12 +84,20 @@ public:
   Vector2f getPosition();
 
   /**
-  * @brief Convertue des coordonnées en pixel sur l'écran en coordonnées du monde à travers le prisme de la camera
+  * @brief Convertie des coordonnées en pixel sur l'écran en coordonnées sur la caméra
   *
   * @param[in] screenPos Position sur l'écran à convertir
-  * @return finalPos Position du monde calculé à partir de screenPos
+  * @return finalPos Position sur la caméra calculé à partir de screenPos
   */
   Vector2f screenPosToCamPos(Vector2f screenPos);
+
+  /**
+  * @brief Convertie des coordonnées en pixel sur la caméra en coordonnées dans le monde
+  *
+  * @param[in] camPos Position sur la caméra
+  * @return finalPos dans le monde
+  */
+  Vector2f camPosToWorldPos(Vector2f camPos);
 
   /**
   * @brief Détermine si un objet Shape est visible sur l'écran à travers le prisme de la Camera

@@ -72,6 +72,16 @@ Vector2f Camera::screenPosToCamPos(Vector2f screenPos)
   return finalPos;
 }
 
+Vector2f Camera::camPosToWorldPos(Vector2f camPos)
+{
+  float xStart = pos.x - (BBOP_WINDOW_RESOLUTION.x * scale) / 2.f;
+  float yStart = pos.y - (BBOP_WINDOW_RESOLUTION.y * scale) / 2.f;
+
+  Vector2f finalPos(xStart + camPos.x, yStart + camPos.y);
+
+  return finalPos;
+}
+
 //ne marche que avec les formes rectangulaires
 bool Camera::isInCamView(Shape& obj)
 {

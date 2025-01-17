@@ -15,6 +15,11 @@
 #define GLOBALS_H
 
 /**
+ * @brief Version de bbop
+ */
+#define BBOP_VERSION "0.3"
+
+/**
  * Local headers
  */
 #include "bbopMathClass.h"
@@ -82,7 +87,5 @@ public:
   * @stock les logs de la libs
   */
 extern std::vector<std::string> LOGS;
-
-#define BBOP_VERSION 0.3;
 
 #endif // ! GLOBALS_H
