@@ -24,6 +24,8 @@ void Map::remplissage(const char* map_folder)
   // on charge la map
   ldtk::Project ldtk_project;
 
+  LOGS.push_back("BBOP -> Chargement d'une map");
+
   string ldtk_map_file = map_folder;
   ldtk_map_file += "map.ldtk";
   ldtk_project.loadFromFile(ldtk_map_file);
@@ -38,15 +40,6 @@ void Map::remplissage(const char* map_folder)
 
   global_illumination = level.getField<ldtk::FieldType::Float>("Global_illumination").value();
 
-  // on charge le tile set de la map
-  ldtk::Tileset world_tileset = world.getTileset("Tileset");
-  ldtk::FilePath tileset_path = world_tileset.path;
-  string tileset_file = map_folder;
-  tileset_file += tileset_path.directory() + tileset_path.filename();
-  int rows =  world_tileset.texture_size.y/world_tileset.tile_size;
-  int columns = world_tileset.texture_size.x/world_tileset.tile_size;
-  vector<Texture> tileset = bbopLoadSpriteSheet(tileset_file.c_str(), rows, columns);
-
   //recuperation du background 
   if(level.hasBgImage()){
     ldtk::FilePath bg_path = level.getBgImage().path;
@@ -57,23 +50,43 @@ void Map::remplissage(const char* map_folder)
     bg_file += "map/png/Level_bg.png";
     background.setTexture(Texture(bg_file.c_str()));
   }
-  background.setSize(1280,720);
+  background.setSize(BBOP_WINDOW_RESOLUTION.x, BBOP_WINDOW_RESOLUTION.y);
+  background.setPosition(0.f,0.f);
  
   // iteration pour récupérer les tiles
   for (const auto& layer : level.allLayers()){
+    
+    string message = "BBOP -> Chargement du layer: ";
+    message += layer.getName();
+    LOGS.push_back(message);
+    
     if(layer.getName() != "Collision_layer" && layer.getType() != ldtk::LayerType::Entities){
-      for (const auto& tile : layer.allTiles()) {
-        Sprite tile_spr(tileset[tile.tileId]);
+    
+      //si le layer a un tilset, on le charge 
+      if(layer.hasTileset()){
+        //recup du tilseset du layer 
+        ldtk::Tileset layer_tileset = layer.getTileset();
+        ldtk::FilePath tileset_path = layer_tileset.path;
+        string tileset_file = map_folder;
+        tileset_file += tileset_path.directory() + tileset_path.filename();
+        int rows =  layer_tileset.texture_size.y/layer_tileset.tile_size;
+        int columns = layer_tileset.texture_size.x/layer_tileset.tile_size;
+        vector<Texture> tileset = bbopLoadSpriteSheet(tileset_file.c_str(), rows, columns);
 
-        tile_spr.setPosition(tile.getWorldPosition().x,tile.getWorldPosition().y);
-        tile_spr.setSize(layer.getCellSize(),layer.getCellSize());
+        //ajout des tiles du layer avec le tileset chargé
+        for (const auto& tile : layer.allTiles()) {
+          Sprite tile_spr(tileset[tile.tileId]);
 
-        if(tile.flipX)
-          tile_spr.flipVertically();
-        if(tile.flipY)
-          tile_spr.flipHorizontally();
+          tile_spr.setPosition(tile.getWorldPosition().x,tile.getWorldPosition().y);
+          tile_spr.setSize(layer.getCellSize(),layer.getCellSize());
 
-        tiles.push_back(tile_spr);
+          if(tile.flipX)
+            tile_spr.flipVertically();
+          if(tile.flipY)
+            tile_spr.flipHorizontally();
+
+          tiles.push_back(tile_spr);
+        }
       }
     }else if (layer.getType() == ldtk::LayerType::Entities){
       if(layer.getName() == "World_info"){
