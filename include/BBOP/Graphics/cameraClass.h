@@ -84,6 +84,13 @@ public:
   Vector2f getPosition();
 
   /**
+   * @brief Déplace la caméra avec le vecteur m 
+   *
+   * @param[in] m Vecteur de déplacement de la caméra
+   */
+  void move(Vector2f m);
+
+  /**
   * @brief Convertie des coordonnées en pixel sur l'écran en coordonnées sur la caméra
   *
   * @param[in] screenPos Position sur l'écran à convertir

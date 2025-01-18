@@ -2,6 +2,7 @@
 #include <GLFW/glfw3.h>
 #include <cstdlib>
 #include <iostream>
+#include <vector>
 
 AnimatedSprite::AnimatedSprite()
   : AnimatedSprite("assets/animated_sprites/Smoke-Sheet.png", Vector2i(4,5), 0.1f, 1)
@@ -12,7 +13,7 @@ AnimatedSprite::AnimatedSprite(std::string _animated_sprite_sheet, Vector2i _siz
 {}
 
 AnimatedSprite::AnimatedSprite(std::string _animated_sprite_sheet, Vector2i _size, float _frame_t, int _dead_frame)
-  : Sprite(Texture("assets/default.png"))
+  : Sprite()
 {
   animated_sprite_texture = bbopLoadSpriteSheet(_animated_sprite_sheet.c_str(), _size.y, _size.x);
   frame_t = _frame_t;
@@ -21,6 +22,7 @@ AnimatedSprite::AnimatedSprite(std::string _animated_sprite_sheet, Vector2i _siz
   total_t = n_frame * frame_t;
   anim_start = glfwGetTime();
   last_frame_t = glfwGetTime();
+  setTexture(animated_sprite_texture[0]);
 }
 
 bool AnimatedSprite::update()
@@ -40,4 +42,9 @@ bool AnimatedSprite::update()
     return true;
 
   return false;
+}
+
+std::vector<Texture>& AnimatedSprite::getSpriteSheet()
+{
+  return animated_sprite_texture;
 }

@@ -18,6 +18,11 @@ public:
   * @return bool renvoie true si l'animation est fini
   */
   bool update();
+
+  /**
+  * @brief renvoie la liste de texture 
+  */
+  std::vector<Texture>& getSpriteSheet();
 private:
   std::vector<Texture> animated_sprite_texture; 
   long unsigned int frame_cpt; //<! compteur de frame

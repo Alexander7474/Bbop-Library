@@ -228,3 +228,16 @@ vector<Vector2f>& Map::getSpawnPoints()
 {
     return spawn_points;
 }
+
+Map::~Map()
+{
+  for(Sprite & tile : tiles){
+    tile.getTexture().Delete();
+  }
+
+  for(AnimatedSprite &sprite : animated_sprites){
+    for(Texture& texture : sprite.getSpriteSheet()){
+      texture.Delete();
+    }
+  }
+}

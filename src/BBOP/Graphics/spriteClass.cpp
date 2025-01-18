@@ -83,6 +83,7 @@ Sprite& Sprite::operator=(const Sprite& other)
 
 Sprite::~Sprite()
 {
+  delete spriteTexture;
 }
 
 void Sprite::buildVAO()

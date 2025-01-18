@@ -50,6 +50,12 @@ Vector2f Camera::getPosition()
   return pos;
 }
 
+void Camera::move(Vector2f m)
+{
+  pos.x += m.x;
+  pos.y += m.y;
+}
+
 void Camera::setScale(float nScale)
 {
   scale = nScale;

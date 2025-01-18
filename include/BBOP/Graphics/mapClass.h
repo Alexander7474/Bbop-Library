@@ -60,6 +60,11 @@ public:
   Map(const Map& other);
 
   /**
+   * @brief Supprime toutes les texture opengl de la map
+   */
+  ~Map();
+
+  /**
   * @brief Dessine la map sur l'écran, à utiliser avec une scene ou une autre méthode draw
   *
   */
