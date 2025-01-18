@@ -18,7 +18,6 @@
 #include <GLFW/glfw3.h>
 #include <glm/fwd.hpp>
 #include <glm/glm.hpp>
-#include <vector>
 
 #include "include/BBOP/Graphics.h"
 #include "include/BBOP/Graphics/collisionBoxClass.h"
@@ -35,10 +34,8 @@ int main() {
   //Creation de la scene pour afficher nos formes
   Scene defaultScene(1.0f,Vector3i(255,255,255));
 
-  Font font(20, "fonts/arial.ttf");
-  TexteBox t("T   es    t", &font);
-  t.setPosition(Vector2f(0.f,15.f));
-  std::cerr << t.getSize().x << "  " << t.getSize().y << std::endl;
+  Sprite sprite;
+
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -49,10 +46,9 @@ int main() {
     ///code zone
     //////////////////////////////////////////////////////////////
     ///
-    defaultScene.Use();
 
+  Texture text("imgTesting/mario.png");
        
-    defaultScene.Draw(t);
     //////////////////////////////////////////////////////////////
     
     bbopErrorCheck();

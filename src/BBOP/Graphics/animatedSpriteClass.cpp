@@ -1,6 +1,7 @@
 #include "../../../include/BBOP/Graphics/animatedSpriteClass.h"
 #include <GLFW/glfw3.h>
 #include <cstdlib>
+#include <iostream>
 
 AnimatedSprite::AnimatedSprite()
   : AnimatedSprite("assets/animated_sprites/Smoke-Sheet.png", Vector2i(4,5), 0.1f, 1)

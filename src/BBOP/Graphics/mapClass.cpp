@@ -81,7 +81,7 @@ void Map::remplissage(const char* map_folder)
           Sprite tile_spr(tileset[tile.tileId]);
 
           tile_spr.setPosition(tile.getWorldPosition().x,tile.getWorldPosition().y);
-          tile_spr.setSize(layer.getCellSize(),layer.getCellSize());
+          tile_spr.setSize(layer_tileset.tile_size,layer_tileset.tile_size);
 
           if(tile.flipX)
             tile_spr.flipVertically();
@@ -106,6 +106,7 @@ void Map::remplissage(const char* map_folder)
         for(const auto& ent : layer.allEntities()){
           string particule_sheet_path = map_folder;
           particule_sheet_path += ent.getTexturePath();
+          LOGS.push_back(particule_sheet_path);
           int rows = ent.getField<ldtk::FieldType::Int>("Rows").value();
           int columns = ent.getField<ldtk::FieldType::Int>("Columns").value();
           int frame_n = ent.getField<ldtk::FieldType::Int>("Frame_n").value();
@@ -121,7 +122,7 @@ void Map::remplissage(const char* map_folder)
           float l_att = ent.getField<ldtk::FieldType::Float>("L_attenuation").value();
           float q_att = ent.getField<ldtk::FieldType::Float>("Q_attenuation").value();
           float c_att = ent.getField<ldtk::FieldType::Float>("C_attenuation").value();
-          Vector2f pos(ent.getPosition().x,ent.getPosition().y);
+          Vector2f pos(ent.getPosition().x+ent.getSize().x/2.f,ent.getPosition().y+ent.getSize().y/2.f);
           Light l(pos, intensity, Vector3i(255,255,255), c_att, l_att, q_att);
           lights.push_back(l);
         }
@@ -183,15 +184,17 @@ void Map::Draw(Scene &scene, Camera &ground_camera)
 {
   scene.setAmbiantLightValue(global_illumination);
 
-  for(Light& l : lights){
-    scene.addLight(l);
-  }
-
   scene.Use();
 
   scene.useCamera(nullptr);
   scene.Draw(background);
 
+  for(Light& l : lights){
+    scene.addLight(l);
+  }
+
+  scene.Use();
+  
   scene.useCamera(&ground_camera);
   for (Sprite& tile : tiles)
   {
