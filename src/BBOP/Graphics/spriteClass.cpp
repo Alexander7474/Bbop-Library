@@ -83,7 +83,6 @@ Sprite& Sprite::operator=(const Sprite& other)
 
 Sprite::~Sprite()
 {
-  delete spriteTexture;
 }
 
 void Sprite::buildVAO()
@@ -199,6 +198,11 @@ void Sprite::setTexture(const Texture &nTexture)
 {
   delete spriteTexture;
   spriteTexture = new Texture(nTexture);
+}
+
+Texture& Sprite::getTexture()
+{
+  return *spriteTexture;
 }
 
 void Sprite::setRGBFilterState(bool etat)

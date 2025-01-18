@@ -81,6 +81,11 @@ public:
   void setTexture(const Texture &nTexture);
 
   /**
+   * @brief renvoie un pointeur vers la texture du sprite 
+   */
+  Texture& getTexture();
+
+  /**
   * @brief Renvoie si oui ou non le filtre de couleur est activé 
   *
   * @return isRGBFilter
@@ -105,7 +110,7 @@ public:
   void flipVertically();
 
 private:
-  Texture* spriteTexture;
+  Texture* spriteTexture; // pointeur ves la Texture a bing avec opengl lors du dessin
 protected:
   GLfloat vertices[32];
   GLuint indices[6];
@@ -116,11 +121,14 @@ protected:
   void updateVBOAlpha() override;
  };
 
+/**
+  * @class NoTextureSprite 
+  * @warning Ce sprite ne bind pas de Texture avec opengl, c'est donc a l'utilisateur de le faire.
+  */
 class NoTextureSprite : public Sprite
 {
 public:
   void Draw(GLint renderModeLoc) const override;
-
 };
 
 #endif // !SPRITE_CLASS_H

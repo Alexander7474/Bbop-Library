@@ -78,7 +78,6 @@ public:
    */ 
   Texture(const Texture &other);
 
-    
   /**
   * @brief Permet de bin la texture a opengl avant de Draw
   *
