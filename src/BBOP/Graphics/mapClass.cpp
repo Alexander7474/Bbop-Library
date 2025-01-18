@@ -8,6 +8,7 @@
 #include <cstring>
 #include <LDtkLoader/Project.hpp>
 #include <LDtkLoader/Layer.hpp>
+#include <string>
 
 using namespace std;
 
@@ -29,6 +30,8 @@ void Map::remplissage(const char* map_folder)
   string ldtk_map_file = map_folder;
   ldtk_map_file += "map.ldtk";
   ldtk_project.loadFromFile(ldtk_map_file);
+  
+  LOGS.push_back("BBOP -> Chargement des infos de la map");
 
   const auto& world = ldtk_project.getWorld();
   const auto& level = world.getLevel("Level");
@@ -164,6 +167,9 @@ void Map::remplissage(const char* map_folder)
     }
   }
 
+  string message = "BBOP -> Chargement des collsions de la map: \n  taille box: " + to_string(collision_box_size);
+  LOGS.push_back(message);
+
 }
 
 void Map::update()
@@ -199,10 +205,10 @@ void Map::Draw(Scene &scene, Camera &ground_camera)
   }
 
 
-  //for(CollisionBox& box : collision_layer){
-    //if(ground_camera.isInCamView(box))
-      //bbopDebugCollisionBox(box, scene);
-  //}
+  for(CollisionBox& box : collision_layer){
+    if(ground_camera.isInCamView(box))
+      bbopDebugCollisionBox(box, scene);
+  }
 }
 
 vector<Sprite>& Map::getTiles()
