@@ -16,6 +16,7 @@
 ////////////////////////////////////////////////////////////////////
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <cmath>
 #include <glm/fwd.hpp>
 #include <glm/glm.hpp>
 
@@ -39,9 +40,15 @@ int main() {
   RectangleShape rect;
   rect.setSize(BBOP_WINDOW_RESOLUTION.x, BBOP_WINDOW_RESOLUTION.y);
 
-  Light light;
-  light.setPosition(Vector2f(BBOP_WINDOW_RESOLUTION.x/2.f, BBOP_WINDOW_RESOLUTION.y/2.f));
-  light.setOpenAngle(1.2f);
+  Light light1;
+  light1.setPosition(Vector2f(BBOP_WINDOW_RESOLUTION.x/2.f, BBOP_WINDOW_RESOLUTION.y/2.f+100));
+  light1.setOpenAngle(3.14f/5.f);
+  light1.setColor(Vector3i(255,0,0));
+
+  Light light2;
+  light2.setPosition(Vector2f(BBOP_WINDOW_RESOLUTION.x/2.f, BBOP_WINDOW_RESOLUTION.y/2.f));
+  light2.setOpenAngle(3.14f/5.f);
+  light2.setRotationAngle(M_PI);
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -52,7 +59,8 @@ int main() {
     ///code zone
     //////////////////////////////////////////////////////////////
     ///
-    defaultScene.addLight(light);
+    defaultScene.addLight(light2);
+    defaultScene.addLight(light1);
 
     defaultScene.Use();
 

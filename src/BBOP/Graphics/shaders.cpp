@@ -62,9 +62,9 @@ vec4 provisory;
 // structure Light utiliser pour transmettre des lumières
 struct Light { 
   vec2 pos; // Position de la source de lumière (2D)
-  vec3 color; // Couleur de la lumière
   float intensity; // Intensité de la lumière
   float constantAttenuation; // Attnuation constante
+  vec3 color; // Couleur de la lumière
   float linearAttenuation; // Attnuation linéaire
   float quadraticAttenuation; // Attnuation quadratique
   float rotationAngle;
@@ -117,7 +117,6 @@ void main()
   //au debgut la lumière vaut la valeur de la lumière ambiant
   vec4 finalLight = ambiantLight;
   for (int i = 0; i < nLight; i++){
-
 
     //position de la light actuelle 
     vec4 lightPos = projection * vec4(lights[i].pos, 0.0, 1.0);
