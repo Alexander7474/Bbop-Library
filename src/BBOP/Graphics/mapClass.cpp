@@ -208,10 +208,10 @@ void Map::Draw(Scene &scene, Camera &ground_camera)
   }
 
 
-  for(CollisionBox& box : collision_layer){
-    if(ground_camera.isInCamView(box))
-      bbopDebugCollisionBox(box, scene);
-  }
+  //for(CollisionBox& box : collision_layer){
+    //if(ground_camera.isInCamView(box))
+      //bbopDebugCollisionBox(box, scene);
+  //}
 }
 
 vector<Sprite>& Map::getTiles()
@@ -235,9 +235,9 @@ Map::~Map()
     tile.getTexture().Delete();
   }
 
-  //for(AnimatedSprite &sprite : animated_sprites){
-    //for(Texture& texture : sprite.getSpriteSheet()){
-      //texture.Delete();
-    //}
-  //}
+  for(AnimatedSprite &sprite : animated_sprites){
+    for(Texture& texture : sprite.getSpriteSheet()){
+      texture.Delete();
+    }
+  }
 }
