@@ -22,6 +22,10 @@ Light::Light(Vector2f nPos, float nIntensity, Vector3i nRGB, float nConstantAtte
     quadraticAttenuation(nQuadraticAttenuation)
 {}
 
+Light::Light()
+  : Light(Vector2f(0.f,0.f), 0.2, Vector3i(255,255,255),0.2f,0.2f,0.2f)
+{}
+
 Vector2f Light::getPosistion()
 {
   return pos;

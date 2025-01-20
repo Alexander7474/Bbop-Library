@@ -40,6 +40,13 @@ public:
   Light(Vector2f nPos, float nIntensity, Vector3i nRGB, float nConstantAttenuation,float nLinearAttenuation, float nQuadraticAttenuation);
 
   /**
+   * @brief Constructeur par défault de Light 
+   *
+   * @details Lumière blanche avec 0.2 d'intensité et 0.2 pour toute les attenuation
+   */
+  Light();
+
+  /**
   * @brief Renvoie la couleur de Light
   *
   * @return RGB

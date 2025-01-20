@@ -20,8 +20,10 @@
 #include <glm/glm.hpp>
 
 #include "include/BBOP/Graphics.h"
+#include "include/BBOP/Graphics/bbopGlobal.h"
 #include "include/BBOP/Graphics/collisionBoxClass.h"
 #include "include/BBOP/Graphics/fontsClass.h"
+#include "include/BBOP/Graphics/shapeClass.h"
 
 
 using namespace std;
@@ -32,10 +34,13 @@ int main() {
   bbopInit(956,1044,"test",window);
   
   //Creation de la scene pour afficher nos formes
-  Scene defaultScene(1.0f,Vector3i(255,255,255));
+  Scene defaultScene(0.0f,Vector3i(255,255,255));
 
-  Sprite sprite;
+  RectangleShape rect;
+  rect.setSize(BBOP_WINDOW_RESOLUTION.x, BBOP_WINDOW_RESOLUTION.y);
 
+  Light light;
+  light.setPosition(Vector2f(BBOP_WINDOW_RESOLUTION.x/2.f, BBOP_WINDOW_RESOLUTION.y/2.f));
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -46,8 +51,11 @@ int main() {
     ///code zone
     //////////////////////////////////////////////////////////////
     ///
+    defaultScene.addLight(light);
 
-  Texture text("imgTesting/mario.png");
+    defaultScene.Use();
+
+    defaultScene.Draw(rect);
        
     //////////////////////////////////////////////////////////////
     
