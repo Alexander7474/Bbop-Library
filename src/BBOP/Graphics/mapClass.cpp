@@ -235,9 +235,9 @@ Map::~Map()
     tile.getTexture().Delete();
   }
 
-  for(AnimatedSprite &sprite : animated_sprites){
-    for(Texture& texture : sprite.getSpriteSheet()){
-      texture.Delete();
-    }
-  }
+  //for(AnimatedSprite &sprite : animated_sprites){
+    //for(Texture& texture : sprite.getSpriteSheet()){
+      //texture.Delete();
+    //}
+  //}
 }
