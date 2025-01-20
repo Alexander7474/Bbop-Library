@@ -27,6 +27,7 @@
  * @brief Permet de modifier les point de vue et la position de l'affichage de la class Scene
  *
  * @note Les attribut de cette class sont utilisé par Scene pour fabriquer la matrice de projection du vertex shader
+ * @todo Ajouter des méthode d'effet sur la caméra comme le trenblement ou des filtre de couleur
  */
 class Camera 
 {
@@ -125,7 +126,6 @@ public:
   *
   * @note Cette méthode est très utile pour eviter d'afficher des objet non visible par le joueur ou même les détruirze quand ils sortent de l'écran.
   * @attention La méthode n'a été testé que sur des RectangleShape et des Sprite, Il peut y avaoir certain disfonctionnement avec les ConvexShape et les CircleShape.
-  * @todo Gérer l'héritage de geometric sur shape pour avoir seulement une methode 
   */
   bool isInCamView(CollisionBox& obj);
 

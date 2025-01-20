@@ -50,7 +50,6 @@ struct UniformLight {
  * @see BbopDrawable
  *
  * @attention Cette class est obligatoire pour afficher des éléments
- * @todo Ajouter la possibilité de créer des shader personnalisé et de gérer des normal maps
  */
 class Scene
 {

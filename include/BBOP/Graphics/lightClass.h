@@ -22,6 +22,10 @@
 /**
  * @class Light
  * @brief Gère un point de lumière en fonction de son Intensité, sa couleur et son attenuation
+ *
+ * @todo Créer une class DirectionnalLight pour différentier certaine lumière 
+ * @todo Ajouter la gestion d'une shadowMap pour empêcher le passage de la lumière 
+ * @todo Ajouter la gestion d'une lightMap sur Texture pour gérer l'éclairage des textures
  */
 class Light
 {

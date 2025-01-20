@@ -31,9 +31,8 @@
  * @details Elle stock et gère tous les attribut de base d'une forme géométrique comme sa position ou encore sa couleur
  *
  * @attention Certaine Shape utilise des attributs de cette class parent de manière différente donc renseignez vous sur les shapes que vous utilisez
- * @todo Créer une class pour représenter les objets avec une position, une scale et une rotation dont Shape héritera
- * @todo optimiser les constructeurs des Shape
- * @todo Ajouter les destructeur/delete des VAO/VBO/EBO/Texture
+ * @todo Optimiser les constructeurs des Shape
+ * @todo Gérer l'héritage de Geometric sur Shape 
  */
 class Shape : public BbopDrawable
 {

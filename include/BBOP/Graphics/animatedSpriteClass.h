@@ -5,6 +5,12 @@
 
 #include "spriteClass.h"
 
+/**
+ * @class AnimatedSprite
+ * @brief Gère un Sprite qui joue une aniomation en boucle 
+ *
+ * @todo Ajouter une class StateSprite qui gère un sprite et qui l'anime en fonction d'une énumération d'état de ce Sprite
+ */
 class AnimatedSprite : public Sprite
 {
 public: 

@@ -35,6 +35,8 @@
 * @param[in,out] window Fenêtre glfw à utiliser
 *
 * @note window dois-être un pointeur
+*
+* @todo Ajouter le paramétrage du uberShader
 */
 int bbopInit(int windowX, int windowY, const char* windowName, GLFWwindow*& window);
 
@@ -94,6 +96,7 @@ void bbopChangeWindowSize(int x_, int y_);
 * @param[in] scene Scene a utiliser pour afficher la box
 *
 * @see CollisionBox
+* @todo Optimiser cette méthode terriblement lente
 */
 void bbopDebugCollisionBox(const CollisionBox& box, Scene& scene);
 

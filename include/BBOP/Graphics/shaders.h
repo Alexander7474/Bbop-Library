@@ -15,9 +15,9 @@
 #define SHADERS_CODE_H
 
 /**
- * @todo utiliser des matrices de model, de view et de projection pour le vertex shaders
- * @todo mettre les shaders dans des fichier .glsl 
- * @todo faire des ubershader configurable 
+ * @todo Utiliser des matrices de model, de view et de projection pour le vertex shaders
+ * @todo Mettre les shaders dans des fichier .glsl 
+ * @todo Faire des ubershader configurable pour optimiser les transfert de données (quantité) et la vitesse de calcule 
  */
 extern const char* defaultFragment;
 extern const char* defaultVertex;

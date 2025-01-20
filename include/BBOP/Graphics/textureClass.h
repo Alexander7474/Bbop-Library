@@ -26,7 +26,7 @@
  * @note Peut être utiliser avec les fonctions de chargements d'image personnalisées pour être passé en paramètre au constructeur de Texture 
  * @see Texture bbopLoadImagePartial bbopLoadSpriteSheet
  *
- * @todo peut-être en faire une class, à voir 
+ * @todo Faire de cette struct une class pour ajouter ddes méthode de moification des Images
  */
 struct Image 
 {
@@ -43,9 +43,7 @@ struct Image
  * @attention La class texture à été testé uniqument sur des images png 
  * @see Sprite 
  *
- * @todo Ajouter la possibilité de gérer plusieur format d'image comme jpg, jpeg, ou gif ext...
- * @todo Ajouter la possibilité de généré un list de Texture a partir d'une sprite sheet avec le nombre de colonnes et de lignes
- * @todo créer un destructeur de Texture
+ * @todo Vérifier la possibilité de gérer plusieur format d'image comme jpg, jpeg, ou gif ext...
  */
 class Texture 
 {
