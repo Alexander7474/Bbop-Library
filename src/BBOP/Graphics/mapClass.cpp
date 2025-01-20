@@ -122,8 +122,12 @@ void Map::remplissage(const char* map_folder)
           float l_att = ent.getField<ldtk::FieldType::Float>("L_attenuation").value();
           float q_att = ent.getField<ldtk::FieldType::Float>("Q_attenuation").value();
           float c_att = ent.getField<ldtk::FieldType::Float>("C_attenuation").value();
+          float open_angle = ent.getField<ldtk::FieldType::Float>("OpenAngle").value();
+          float rotation_angle = ent.getField<ldtk::FieldType::Float>("RotationAngle").value();
           Vector2f pos(ent.getPosition().x+ent.getSize().x/2.f,ent.getPosition().y+ent.getSize().y/2.f);
           Light l(pos, intensity, Vector3i(255,255,255), c_att, l_att, q_att);
+          l.setRotationAngle(rotation_angle);
+          l.setOpenAngle(open_angle);
           lights.push_back(l);
         }
       }

@@ -123,7 +123,7 @@ void main()
 
     //déterminer si le fragment est dans le cône de lumière 
     vec2 lightDir = normalize(vec2(cos(lights[i].rotationAngle), sin(lights[i].rotationAngle))); // Direction de la lumière
-    vec2 fragDir = normalize(convertedFrag - lights[i].pos); // Direction du fragment vers la lumière
+    vec2 fragDir = normalize(normalizeVec2(convertedFrag) - lightPos.xy); // Direction du fragment vers la lumière
     float angleCos = dot(lightDir, fragDir); // Cosinus de l'angle entre les deux
     if (angleCos >= cos(lights[i].openAngle)) {
       // Le fragment est dans le cône
