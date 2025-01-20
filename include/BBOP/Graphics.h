@@ -22,6 +22,7 @@
 #include "Graphics/bbopGlobal.h"
 #include "Graphics/bbopMathClass.h"
 #include "Graphics/collisionBoxClass.h"
+#include "Graphics/geometricClass.h"
 #include "Graphics/VAO.h"
 #include "Graphics/VBO.h"
 #include "Graphics/EBO.h"
