@@ -34,13 +34,14 @@ int main() {
   bbopInit(956,1044,"test",window);
   
   //Creation de la scene pour afficher nos formes
-  Scene defaultScene(0.0f,Vector3i(255,255,255));
+  Scene defaultScene(0.4f,Vector3i(255,255,255));
 
   RectangleShape rect;
   rect.setSize(BBOP_WINDOW_RESOLUTION.x, BBOP_WINDOW_RESOLUTION.y);
 
   Light light;
   light.setPosition(Vector2f(BBOP_WINDOW_RESOLUTION.x/2.f, BBOP_WINDOW_RESOLUTION.y/2.f));
+  light.setOpenAngle(1.2f);
 
 	while (!glfwWindowShouldClose(window))
 	{

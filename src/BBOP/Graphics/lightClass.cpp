@@ -12,6 +12,7 @@
  */
 
 #include "../../../include/BBOP/Graphics/lightClass.h"
+#include <cmath>
 
 Light::Light(Vector2f nPos, float nIntensity, Vector3i nRGB, float nConstantAttenuation,float nLinearAttenuation, float nQuadraticAttenuation)
   : pos(nPos),
@@ -19,7 +20,9 @@ Light::Light(Vector2f nPos, float nIntensity, Vector3i nRGB, float nConstantAtte
     intensity(nIntensity),
     constantAttenuation(nConstantAttenuation),
     linearAttenuation(nLinearAttenuation),
-    quadraticAttenuation(nQuadraticAttenuation)
+    quadraticAttenuation(nQuadraticAttenuation),
+    openAngle(M_PI),
+    rotationAngle(0.f)
 {}
 
 Light::Light()
@@ -84,4 +87,24 @@ float Light::getQuadratic()
 void Light::setQuadratic(float nQuadratic)
 {
   quadraticAttenuation = nQuadratic;
+}
+
+float Light::getOpenAngle()
+{
+  return openAngle;
+}
+
+void Light::setOpenAngle(float nOpenAngle)
+{
+  openAngle = nOpenAngle;
+}
+
+float Light::getRotationAngle()
+{
+  return rotationAngle;
+}
+
+void Light::setRotationAngle(float nRotationAngle)
+{
+  rotationAngle = nRotationAngle;
 }

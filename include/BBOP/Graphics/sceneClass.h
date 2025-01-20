@@ -39,6 +39,8 @@ struct UniformLight {
   float constantAttenuation; // Attnuation constante
   float linearAttenuation; // Attnuation linéaire
   float quadraticAttenuation; // Attnuation quadratique
+  float rotationAngle;
+  float openAngle;
   float p1[1];
 };
 

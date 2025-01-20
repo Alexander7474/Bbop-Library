@@ -13,6 +13,7 @@
 
 #include "../../../include/BBOP/Graphics/sceneClass.h"
 
+#include <cmath>
 #include <iostream>
 
 Scene::Scene()
@@ -117,5 +118,7 @@ void Scene::addLight(Light& l)
   nLight.linearAttenuation = l.getLinear();
   nLight.constantAttenuation = l.getConstant();
   nLight.quadraticAttenuation = l.getQuadratic();
+  nLight.rotationAngle = -l.getRotationAngle();
+  nLight.openAngle = l.getOpenAngle();
   lightsVec.push_back(nLight);
 }

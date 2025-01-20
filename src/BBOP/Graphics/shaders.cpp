@@ -67,6 +67,8 @@ struct Light {
   float constantAttenuation; // Attnuation constante
   float linearAttenuation; // Attnuation linéaire
   float quadraticAttenuation; // Attnuation quadratique
+  float rotationAngle;
+  float openAngle;
 };
 
 // création d'une light
@@ -107,15 +109,40 @@ void main()
   }
   
   // calcule de l'éclairage du pixel
+  //
+
+  //position du fragment actuelle
   vec2 convertedFrag = convertCoords(gl_FragCoord.xy);
+
+  //au debgut la lumière vaut la valeur de la lumière ambiant
   vec4 finalLight = ambiantLight;
   for (int i = 0; i < nLight; i++){
+
+
+    //position de la light actuelle 
     vec4 lightPos = projection * vec4(lights[i].pos, 0.0, 1.0);
-    float distance = length(lightPos.xy - normalizeVec2(convertedFrag)) * camScale;
-    float attenuation = 1.0 / (lights[i].constantAttenuation + lights[i].linearAttenuation * distance + lights[i].quadraticAttenuation * distance * distance);
-    float intensity = attenuation*lights[i].intensity;
-    vec4 thislight = intensity*vec4(lights[i].color, 0.0);
-    finalLight+=thislight;
+
+    //déterminer si le fragment est dans le cône de lumière 
+    vec2 lightDir = normalize(vec2(cos(lights[i].rotationAngle), sin(lights[i].rotationAngle))); // Direction de la lumière
+    vec2 fragDir = normalize(convertedFrag - lights[i].pos); // Direction du fragment vers la lumière
+    float angleCos = dot(lightDir, fragDir); // Cosinus de l'angle entre les deux
+    if (angleCos >= cos(lights[i].openAngle)) {
+      // Le fragment est dans le cône
+        ////disatnce entre la light et le fragment 
+      float distance = length(lightPos.xy - normalizeVec2(convertedFrag)) * camScale;
+
+      //attenuation en fonction de la distance et des différente valeur de la light 
+      float attenuation = 1.0 / (lights[i].constantAttenuation + lights[i].linearAttenuation * distance + lights[i].quadraticAttenuation * distance * distance);
+
+      //intensité de la light en fonction de son atténuation calculé 
+      float intensity = attenuation*lights[i].intensity;
+
+      //emballage dans un vec4
+      vec4 thislight = intensity*vec4(lights[i].color, 0.0);
+      finalLight+=thislight;
+
+    }
+
   }
 
   //reset de l'alpha de la lumière(toujours 1.0 pour laisser l'alpha des texture et des shape seul déterminant de la transparence)
