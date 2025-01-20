@@ -36,7 +36,7 @@ Geometric::Geometric(const Geometric &other):
 
 void Geometric::setPosition(const Vector2f &nPos)
 {
-  pos = nPos;
+  setPosition(nPos.x,nPos.y);
 }
 
 void Geometric::setPosition(float x_, float y_)
@@ -52,7 +52,7 @@ const Vector2f &Geometric::getPosition() const
 
 void Geometric::setSize(const Vector2f &nSize)
 {
-  size = nSize;
+  setSize(nSize.x,nSize.y);
 }
 
 void Geometric::setSize(float x_, float y_)
@@ -68,7 +68,7 @@ const Vector2f &Geometric::getSize() const
 
 void Geometric::setOrigin(const Vector2f &nOrigin)
 {
-  origin = nOrigin;
+  setOrigin(nOrigin.x, nOrigin.y);
 }
 
 void Geometric::setOrigin(float x_, float y_)
@@ -87,7 +87,7 @@ void Geometric::setRotation(float nRotation)
   rotation = nRotation;
 }
 
-float Geometric::getRotation() const
+const float Geometric::getRotation() const
 {
   return rotation;
 }

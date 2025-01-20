@@ -32,16 +32,16 @@ public:
   Geometric();
 
   void setPosition(const Vector2f &nPos);
-  void setPosition(float x_, float y_);
+  virtual void setPosition(float x_, float y_);
   const Vector2f &getPosition() const;
   void setSize(const Vector2f &nSize);
-  void setSize(float x_, float y_);
+  virtual void setSize(float x_, float y_);
   const Vector2f &getSize() const;
   void setOrigin(const Vector2f &nOrigin);
-  void setOrigin(float x_, float y_);
+  virtual void setOrigin(float x_, float y_);
   const Vector2f &getOrigin() const;
-  void setRotation(float nRotation);
-  float getRotation() const;
+  virtual void setRotation(float nRotation);
+  const float getRotation() const;
 
 protected:
   Vector2f pos;

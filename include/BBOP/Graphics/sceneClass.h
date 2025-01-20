@@ -32,14 +32,14 @@
 #include "lightClass.h"
 
 struct UniformLight {
-  glm::vec2 pos; // Position de la source de lumière (2D)
-  float p0[2];
-  glm::vec3 color; // Couleur de la lumière
-  float intensity; // Intensité de la lumière
-  float constantAttenuation; // Attnuation constante
-  float linearAttenuation; // Attnuation linéaire
-  float quadraticAttenuation; // Attnuation quadratique
-  float p1[1];
+  alignas(8) glm::vec2 pos; // Position de la source de lumière (2D)
+  alignas(4) float intensity; // Intensité de la lumière
+  alignas(4) float constantAttenuation; // Attnuation constante
+  alignas(16) glm::vec3 color; // Couleur de la lumière
+  alignas(4) float linearAttenuation; // Attnuation linéaire
+  alignas(4) float quadraticAttenuation; // Attnuation quadratique
+  alignas(4) float rotationAngle;
+  alignas(4) float openAngle;
 };
 
 /**
