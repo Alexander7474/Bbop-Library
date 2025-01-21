@@ -83,10 +83,14 @@ void Map::remplissage(const char* map_folder)
           tile_spr.setPosition(tile.getWorldPosition().x,tile.getWorldPosition().y);
           tile_spr.setSize(layer_tileset.tile_size,layer_tileset.tile_size);
 
-          if(tile.flipX)
+          if(tile.flipX){
             tile_spr.flipVertically();
-          if(tile.flipY)
+            tile_spr.setPosition(tile_spr.getPosition().x - tile_spr.getSize().x, tile_spr.getPosition().y);
+          }
+          if(tile.flipY){
             tile_spr.flipHorizontally();
+            tile_spr.setPosition(tile_spr.getPosition().x, tile_spr.getPosition().y - tile_spr.getSize().y);
+          }
 
           tiles.push_back(tile_spr);
         }
@@ -200,10 +204,10 @@ void Map::Draw(Scene &scene, Camera &ground_camera)
   scene.Use();
   
   scene.useCamera(&ground_camera);
-  for (Sprite& tile : tiles)
+  for (int i = tiles.size()-1; i >= 0; i--)
   {
-    if(ground_camera.isInCamView(tile))
-      scene.Draw(tile);
+    if(ground_camera.isInCamView(tiles[i]))
+      scene.Draw(tiles[i]);
   }
   for(AnimatedSprite& p : animated_sprites){
     if(ground_camera.isInCamView(p)){
