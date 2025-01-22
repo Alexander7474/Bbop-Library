@@ -16,8 +16,13 @@
 
 /**
  * @todo Utiliser des matrices de model, de view et de projection pour le vertex shaders
- * @todo Mettre les shaders dans des fichier .glsl 
- * @todo Faire des ubershader configurable pour optimiser les transfert de données (quantité) et la vitesse de calcule 
+ *
+ * @todo 1 -> Mettre les shaders dans des fichier .glsl 
+ * @todo 2 -> Faire des ubershader configurable pour optimiser les transfert de données (quantité) et la vitesse de calcule 
+ * @todo 3 -> utilisé des matrice de tranformation, view et model pour éviter les calcule côté cpu 
+ * @todo 4 -> faire un framebuffer pour calculer l'éclairage en une fois
+ * @todo 5 -> ajout de shadow map 
+ * @todo 6 -> ajout de normal/light map
  */
 extern const char* defaultFragment;
 extern const char* defaultVertex;
