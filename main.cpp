@@ -35,20 +35,11 @@ int main() {
   bbopInit(956,1044,"test",window);
   
   //Creation de la scene pour afficher nos formes
-  Scene defaultScene(0.4f,Vector3i(255,255,255));
+  Scene defaultScene;
 
   RectangleShape rect;
-  rect.setSize(BBOP_WINDOW_RESOLUTION.x, BBOP_WINDOW_RESOLUTION.y);
-
-  Light light1;
-  light1.setPosition(Vector2f(BBOP_WINDOW_RESOLUTION.x/2.f, BBOP_WINDOW_RESOLUTION.y/2.f+100));
-  light1.setOpenAngle(3.14f/5.f);
-  light1.setColor(Vector3i(255,0,0));
-
-  Light light2;
-  light2.setPosition(Vector2f(BBOP_WINDOW_RESOLUTION.x/2.f, BBOP_WINDOW_RESOLUTION.y/2.f));
-  light2.setOpenAngle(3.14f/5.f);
-  light2.setRotationAngle(M_PI);
+  rect.setSize(200, 200);
+  rect.setPosition(400, 400);
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -59,12 +50,11 @@ int main() {
     ///code zone
     //////////////////////////////////////////////////////////////
     ///
-    defaultScene.addLight(light2);
-    defaultScene.addLight(light1);
-
     defaultScene.Use();
 
     defaultScene.Draw(rect);
+
+    defaultScene.render();
        
     //////////////////////////////////////////////////////////////
     

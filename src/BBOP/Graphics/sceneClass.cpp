@@ -16,22 +16,7 @@
 #include <cmath>
 #include <iostream>
 
-Scene::Scene()
-  : sceneShader(defaultVertex, defaultFragment),
-    ambiantLightValue(1.0f),
-    ambiantLightColor(Vector3i(255,255,255)),
-    ambiantLight(Vector3f(ambiantLightValue*(ambiantLightColor.x/255.0f), ambiantLightValue*(ambiantLightColor.y/255.0f), ambiantLightValue*(ambiantLightColor.z/255.0f))),
-    sceneCamera(nullptr)
-{
-  ambiantLightLoc = sceneShader.getUniformLoc("ambiantLight");
-  renderModeLoc = sceneShader.getUniformLoc("renderMode");
-  windowSizeLoc = sceneShader.getUniformLoc("windowSize");
-  windowResoLoc = sceneShader.getUniformLoc("windowResolution");
-  nLightLoc = sceneShader.getUniformLoc("nLight");
-  glGenBuffers(1, &lightsUBO);
-  glBindBuffer(GL_UNIFORM_BUFFER, lightsUBO);
-  glBufferData(GL_UNIFORM_BUFFER, 100 * sizeof(UniformLight), &lightsVec[0], GL_DYNAMIC_DRAW);
-}
+Scene::Scene() : Scene(1.f, Vector3i(255,255,255)) {}
 
 Scene::Scene(float nAmbiantLightValue, Vector3i nAmbiantLightColor)
   : sceneShader(defaultVertex, defaultFragment),
@@ -48,14 +33,38 @@ Scene::Scene(float nAmbiantLightValue, Vector3i nAmbiantLightColor)
   glGenBuffers(1, &lightsUBO);
   glBindBuffer(GL_UNIFORM_BUFFER, lightsUBO);
   glBufferData(GL_UNIFORM_BUFFER, 100 * sizeof(UniformLight), &lightsVec[0], GL_DYNAMIC_DRAW);
+  
+  //gestion du frameBuffer 
+  glGenFramebuffers(1, &frameBuffer);
+  glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
+
+  //textureBuffer utilisé pour afficher le frameBuffer 
+  glGenTextures(1, &textureColorBuffer);
+  glBindTexture(GL_TEXTURE_2D, textureColorBuffer);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, BBOP_WINDOW_SIZE.x, BBOP_WINDOW_SIZE.y, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+  glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textureColorBuffer, 0);
+
+  if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
+    LOGS.push_back("BBOP ERROR -> Frame buffer de la scene incomplé");
+  }
+  glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-Scene::~Scene() {}
+Scene::~Scene() 
+{
+  
+}
 
 void Scene::Use()
 {
+  // activation du frame buffer 
+  glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+  //activation du shader et transfert des données nécessaire 
   sceneShader.Activate();
   glUniform4f(ambiantLightLoc,ambiantLight.x,ambiantLight.y,ambiantLight.z,1.0f);
   glUniform2f(windowSizeLoc,BBOP_WINDOW_SIZE.x,BBOP_WINDOW_SIZE.y);
@@ -84,6 +93,17 @@ void Scene::Draw(const BbopDrawable& spr) const
   }
   glUniformMatrix4fv(sceneShader.getUniformLoc("projection"), 1, GL_FALSE, glm::value_ptr(projection));
   glUniform1f(sceneShader.getUniformLoc("camScale"), camScale);
+  spr.Draw(renderModeLoc);
+}
+
+void Scene::render()
+{
+  //unbind du framebuffer pour le rendre sur l'écran
+  glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+  NoTextureSprite spr; 
+  spr.setSize(BBOP_WINDOW_RESOLUTION.x, BBOP_WINDOW_RESOLUTION.y);
+  glBindTexture(GL_TEXTURE_2D, textureColorBuffer);
   spr.Draw(renderModeLoc);
 }
 

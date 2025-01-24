@@ -134,6 +134,8 @@ public:
   */
   void Draw(const BbopDrawable& spr)const;
 
+  void render();
+
 private:
   Shader sceneShader; //<! shader 
   float ambiantLightValue; //<! intensité lumière ambiante
@@ -147,6 +149,8 @@ private:
   std::vector<UniformLight> lightsVec; //<! Liste des lumières à transférer vers le shader avec lightUBO
   Vector3f ambiantLight; //<! lumière ambiante de Scene
   Camera* sceneCamera; //<! camera à utilser lors de Draw()
+  unsigned int frameBuffer; //<! frame buffer de la scene
+  unsigned int textureColorBuffer;
 };
 
 #endif // !SCENE_CLASS_H
