@@ -138,17 +138,31 @@ public:
 
 private:
   Shader sceneShader; //<! shader 
+  Shader sceneLightShader; //<! shader de lumière 
+  
   float ambiantLightValue; //<! intensité lumière ambiante
   Vector3i ambiantLightColor; //<! couleur lumière ambiante
+  
+  //adresse mem shader
   GLint ambiantLightLoc; //<! GPU MEM addr de la lumière ambiante
   GLint renderModeLoc; //<! GPU MEM addr du mode de renue (BBOP_SHADER_MODE_COLOR, BBOP_SHADER_MODE_TEXTURE, BBOP_SHADER_MODE_MIX)
   GLint windowSizeLoc; //<! GPU MEM addr de la taille en pixel de l'écran 
   GLint windowResoLoc; //<! GPU MEM addr de la resolution d'affichage de bbop
+  GLint camScaleLoc;
+  GLint projectionLoc;
+  
+  //adresse mem light shader 
   GLint nLightLoc; //<! GPU MEM addr de la list de lumière dans le shader
   GLuint lightsUBO; //<! ID de l'ubo pour transfert la list de UniformLight vers la list de Light ddu shader
   std::vector<UniformLight> lightsVec; //<! Liste des lumières à transférer vers le shader avec lightUBO
+  GLint lightWindowSizeLoc; //<! GPU MEM addr de la taille en pixel de l'écran 
+  GLint lightWindowResoLoc; //<! GPU MEM addr de la resolution d'affichage de bbop
+  GLint lightCamScaleLoc;
+  GLint lightProjectionLoc;
+  
   Vector3f ambiantLight; //<! lumière ambiante de Scene
   Camera* sceneCamera; //<! camera à utilser lors de Draw()
+  
   unsigned int frameBuffer; //<! frame buffer de la scene
   unsigned int textureColorBuffer;
 };

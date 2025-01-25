@@ -20,16 +20,24 @@ Scene::Scene() : Scene(1.f, Vector3i(255,255,255)) {}
 
 Scene::Scene(float nAmbiantLightValue, Vector3i nAmbiantLightColor)
   : sceneShader(defaultVertex, defaultFragment),
+    sceneLightShader(lightVertex, lightFragment),
     ambiantLightValue(nAmbiantLightValue),
     ambiantLightColor(nAmbiantLightColor),
     sceneCamera(nullptr)
 {
+  //mise en place adresse mem du shader 
   ambiantLight = Vector3f(ambiantLightValue*(ambiantLightColor.x/255.0f), ambiantLightValue*(ambiantLightColor.y/255.0f), ambiantLightValue*(ambiantLightColor.z/255.0f));
   ambiantLightLoc = sceneShader.getUniformLoc("ambiantLight");
   renderModeLoc = sceneShader.getUniformLoc("renderMode");
   windowSizeLoc = sceneShader.getUniformLoc("windowSize");
   windowResoLoc = sceneShader.getUniformLoc("windowResolution");
-  nLightLoc = sceneShader.getUniformLoc("nLight");
+  camScaleLoc = sceneShader.getUniformLoc("camScale");
+  projectionLoc = sceneShader.getUniformLoc("projection");
+
+  //mise en place adresse mem du light shader
+  nLightLoc = sceneLightShader.getUniformLoc("nLight");
+  lightCamScaleLoc = sceneLightShader.getUniformLoc("camScale");
+  lightProjectionLoc = sceneLightShader.getUniformLoc("projection");
   glGenBuffers(1, &lightsUBO);
   glBindBuffer(GL_UNIFORM_BUFFER, lightsUBO);
   glBufferData(GL_UNIFORM_BUFFER, 100 * sizeof(UniformLight), &lightsVec[0], GL_DYNAMIC_DRAW);
@@ -73,10 +81,10 @@ void Scene::Use()
   glUniform4f(ambiantLightLoc,ambiantLight.x,ambiantLight.y,ambiantLight.z,1.0f);
   glUniform2f(windowSizeLoc,BBOP_WINDOW_SIZE.x,BBOP_WINDOW_SIZE.y);
   glUniform2f(windowResoLoc,BBOP_WINDOW_RESOLUTION.x,BBOP_WINDOW_RESOLUTION.y);
-  glUniform1i(nLightLoc, lightsVec.size());
-  glBindBufferBase(GL_UNIFORM_BUFFER, 0, lightsUBO);
-  glBufferSubData(GL_UNIFORM_BUFFER, 0, lightsVec.size() * sizeof(UniformLight), &lightsVec[0]);
-  lightsVec.clear();
+  //glUniform1i(nLightLoc, lightsVec.size());
+  //glBindBufferBase(GL_UNIFORM_BUFFER, 0, lightsUBO);
+  //glBufferSubData(GL_UNIFORM_BUFFER, 0, lightsVec.size() * sizeof(UniformLight), &lightsVec[0]);
+  //lightsVec.clear();
 }
 
 void Scene::useCamera(Camera* camAddr)
@@ -95,8 +103,8 @@ void Scene::Draw(const BbopDrawable& spr) const
     projection = glm::ortho(0.0f, static_cast<float>(BBOP_WINDOW_RESOLUTION.x), static_cast<float>(BBOP_WINDOW_RESOLUTION.y), 0.0f, -1.0f, 1.0f);
     camScale = 1.f;
   }
-  glUniformMatrix4fv(sceneShader.getUniformLoc("projection"), 1, GL_FALSE, glm::value_ptr(projection));
-  glUniform1f(sceneShader.getUniformLoc("camScale"), camScale);
+  glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
+  glUniform1f(camScaleLoc, camScale);
   spr.Draw(renderModeLoc);
 }
 

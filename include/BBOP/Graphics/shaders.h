@@ -26,5 +26,7 @@
  */
 extern const char* defaultFragment;
 extern const char* defaultVertex;
+extern const char* lightFragment;
+extern const char* lightVertex;
  
 #endif // ! SHADERS_CODE_H
