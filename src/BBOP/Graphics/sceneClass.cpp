@@ -61,6 +61,10 @@ void Scene::Use()
 {
   // activation du frame buffer 
   glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
+  glBindTexture(GL_TEXTURE_2D, textureColorBuffer);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, BBOP_WINDOW_SIZE.x, BBOP_WINDOW_SIZE.y, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+
+
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
@@ -102,9 +106,11 @@ void Scene::render()
   glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
   NoTextureSprite spr; 
+  spr.setPosition(0,0);
   spr.setSize(BBOP_WINDOW_RESOLUTION.x, BBOP_WINDOW_RESOLUTION.y);
   glBindTexture(GL_TEXTURE_2D, textureColorBuffer);
-  spr.Draw(renderModeLoc);
+  useCamera(nullptr);
+  Draw(spr);
 }
 
 void Scene::setAmbiantLightColor(const Vector3i &nAmbiantLightColor)
