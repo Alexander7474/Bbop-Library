@@ -192,18 +192,13 @@ void Map::Draw(Scene &scene, Camera &ground_camera)
 {
   scene.setAmbiantLightValue(global_illumination);
 
-  scene.Use();
-
-  scene.useCamera(nullptr);
-  scene.Draw(background);
-
   for(Light& l : lights){
     scene.addLight(l);
   }
+  scene.useCamera(&ground_camera);
 
   scene.Use();
   
-  scene.useCamera(&ground_camera);
   for (int i = tiles.size()-1; i >= 0; i--)
   {
     if(ground_camera.isInCamView(tiles[i]))
@@ -214,7 +209,6 @@ void Map::Draw(Scene &scene, Camera &ground_camera)
       scene.Draw(p);
     }
   }
-
 
   //for(CollisionBox& box : collision_layer){
     //if(ground_camera.isInCamView(box))
