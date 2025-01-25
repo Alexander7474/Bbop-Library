@@ -167,7 +167,7 @@ void main()
   //position du fragment actuelle
   vec2 convertedFrag = convertCoords(gl_FragCoord.xy);
 
-  vec4 finalLight = vec4(0,0,0,0);
+  vec4 finalLight = vec4(1,1,1,1);
   for (int i = 0; i < nLight; i++){
 
     //position de la light actuelle 
@@ -193,9 +193,6 @@ void main()
       finalLight+=thislight;
     }
   }
-
-  //reset de l'alpha de la lumière(toujours 1.0 pour laisser l'alpha des texture et des shape seul déterminant de la transparence)
-  finalLight.w = 1.0;
 
   //pixel final
   FragColor = provisory*finalLight;
