@@ -1,0 +1,25 @@
+var classSprite =
+[
+    [ "Sprite", "classSprite.html#a720f36fae066815cb8131606602b6095", null ],
+    [ "Sprite", "classSprite.html#a2fe886a0cf4b887163cc8138b09574fc", null ],
+    [ "Sprite", "classSprite.html#a75252863eb402c985ba36eda01039b82", null ],
+    [ "Sprite", "classSprite.html#a04e0654722b7bc77f1be8a9eb8ebb086", null ],
+    [ "Sprite", "classSprite.html#a12cba3ac1868418add3c4d95ce87e615", null ],
+    [ "Sprite", "classSprite.html#ac17f0e18a22c84234a659b1c0bbb69de", null ],
+    [ "~Sprite", "classSprite.html#a8accab430f9d90ae5117b57d67e32b84", null ],
+    [ "buildVAO", "classSprite.html#a58ba7f507127d4e81ffe00be7d59c0bc", null ],
+    [ "Draw", "classSprite.html#af9be42bc2be161b8eec4bcc9d1141ba5", null ],
+    [ "flipHorizontally", "classSprite.html#aa604258c288860ef9e9604cc9d932fec", null ],
+    [ "flipVertically", "classSprite.html#abe1f24ce55e6b541fcd3f43e8147b2a7", null ],
+    [ "getRGBFilterState", "classSprite.html#a893f004e6c5e827be939b0e362c97cc9", null ],
+    [ "getTexture", "classSprite.html#a9a0c1b20bc89e2898a75a7ec4c721427", null ],
+    [ "operator=", "classSprite.html#abb3f0673884d42b6b116f0c4d1a47b77", null ],
+    [ "setRGBFilterState", "classSprite.html#ab299bab24ce0057164243ec5b8a2bb6b", null ],
+    [ "setTexture", "classSprite.html#a2e579e2e543017ea87acc42e5d7108b0", null ],
+    [ "updateVBO", "classSprite.html#ab8de3004c927130c36f888ec52712f0a", null ],
+    [ "updateVBOAlpha", "classSprite.html#a43628352a0e151acdb3b68c9be2c9109", null ],
+    [ "updateVBORGB", "classSprite.html#ab0926ec6fb759d24b1df3eab12f2a70e", null ],
+    [ "indices", "classSprite.html#a02928ae567a2c404d015f12105ca7be0", null ],
+    [ "isRGBFilter", "classSprite.html#a5fbebfdd07cac349aeff218d5eb45f7f", null ],
+    [ "vertices", "classSprite.html#ae3299c5e7dcc6a8eddfebb538f9354a3", null ]
+];

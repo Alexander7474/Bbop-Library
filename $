@@ -1,0 +1,65 @@
+# Tuto 
+
+## Mise en place 
+
+Premier programme hello world avec Bbop, affichage d'un rectangle blanc
+
+Initialisation de la librairie avec une fenêtre glfw \n 
+```
+GLFWwindow *window;
+bbopInit(1920,1080,"name",window);
+```
+
+Mise en place d'une scene pour afficher notre premier rectangle \n
+```
+Scene scene;
+```
+
+Creation du rectangle \n
+```
+RectangleShape rectangle;
+rectangle.setPosition(100.f,100.f); //changement de position 
+rectangle.setSize(500.f,500.f); //changement de la taille du rectangle
+```
+
+
+```
+int main() {
+  
+  GLFWwindow * window;
+  bbopInit(1920,1080,"name",window);
+  
+  Scene scene;
+
+  RectangleShape rectangle;
+  rectangle.setPosition(100.f, 100.f);
+
+  while (!glfwWindowShouldClose(window))
+  {
+    // Nettoyage de la fenêtre
+    bbopCleanWindow(window, Vector3i(0,0,0),1.0);
+
+    // On 'active' la scene pour donner au shader opengl les variables uniforms
+    defaultScene.Use();
+
+    // Affichage du rectangle
+    defaultScene.Draw(rect);
+
+    // Faire le rendue du frame buffer de la fenêtre
+    defaultScene.render();
+    
+    // Verfication d'erreur opengl
+    bbopErrorCheck();
+
+    // Passage du front buffer pour afficher le rendue opengl sur la fenêtre glfw 
+    glfwSwapBuffers(window);
+    glfwPollEvents();
+  }
+  
+  // Suppression de la fenêtre
+  glfwDestroyWindow(window);
+  glfwTerminate();
+  
+  return 0;
+}
+```

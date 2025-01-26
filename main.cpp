@@ -32,40 +32,39 @@ using namespace std;
 int main() {
   
   GLFWwindow * window;
-  bbopInit(956,1044,"test",window);
+  bbopInit(1920,1080,"name",window);
   
-  //Creation de la scene pour afficher nos formes
-  Scene defaultScene;
+  Scene scene;
 
-  RectangleShape rect;
-  rect.setSize(200, 200);
-  rect.setPosition(400, 400);
+  RectangleShape rectangle;
+  rectangle.setPosition(100.f, 100.f);
+  rectangle.setSize(500.f,500.f);
 
-	while (!glfwWindowShouldClose(window))
-	{
+  while (!glfwWindowShouldClose(window))
+  {
+    // Nettoyage de la fenêtre
     bbopCleanWindow(window, Vector3i(0,0,0),1.0);
 
-   
-    //////////////////////////////////////////////////////////////
-    ///code zone
-    //////////////////////////////////////////////////////////////
-    ///
-    defaultScene.Use();
+    // On 'active' la scene pour donner au shader opengl les variables uniforms
+    scene.Use();
 
-    defaultScene.Draw(rect);
+    // Affichage du rectangle
+    scene.Draw(rectangle);
 
-    defaultScene.render();
-       
-    //////////////////////////////////////////////////////////////
+    // Faire le rendue du frame buffer de la fenêtre
+    scene.render();
     
+    // Verfication d'erreur opengl
     bbopErrorCheck();
 
-    // Swap the back buffer with the front buffer
-	  glfwSwapBuffers(window);
-	  glfwPollEvents();
-	}
-	// Delete window before ending the program
-	glfwDestroyWindow(window);
-	glfwTerminate();
-	return 0;
+    // Passage du front buffer pour afficher le rendue opengl sur la fenêtre glfw 
+    glfwSwapBuffers(window);
+    glfwPollEvents();
+  }
+  
+  // Suppression de la fenêtre
+  glfwDestroyWindow(window);
+  glfwTerminate();
+  
+  return 0;
 }
