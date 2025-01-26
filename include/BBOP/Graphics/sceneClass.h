@@ -141,6 +141,7 @@ public:
 
   /**
   * @brief Permet de render le framebuffer de la scene en calculant sont éclairage final 
+  * @details Clear le vecteur de lumière
   */
   void render();
 
