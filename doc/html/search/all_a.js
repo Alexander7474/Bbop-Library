@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['géométrique_20shape_0',['Forme géométrique / Shape',['../md_doc_2doc__markdown__page_2tuto.html#autotoc_md2',1,'']]],
+  ['géométrique_20shape_0',['Forme géométrique / Shape',['../md_doc_2doc__markdown__page_2tuto.html#autotoc_md3',1,'']]],
   ['game_1',['Game',['../classMap.html#aa2fab026580d6f14280c2ffb8063a314',1,'Map']]],
   ['gen_2',['gen',['../benchmark_8cpp.html#a88673bfe22d2495f0c312abf54618eee',1,'benchmark.cpp']]],
   ['geometric_3',['Geometric',['../classGeometric.html',1,'Geometric'],['../classGeometric.html#aefce0e819f3027bdb457cadd97c36feb',1,'Geometric::Geometric(Vector2f nPos, Vector2f nOrigin, Vector2f nSize, float nRotation)'],['../classGeometric.html#ab0b0fa4ae9960792d353f2103fdf0f94',1,'Geometric::Geometric(const Geometric &amp;other)'],['../classGeometric.html#a741e184fee4d9abdeb2f565870eba117',1,'Geometric::Geometric()']]],
@@ -42,10 +42,10 @@ var searchData=
   ['gettop_39',['getTop',['../classCollisionBox.html#a69e2bbb7afd5a3d2c8dcae8fcf407b8f',1,'CollisionBox']]],
   ['getuniformloc_40',['getUniformLoc',['../classShader.html#a999ee4e96bb199defafabc60dc7104b5',1,'Shader']]],
   ['getwidth_41',['getWidth',['../classTexture.html#a2c2b502138a1a1786c4bf74016620885',1,'Texture']]],
-  ['glfw_20et_20glm_20_3awarning_3a_42',[':warning: Issue avec glfw et glm :warning:',['../md_README.html#autotoc_md23',1,'']]],
-  ['glm_20_3awarning_3a_43',[':warning: Issue avec glfw et glm :warning:',['../md_README.html#autotoc_md23',1,'']]],
+  ['glfw_20et_20glm_20_3awarning_3a_42',[':warning: Issue avec glfw et glm :warning:',['../md_README.html#autotoc_md24',1,'']]],
+  ['glm_20_3awarning_3a_43',[':warning: Issue avec glfw et glm :warning:',['../md_README.html#autotoc_md24',1,'']]],
   ['graphics_2eh_44',['Graphics.h',['../Graphics_8h.html',1,'']]],
-  ['grey_20style_20for_20the_20badge_20logo_20arch_20linux_20logocolor_20fff_20labelcolor_201793d1_20alt_20static_20badge_45',['&lt;img src=&quot;https://img.shields.io/badge/Arch_Linux-Packages-grey?style=for-the-badge&amp;logo=arch-linux&amp;logoColor=fff&amp;labelColor=1793D1&quot; alt=&quot;Static Badge&quot;/&gt;',['../md_README.html#autotoc_md21',1,'']]],
-  ['grey_20style_20for_20the_20badge_20logo_20debian_20labelcolor_20d70a53_20alt_20static_20badge_46',['&lt;img src=&quot;https://img.shields.io/badge/Debian-Packages-grey?style=for-the-badge&amp;logo=debian&amp;labelColor=D70A53&quot; alt=&quot;Static Badge&quot;/&gt;',['../md_README.html#autotoc_md20',1,'']]],
-  ['grey_20style_20for_20the_20badge_20logo_20macos_20logocolor_20f0f0f0_20labelcolor_20black_20alt_20static_20badge_47',['&lt;img src=&quot;https://img.shields.io/badge/mac_os-Packages-grey?style=for-the-badge&amp;logo=macos&amp;logoColor=F0F0F0&amp;labelColor=black&quot; alt=&quot;Static Badge&quot;/&gt;',['../md_README.html#autotoc_md22',1,'']]]
+  ['grey_20style_20for_20the_20badge_20logo_20arch_20linux_20logocolor_20fff_20labelcolor_201793d1_20alt_20static_20badge_45',['&lt;img src=&quot;https://img.shields.io/badge/Arch_Linux-Packages-grey?style=for-the-badge&amp;logo=arch-linux&amp;logoColor=fff&amp;labelColor=1793D1&quot; alt=&quot;Static Badge&quot;/&gt;',['../md_README.html#autotoc_md22',1,'']]],
+  ['grey_20style_20for_20the_20badge_20logo_20debian_20labelcolor_20d70a53_20alt_20static_20badge_46',['&lt;img src=&quot;https://img.shields.io/badge/Debian-Packages-grey?style=for-the-badge&amp;logo=debian&amp;labelColor=D70A53&quot; alt=&quot;Static Badge&quot;/&gt;',['../md_README.html#autotoc_md21',1,'']]],
+  ['grey_20style_20for_20the_20badge_20logo_20macos_20logocolor_20f0f0f0_20labelcolor_20black_20alt_20static_20badge_47',['&lt;img src=&quot;https://img.shields.io/badge/mac_os-Packages-grey?style=for-the-badge&amp;logo=macos&amp;logoColor=F0F0F0&amp;labelColor=black&quot; alt=&quot;Static Badge&quot;/&gt;',['../md_README.html#autotoc_md23',1,'']]]
 ];

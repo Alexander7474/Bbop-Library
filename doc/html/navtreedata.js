@@ -26,47 +26,48 @@ var NAVTREE =
 [
   [ "Bbop-Library", "index.html", [
     [ "Tuto", "md_doc_2doc__markdown__page_2tuto.html", [
-      [ "Mise en place", "md_doc_2doc__markdown__page_2tuto.html#autotoc_md1", null ],
-      [ "Forme géométrique / Shape", "md_doc_2doc__markdown__page_2tuto.html#autotoc_md2", [
-        [ "Rectangle / RectangleShape", "md_doc_2doc__markdown__page_2tuto.html#autotoc_md3", null ],
-        [ "Forme Convec / ConvexShape", "md_doc_2doc__markdown__page_2tuto.html#autotoc_md4", [
-          [ "Cercle / CircleShape", "md_doc_2doc__markdown__page_2tuto.html#autotoc_md5", null ],
-          [ "Et les triangles ?", "md_doc_2doc__markdown__page_2tuto.html#autotoc_md6", null ]
+      [ "Info", "md_doc_2doc__markdown__page_2tuto.html#autotoc_md1", null ],
+      [ "Mise en place", "md_doc_2doc__markdown__page_2tuto.html#autotoc_md2", null ],
+      [ "Forme géométrique / Shape", "md_doc_2doc__markdown__page_2tuto.html#autotoc_md3", [
+        [ "Rectangle / RectangleShape", "md_doc_2doc__markdown__page_2tuto.html#autotoc_md4", null ],
+        [ "Forme Convex / ConvexShape", "md_doc_2doc__markdown__page_2tuto.html#autotoc_md5", [
+          [ "Cercle / CircleShape", "md_doc_2doc__markdown__page_2tuto.html#autotoc_md6", null ],
+          [ "Et les triangles ?", "md_doc_2doc__markdown__page_2tuto.html#autotoc_md7", null ]
         ] ],
-        [ "Sprite", "md_doc_2doc__markdown__page_2tuto.html#autotoc_md7", [
-          [ "Sprite animé", "md_doc_2doc__markdown__page_2tuto.html#autotoc_md8", null ]
+        [ "Sprite", "md_doc_2doc__markdown__page_2tuto.html#autotoc_md8", [
+          [ "Sprite animé", "md_doc_2doc__markdown__page_2tuto.html#autotoc_md9", null ]
         ] ]
       ] ],
-      [ "Scene", "md_doc_2doc__markdown__page_2tuto.html#autotoc_md9", null ],
-      [ "Camera", "md_doc_2doc__markdown__page_2tuto.html#autotoc_md10", null ],
-      [ "Collision", "md_doc_2doc__markdown__page_2tuto.html#autotoc_md11", null ],
-      [ "Light", "md_doc_2doc__markdown__page_2tuto.html#autotoc_md12", null ],
-      [ "Map", "md_doc_2doc__markdown__page_2tuto.html#autotoc_md13", null ],
-      [ "Math", "md_doc_2doc__markdown__page_2tuto.html#autotoc_md14", null ],
-      [ "Texture", "md_doc_2doc__markdown__page_2tuto.html#autotoc_md15", null ]
+      [ "Scene", "md_doc_2doc__markdown__page_2tuto.html#autotoc_md10", null ],
+      [ "Camera", "md_doc_2doc__markdown__page_2tuto.html#autotoc_md11", null ],
+      [ "Collision", "md_doc_2doc__markdown__page_2tuto.html#autotoc_md12", null ],
+      [ "Light", "md_doc_2doc__markdown__page_2tuto.html#autotoc_md13", null ],
+      [ "Map", "md_doc_2doc__markdown__page_2tuto.html#autotoc_md14", null ],
+      [ "Math", "md_doc_2doc__markdown__page_2tuto.html#autotoc_md15", null ],
+      [ "Texture", "md_doc_2doc__markdown__page_2tuto.html#autotoc_md16", null ]
     ] ],
     [ "Bbop Library", "md_README.html", [
-      [ "Naviguer", "md_README.html#autotoc_md17", null ],
-      [ "Installation", "md_README.html#autotoc_md18", [
-        [ "Librairies externes nécessaires", "md_README.html#autotoc_md19", [
-          [ "", "md_README.html#autotoc_md20", null ],
+      [ "Naviguer", "md_README.html#autotoc_md18", null ],
+      [ "Installation", "md_README.html#autotoc_md19", [
+        [ "Librairies externes nécessaires", "md_README.html#autotoc_md20", [
           [ "", "md_README.html#autotoc_md21", null ],
           [ "", "md_README.html#autotoc_md22", null ],
-          [ ":warning: Issue avec glfw et glm :warning:", "md_README.html#autotoc_md23", null ]
+          [ "", "md_README.html#autotoc_md23", null ],
+          [ ":warning: Issue avec glfw et glm :warning:", "md_README.html#autotoc_md24", null ]
         ] ],
-        [ "Compiler et installer bbop", "md_README.html#autotoc_md24", [
-          [ "", "md_README.html#autotoc_md25", null ],
-          [ "", "md_README.html#autotoc_md26", null ]
+        [ "Compiler et installer bbop", "md_README.html#autotoc_md25", [
+          [ "", "md_README.html#autotoc_md26", null ],
+          [ "", "md_README.html#autotoc_md27", null ]
         ] ],
-        [ "Compiler un projet", "md_README.html#autotoc_md27", [
-          [ "", "md_README.html#autotoc_md28", null ],
-          [ "", "md_README.html#autotoc_md29", null ]
+        [ "Compiler un projet", "md_README.html#autotoc_md28", [
+          [ "", "md_README.html#autotoc_md29", null ],
+          [ "", "md_README.html#autotoc_md30", null ]
         ] ]
       ] ],
-      [ "Exemple", "md_README.html#autotoc_md30", null ],
-      [ "Report Bug", "md_README.html#autotoc_md31", null ],
-      [ "Supporting", "md_README.html#autotoc_md32", null ],
-      [ "Contributors", "md_README.html#autotoc_md33", null ]
+      [ "Exemple", "md_README.html#autotoc_md31", null ],
+      [ "Report Bug", "md_README.html#autotoc_md32", null ],
+      [ "Supporting", "md_README.html#autotoc_md33", null ],
+      [ "Contributors", "md_README.html#autotoc_md34", null ]
     ] ],
     [ "Todo List", "todo.html", null ],
     [ "Classes", "annotated.html", [
@@ -98,7 +99,7 @@ var NAVTREEINDEX =
 [
 "EBO_8cpp.html",
 "classShape.html#a87892a43869e05f2d41b1bcf31004650",
-"shaderClass_8h.html"
+"shaderClass_8cpp.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

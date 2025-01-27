@@ -107,13 +107,13 @@ $(function(){initNavTree('md_README.html',''); initResizable(true); });
   <div class="headertitle"><div class="title">Bbop Library</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md16"></a></p>
+<div class="textblock"><p><a class="anchor" id="autotoc_md17"></a></p>
 <p><img src="https://img.shields.io/github/license/Alexander7474/Bbop-Library" alt="GitHub License" class="inline"/> <img src="https://img.shields.io/github/v/release/Alexander7474/Bbop-Library?include_prereleases&amp;color=pink" alt="GitHub Release" class="inline"/> <img src="https://img.shields.io/github/commits-since/Alexander7474/Bbop-Library/latest?color=green" alt="GitHub commits since latest release" class="inline"/> <img src="https://img.shields.io/github/commit-activity/t/Alexander7474/Bbop-Library/main" alt="GitHub commit activity (branch)" class="inline"/> <img src="https://img.shields.io/github/last-commit/Alexander7474/Bbop-Library?link=https%3A%2F%2Fgithub.com%2FAlexander7474%2FBbop-Library%2Fcommits%2Fmain%2F" alt="GitHub last commit" class="inline"/> <img src="https://img.shields.io/github/languages/top/Alexander7474/Bbop-Library?logo=c%2B%2B&amp;logoColor=red&amp;color=red" alt="GitHub top language" class="inline"/></p>
 <p>Bbop est un projet de librairie graphique utilisant l'api opengl ( :point_right: bientôt sous vulkan :point_left: ). <br  />
  La librairie permet de créer des jeux vidéos 2D ou des applications de bureau. Elle embarque un grand nombre d'objets en pasant par des formes géométriques et aux sprites jusqu'à la gestions de l'éclairages et des effets de lumières. <br  />
  Elle est principalement développée et maintenue sous linux et macOS ( je fais tous mon possible pour une sortie sur window ). <br  />
 </p>
-<h1><a class="anchor" id="autotoc_md17"></a>
+<h1><a class="anchor" id="autotoc_md18"></a>
 Naviguer</h1>
 <p>![Installation](https://img.shields.io/badge/Installation-lightgreen?style=for-the-badge) <br  />
  <a href="https://alexander7474.github.io/bbop-web-docs/"><img src="https://img.shields.io/badge/Documentation-lightblue?style=for-the-badge" alt="Static Badge" class="inline"/></a> <br  />
@@ -122,47 +122,47 @@ Naviguer</h1>
  ![Static Badge](https://img.shields.io/badge/Support-purple?style=for-the-badge) <br  />
  ![Static Badge](https://img.shields.io/badge/Contributors-yellow?style=for-the-badge) <br  />
 </p>
-<h1><a class="anchor" id="autotoc_md18"></a>
+<h1><a class="anchor" id="autotoc_md19"></a>
 Installation</h1>
-<h2><a class="anchor" id="autotoc_md19"></a>
+<h2><a class="anchor" id="autotoc_md20"></a>
 Librairies externes nécessaires</h2>
-<h3><a class="anchor" id="autotoc_md20"></a>
+<h3><a class="anchor" id="autotoc_md21"></a>
 <img src="https://img.shields.io/badge/Debian-Packages-grey?style=for-the-badge&amp;logo=debian&amp;labelColor=D70A53" alt="Static Badge" class="inline"/></h3>
 <div class="fragment"><div class="line">sudo apt-get install libglew-dev libglfw3-dev xorg-dev libfreetype6-dev libstb-dev </div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md21"></a>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md22"></a>
 <img src="https://img.shields.io/badge/Arch_Linux-Packages-grey?style=for-the-badge&amp;logo=arch-linux&amp;logoColor=fff&amp;labelColor=1793D1" alt="Static Badge" class="inline"/></h3>
 <p>(I use arch btw)</p>
 <div class="fragment"><div class="line">sudo pacman -S glew glfw stb freetype2 glm</div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md22"></a>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md23"></a>
 <img src="https://img.shields.io/badge/mac_os-Packages-grey?style=for-the-badge&amp;logo=macos&amp;logoColor=F0F0F0&amp;labelColor=black" alt="Static Badge" class="inline"/></h3>
 <div class="fragment"><div class="line">brew install glew freetype glfw glm</div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md23"></a>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md24"></a>
 :warning: Issue avec glfw et glm :warning:</h3>
 <p>Dans certain cas il est nécessaires d'installer glfw et glm en les compilants depuis leurs repo github.</p>
-<h2><a class="anchor" id="autotoc_md24"></a>
+<h2><a class="anchor" id="autotoc_md25"></a>
 Compiler et installer bbop</h2>
-<h3><a class="anchor" id="autotoc_md25"></a>
+<h3><a class="anchor" id="autotoc_md26"></a>
 <img src="https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&amp;logo=linux&amp;logoColor=black" alt="Linux" class="inline"/></h3>
 <div class="fragment"><div class="line">git clone https://github.com/Alexander7474/Bbop-Library.git</div>
 <div class="line">cd Bbop-Library</div>
 <div class="line">make &amp;&amp; sudo make install</div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md26"></a>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md27"></a>
 <img src="https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&amp;logo=macos&amp;logoColor=F0F0F0" alt="macOS" class="inline"/></h3>
 <div class="fragment"><div class="line">git clone https://github.com/Alexander7474/Bbop-Library.git</div>
 <div class="line">cd Bbop-Library</div>
 </div><!-- fragment --><p>Avant d'utiliser make pour compiler et installer bbop sur macOS il faut modifier le makefile selon commentaires de celui ci.</p>
 <div class="fragment"><div class="line">make &amp;&amp; sudo make install</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md27"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md28"></a>
 Compiler un projet</h2>
-<h3><a class="anchor" id="autotoc_md28"></a>
+<h3><a class="anchor" id="autotoc_md29"></a>
 <img src="https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&amp;logo=linux&amp;logoColor=black" alt="Linux" class="inline"/></h3>
 <div class="fragment"><div class="line">g++ -I/usr/include/freetype2 -c main.cpp -o main.o</div>
 <div class="line">g++ main.o -o final -std=c++11 -Wall -lbbop -lGLEW -lGL -lglfw -lfreetype</div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md29"></a>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md30"></a>
 <img src="https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&amp;logo=macos&amp;logoColor=F0F0F0" alt="macOS" class="inline"/></h3>
 <div class="fragment"><div class="line">g++ -I/opt/homebrew/Cellar/freetype/2.13.2/include/freetype2 -I/opt/homebrew/Cellar/glew/2.2.0_1/include -I/usr/local/include/GLFW -c main.cpp -o main.o</div>
 <div class="line">g++ main.o -o final -std=c++11 -Wall -lbbop -L/opt/homebrew/Cellar/freetype/2.13.2/lib -L/opt/homebrew/Cellar/glew/2.2.0_1/lib -framework Cocoa -framework OpenGL -framework IOKit -lfreetype  -lglfw3 -lGLEW.2.2.0</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md30"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md31"></a>
 Exemple</h1>
 <div class="fragment"><div class="line">int main()</div>
 <div class="line">{</div>
@@ -193,15 +193,15 @@ Exemple</h1>
 <div class="line"> </div>
 <div class="line">    return 0;</div>
 <div class="line">}</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md31"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md32"></a>
 Report Bug</h1>
 <p>Merci d'avance de votre contribution au projet.</p>
 <p><a href="https://github.com/Alexander7474/Bbop-Library/issues"><img src="https://img.shields.io/badge/Report_issue-github-black?style=for-the-badge&amp;logo=github" alt="Static Badge" class="inline"/></a></p>
-<h1><a class="anchor" id="autotoc_md32"></a>
+<h1><a class="anchor" id="autotoc_md33"></a>
 Supporting</h1>
 <p>La librairie est libre de droit, merci d'avance de votre soutien.</p>
 <p><a href="https://github.com/sponsors/Alexander7474"><img src="https://img.shields.io/badge/Sponsor_on_github-Alexander7474-pink?style=for-the-badge&amp;logo=githubsponsors" alt="Static Badge" class="inline"/></a></p>
-<h1><a class="anchor" id="autotoc_md33"></a>
+<h1><a class="anchor" id="autotoc_md34"></a>
 Contributors</h1>
 <p><a href="https://github.com/Alexander7474"><img src="https://img.shields.io/badge/Je_suis_seule-Alexander7474-red?style=for-the-badge&amp;logoColor=red" alt="Static Badge" class="inline"/></a> </p>
 </div></div><!-- contents -->

@@ -108,7 +108,13 @@ $(function(){initNavTree('md_doc_2doc__markdown__page_2tuto.html',''); initResiz
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="autotoc_md0"></a></p>
+<p>Voici une série de tuto sur la plus part des class de la librairie, il décrive le rôle de chaque class mais ne donne pas tous les détails. <br  />
+ La documentation elle pourra répondre à toutes vos questions. <br  />
+</p>
 <h1><a class="anchor" id="autotoc_md1"></a>
+Info</h1>
+<p>Tous les getters de la librairie sont marqués comme const.</p>
+<h1><a class="anchor" id="autotoc_md2"></a>
 Mise en place</h1>
 <p>Premier programme hello world avec Bbop, affichage d'un rectangle blanc. <br  />
  Initialisation de la librairie avec une fenêtre glfw. <br  />
@@ -160,9 +166,9 @@ Mise en place</h1>
 <div class="line">  </div>
 <div class="line">  return 0;</div>
 <div class="line">}</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md2"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md3"></a>
 Forme géométrique / Shape</h1>
-<p>Toutes les formes géométriques hérites de la class mère <a class="el" href="classShape.html" title="Class parente de toutes les formes géométriques(RectangleShape, ConvexShape, CircleShape,...">Shape</a>, elle ont donc en commun la plus part de leurs attribut mais les utilisent de différente manières. <br  />
+<p>Toutes les formes géométriques hérites de la class mère <a class="el" href="classShape.html" title="Class parente de toutes les formes géométriques(RectangleShape, ConvexShape, CircleShape,...">Shape</a>, elles ont donc en commun la plus part de leurs attributs mais les utilisent de différente manières. <br  />
 Ces attributs sont tous accessible avec des getters et setters. <br  />
  Attributs communs. <br  />
 </p><div class="fragment"><div class="line">Vector2f position; //position</div>
@@ -173,46 +179,76 @@ Ces attributs sont tous accessible avec des getters et setters. <br  />
 <div class="line">Vector3i Color; // Couleur au format rgb</div>
 <div class="line">CollisionBox shapeCollisionBox: // boîte de collision</div>
 <div class="line">bool autoUpdateCollision; // Si true, la boîte de collision se met à jour automatiquement (true par défault)</div>
-</div><!-- fragment --><p>Toute les <a class="el" href="classShape.html" title="Class parente de toutes les formes géométriques(RectangleShape, ConvexShape, CircleShape,...">Shape</a> hérite de <a class="el" href="classBbopDrawable.html" title="Class Parent de tous ce qui peut être dessiné par une Scene.">BbopDrawable</a>, qui est la class mère de tous les objets dessinables de la librairie. <br  />
+</div><!-- fragment --><p>Toutes les <a class="el" href="classShape.html" title="Class parente de toutes les formes géométriques(RectangleShape, ConvexShape, CircleShape,...">Shape</a> hérites de <a class="el" href="classBbopDrawable.html" title="Class Parent de tous ce qui peut être dessiné par une Scene.">BbopDrawable</a>, qui est la class mère de tous les objets dessinables de la librairie. <br  />
  </p>
-<h2><a class="anchor" id="autotoc_md3"></a>
-Rectangle / RectangleShape</h2>
-<p>Le rectangle est la plus simple de la librairie,</p>
 <h2><a class="anchor" id="autotoc_md4"></a>
-Forme Convec / ConvexShape</h2>
-<p>todo</p>
-<h3><a class="anchor" id="autotoc_md5"></a>
-Cercle / CircleShape</h3>
+Rectangle / RectangleShape</h2>
+<p>Le rectangle est la forme la plus simple de la librairie et possède les attributs suivant. <br  />
+ Tous les attributs de la <a class="el" href="classShape.html" title="Class parente de toutes les formes géométriques(RectangleShape, ConvexShape, CircleShape,...">Shape</a> sont utilisés de manière trivial ! <br  />
+ </p>
+<h2><a class="anchor" id="autotoc_md5"></a>
+Forme Convex / ConvexShape</h2>
 <p>todo</p>
 <h3><a class="anchor" id="autotoc_md6"></a>
+Cercle / CircleShape</h3>
+<p>todo</p>
+<h3><a class="anchor" id="autotoc_md7"></a>
 Et les triangles ?</h3>
 <p>todo <br  />
  </p>
-<h2><a class="anchor" id="autotoc_md7"></a>
+<h2><a class="anchor" id="autotoc_md8"></a>
 Sprite</h2>
-<p>todo</p>
-<h3><a class="anchor" id="autotoc_md8"></a>
+<p>Le <a class="el" href="classSprite.html" title="Gère un Sprite (Rectangle avec une Texture)">Sprite</a> est basiquement un rectangle avec une <a class="el" href="classTexture.html" title="Contient une texture qui peut être utilisé dans un sprite.">Texture</a>. <br  />
+</p>
+<p>Elle stock cette texture avec un pointeur et le setter associé. <br  />
+ </p><div class="fragment"><div class="line">Texture *spriteTexture;</div>
+<div class="line">sprite.setTexture(Texture nTexture); // !!! l&#39;objet passé en paramètre n&#39;est pas un pointeur !!!</div>
+</div><!-- fragment --><p>Une des grosse différente avec le <a class="el" href="classRectangleShape.html" title="Gère un rectangle/carré">RectangleShape</a> est que le <a class="el" href="classSprite.html" title="Gère un Sprite (Rectangle avec une Texture)">Sprite</a> gère <code><a class="el" href="classVector3i.html">Vector3i</a> Color</code> comme un filtre de couleur sur la texture. <br  />
+ Ce filtre peut-être activé avec getter et setter. </p><div class="fragment"><div class="line">sprite.setRGBFilterState(bool etat);</div>
+<div class="line">sprite.getRGBFilterState() const;</div>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md9"></a>
 Sprite animé</h3>
 <p>todo</p>
-<h1><a class="anchor" id="autotoc_md9"></a>
-Scene</h1>
-<p>todo</p>
 <h1><a class="anchor" id="autotoc_md10"></a>
+Scene</h1>
+<p>La <a class="el" href="classScene.html" title="Gère la scene et affiche des BbopDrawable.">Scene</a> est l'une des class principale de la librairie, elle sert à afficher les <a class="el" href="classBbopDrawable.html" title="Class Parent de tous ce qui peut être dessiné par une Scene.">BbopDrawable</a> et configurer le rendue de la lumière. <br  />
+ La <a class="el" href="classScene.html" title="Gère la scene et affiche des BbopDrawable.">Scene</a> possède des attributs pour paramètrer la lumière ambiant. <br  />
+ </p><div class="fragment"><div class="line">floar ambiantLightIntensity; // intensité de la lumière ambiante, avec 1.f la scene affiche les objets telle qu&#39;ils sont.</div>
+<div class="line">Vector3i ambiantLightColor; // couleur de la lumière ambiant RGB</div>
+</div><!-- fragment --><p>La <a class="el" href="classScene.html" title="Gère la scene et affiche des BbopDrawable.">Scene</a> possède aussi un pointeur vers une camera pour déterminer le point de vue avec le quel afficher les <a class="el" href="classBbopDrawable.html" title="Class Parent de tous ce qui peut être dessiné par une Scene.">BbopDrawable</a>. <br  />
+</p><div class="fragment"><div class="line">Camera *sceneCamera; // par défault nullptr </div>
+</div><!-- fragment --><p>On peut donc utiliser une camera personnalisé pour afficher des éléments dans notre <a class="el" href="classScene.html" title="Gère la scene et affiche des BbopDrawable.">Scene</a>. <br  />
+</p><div class="fragment"><div class="line">scene.useCamera(Camera* _cam);</div>
+</div><!-- fragment --><p>Pour déssiner sur une <a class="el" href="classScene.html" title="Gère la scene et affiche des BbopDrawable.">Scene</a> lors d'une frame il faut d'abord "l'utiliser" pour transmettre les infos de la <a class="el" href="classScene.html" title="Gère la scene et affiche des BbopDrawable.">Scene</a> au GPU. <br  />
+ </p><div class="fragment"><div class="line">scene.Use(); </div>
+</div><!-- fragment --><p>Après cela on peut dessiner des <a class="el" href="classBbopDrawable.html" title="Class Parent de tous ce qui peut être dessiné par une Scene.">BbopDrawable</a>. <br  />
+ </p><div class="fragment"><div class="line">scene.Draw(const BbopDrawable b);</div>
+</div><!-- fragment --><p>Voici un exemple du pipeline complet de rendue avec une <a class="el" href="classScene.html" title="Gère la scene et affiche des BbopDrawable.">Scene</a>. <br  />
+ </p><div class="fragment"><div class="line">scene.Use();</div>
+<div class="line"> </div>
+<div class="line">scene.Draw(const BbopDrawable b);</div>
+<div class="line"> </div>
+<div class="line">scene.addLight(Light l); // ajoute une lumière à l&#39;environement de la Scene </div>
+<div class="line"> </div>
+<div class="line">scene.render(); // rend le frame buffer de la scene avec la lumière </div>
+</div><!-- fragment --><p>La methode <code>render()</code> supprime le vecteur de lumière de la scene, il ne faut donc pas oublier d'ajouter les lumières à chaque frames. <br  />
+</p>
+<h1><a class="anchor" id="autotoc_md11"></a>
 Camera</h1>
 <p>todo</p>
-<h1><a class="anchor" id="autotoc_md11"></a>
+<h1><a class="anchor" id="autotoc_md12"></a>
 Collision</h1>
 <p>todo</p>
-<h1><a class="anchor" id="autotoc_md12"></a>
+<h1><a class="anchor" id="autotoc_md13"></a>
 Light</h1>
 <p>todo</p>
-<h1><a class="anchor" id="autotoc_md13"></a>
+<h1><a class="anchor" id="autotoc_md14"></a>
 Map</h1>
 <p>todo</p>
-<h1><a class="anchor" id="autotoc_md14"></a>
+<h1><a class="anchor" id="autotoc_md15"></a>
 Math</h1>
 <p>todo</p>
-<h1><a class="anchor" id="autotoc_md15"></a>
+<h1><a class="anchor" id="autotoc_md16"></a>
 Texture</h1>
 <p>todo </p>
 </div></div><!-- contents -->

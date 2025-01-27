@@ -1,6 +1,13 @@
 
 # Tuto 
 
+Voici une série de tuto sur la plus part des class de la librairie, il décrive le rôle de chaque class mais ne donne pas tous les détails. \n 
+La documentation elle pourra répondre à toutes vos questions. \n 
+
+## Info 
+
+Tous les getters de la librairie sont marqués comme const.
+
 ## Mise en place 
 
 Premier programme hello world avec Bbop, affichage d'un rectangle blanc. \n
@@ -68,7 +75,7 @@ int main() {
 
 ## Forme géométrique / Shape
 
-Toutes les formes géométriques hérites de la class mère Shape, elle ont donc en commun la plus part de leurs attribut mais les utilisent de différente manières. \n
+Toutes les formes géométriques hérites de la class mère Shape, elles ont donc en commun la plus part de leurs attributs mais les utilisent de différente manières. \n
 Ces attributs sont tous accessible avec des getters et setters. \n
 
 Attributs communs. \n
@@ -83,13 +90,14 @@ CollisionBox shapeCollisionBox: // boîte de collision
 bool autoUpdateCollision; // Si true, la boîte de collision se met à jour automatiquement (true par défault)
 ```
 
-Toute les Shape hérite de BbopDrawable, qui est la class mère de tous les objets dessinables de la librairie. \n
+Toutes les Shape hérites de BbopDrawable, qui est la class mère de tous les objets dessinables de la librairie. \n
 
 ### Rectangle / RectangleShape
 
-Le rectangle est la plus simple de la librairie,
+Le rectangle est la forme la plus simple de la librairie et possède les attributs suivant. \n 
+Tous les attributs de la Shape sont utilisés de manière trivial ! \n
 
-### Forme Convec / ConvexShape
+### Forme Convex / ConvexShape
 
 todo
 
@@ -103,7 +111,20 @@ todo \n
 
 ### Sprite
 
-todo
+Le Sprite est basiquement un rectangle avec une Texture. \n 
+
+Elle stock cette texture avec un pointeur et le setter associé. \n 
+```
+Texture *spriteTexture;
+sprite.setTexture(Texture nTexture); // !!! l'objet passé en paramètre n'est pas un pointeur !!!
+```
+
+Une des grosse différente avec le RectangleShape est que le Sprite gère ```Vector3i Color``` comme un filtre de couleur sur la texture. \n 
+Ce filtre peut-être activé avec getter et setter. 
+```
+sprite.setRGBFilterState(bool etat);
+sprite.getRGBFilterState() const;
+```
 
 #### Sprite animé
 
@@ -111,7 +132,46 @@ todo
 
 ## Scene 
 
-todo
+La Scene est l'une des class principale de la librairie, elle sert à afficher les BbopDrawable et configurer le rendue de la lumière. \n
+
+La Scene possède des attributs pour paramètrer la lumière ambiant. \n 
+```
+floar ambiantLightIntensity; // intensité de la lumière ambiante, avec 1.f la scene affiche les objets telle qu'ils sont.
+Vector3i ambiantLightColor; // couleur de la lumière ambiant RGB
+```
+
+La Scene possède aussi un pointeur vers une camera pour déterminer le point de vue avec le quel afficher les BbopDrawable. \n
+```
+Camera *sceneCamera; // par défault nullptr 
+```
+
+On peut donc utiliser une camera personnalisé pour afficher des éléments dans notre Scene. \n
+```
+scene.useCamera(Camera* _cam);
+```
+
+Pour déssiner sur une Scene lors d'une frame il faut d'abord "l'utiliser" pour transmettre les infos de la Scene au GPU. \n 
+```
+scene.Use(); 
+```
+
+Après cela on peut dessiner des BbopDrawable. \n 
+```
+scene.Draw(const BbopDrawable b);
+```
+
+Voici un exemple du pipeline complet de rendue avec une Scene. \n 
+```
+scene.Use();
+
+scene.Draw(const BbopDrawable b);
+
+scene.addLight(Light l); // ajoute une lumière à l'environement de la Scene 
+
+scene.render(); // rend le frame buffer de la scene avec la lumière 
+```
+
+La methode  ```render()``` supprime le vecteur de lumière de la scene, il ne faut donc pas oublier d'ajouter les lumières à chaque frames. \n 
 
 ## Camera
 
