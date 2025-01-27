@@ -259,3 +259,8 @@ void NoTextureSprite::Draw(GLint renderModeLoc) const
   glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }
 
+void NoTextureSprite::DrawAsFrameBuffer() const
+{
+  shapeVAO.Bind();  
+  glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+}

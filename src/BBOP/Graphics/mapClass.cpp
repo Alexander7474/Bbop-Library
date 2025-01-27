@@ -191,19 +191,22 @@ void Map::update()
 void Map::Draw(Scene &scene, Camera &ground_camera)
 {
   scene.setAmbiantLightValue(global_illumination);
+  scene.useCamera(&ground_camera);
 
   scene.Use();
 
-  scene.useCamera(nullptr);
+  //rendue du background 
+  background.setSize(BBOP_WINDOW_RESOLUTION.x*ground_camera.getScale(), BBOP_WINDOW_RESOLUTION.y*ground_camera.getScale());
+  background.setOrigin(background.getSize().x/2.f,background.getSize().y/2.f);
+  background.setPosition(ground_camera.getPosition().x, ground_camera.getPosition().y);
+
   scene.Draw(background);
 
-  for(Light& l : lights){
-    scene.addLight(l);
-  }
+  scene.render();
 
+  //rendue foreground
   scene.Use();
   
-  scene.useCamera(&ground_camera);
   for (int i = tiles.size()-1; i >= 0; i--)
   {
     if(ground_camera.isInCamView(tiles[i]))
@@ -213,8 +216,11 @@ void Map::Draw(Scene &scene, Camera &ground_camera)
     if(ground_camera.isInCamView(p)){
       scene.Draw(p);
     }
-  }
+  } 
 
+  for(Light& l : lights){
+    scene.addLight(l);
+  }
 
   //for(CollisionBox& box : collision_layer){
     //if(ground_camera.isInCamView(box))

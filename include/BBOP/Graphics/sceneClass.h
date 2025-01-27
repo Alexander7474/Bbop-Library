@@ -134,19 +134,45 @@ public:
   */
   void Draw(const BbopDrawable& spr)const;
 
+  /**
+   * @brief Dessine le frame buffer de la scene
+   */
+  void DrawFrameBuffer(const NoTextureSprite& spr) const;
+
+  /**
+  * @brief Permet de render le framebuffer de la scene en calculant sont éclairage final 
+  * @details Clear le vecteur de lumière
+  */
+  void render();
+
 private:
   Shader sceneShader; //<! shader 
+  Shader sceneLightShader; //<! shader de lumière 
+  
   float ambiantLightValue; //<! intensité lumière ambiante
   Vector3i ambiantLightColor; //<! couleur lumière ambiante
+  
+  //adresse mem shader
   GLint ambiantLightLoc; //<! GPU MEM addr de la lumière ambiante
   GLint renderModeLoc; //<! GPU MEM addr du mode de renue (BBOP_SHADER_MODE_COLOR, BBOP_SHADER_MODE_TEXTURE, BBOP_SHADER_MODE_MIX)
-  GLint windowSizeLoc; //<! GPU MEM addr de la taille en pixel de l'écran 
-  GLint windowResoLoc; //<! GPU MEM addr de la resolution d'affichage de bbop
+  GLint projectionLoc; //<! GPU MEM addre de la matrice de projection
+  
+  //adresse mem light shader 
   GLint nLightLoc; //<! GPU MEM addr de la list de lumière dans le shader
   GLuint lightsUBO; //<! ID de l'ubo pour transfert la list de UniformLight vers la list de Light ddu shader
   std::vector<UniformLight> lightsVec; //<! Liste des lumières à transférer vers le shader avec lightUBO
+  GLint lightWindowSizeLoc; //<! GPU MEM addr de la taille en pixel de l'écran 
+  GLint lightWindowResoLoc; //<! GPU MEM addr de la resolution d'affichage de bbop
+  GLint lightCamScaleLoc; //<! GPU MEM addr scale de la cam pour déterminer la distance avec un point  
+  GLint lightProjectionLoc; //<! GPU MEM addr matrice de projection 
+  GLint lightProjectionCamLoc; //<! GPU MEM addr matrice de projection de la cam
+  
   Vector3f ambiantLight; //<! lumière ambiante de Scene
   Camera* sceneCamera; //<! camera à utilser lors de Draw()
+  
+  unsigned int frameBuffer; //<! frame buffer de la scene
+  unsigned int textureColorBuffer; //<! texture lié au frame buffer
+  NoTextureSprite frameBufferSprite; //<! NoTextureSprite utilisé pour afficher le frame buffer
 };
 
 #endif // !SCENE_CLASS_H

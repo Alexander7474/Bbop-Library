@@ -41,17 +41,79 @@ out vec4 FragColor;
 in vec4 outColor;
 in vec2 TexCoord;
 
-// proj
-uniform mat4 projection;
-uniform float camScale;
-
 // information général utile pour render envoyé par la class Scene
 uniform vec4 ambiantLight;
-uniform vec2 windowSize;
-uniform vec2 windowResolution;
 
 // Permet de déterminer sir le shader doit render une texture, de la couluer ou les deux
 uniform int renderMode;
+
+// Texture a render quand rendermode vaut 0 ou 2
+uniform sampler2D outTexture;
+
+// Pixel de sortie du frag provisoire avant les calcule de la lumière
+vec4 provisory;
+
+void main()
+{
+  // coloration du pixel en fonction de rendermode
+  if (renderMode == 0){ 
+    provisory = texture(outTexture, TexCoord);
+  } else if (renderMode == 1){
+    provisory = outColor;
+  } else if (renderMode == 2){
+    provisory = texture(outTexture, TexCoord) * outColor;
+  }
+  
+  //au debgut la lumière vaut la valeur de la lumière ambiant
+  vec4 finalLight = ambiantLight;
+
+  //reset de l'alpha de la lumière(toujours 1.0 pour laisser l'alpha des texture et des shape seul déterminant de la transparence)
+  finalLight.w = 1.0;
+
+  //pixel final
+  FragColor = provisory*finalLight;
+}
+
+)glsl";
+
+
+//LIGHT SHADER GLSL------------------------------------------------------------------------------------------------------------------------------------------------------
+
+const char* lightVertex = R"glsl(
+#version 330 core
+layout (location = 0) in vec2 aPos;
+layout (location = 1) in vec4 aColor;
+layout (location = 2) in vec2 aTexCoord;
+
+uniform mat4 projection;
+
+out vec4 outColor;
+out vec2 TexCoord;
+
+void main()
+{
+    gl_Position = projection * vec4(aPos, 0.0, 1.0);
+    outColor = aColor;
+    TexCoord = aTexCoord;
+} 
+)glsl";
+
+const char* lightFragment = R"glsl(
+#version 330 core
+// pixel de sortie du frag
+out vec4 FragColor;
+
+// info entrantes dans le fragshader depuis le vertexshader
+in vec4 outColor;
+in vec2 TexCoord;
+
+// proj
+uniform mat4 projectionCam;
+uniform float camScale;
+
+// information général utile pour render envoyé par la class Scene
+uniform vec2 windowSize;
+uniform vec2 windowResolution;
 
 // Texture a render quand rendermode vaut 0 ou 2
 uniform sampler2D outTexture;
@@ -99,27 +161,17 @@ vec2 normalizeVec2(vec2 vector)
 
 void main()
 {
-  // coloration du pixel en fonction de rendermode
-  if (renderMode == 0){ 
-    provisory = texture(outTexture, TexCoord);
-  } else if (renderMode == 1){
-    provisory = outColor;
-  } else if (renderMode == 2){
-    provisory = texture(outTexture, TexCoord) * outColor;
-  }
-  
-  // calcule de l'éclairage du pixel
-  //
+  // texture du frame buffer
+  provisory = texture(outTexture, TexCoord);
 
   //position du fragment actuelle
   vec2 convertedFrag = convertCoords(gl_FragCoord.xy);
 
-  //au debgut la lumière vaut la valeur de la lumière ambiant
-  vec4 finalLight = ambiantLight;
+  vec4 finalLight = vec4(1,1,1,1);
   for (int i = 0; i < nLight; i++){
 
     //position de la light actuelle 
-    vec4 lightPos = projection * vec4(lights[i].pos, 0.0, 1.0);
+    vec4 lightPos = projectionCam * vec4(lights[i].pos, 0.0, 1.0);
 
     //déterminer si le fragment est dans le cône de lumière 
     vec2 lightDir = normalize(vec2(cos(lights[i].rotationAngle), sin(lights[i].rotationAngle))); // Direction de la lumière
@@ -139,13 +191,8 @@ void main()
       //emballage dans un vec4
       vec4 thislight = intensity*vec4(lights[i].color, 0.0);
       finalLight+=thislight;
-
     }
-
   }
-
-  //reset de l'alpha de la lumière(toujours 1.0 pour laisser l'alpha des texture et des shape seul déterminant de la transparence)
-  finalLight.w = 1.0;
 
   //pixel final
   FragColor = provisory*finalLight;

@@ -124,11 +124,13 @@ protected:
 /**
   * @class NoTextureSprite 
   * @warning Ce sprite ne bind pas de Texture avec opengl, c'est donc a l'utilisateur de le faire.
+  * @details class un peu four tous pour faire des trucs pas très légal
   */
 class NoTextureSprite : public Sprite
 {
 public:
   void Draw(GLint renderModeLoc) const override;
+  void DrawAsFrameBuffer() const;
 };
 
 #endif // !SPRITE_CLASS_H
