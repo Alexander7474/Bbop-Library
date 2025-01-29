@@ -26,12 +26,12 @@ Scene::Scene(float nAmbiantLightValue, Vector3i nAmbiantLightColor)
     sceneCamera(nullptr)
 {
   //mise en place adresse mem du shader 
-  ambiantLight = Vector3f(ambiantLightValue*(ambiantLightColor.x/255.0f), ambiantLightValue*(ambiantLightColor.y/255.0f), ambiantLightValue*(ambiantLightColor.z/255.0f));
-  ambiantLightLoc = sceneShader.getUniformLoc("ambiantLight");
   renderModeLoc = sceneShader.getUniformLoc("renderMode");
   projectionLoc = sceneShader.getUniformLoc("projection");
 
   //mise en place adresse mem du light shader
+  ambiantLight = Vector3f(ambiantLightValue*(ambiantLightColor.x/255.0f), ambiantLightValue*(ambiantLightColor.y/255.0f), ambiantLightValue*(ambiantLightColor.z/255.0f));
+  ambiantLightLoc = sceneLightShader.getUniformLoc("ambiantLight");
   nLightLoc = sceneLightShader.getUniformLoc("nLight");
   lightCamScaleLoc = sceneLightShader.getUniformLoc("camScale");
   lightProjectionLoc = sceneLightShader.getUniformLoc("projection");
@@ -79,7 +79,6 @@ void Scene::Use()
 
   //activation du shader et transfert des données nécessaire 
   sceneShader.Activate();
-  glUniform4f(ambiantLightLoc,ambiantLight.x,ambiantLight.y,ambiantLight.z,1.0f);
 
   //definition de la projection de la scene 
   glm::mat4 projection;
@@ -113,6 +112,7 @@ void Scene::render()
   glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
   sceneLightShader.Activate();
+  glUniform4f(ambiantLightLoc,ambiantLight.x,ambiantLight.y,ambiantLight.z,1.0f);
   glUniform2f(lightWindowResoLoc, BBOP_WINDOW_RESOLUTION.x, BBOP_WINDOW_RESOLUTION.y);
   glUniform2f(lightWindowSizeLoc, BBOP_WINDOW_SIZE.x, BBOP_WINDOW_SIZE.y);
 

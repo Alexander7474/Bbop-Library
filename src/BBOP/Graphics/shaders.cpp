@@ -41,9 +41,6 @@ out vec4 FragColor;
 in vec4 outColor;
 in vec2 TexCoord;
 
-// information général utile pour render envoyé par la class Scene
-uniform vec4 ambiantLight;
-
 // Permet de déterminer sir le shader doit render une texture, de la couluer ou les deux
 uniform int renderMode;
 
@@ -64,14 +61,8 @@ void main()
     provisory = texture(outTexture, TexCoord) * outColor;
   }
   
-  //au debgut la lumière vaut la valeur de la lumière ambiant
-  vec4 finalLight = ambiantLight;
-
-  //reset de l'alpha de la lumière(toujours 1.0 pour laisser l'alpha des texture et des shape seul déterminant de la transparence)
-  finalLight.w = 1.0;
-
   //pixel final
-  FragColor = provisory*finalLight;
+  FragColor = provisory;
 }
 
 )glsl";
@@ -110,6 +101,9 @@ in vec2 TexCoord;
 // proj
 uniform mat4 projectionCam;
 uniform float camScale;
+
+// lumière abiante
+uniform vec4 ambiantLight;
 
 // information général utile pour render envoyé par la class Scene
 uniform vec2 windowSize;
@@ -167,7 +161,7 @@ void main()
   //position du fragment actuelle
   vec2 convertedFrag = convertCoords(gl_FragCoord.xy);
 
-  vec4 finalLight = vec4(1,1,1,1);
+  vec4 finalLight = ambiantLight;
   for (int i = 0; i < nLight; i++){
 
     //position de la light actuelle 
@@ -193,6 +187,9 @@ void main()
       finalLight+=thislight;
     }
   }
+
+  //reset de l'alpha de la lumière(toujours 1.0 pour laisser l'alpha des texture et des shape seul déterminant de la transparence)
+  finalLight.w = 1.0;
 
   //pixel final
   FragColor = provisory*finalLight;

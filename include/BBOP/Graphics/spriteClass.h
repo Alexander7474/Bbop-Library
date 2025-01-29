@@ -111,6 +111,7 @@ public:
 
 private:
   Texture* spriteTexture; // pointeur ves la Texture a bing avec opengl lors du dessin
+  Texture* spriteNormalMap; // normal map de la texture du sprite
 protected:
   GLfloat vertices[32];
   GLuint indices[6];
