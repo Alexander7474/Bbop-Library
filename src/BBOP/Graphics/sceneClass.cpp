@@ -52,7 +52,19 @@ Scene::Scene(float nAmbiantLightValue, Vector3i nAmbiantLightColor)
   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, BBOP_WINDOW_SIZE.x, BBOP_WINDOW_SIZE.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+  //texture normal map frame buffer 
+  glGenTextures(1, &textureNormalMapBuffer);
+  glBindTexture(GL_TEXTURE_2D, textureNormalMapBuffer);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, BBOP_WINDOW_SIZE.x, BBOP_WINDOW_SIZE.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+  
+  glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT1, GL_TEXTURE_2D, textureNormalMapBuffer, 0);
   glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textureColorBuffer, 0);
+
+  GLuint attachments[2] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1 };
+  glDrawBuffers(2, attachments); // Enable rendering to both textures
 
   frameBufferSprite.setPosition(0,0);
 
@@ -72,10 +84,17 @@ void Scene::Use()
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-  // activation du frame buffer 
-  glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
   glBindTexture(GL_TEXTURE_2D, textureColorBuffer);
   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, BBOP_WINDOW_SIZE.x, BBOP_WINDOW_SIZE.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+  
+  glBindTexture(GL_TEXTURE_2D, textureNormalMapBuffer);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, BBOP_WINDOW_SIZE.x, BBOP_WINDOW_SIZE.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+    
+  // activation du frame buffer 
+  glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
+
+  glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT1, GL_TEXTURE_2D, textureNormalMapBuffer, 0);
+  glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textureColorBuffer, 0);
 
   //activation du shader et transfert des données nécessaire 
   sceneShader.Activate();
@@ -139,7 +158,11 @@ void Scene::render()
 
   frameBufferSprite.setSize(BBOP_WINDOW_RESOLUTION.x, BBOP_WINDOW_RESOLUTION.y);
 
+  // Bind the textures to texture units
   glBindTexture(GL_TEXTURE_2D, textureColorBuffer);
+
+  // Set texture uniforms in the shader
+
   DrawFrameBuffer(frameBufferSprite);
 
   //cleaning the frame buffer 

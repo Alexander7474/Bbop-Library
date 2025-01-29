@@ -172,6 +172,7 @@ private:
   
   unsigned int frameBuffer; //<! frame buffer de la scene
   unsigned int textureColorBuffer; //<! texture lié au frame buffer
+  unsigned int textureNormalMapBuffer; //<! texture de la normal map du buffer
   NoTextureSprite frameBufferSprite; //<! NoTextureSprite utilisé pour afficher le frame buffer
 };
 

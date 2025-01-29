@@ -35,7 +35,8 @@ void main()
 const char* defaultFragment = R"glsl(
 #version 330 core
 // pixel de sortie du frag
-out vec4 FragColor;
+layout(location = 0) out vec4 FragColor;
+layout(location = 1) out vec4 FragNormalMap;
 
 // info entrantes dans le fragshader depuis le vertexshader
 in vec4 outColor;
@@ -44,25 +45,41 @@ in vec2 TexCoord;
 // Permet de déterminer sir le shader doit render une texture, de la couluer ou les deux
 uniform int renderMode;
 
-// Texture a render quand rendermode vaut 0 ou 2
+// Texture a render
 uniform sampler2D outTexture;
-
-// Pixel de sortie du frag provisoire avant les calcule de la lumière
-vec4 provisory;
+uniform sampler2D outNMapTexture;
 
 void main()
 {
+  // Pixel de sortie des frame_buffer couleur/frag
+  vec4 provisoryColor = vec4(0,0,0,0);
+  vec4 provisoryMap = vec4(0,0,1,1);
+
   // coloration du pixel en fonction de rendermode
-  if (renderMode == 0){ 
-    provisory = texture(outTexture, TexCoord);
-  } else if (renderMode == 1){
-    provisory = outColor;
-  } else if (renderMode == 2){
-    provisory = texture(outTexture, TexCoord) * outColor;
+  switch (renderMode){
+    case 0:
+      provisoryColor = texture(outTexture, TexCoord);
+      break;
+    case 1:
+      provisoryColor = outColor;
+      break;
+    case 2:
+      provisoryColor = texture(outTexture, TexCoord) * outColor;
+      break;
+    case 3:
+      provisoryColor = texture(outTexture, TexCoord);
+      break;
+    case 4:
+      provisoryColor = texture(outTexture, TexCoord) * outColor;
+      break;
+    default:
+      provisoryColor = vec4(1.0,0.0,0.0,1.0);
+      break;
   }
   
   //pixel final
-  FragColor = provisory;
+  FragColor = provisoryMap;
+  FragNormalMap = provisoryMap;
 }
 
 )glsl";
@@ -109,7 +126,7 @@ uniform vec4 ambiantLight;
 uniform vec2 windowSize;
 uniform vec2 windowResolution;
 
-// Texture a render quand rendermode vaut 0 ou 2
+// Texture du frame buffer
 uniform sampler2D outTexture;
 
 // Pixel de sortie du frag provisoire avant les calcule de la lumière
