@@ -1,4 +1,4 @@
-# Bbop Library
+# Bbop 2D Library
 
 ![GitHub License](https://img.shields.io/github/license/Alexander7474/Bbop-Library)
 ![GitHub Release](https://img.shields.io/github/v/release/Alexander7474/Bbop-Library?include_prereleases&color=pink)
