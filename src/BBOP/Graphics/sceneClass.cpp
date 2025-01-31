@@ -14,7 +14,6 @@
 #include "../../../include/BBOP/Graphics/sceneClass.h"
 
 #include <cmath>
-#include <iostream>
 
 Scene::Scene() : Scene(1.f, Vector3i(255,255,255)) {}
 
@@ -26,8 +25,13 @@ Scene::Scene(float nAmbiantLightValue, Vector3i nAmbiantLightColor)
     sceneCamera(nullptr)
 {
   //mise en place adresse mem du shader 
-  renderModeLoc = sceneShader.getUniformLoc("renderMode");
-  projectionLoc = sceneShader.getUniformLoc("projection");
+  renderUniforms = new GLint[BBOP_UNIFORM_N]; // tableau de GLint en fonction du nombre de uniform a passer 
+  //
+  // on remplie le tableau avec les addresses
+  renderUniforms[BBOP_UNIFORM_ADDR_RENDER_MODE] = sceneShader.getUniformLoc("renderMode");
+  renderUniforms[BBOP_UNIFORM_ADDR_PROJECTION] = sceneShader.getUniformLoc("projection");
+  renderUniforms[BBOP_UNIFORM_ADDR_TEXTURE] = sceneShader.getUniformLoc("outTexture");
+  renderUniforms[BBOP_UNIFORM_ADDR_NORMAL_MAP] = sceneShader.getUniformLoc("outNMapTexture");
 
   //mise en place adresse mem du light shader
   ambiantLight = Vector3f(ambiantLightValue*(ambiantLightColor.x/255.0f), ambiantLightValue*(ambiantLightColor.y/255.0f), ambiantLightValue*(ambiantLightColor.z/255.0f));
@@ -106,7 +110,7 @@ void Scene::Use()
   }else{
     projection = glm::ortho(0.0f, static_cast<float>(BBOP_WINDOW_RESOLUTION.x), static_cast<float>(BBOP_WINDOW_RESOLUTION.y), 0.0f, -1.0f, 1.0f);
   }
-  glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
+  glUniformMatrix4fv(renderUniforms[BBOP_UNIFORM_ADDR_PROJECTION], 1, GL_FALSE, glm::value_ptr(projection));
 
  }
 
@@ -117,7 +121,7 @@ void Scene::useCamera(Camera* camAddr)
 
 void Scene::Draw(const BbopDrawable& spr) const
 {
-  spr.Draw(renderModeLoc);
+  spr.Draw(renderUniforms);
 }
 
 void Scene::DrawFrameBuffer(const NoTextureSprite& spr) const

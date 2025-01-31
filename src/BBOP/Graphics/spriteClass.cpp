@@ -24,6 +24,7 @@ Sprite::Sprite(Texture nTexture, Vector2f nPos, Vector3i nRGB, Vector2f nOrigin,
   origin = nOrigin;
   rotation = nRotation;
   alpha = nAlpha;
+  spriteNormalMap = nullptr;
   // Build du vao
   //construtiopn du VAO en fontion de la position du sprite, de  sa taille et de la taille de la fenetre
   buildVAO();
@@ -182,17 +183,38 @@ void Sprite::updateVBOAlpha()
   shapeVBO.update(vertices, sizeof(vertices));
 }
 
-void Sprite::Draw(GLint renderModeLoc) const 
+void Sprite::Draw(GLint* renderUniforms) const 
 {
-  if (!isRGBFilter)
-    glUniform1i(renderModeLoc, BBOP_SHADER_MODE_TEXTURE);
-  else
-    glUniform1i(renderModeLoc, BBOP_SHADER_MODE_MIX);
+  if (!isRGBFilter){
+    if(spriteNormalMap != nullptr){
+      glUniform1i(renderUniforms[BBOP_UNIFORM_ADDR_RENDER_MODE], BBOP_SHADER_MODE_TEXTURE_NMAP);
+
+      glActiveTexture(GL_TEXTURE1);
+    }else{
+      glUniform1i(renderUniforms[BBOP_UNIFORM_ADDR_RENDER_MODE], BBOP_SHADER_MODE_TEXTURE);
+    }
+  }else{
+    if(spriteNormalMap != nullptr){
+      glUniform1i(renderUniforms[BBOP_UNIFORM_ADDR_RENDER_MODE], BBOP_SHADER_MODE_MIX_NMAP);
+
+      glActiveTexture(GL_TEXTURE1);
+    }else{
+      glUniform1i(renderUniforms[BBOP_UNIFORM_ADDR_RENDER_MODE], BBOP_SHADER_MODE_MIX);
+    }
+  }
+
+  //bind texture and vao
+  glActiveTexture(GL_TEXTURE0);
   spriteTexture->Bind();
   shapeVAO.Bind();  
+  
+  //draw
   glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
+  //unbind all data
   shapeVAO.Unbind();
   spriteTexture->Unbind();
+  spriteNormalMap->Unbind();
 }
 
 void Sprite::setTexture(const Texture &nTexture)
@@ -249,12 +271,12 @@ void Sprite::flipHorizontally()
   updateVBO();
 }
 
-void NoTextureSprite::Draw(GLint renderModeLoc) const 
+void NoTextureSprite::Draw(GLint* renderUniforms) const 
 {
   if (!isRGBFilter)
-    glUniform1i(renderModeLoc, BBOP_SHADER_MODE_TEXTURE);
+    glUniform1i(renderUniforms[BBOP_UNIFORM_ADDR_RENDER_MODE], BBOP_SHADER_MODE_TEXTURE);
   else
-    glUniform1i(renderModeLoc, BBOP_SHADER_MODE_MIX);
+    glUniform1i(renderUniforms[BBOP_UNIFORM_ADDR_RENDER_MODE], BBOP_SHADER_MODE_MIX);
   shapeVAO.Bind();  
   glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }

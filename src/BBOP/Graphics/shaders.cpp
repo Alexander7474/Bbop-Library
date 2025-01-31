@@ -78,7 +78,7 @@ void main()
   }
   
   //pixel final
-  FragColor = provisoryMap;
+  FragColor = provisoryColor;
   FragNormalMap = provisoryMap;
 }
 

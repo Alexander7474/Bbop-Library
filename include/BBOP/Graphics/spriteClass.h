@@ -71,7 +71,7 @@ public:
    */
   Sprite& operator=(const Sprite& other);
 
-  void Draw(GLint renderModeLoc) const override;
+  void Draw(GLint* renderUniforms) const override;
 
   /**
   * @brief Change la texture du sprite
@@ -130,7 +130,7 @@ protected:
 class NoTextureSprite : public Sprite
 {
 public:
-  void Draw(GLint renderModeLoc) const override;
+  void Draw(GLint* renderUniforms) const override;
   void DrawAsFrameBuffer() const;
 };
 

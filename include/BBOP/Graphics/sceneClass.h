@@ -153,9 +153,7 @@ private:
   Vector3i ambiantLightColor; //<! couleur lumière ambiante
   
   //adresse mem shader
-  GLint ambiantLightLoc; //<! GPU MEM addr de la lumière ambiante
-  GLint renderModeLoc; //<! GPU MEM addr du mode de renue (BBOP_SHADER_MODE_COLOR, BBOP_SHADER_MODE_TEXTURE, BBOP_SHADER_MODE_MIX)
-  GLint projectionLoc; //<! GPU MEM addre de la matrice de projection
+  GLint *renderUniforms; //<! GPU MEM addr des uniforms du sahder par default 
   
   //adresse mem light shader 
   GLint nLightLoc; //<! GPU MEM addr de la list de lumière dans le shader
@@ -166,6 +164,7 @@ private:
   GLint lightCamScaleLoc; //<! GPU MEM addr scale de la cam pour déterminer la distance avec un point  
   GLint lightProjectionLoc; //<! GPU MEM addr matrice de projection 
   GLint lightProjectionCamLoc; //<! GPU MEM addr matrice de projection de la cam
+  GLint ambiantLightLoc; //<! GPU MEM addr de la lumière ambiante
   
   Vector3f ambiantLight; //<! lumière ambiante de Scene
   Camera* sceneCamera; //<! camera à utilser lors de Draw()
