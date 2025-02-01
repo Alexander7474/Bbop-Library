@@ -12,6 +12,7 @@
  */
 
 #include "../../../include/BBOP/Graphics/spriteClass.h"
+#include <iostream>
 
 Sprite::Sprite(Texture nTexture, Vector2f nPos, Vector3i nRGB, Vector2f nOrigin, float nRotation, float nAlpha)
   : Shape(vertices, sizeof(vertices), indices, sizeof(indices)),
@@ -190,6 +191,7 @@ void Sprite::Draw(GLint* renderUniforms) const
       glUniform1i(renderUniforms[BBOP_UNIFORM_ADDR_RENDER_MODE], BBOP_SHADER_MODE_TEXTURE_NMAP);
 
       glActiveTexture(GL_TEXTURE1);
+      spriteNormalMap->Bind();
     }else{
       glUniform1i(renderUniforms[BBOP_UNIFORM_ADDR_RENDER_MODE], BBOP_SHADER_MODE_TEXTURE);
     }
@@ -198,6 +200,7 @@ void Sprite::Draw(GLint* renderUniforms) const
       glUniform1i(renderUniforms[BBOP_UNIFORM_ADDR_RENDER_MODE], BBOP_SHADER_MODE_MIX_NMAP);
 
       glActiveTexture(GL_TEXTURE1);
+      spriteNormalMap->Bind();
     }else{
       glUniform1i(renderUniforms[BBOP_UNIFORM_ADDR_RENDER_MODE], BBOP_SHADER_MODE_MIX);
     }
@@ -207,6 +210,10 @@ void Sprite::Draw(GLint* renderUniforms) const
   glActiveTexture(GL_TEXTURE0);
   spriteTexture->Bind();
   shapeVAO.Bind();  
+
+  //après avoir bind on dit au shader quelle sampler prend quelle texture 
+  glUniform1i(renderUniforms[BBOP_UNIFORM_ADDR_TEXTURE], 0);
+  glUniform1i(renderUniforms[BBOP_UNIFORM_ADDR_NORMAL_MAP], 1);
   
   //draw
   glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
@@ -214,7 +221,8 @@ void Sprite::Draw(GLint* renderUniforms) const
   //unbind all data
   shapeVAO.Unbind();
   spriteTexture->Unbind();
-  spriteNormalMap->Unbind();
+  if(spriteNormalMap != nullptr)
+    spriteNormalMap->Unbind();
 }
 
 void Sprite::setTexture(const Texture &nTexture)
@@ -223,9 +231,21 @@ void Sprite::setTexture(const Texture &nTexture)
   spriteTexture = new Texture(nTexture);
 }
 
-Texture& Sprite::getTexture()
+Texture* Sprite::getTexture()
 {
-  return *spriteTexture;
+  return spriteTexture;
+}
+
+
+void Sprite::setNormalMap(const Texture &nNormalMap)
+{
+  delete spriteNormalMap;
+  spriteNormalMap = new Texture(nNormalMap);
+}
+
+Texture* Sprite::getNormalMap()
+{
+  return spriteNormalMap;
 }
 
 void Sprite::setRGBFilterState(bool etat)

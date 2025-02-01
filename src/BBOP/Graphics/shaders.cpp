@@ -68,9 +68,11 @@ void main()
       break;
     case 3:
       provisoryColor = texture(outTexture, TexCoord);
+      provisoryMap = texture(outNMapTexture, TexCoord);
       break;
     case 4:
       provisoryColor = texture(outTexture, TexCoord) * outColor;
+      provisoryMap = texture(outNMapTexture, TexCoord);
       break;
     default:
       provisoryColor = vec4(1.0,0.0,0.0,1.0);

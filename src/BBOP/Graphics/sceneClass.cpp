@@ -163,7 +163,7 @@ void Scene::render()
   frameBufferSprite.setSize(BBOP_WINDOW_RESOLUTION.x, BBOP_WINDOW_RESOLUTION.y);
 
   // Bind the textures to texture units
-  glBindTexture(GL_TEXTURE_2D, textureColorBuffer);
+  glBindTexture(GL_TEXTURE_2D, textureNormalMapBuffer);
 
   // Set texture uniforms in the shader
 
