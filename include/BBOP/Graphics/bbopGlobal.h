@@ -52,11 +52,17 @@ enum BBOP_SHADER_MODE_ENUM:int {
 #define BBOP_UNIFORM_ADDR_TEXTURE 1
 #define BBOP_UNIFORM_ADDR_NORMAL_MAP 2
 #define BBOP_UNIFORM_ADDR_PROJECTION 3 
+#define BBOP_UNIFORM_ADDR_PROJECTION_CAM 4 
+#define BBOP_UNIFORM_ADDR_WINDOW_SIZE 5
+#define BBOP_UNIFORM_ADDR_WINDOW_RESOLUTION 6 
+#define BBOP_UNIFORM_ADDR_CAM_SCALE 7
+#define BBOP_UNIFORM_ADDR_AMBIANT_LIGHT 8
+#define BBOP_UNIFORM_ADDR_LIGHTS_N 9
 
 /**
- * @brief Nombre d'uniform a envoyer au shader par défault 
+ * @brief Nombre d'uniform a envoyer au shader
  */
-#define BBOP_UNIFORM_N 4
+#define BBOP_UNIFORM_N 10
 
 /**
  * @brief Variable global qui stoke la taille de la fenêtre.

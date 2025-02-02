@@ -130,6 +130,7 @@ uniform vec2 windowResolution;
 
 // Texture du frame buffer
 uniform sampler2D outTexture;
+uniform sampler2D outNMapTexture;
 
 // Pixel de sortie du frag provisoire avant les calcule de la lumière
 vec4 provisory;

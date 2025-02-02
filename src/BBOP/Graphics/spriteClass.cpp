@@ -12,7 +12,6 @@
  */
 
 #include "../../../include/BBOP/Graphics/spriteClass.h"
-#include <iostream>
 
 Sprite::Sprite(Texture nTexture, Vector2f nPos, Vector3i nRGB, Vector2f nOrigin, float nRotation, float nAlpha)
   : Shape(vertices, sizeof(vertices), indices, sizeof(indices)),
