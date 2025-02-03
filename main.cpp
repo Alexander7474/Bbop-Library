@@ -51,6 +51,11 @@ int main() {
   Sprite bougie("imgTesting/bougie/sprite_sheet_candle1.png");
   bougie.setNormalMap(Texture("imgTesting/bougie/sprite_sheet_candle1_normal_map.png"));
 
+  Sprite rock("imgTesting/rock.png");
+  rock.setNormalMap(Texture("imgTesting/rock_map.png"));
+  rock.setPosition(800.f,400.f);
+  rock.setSize(500.f,500.f);
+
   bougie.setSize(270.f,270.f);
   bougie.setOrigin(bougie.getSize().x/2.f, 55.f);
 
@@ -82,7 +87,7 @@ int main() {
     bougie.setPosition(mouseWorldPos);
 
     // variation de l'intensité de la bougie 
-    light.setIntensity(light.getIntensity() + fast_rand(-variation, variation));
+    //light.setIntensity(light.getIntensity() + fast_rand(-variation, variation));
     if(light.getIntensity() > maxIntensity.y)
       light.setIntensity(maxIntensity.y - variation);
     if(light.getIntensity() < maxIntensity.x)
@@ -96,6 +101,8 @@ int main() {
 
     // Affichage du rectangle
     scene.Draw(rectangle);
+
+    scene.Draw(rock);
     scene.Draw(bougie);
 
     // ajout de la lumière 

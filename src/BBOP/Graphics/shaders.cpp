@@ -53,7 +53,7 @@ void main()
 {
   // Pixel de sortie des frame_buffer couleur/frag
   vec4 provisoryColor = vec4(0,0,0,0);
-  vec4 provisoryMap = vec4(0,0,1,1);
+  vec4 provisoryMap = vec4(1,1,1,1);
 
   // coloration du pixel en fonction de rendermode
   switch (renderMode){
@@ -193,14 +193,21 @@ void main()
     float angleCos = dot(lightDir, fragDir); // Cosinus de l'angle entre les deux
     if (angleCos >= cos(lights[i].openAngle)) {
       // Le fragment est dans le cône
-        ////disatnce entre la light et le fragment 
+
+      //disatnce entre la light et le fragment 
       float distance = length(lightPos.xy - normalizeVec2(convertedFrag)) * camScale;
+
+      //valeur rgb de la normal map a notre position 
+      vec3 normal = texture(outNMapTexture, TexCoord).rgb * 2.0 - 1.0;
+
+      //diffusion en tre le vecteur normal et celui de la lumière
+      float diffuse = max(dot(normal.xyz, vec3(lightDir,0.0)), 0.0);
 
       //attenuation en fonction de la distance et des différente valeur de la light 
       float attenuation = 1.0 / (lights[i].constantAttenuation + lights[i].linearAttenuation * distance + lights[i].quadraticAttenuation * distance * distance);
 
-      //intensité de la light en fonction de son atténuation calculé 
-      float intensity = attenuation*lights[i].intensity;
+      //intensité de la light en fonction de son atténuation et de sa diffusion 
+      float intensity = attenuation*lights[i].intensity*diffuse;
 
       //emballage dans un vec4
       vec4 thislight = intensity*vec4(lights[i].color, 0.0);
